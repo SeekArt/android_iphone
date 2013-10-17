@@ -1,0 +1,15 @@
+				<div class="search-bar">
+					<input type="search" placeholder="搜索" name="mailSearchInput" id="mailSearchInput" />
+				</div>
+				
+				<ul class="list mutil" id="mailList">
+				</ul>
+				<textarea style="display:none;" type="text/ibos-template" id="mailListTpl">
+					<li <%if(!isread){%>class="new"<%}%>>
+						<time><%=sendtime%></time>
+						<a href="#mail_view" onclick="mail.loadMail(<%=emailid%>,this)">
+						<span><%=fromid%>1</span>
+						<%=subject%>
+						</a>
+					</li>
+				</textarea>

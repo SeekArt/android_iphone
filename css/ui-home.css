@@ -1,0 +1,119 @@
+.main-bg { 
+	background:url(images/bg.jpg);
+}
+.home-item a {
+	/*float:left;*/
+	display:inline-block;
+	width:25%;
+	margin:1em 0 0;
+	text-align:center;
+	list-style:none;
+	text-decoration:none;
+	color:#333;
+}
+.home-item a:active i{
+	box-shadow:inset 0 0 100px rgba(0,0,0,.2);
+}
+.item-ico {
+	display:block;
+	height:60px;
+	width:60px;
+	margin:.5em auto;
+	border-radius:25%;
+	box-shadow:0 .1em .3em rgba(0, 0, 0, 0.5);
+	-webkit-background-size:auto 100%;
+	background-size:auto 100%;
+	background-repeat:no-repeat;
+	background-position:50% 50%;
+}
+.ico-article {
+	background-image:url('../images/ico/article.png');
+}
+.ico-mail {
+	background-image:url('../images/ico/mail.png');
+}
+.ico-calendar {
+	background-image:url('../images/ico/calendar.png');
+}
+.ico-work {
+	background-image:url('../images/ico/work.png');
+}
+.ico-diary {
+	background-image:url('../images/ico/diary.png');
+}
+.ico-report {
+	background-image:url('../images/ico/report.png');
+}
+.ico-doc {
+	background-image:url('../images/ico/doc.png');
+}
+
+
+/* -------------------- */
+.list-ico li i{
+	
+	height: 22px;
+	padding-right:22px;
+	margin-right:4px;
+	display: block;
+	float: left;
+	margin-top: -5px;
+	background-repeat: no-repeat;
+	background-position: right top;
+	background-size: 22px;
+}
+/* --------news--------- */
+.o-all{
+	background-image: url('../images/news/all.png');
+}
+.o-read{
+	background-image: url('../images/news/read.png');
+}
+.o-catnew{
+	background-image: url('../images/news/new.png');
+}
+.o-cat{
+	background-image: url('../images/news/cat.png');
+}
+/* --------mail--------- */
+
+.o-inbox{
+	background-image: url('../images/mail/inbox.png');
+}
+.o-mark{
+	background-image: url('../images/mail/mark.png');
+}
+.o-send{
+	background-image: url('../images/mail/send.png');
+}
+.o-draft{
+	background-image: url('../images/mail/draft.png');
+}
+.o-del{
+	background-image: url('../images/mail/del.png');
+}
+.o-folder{
+	background-image: url('../images/mail/folder.png');
+}
+
+/* -------------------- */
+.login{
+	position: relative;
+	height:100%;
+}
+.login .logo,
+.login .loginbar,
+.login .sign
+{
+	text-align:center;
+}
+.login img {
+	border: 0;
+	max-width: 80%;
+	height: auto;
+	margin:20px auto;
+}
+.sign {
+	position: absolute;
+	bottom:-20px;
+}

@@ -1,0 +1,14 @@
+				<div id="mailContent"></div>
+				<textarea style="display:none;" type="text/ibos-template" id="mailContentTpl">				
+					<h2><%=subject%></h2>
+					<details>
+						<summary><%=fromid%><span style="float:right">详细</span></summary>
+						<p>
+							发件人:<%=fromid%><br />
+							收件人:<%=toids%><br />
+							抄送人:<%=copytoids%><br />
+							时  间:<time><%=sendtime%></time>
+						</p>
+					</details>
+					<p><%=content%></p>
+				</textarea>

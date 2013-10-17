@@ -1,0 +1,13 @@
+				<ul class="list inset" id="netSettingList">						
+				</ul>
+				<ul class="list inset">
+					<li><a href="#netEdit" onclick="netSetting.edit()">添加一个新的地址</a></li>
+				</ul>
+				
+				<textarea style="display:none;" type="text/ibos-template" id="netSettingTpl">
+					<li class="radio-group">
+						<input id="netRadio<%=id%>" type="radio" name="netSelect" value="<%=url%>" <%if(defautlID==id){%>checked="checked"<%}%>" onclick="netSetting.setDefault(<%=id%>)" />
+						<label for="netRadio<%=id%>" ><%=name%></label>
+						<span onclick="netSetting.edit(<%=id%>)">编辑</span>
+					</li>
+				</textarea>

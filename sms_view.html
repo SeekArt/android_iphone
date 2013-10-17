@@ -1,0 +1,28 @@
+<div class="chat" id="smsView">
+</div>
+
+<textarea id="smsViewTpl" style="display:none;">
+	<%if(mtime-sms.prevTime>60 && toDatetime(mtime) != toDatetime(sms.prevTime)){%><div class="time"> <%=toDatetime(mtime)%></div><%}%>
+	<div class="chat-item <%if(fromuid==1){%>chat-item-right<%}%>">
+		<div class="avatar">
+			<img src="<%=appInit.defaultUrl%><%=avatar_small%>" alt="">
+		</div>
+		<div class="chat-bubble <%if(fromuid==1){%>gray<%}%>">
+			<%=content%>
+		</div> 
+	</div>
+</textarea>
+
+
+<div class="toolbar">		
+	<a href="javascript:;">
+		<i class="o-mark"></i>
+	</a>
+	<a href="javascript:;">
+		<i class="o-reply"></i>
+	</a>
+	<div style="width:80%;">
+		<input type="text" placeholder="输入内容" name="smsInput" id="smsInput" />
+	</div>
+	<input type="submit" class="button" value="提交" />
+</div>

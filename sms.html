@@ -1,0 +1,123 @@
+				<ul class="list mutil" id="smsList">
+				</ul>
+				<textarea id="smsListTpl" style="display:none;">
+					<li>
+						<div class="avatar">
+							<img src="<%=appInit.defaultUrl%><%=lastmessage["user"]["avatar_small"]%>" alt="">
+						</div>
+						<time>2013年8月28日</time>
+						<a href="#sms_view" onclick="sms.loadSms(<%=listid%>)">
+						<p><%=lastmessage["user"]["realname"]%></p>
+						<span><%=lastmessage["content"]%></span>
+						</a>
+					</li>
+				</textarea>
+				
+<script type="text/plain">
+var sms = (function(){
+	var smsId = 0,
+		sinceId = 0,
+		timeout = null,
+		isInit = false,
+		prevTime = 0,
+		smsPage = 1,
+		smsUrl = function (){ return appInit.appUrl + '/msg' };
+		
+	function init(){
+		if(isInit){
+			return false;
+		}		
+		sms.loadList();
+		isInit = true;
+	}
+	
+	function loadList(page){
+
+		if(page != smsPage && typeof(page) != "undefined" ){
+			smsPage = page;
+			pageurl = "&page=" + page;
+		}else{
+			$("#smsList").empty();
+			pageurl = ''
+		}
+		
+		$.jsonP({
+			url: 		smsUrl() + "/pmlist&callback=?" + pageurl,
+			success: 	showList,
+			error: 		function(err){	console.log(err) }
+		});
+	}
+	
+	function showList(json){
+		var $tpl = $("#smsListTpl"),
+			$target = $("#smsList");
+		var tp = $tpl.val(),
+			newTp = '',
+			obj = {};
+			for(var val in json.datas){
+				obj = json.datas[val]; //没有特殊要处理的则直接对象赋于就行了
+				//obj.id = json.datas[val].readStatus?1:0  //有特殊处理的额外写
+				newTp += $.template(tp, obj);
+			}
+		$target.append(newTp);
+	}
+	
+	
+	function loadSms(id,sinceid){
+		//$(dom).parent().removeClass("new"); //取消未读
+		if(typeof sinceid == 'undefined'){
+			sinceid = sms.sinceId;
+		}
+		if(typeof id == 'undefined'){
+			id = sms.smsId;
+		}else if(sms.smsId != id){
+			$("#smsView").empty().css3Animate({ time: "300ms", opacity: 0 });
+			sms.smsId = id;
+			sinceid = 0;
+		}
+		
+		$.jsonP({
+			url: 		smsUrl() + "/pmshow&callback=?&id="+id+"&sinceid="+sinceid,
+			success: 	sms.showSms,
+			error: 		function(err){	console.log(err)	 }
+		});
+	}
+	function showSms(json){
+		var $tpl = $("#smsViewTpl"),
+			$target = $("#smsView");
+		var tp = $tpl.val(),
+			newTp = '',
+			obj = {};
+		if(json.data.length>0){
+			for(var val in json.data){
+				obj = json.data[val]; //没有特殊要处理的则直接对象赋于就行了
+				newTp += $.template(tp, obj);
+				sms.prevTime = obj["mtime"]
+			}
+			$target.append(newTp).css3Animate({ time: "500ms", opacity: 1 });
+			//$.ui.scrollToBottom('sms_view');
+			sms.sinceId = json.sinceid;
+		}
+		//判断当前页面是否是私信页		
+		sms.timeout = setTimeout(sms.loadSms,4000,sms.smsId,sms.sinceId); 
+	}	
+	
+	return {
+		init:			init,
+		prevTime:		prevTime,
+		sinceId:		sinceId,
+		timeout:		timeout,
+		loadList: 		loadList,
+		loadSms:		loadSms,
+		showList: 		showList,
+		showSms:		showSms,
+	}
+})();
+sms.init();
+
+function cleartime(){
+	console.log("0")
+	clearTimeout(sms.timeout);
+	//$("#smsView").empty();
+}
+</script>

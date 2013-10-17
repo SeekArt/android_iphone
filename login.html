@@ -1,0 +1,90 @@
+<div class="login">
+	<!--header开始-->
+	<div class="logo">
+		<h1 class="ut ub-f1"> <img src="images/logo.png" alt="IBOS协同办公平台"></h1>
+	</div>
+	<!--header结束-->
+	<!--content开始-->
+		<form id="loginForm" onsubmit="appInit.login();return false;">
+	<div class="loginbar">
+			<!--列表开始-->
+			<ul class="list inset">
+				<li class="control-group">
+					<label for="">用户名</label>
+					<div class="controls">
+						<input name="username" type="text" id="username" value="admin">
+					</div>
+				</li>
+				<li class="control-group">
+					<label for="">密码</label>
+					<div class="controls">
+						<input name="password" type="password" id="password" value="admin">
+					</div>
+				</li>
+			</ul>
+			<!--列表结束-->
+			<a class="button white large primary" href="#netSetting" id="selectNet">设置地址</a>
+			<input name="submit" value="登录" type="submit" class="button blue large primary" onclick="" />
+			<input name="gpsInput" id="gpsInput" value="" type="hidden" />
+			<input name="addressInput" id="addressInput" value="" type="hidden" />
+	</div>
+		<span id="myAddress"> </span>
+		</form>
+	<!--content结束-->
+	<!--footer开始-->
+	<div class="sign">
+		<h1> <img src="images/copyright.png" alt="IBOS博思协创"> </h1>
+	</div>
+	<!--footer结束-->	
+</div>
+<script type="text/javascript">
+$(document).ready(function(){
+	//$("#login").bind("touchstart", function(e) { e.stopPropagation()});
+	
+	// appsdk开始调用
+	window.uexOnload = function(){
+		appSdk.location.open(function(lat,log){
+			$("#gpsInput").val(lat+","+log);
+			appSdk.location.getAddress(lat,log,
+				function(opCode,dataType,data){
+					if(dataType==0){
+						$("#addressInput").val(data);
+						$("#myAddress").html(data);
+					}
+				}
+			)
+		})
+	}
+});
+</script>
+<script type="text/javascript">
+window.uexOnload = function(type){
+	if (!type) {
+		//注册应用运行中Push事件通知函数
+		uexWidget.setPushNotifyCallback("cbNotify1");
+		//注册获取硬件信息回调函数
+		uexDevice.cbGetInfo = function(opCode, dataType, data){
+			logr("deviceToken=" + data);
+		}
+		//绑定当前用户信息到AppCan推送服务器
+		setdeviceToken1();
+		//获取当前应用的DeviceToken
+		uexDevice.getInfo('11');
+		//注册获取Push消息内容的回调函数
+		uexWidget.cbGetPushInfo = function(opCode, dataType, data){
+			logr("hello " + data);
+		}
+		//获取应用由Push激活时的Push消息内容
+		uexWidget.getPushInfo();
+	}
+}
+function setdeviceToken1(){
+	//绑定用户UID和用户昵称到AppCan后台服务器
+	uexWidget.setPushInfo("windeidolon","");
+}
+function cbNotify1(){
+	//logr("cbNotify1");
+	//当运行时收到Push消息后，获取Push消息内容
+	uexWidget.getPushInfo();
+}
+</script>

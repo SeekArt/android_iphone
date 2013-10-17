@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<widget appId="11163876" channelCode="000" height="480" pid="" sreensize="4.5" version="00.01.0000" viewmode="application" widgetId="" width="320">
+<name>IBOS平台</name>
+<description/>
+<author email=""> </author>
+<icon src="icon.png"/>
+<license href=""/>
+<content encoding="utf-8" src="index.html"/>
+<updateurl/>
+<logserverip>192.168.1.7</logserverip> 
+<showmyspace>false</showmyspace>
+<obfuscation>false</obfuscation>
+<bgcolor/>
+<orientation>15</orientation>
+</widget>
