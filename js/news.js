@@ -8,8 +8,17 @@ var appInit = (function(){
 	var isLogin = false,
 		isInit = false,
 		appUrl = defaultUrl = localStorage.getItem("defaultUrl") ,
+		user = core.getStorage("user"),
+		uid	= localStorage.getItem("uid"),
 		formHash = '';
-		
+	
+	var userData = core.getStorage("ibosUserData");
+	var _isset = true;
+	if(!userData) {
+		_isset = false;
+		userData = {}
+	}
+
 	function init(){
 		if(!appInit.isInit){
 			//初始化完整的路径
@@ -22,7 +31,7 @@ var appInit = (function(){
 			appInit.isInit = true;
 		}
 	}
-	
+
 	function login(){
 		var username = $("#username").val(),
 			password = $("#password").val(),
@@ -32,8 +41,14 @@ var appInit = (function(){
 		//以下登录换用了rpc
 		// doLogin(username,password);		
 		$.jsonP({
-			url: 		appInit.appUrl + '/default/login&callback=?&username=' + username +'& password=' + password + '&gps=' + gps + '&address=' + address,
-			success: 	checkLogin,
+			url: 		appInit.appUrl + '/default/login&callback=?&username=' + username +'& password=' + password + '&gps=' + gps + '&address=' + address + '&issetuser=' + _isset,
+			success: 	function(res){
+				if(res.userData){
+					userData = res.userData;
+					core.setStorage("ibosUserData", res.userData);
+				}
+				checkLogin(res);
+			},
 			error: 		function(err){	
 				$.ui.popup('服务器错误,请检查');
 				console.log(err);
@@ -62,6 +77,10 @@ var appInit = (function(){
 			$.ui.loadContent('main',false,false,'fade');
 			formHash = json.formhash;
 			isLogin = true;
+			appInit.user = json.user;
+			appInit.uid = json.uid;
+			localStorage.setItem("uid", appInit.uid);
+			core.setStorage("user", appInit.user);
 		}else{
 			if(json.msg){
 				$.ui.popup(json.msg);
@@ -70,14 +89,45 @@ var appInit = (function(){
 			console.log("dfdffffffffffffffffffffff");
 		}
 	}
+
+	function getUserData(){
+		return userData;
+	}
+	function getUser(uid){
+		var datas = userData.datas;
+		for(var i in datas) {
+			if(datas[i].uid == uid) {
+				return datas[i];
+			}
+		}
+		return null;
+	}
+	function getUserName(ids){
+		var argu = ids.split(",");
+		var results = [];
+		for(var i = 0; i < argu.length; i++){
+			var user = getUser(argu[i]);
+			if(user){
+				results.push(user.realname);
+			}
+		}
+		return results.join(",");
+	}
+
 	return {
 		isInit:		isInit,
 		defaultUrl:	defaultUrl,
 		appUrl:		appUrl,
+		uid:		uid,
+		user:		user,
 		init:		init,
 		login:		login,
 		logout:		logout,
-		checkLogin:	checkLogin
+		checkLogin:	checkLogin,
+
+		getUserData: getUserData,
+		getUser: 	getUser,
+		getUserName:getUserName
 	}
 	
 })()
@@ -86,15 +136,21 @@ $(document).ready(function(){
 	appInit.init();
 })
 
+
+
+
 var netSetting = (function(){
-	var netSetList = new Object;
+	var netSetList = {};
 	var maxID = 0;
 		
 	function showList(){
+		// 全局变量 * 2
 		defautlUrl = localStorage.getItem("defaultUrl");
 		defautlID = localStorage.getItem("defaultID");
-		netSetList = getStorage("netSetList");
-		if(typeof(netSetList) == "object" ){
+
+		netSetList = core.getStorage("netSetList");
+		// 要判定为null的情况
+		if(netSetList && typeof netSetList === "object" ){
 			var $tpl = $("#netSettingTpl"),
 				$target = $("#netSettingList");
 				
@@ -108,7 +164,7 @@ var netSetting = (function(){
 				}
 			$target.html(newTp);
 		}else{
-			netSetList = new Object;
+			netSetList = {};
 			$.ui.loadContent('netEdit',false,false,'fade');
 		}
 	}
@@ -121,12 +177,7 @@ var netSetting = (function(){
 		localStorage.setItem("defaultID", netSetList[i].id);
 	}
 	function save(myid){
-		var i;
-		if(myid){
-			i = myid;
-		}else{
-			i = ++maxID;		
-		}
+		var i = myid ? myid : ++maxID;
 		url = $("#netUrlInput").val();
 		name = $("#netNameInput").val();
 		if( url == "" || name == "" ){ 
@@ -136,11 +187,12 @@ var netSetting = (function(){
                  },1200);
 			return false;
 		}
-		netSetList[i] = new Object;
-		netSetList[i].id = new Object( i );
-		netSetList[i].url = new Object(url);
-		netSetList[i].name = new Object(name);
-		setStorage("netSetList",netSetList);
+		netSetList[i] = {
+			id: i,
+			url: url,
+			name: name
+		}
+		core.setStorage("netSetList",netSetList);
 		setDefault(i);
 		//返回
 		$.ui.goBack();
@@ -162,7 +214,7 @@ var netSetting = (function(){
 			myid = $("#netIDInput").val();
 		}
 		delete netSetList[myid];
-		setStorage("netSetList",netSetList);		
+		core.setStorage("netSetList",netSetList);		
 		$.ui.goBack();
 	}
 	return {
@@ -174,21 +226,7 @@ var netSetting = (function(){
 		netSetList:netSetList
 	}
 })()
-
 function showNetList(){ netSetting.showList(); }
-
-/**
-* 工具方法,获取和储存本地缓存
-*
-*/
-function setStorage( key, val ){
-	tmp = JSON.stringify(val);
-	localStorage.setItem( key, tmp );
-}
-function getStorage( key ){
-	var tmp = localStorage.getItem(key);
-	return tmp?JSON.parse(tmp):"";
-}
 
 
 /**
@@ -200,11 +238,13 @@ function getStorage( key ){
 function newsInit(){ news.init(); }
 
 var news = (function(){
-	var newsCatId = 0,
-		newsId = 0,
+	var newsCatId = 0, // 当前分类, 0为默认，显示所有
+		newsId = 0, //
 		isInit = false,
-		newsPage = 1,
+		newsPage = 1, // 当前页码
 		newsUrl = function (){ return appInit.appUrl + '/news' };
+
+	var list;
 		
 	/**
 	* 初始化新闻模块时，载入一些基础数据，比如分类，默认页新闻，未读条数等
@@ -212,35 +252,60 @@ var news = (function(){
 	function init(){
 		if(isInit){
 			return false;
-		}		
+		}
+		
+		list = new List('newsList', $("#newsListTpl").val(), {"id": "articleid"});
+	
 		news.loadCat();
 		news.loadList(newsCatId);
+
 		isInit = true;
 	}
-	
-	function loadList(catid,page){
+	//------ News List
+	function loadList(catid, page){
 		//$(dom).parent().addClass("active"); //选中分类
 		//$(dom).parent().siblings().removeClass("active"); //选中分类
-		
-		if(catid != newsCatId){
-			$("#newsList").empty();
+		var pageurl;
+
+		$.ui.showMask();
+		// 目录变更
+		if(catid !== newsCatId) {
 			newsCatId = catid;
+			newsPage = 1;
 		}
-		if(page != newsPage && typeof(page) != "undefined" ){
+		// 页码变更
+		if(typeof page !== "undefined" && page !== newsPage){
 			newsPage = page;
-			pageurl = "&page=" + page;
-		}else{
-			$("#newsList").empty();
-			pageurl = ''
 		}
-		
+
+		pageurl = "&page=" + newsPage;
+
 		$.jsonP({
 			url: 		newsUrl() + "&callback=?&catid=" + newsCatId + pageurl,
 			success: 	showList,
 			error: 		function(err){	console.log(err) }
 		});
+
+	}
+
+	function showList(json){
+
+		if(newsPage > 1){
+			list.add(json.datas)
+		}else{
+			list.set(json.datas);
+		}
+		
+
+		$("#readMoreNews").remove();
+		if( json.pages.pageCount > newsPage ){
+			$("#newsList").append('<li id="readMoreNews" class="list-more"><a onclick="news.loadList(' + newsCatId + ','+( newsPage + 1) +')">加载更多</a></li>');
+		}
+		$.ui.hideMask();
+		return;
 	}
 	
+	//------ News Catelog
 	function loadCat(){
 		$.jsonP({
 			url: 		newsUrl() + "/category&callback=?",
@@ -248,43 +313,8 @@ var news = (function(){
 			error: 		function(err){	console.log(err)	}
 		});
 	}
-	
-	function loadNews(id,dom){
-		$("#newsContent").empty().css3Animate({ time: "300ms", opacity: 0 });
-		$(dom).parent().removeClass("new"); //取消未读
-		if(typeof id == 'undefined'){
-			id = news.newsId;
-		}
-		
-		$.jsonP({
-			url: 		newsUrl() + "/show&callback=?&id="+id,
-			success: 	news.showNews,
-			error: 		function(err){	console.log(err)	 }
-		});
-	}
-	
-	function showList(json){
-		var $tpl = $("#newsListTpl"),
-			$target = $("#newsList");
-			
-		var tp = $tpl.val(),
-			newTp = '',
-			obj = {};
-			for(var val in json.datas){
-				obj = json.datas[val]; //没有特殊要处理的则直接对象赋于就行了
-				//obj.id = json.datas[val].readStatus?1:0  //有特殊处理的额外写
-				newTp += $.template(tp, obj);
-			}
-		$target.append(newTp);
-		
-		$("#readMoreNews").remove();
-		if( json.pages.pageCount > newsPage ){
-			$target.append('<li id="readMoreNews"><a onclick="news.loadList(0,'+( newsPage + 1) +')">加载更多</a></li>');
-		}
-		
-	}
-	
 	function showCat(json){
+		// debugger;
 		// var $tpl = $("#newsCatTpl"),
 			// $target = ;
 		// var tp = $tpl.val(),
@@ -303,6 +333,22 @@ var news = (function(){
 		$("#newsCat").append(json);
 	}
 	
+	//------ News View
+	function loadNews(id,dom){
+		$("#newsContent").empty().css3Animate({ time: "300ms", opacity: 0 });
+		$.ui.showMask();
+
+		$(dom).parent().removeClass("new"); //取消未读
+		if(typeof id === 'undefined'){
+			id = news.newsId;
+		}
+		
+		$.jsonP({
+			url: 		newsUrl() + "/show&callback=?&id="+id,
+			success: 	news.showNews,
+			error: 		function(err){	console.log(err)	 }
+		});
+	}
 	function showNews(json){
 		var $tpl = $("#newsContentTpl"),
 			$target = $("#newsContent");
@@ -314,20 +360,24 @@ var news = (function(){
 			obj = json;
 			newTp += $.template(tp, obj);
 		$target.html(newTp).css3Animate({ time: "500ms", opacity: 1 });
+		$.ui.hideMask();
 	}
 	
+	//------ Search
 	function search(data){
-		console.log(data);
-		
-		$("#newsList").empty();
-		pageurl = ''
-		
+		// 发起搜索时，重置页码为1
+		newsPage = 1;
 		$.jsonP({
-			url: 		newsUrl() + "&callback=?&search=" + data + pageurl,
+			url: 		newsUrl() + "&callback=?&search=" + data,
 			success: 	showList,
 			error: 		function(err){	console.log(err) }
 		});
 		
+	}
+
+	// @Debug: 测试用
+	function getList(){
+		return list;
 	}
 	
 	return {
@@ -338,194 +388,89 @@ var news = (function(){
 		showList: 		showList,
 		showCat:		showCat,
 		showNews:		showNews,
-		search:			search
+		search:			search,
+		getList:        getList
 	}
 })();
 
 
 /**
-* mail
-* @author Aeolus
-* @copyright IBOS
-*/
-//因为面板的data-load限制，而特意写的调用函数
-function mailInit(){ mail.init(); }
+ * [Module description]
+ * @param {[type]} name    [description]
+ * @param {[type]} options [description]
+ */
+// options.listId
+// options.listTpl
+// 
+var Module = function(name, options){
+	this.name = name;
+	this.options = $.extend({}, options);
 
-var mail = (function(){
-	var mailCatId = 0,
-		mailId = 0,
-		isInit = false,
-		mailPage = 1,
-		mailUrl = function (){ return appInit.appUrl + '/mail' };
-		
-	/**
-	* 初始化新闻模块时，载入一些基础数据，比如分类，默认页新闻，未读条数等
-	*/
-	function init(){
-		if(isInit){
-			return false;
-		}		
-		mail.loadCat();
-		mail.loadList(mailCatId);
-		isInit = true;
-	}
+	this.list;
+	this._catId = 0;
+	this._page = 1;
+	// this.url
+}
+Module.prototype = {
+	constructor: Module,
+	init: function(){
+		var that;
+		this.list = new List(this.options.listId, this.options.listTpl);
+
+		this.$loadMoreBtn = $('<li class="list-more"><a href="javascript:;">加载更多</a></li>').appendTo($("#" + this.options.listId));
+		this.$loadMoreBtn.bind("click", function(){
+			that.loadList(that._catId, that._page + 1, that._params);
+		})
+	},
 	
-	function loadList(catid,page){
-		if( typeof(catid)== "string" ){
-			stype = catid;
-			catid = 0;
-		}else if(catid != mailCatId){
-			$("#mailList").empty();
-			mailCatId = catid;
-			stype = "";
-		}else{
-			stype = "";
+	_getUrl: function(){
+		return this.options.url || (appInit && appInit.appUrl + "/" + this.name);
+	},
+
+	loadList: function(catid, page, params){
+		var url, that =-this;
+
+		$.ui.showMask();
+		// 目录变更，重置页码为1
+		if(catid !== this._catId) {
+			this._catId = catid;
+			this._page = 1;
 		}
-		if(page != mailPage && typeof(page) != "undefined" ){
-			mailPage = page;
-			pageurl = "&page=" + page;
-		}else{
-			$("#mailList").empty();
-			pageurl = ''
+		// 页码变更
+		if(typeof page === "number" && !isNaN(page) && page !== this._page){
+			this._page = page;
 		}
-		
+
+		url = this._getUrl() + "&callback=?&catid=" + this._catId + "&page=" + this._page + (params ? "&" + $.param(params) : "");
+
 		$.jsonP({
-			url: 		mailUrl() + "&callback=?&catid=" + mailCatId + "&type=" + stype + pageurl,
-			success: 	showList,
+			url: 		url,
+			success: 	function(res){
+				that.showList(res);
+			},
 			error: 		function(err){	console.log(err) }
 		});
-	}
-	
-	function loadCat(){
-		$.jsonP({
-			url: 		mailUrl() + "/category&callback=?",
-			success: 	mail.showCat,
-			error: 		function(err){	console.log(err)	}
-		});
-	}
-	
-	function loadMail(id){
-		$("#mailContent").empty().css3Animate({ time: "300ms", opacity: 0 });
-		if(typeof id == 'undefined'){
-			id = mail.mailId;
+	},
+	_rebuildList: function(data){
+		this.list.set(data);
+	},
+	_addToList: function(data){
+		this.list.add(data);
+	}, 
+
+	showList: function(res){
+		// 此时刷新列表
+		if(this._page === 1){
+			this._rebuildList(res.datas);
+		}else{
+			this._addToList(res.datas);
 		}
+		// this.$loadMoreBtn.
+	},
+
+	loadmore: function(argument) {
 		
-		$.jsonP({
-			url: 		mailUrl() + "/show&callback=?&id="+id,
-			success: 	mail.showMail,
-			error: 		function(err){ console.log(err) }
-		});
 	}
-	
-	function showList(json){
-		var $tpl = $("#mailListTpl"),
-			$target = $("#mailList");
-			
-		var tp = $tpl.val(),
-			newTp = '',
-			obj = {};
-			for(var val in json.list){
-				obj = json.list[val]; //没有特殊要处理的则直接对象赋于就行了
-				//obj.id = json.datas[val].readStatus?1:0  //有特殊处理的额外写
-				newTp += $.template(tp, obj);
-			}
-		$target.append(newTp);
-		
-		$("#readMoreMail").remove();
-		if( json.pages.pageCount > mailPage ){
-			$target.append('<li id="readMoreMail"><a onclick="mail.loadList(0,'+( mail._get('mailPage')+1) +')">加载更多</a></li>');
-		}
-	}
-	
-	function showCat(json){
-		var $tpl = $("#mailCatTpl"),
-			$target = $("#mailCat");
-		var tp = $tpl.val(),
-			newTp = '',
-			obj = {};
-			for(var val in json.folders){
-				if(mailCatId!=0 && json.folders[val].catid == mailCatId){
-					json.folders[val].classname = 'class="active"';
-				}else{
-					json.folders[val].classname = ' ';
-				}
-				obj = json.folders[val];
-				newTp += $.template(tp, obj);
-			}
-			if(json.noread>0){
-				$.ui.updateBadge("#inbox", json.noread);
-			}
-		$target.append(newTp);
-	}
-	
-	function showMail(json){
-		var $tpl = $("#mailContentTpl"),
-			$target = $("#mailContent");
-		var tp = $tpl.val(),
-			newTp = '',
-			obj = {};
-			
-			//对json数据做一些处理之后，赋给obj
-			obj = json;
-			newTp += $.template(tp, obj);
-		$target.html(newTp).css3Animate({ time: "500ms", opacity: 1 });
-	}
-	
-	return {
-		init:			init,
-		loadList: 		loadList,
-		loadCat:		loadCat,
-		loadMail:		loadMail,
-		showList: 		showList,
-		showCat:		showCat,
-		showMail:		showMail
-	}
-})();
-
-
-
-
-
-
-
-/*------ funcion -------*/
-function toDatetime(unix,type) {
-    var dt = new Date(parseInt(unix) * 1000);
-	var now = new Date();
-	var datatime,Y,M,D,h,m,s;
-		Y = dt.getFullYear();
-		M = dt.getMonth() + 1 ;
-		D = dt.getDate();
-		h = dt.getHours();
-		m = dt.getMinutes();
-		s = dt.getSeconds();
-		
-	if(typeof(type) == "undefined"){type="u"}
-	switch(type){
-		case "u":
-			var time = (now - dt)/1000;
-				if (time > 604800){
-					datatime = Y + "-" + M + "-" + D;
-				} else if (time > 86400){
-					datatime = Math.floor(time / 86400) + "天前";
-				}else if (time > 3600) {
-					datatime = Math.floor(time / 3600) + "小时前";
-				} else if (time > 1800) {
-					datatime = "半小时前";
-				} else if (time > 60) {
-					datatime = Math.floor(time / 60) + "分钟前" ;
-				} else if (time >= 0) {
-					datatime = time + "秒前" ;
-				} else {
-					datatime = Y + "-" + M + "-" + D;
-				}			
-			break;
-		case "d":
-			datatime = Y + "-" + M + "-" + D;
-			break;
-		case "dt":
-			datatime = Y + "-" + M + "-" + D + " " + h + ":" + m + ":" + s;
-			break;
-	}
-	return datatime;
 }
+
+Module.instance = [];

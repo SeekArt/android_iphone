@@ -51,60 +51,83 @@
 
 /* -------------------- */
 .list-ico li i{
-	
-	height: 22px;
-	padding-right:22px;
 	margin-right:4px;
-	display: block;
 	float: left;
 	margin-top: -5px;
+}
+
+
+
+/*------- Icon -------*/
+.o-mark,
+.o-delete,
+.o-download,
+.o-download-gray,
+.o-more,
+.o-more-gray,
+.o-picture,
+.o-camera,
+
+.o-msg-personal,
+.o-msg-system,
+
+.o-send,
+.o-inbox,
+.o-reply,
+.o-reply-all,
+.o-draft,
+.o-folder,
+
+.o-news-all,
+.o-news-read,
+.o-news-catnew,
+.o-news-cat{
+	display: inline-block;
+	width: 22px;
+	height: 22px;
 	background-repeat: no-repeat;
-	background-position: right top;
-	background-size: 22px;
+	-webkit-background-size: 22px 22px;
+	background-size: 22px 22px;
+	vertical-align: middle;
 }
-/* --------news--------- */
-.o-all{
-	background-image: url('../images/news/all.png');
-}
-.o-read{
-	background-image: url('../images/news/read.png');
-}
-.o-catnew{
-	background-image: url('../images/news/new.png');
-}
-.o-cat{
-	background-image: url('../images/news/cat.png');
-}
-/* --------mail--------- */
+/* Icon common */
+.o-mark{ background-image: url(../images/act/mark.png);}
+.o-delete{ background-image: url(../images/act/trash.png); }
+.o-send{ background-image: url('../images/act/send.png'); }
+.o-download{ background-image: url(../images/act/download.png); }
+.o-download-gray{ background-image: url(../images/act/downloadgray.png); }
+.o-more{ background-image: url(../images/act/more.png); }
+.o-more-gray{ background-image: url(../images/act/moregray.png); }
+.o-picture{ background-image: url(../images/act/picture.png); }
+.o-camera{ background-image: url(../images/act/camera.png); }
 
-.o-inbox{
-	background-image: url('../images/mail/inbox.png');
-}
-.o-mark{
-	background-image: url('../images/mail/mark.png');
-}
-.o-send{
-	background-image: url('../images/mail/send.png');
-}
-.o-draft{
-	background-image: url('../images/mail/draft.png');
-}
-.o-del{
-	background-image: url('../images/mail/del.png');
-}
-.o-folder{
-	background-image: url('../images/mail/folder.png');
-}
+/* Icon msg */
+.o-msg-personal{ background-image: url(../images/msg/msg.png);}
+.o-msg-system{ background-image: url(../images/msg/ring.png); }
 
-/* -------------------- */
+/* Icon mail*/
+.o-inbox{ background-image: url('../images/mail/inbox.png'); }
+.o-reply{ background-image: url(../images/mail/reply.png); }
+.o-reply-all{ background-image: url(../images/mail/replyall.png); }
+.o-draft{background-image: url('../images/mail/draft.png'); }
+.o-folder{background-image: url('../images/mail/folder.png'); }
+
+/* Icon news */
+.o-news-all{background-image: url('../images/news/all.png'); }
+.o-news-read{background-image: url('../images/news/read.png'); }
+.o-news-catnew{background-image: url('../images/news/new.png'); }
+.o-news-cat{background-image: url('../images/news/cat.png'); }
+
+
+/* --------- Login ----------- */
 .login{
 	position: relative;
 	height:100%;
+	padding: 0 10px;
 }
 .login .logo,
 .login .loginbar,
-.login .sign
-{
+.login .sign{
 	text-align:center;
 }
 .login img {

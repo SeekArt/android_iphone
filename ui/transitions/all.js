@@ -73,15 +73,17 @@
         var that = this;
         if (back) {
             that.css3animate(currDiv, {
-                x: "100%",
+                x: "0%",
                 scale: 0.8,
                 rotateY: "180deg",
+				origin:"50% 50%",
                 complete: function () {
                     that.css3animate(currDiv, {
                         x: "0%",
                         scale: 1,
                         time: $ui.transitionTime,
                         rotateY: "0deg",
+						origin:"50% 50%",
                         complete: function () {
                             that.clearAnimations(currDiv);
                         }
@@ -89,16 +91,18 @@
                 }
             });
             that.css3animate(oldDiv, {
-                x: "100%",
+                x: "0%",
                 time: $ui.transitionTime,
                 scale: 0.8,
                 rotateY: "180deg",
+				origin:"50% 50%",
                 complete: function () {
                     that.css3animate(oldDiv, {
-                        x: "-100%",
+                        x: "0%",
                         opacity: 1,
                         scale: 1,
                         rotateY: "0deg",
+						origin:"50% 50%",
                         complete: function () {
                             that.finishTransition(oldDiv);
                         }
@@ -111,15 +115,17 @@
             oldDiv.style.zIndex = 1;
             currDiv.style.zIndex = 2;
             that.css3animate(currDiv, {
-                x: "100%",
+                x: "0%",
                 scale: 0.8,
                 rotateY: "180deg",
+                origin:"50% 50%",
                 complete: function () {
                     that.css3animate(currDiv, {
                         x: "0%",
                         scale: 1,
                         time: $ui.transitionTime,
                         rotateY: "0deg",
+						origin:"50% 50%",
                         complete: function () {
                             that.clearAnimations(currDiv);
                         }
@@ -127,16 +133,18 @@
                 }
             });
             that.css3animate(oldDiv, {
-                x: "100%",
+                x: "0%",
                 time: $ui.transitionTime,
                 scale: 0.8,
                 rotateY: "180deg",
+                origin:"50% 50%",
                 complete: function () {
                     that.css3animate(oldDiv, {
-                        x: "-100%",
+                        x: "0%",
                         opacity: 1,
                         scale: 1,
                         rotateY: "0deg",
+						origin:"50% 50%",
                         complete: function () {
                             that.finishTransition(oldDiv);
                         }
@@ -160,9 +168,8 @@
             oldDiv.style.zIndex = 2;
             that.clearAnimations(currDiv);
             that.css3animate(oldDiv, {
-                x:"0%",
                 time: $ui.transitionTime,
-                opacity: 0.1,
+                opacity: 0.01,
                 scale: 0.2,
                 origin:"50% 50%",
                 complete: function (canceled) {
@@ -172,7 +179,8 @@
                     }
 
                     that.css3animate(oldDiv, {
-                        x: "-100%",
+                        x: "0%",
+						time: "0ms",
                         complete: function () {
                             that.finishTransition(oldDiv);
                         }
@@ -185,18 +193,16 @@
             oldDiv.style.zIndex = 1;
             currDiv.style.zIndex = 2;
             that.css3animate(currDiv, {
-                x: "0%",
                 scale: 0.2,
-                origin: "50%" + " 50%",
-                opacity: 0.1,
+                opacity: 0.01,
+                origin: "50% 50%",
                 time:"0ms",
                 complete: function () {
                     that.css3animate(currDiv, {
-                        x: "0%",
                         time: $ui.transitionTime,
                         scale: 1,
                         opacity: 1,
-                        origin: "0%" + " 0%",
+                        origin: "50% 50%",
                         complete: function (canceled) {
                             if (canceled) {
                                 that.finishTransition(oldDiv, currDiv);
@@ -205,7 +211,7 @@
 
                             that.clearAnimations(currDiv);
                             that.css3animate(oldDiv, {
-                                x: "100%",
+                                x: 0,
                                 y: 0,
                                 complete: function () {
                                     that.finishTransition(oldDiv);
@@ -363,4 +369,99 @@
         }
     }
     $ui.availableTransitions.up = slideUpTransition;
+})(af.ui);
+(function ($ui) {
+
+    function cubeTransition(oldDiv, currDiv, back) {
+        oldDiv.style.display = "block";
+        currDiv.style.display = "block";
+        var that = this;
+        if (back) {
+            that.css3animate(currDiv, {
+                x: "0%",
+                scale: 0.8,
+                rotateY: "180deg",
+				origin:"50% 50%",
+                complete: function () {
+                    that.css3animate(currDiv, {
+                        x: "0%",
+                        scale: 1,
+                        time: "1000ms",//$ui.transitionTime,
+                        rotateY: "0deg",
+						origin:"50% 50%",
+                        complete: function () {
+                            that.clearAnimations(currDiv);
+                        }
+                    });
+                }
+            });
+            that.css3animate(oldDiv, {
+                x: "0%",
+                time: "1000ms",//$ui.transitionTime,
+                scale: 0.8,
+                rotateY: "180deg",
+				origin:"50% 50%",
+                complete: function () {
+                    that.css3animate(oldDiv, {
+                        x: "0%",
+                        opacity: 1,
+                        scale: 1,
+                        rotateY: "0deg",
+						origin:"50% 50%",
+                        complete: function () {
+                            that.finishTransition(oldDiv);
+                        }
+                    });
+                    currDiv.style.zIndex = 2;
+                    oldDiv.style.zIndex = 1;
+                }
+            });
+        } else {
+            oldDiv.style.zIndex = 1;
+            currDiv.style.zIndex = 2;
+            that.css3animate(currDiv, {
+                x: "0%",
+                scale: 0.8,
+                rotateY: "90deg",
+                origin:"0% 50%",
+				time: "0ms",
+				
+                complete: function () {
+                    that.css3animate(currDiv, {
+                        x: "0%",
+                        scale: 1,
+                        time: "1000ms",//$ui.transitionTime,
+                        rotateY: "0deg",
+						origin:"0% 0%",
+                        complete: function () {
+                            that.clearAnimations(currDiv);
+                        }
+                    });
+                }
+            });
+
+            that.css3animate(oldDiv, {
+                x: "0%",
+                time: "1000ms",//$ui.transitionTime,
+                scale: 0.8,
+                rotateY: "90deg",
+				origin:"0% 0%",
+                complete: function () {
+                    that.css3animate(oldDiv, {
+                        x: "0%",
+                        opacity: 1,
+                        scale: 1,
+                        rotateY: "0deg",
+						origin:"0% 0%",
+                        complete: function () {
+                            that.finishTransition(oldDiv);
+                        }
+                    });
+                    currDiv.style.zIndex = 2;
+                    oldDiv.style.zIndex = 1;
+                }
+            });
+        }
+    }
+    $ui.availableTransitions.cube = cubeTransition;
 })(af.ui);

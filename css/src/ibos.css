@@ -8,47 +8,13 @@
  *
  * 
  */
-
-/* @Debug: ; */
-#afui.ibos{
-	/* 此处使用黑体，考虑是否使用雅黑作为备用，但雅黑会改变预期行高 */
-	font-family: 'Helvetica Neue', Helvetica, Arial, 'microsoft Yahei';
-	color: #383C41;
+/**  Reset **/
+input, textarea, select {
+	outline: 0 none;
 }
-#afui.ibos #uibuttons{
-	background-color: #585858;
+textarea{
+	resize: none;
 }
-#afui.ibos #uibuttons .button{
-	width: 100%;
-}
-#afui.ibos .well{
-	box-shadow: 0 2px 2px rgba(0, 0, 0, .2);
-	border-radius: 4px;
-	margin: 10px 0;
-	padding: 10px;
-	background: #FFF;
-	overflow: hidden;
-}
-#afui.ibos .well-title{
-	margin-bottom: 10px;
-	padding-bottom: 10px;
-	border-bottom: 1px solid #DDD;
-}
-#afui.ibos .well.gray{
-	background-color: #58585c;
-}
-#afui.ibos .well.gray .well-title{
-	color: #FFF;
-}
-#afui.ibos .well.deepblue{
-	background-color: #2295D2;
-}
-#afui.ibos .well.deepblue .well-title{
-	color: #FFF;
-}
-#afui.ibos .panel { background-color:#58585c; }
-
-/* 以上是辅助样式 */
 select, 
 textarea, 
 input[type="text"], 
@@ -69,6 +35,64 @@ input[type="color"],
 	font-family: 'Helvetica Neue', Helvetica, Arial, 'Simhei';
 }
 
+input::-webkit-input-placeholder,
+textarea::-webkit-input-placeholder {
+    color: #B2C0D9;
+}
+
+
+/* @Debug: ; */
+#afui.ibos{
+	/* 此处使用黑体，考虑是否使用雅黑作为备用，但雅黑会改变预期行高 */
+	font-family: 'Helvetica Neue', Helvetica, Arial, 'microsoft Yahei';
+	color: #383C41;
+}
+#afui.ibos .panel { background-color:#58585c; }
+
+#afui.ibos #uibuttons{ background-color: #585858; }
+#afui.ibos #uibuttons .button{ width: 100%; }
+
+#afui.ibos footer input[type='text']{
+	height: 30px;
+	margin: 0;
+	border-color:  #383C41;
+	-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0,.4), 0 1px 0 rgba(255, 255, 255, 0.1);
+	-moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0,.4), 0 1px 0 rgba(255, 255, 255, 0.1);
+	box-shadow: inset 0 1px 1px rgba(0, 0, 0,.4), 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+#afui.ibos footer .button.blue{
+	box-shadow: inset 0 1px 0 rgba(255,255,255,.2);
+	margin: 0;
+	padding-top: 6px;
+	padding-bottom: 6px;
+	border: 1px solid #383C41;
+}
+
+#afui.ibos .well{
+	box-shadow: 0 2px 2px rgba(0, 0, 0, .2);
+	border-radius: 4px;
+	margin: 10px 0;
+	padding: 10px;
+	background: #FFF;
+	overflow: hidden;
+}
+#afui.ibos .well-title{
+	margin-bottom: 10px;
+	padding-bottom: 10px;
+	border-bottom: 1px solid #DDD;
+}
+#afui.ibos .well.gray{ background-color: #58585c; }
+#afui.ibos .well.deepblue{ background-color: #2295D2;}
+#afui.ibos .well.gray .well-title,
+#afui.ibos .well.deepblue .well-title{
+	color: #FFF;
+}
+#afui.ibos .well.lightgray{
+	box-shadow: none;
+	border: 1px solid #DFDFDF;
+	background-color: #FDFDFD;
+}
+
 
 /* Header */
 #afui.ibos > #header{
@@ -85,8 +109,7 @@ input[type="color"],
 }
 
 /* Navbar */
-#afui.ibos > #navbar,
-.toolbar{
+#afui.ibos > #navbar{
 	box-shadow: 0 1px 0 #818488 inset;
 	background-color: #3F4246;
 	background-image: -ms-linear-gradient(top, #4B4F54 60%, #3F4246);
@@ -104,14 +127,20 @@ input[type="color"],
 	border-left: 0 none;
 }
 #afui.ibos > #navbar a.pressed,
-#afui.ibos > #navbar a:active,
-#afui.ibos  .toolbar a:active,
-#afui.ibos  .toolbar a.active{
+#afui.ibos > #navbar a:active{
 	border-radius: 0;
 	top: 2px;
 	height: 44px;
 	background-color: #383C41;
 	box-shadow: 0 5px 13px rgba(56, 60, 65, .24) inset;
+}
+
+#afui.ibos > #navbar .toolbar a{
+	line-height: 44px;
+}
+#afui.ibos > #navbar .input-toolbar{
+	padding: 7px 10px;
+	position: relative;
 }
 
 /* Button */
@@ -192,9 +221,10 @@ input[type="color"],
 	border: 1px solid rgba(11, 115, 187, .5);
 	box-shadow: 0 1px 1px rgba(0, 0, 0, .3), 0 1px 1px rgba(255, 255, 255, .5) inset;
 }
-#afui.ibos .button.primary:active{
-	box-shadow: 0 1px 1px rgba(0, 0, 0, .2) inset;
-}
+#afui.ibos .button.primary:active{ box-shadow: 0 1px 1px rgba(0, 0, 0, .2) inset; }
+
+#afui.ibos .button.button-block{ width: 100%; }
+
 #afui.ibos .tabletMenu .button{
 	width: 96%;
 	margin-left: 2%;
@@ -396,10 +426,12 @@ input[type="color"],
 
 /* Chat */
 #afui.ibos .chat{
-	background-color: #58585C;
+	/*background-color: #58585C;*/
+	/*padding-bottom: 80px;*/
+	padding: 10px 15px 90px;
 }
 #afui.ibos .chat-item{
-	padding: 5px 0;
+	padding: 10px 0;
 	position: relative;
 	overflow: hidden;
 }
@@ -472,6 +504,7 @@ input[type="color"],
 /* Inset List */
 #afui.ibos .list > li{
 	border-color: #DFDFDF;
+	overflow: hidden;
 }
 #afui.ibos .tabletMenu .list > li{
 	border-color: #383C41;
@@ -480,18 +513,17 @@ input[type="color"],
 	color: #383C41;
 	padding:15px 10px;
 }
-#afui.ibos .list > li > a:hover,
-#afui.ibos .list > li > a:active,
-{
+/*#afui.ibos .list > li > a:hover,*/
+/*#afui.ibos .list > li > a:active{
 	background-color:#eee
-}
-#afui.ibos .list.mutil >li {
+}*/
+#afui.ibos .list.multi >li {
 	padding: 15px 20px 15px 30px;
 }
-#afui.ibos .list.mutil >li > a{
+#afui.ibos .list.multi >li > a{
 	line-height:1.45em;
 }
-#afui.ibos .list.mutil .avatar{
+#afui.ibos .list.multi .avatar{
 	float: left;
 	margin:-2px 10px 0 -20px;
 }
@@ -527,6 +559,10 @@ input[type="color"],
 	top: auto;
 	bottom: 1em;
 }
+#afui.ibos .list.multi li.list-more { padding-left: 20px; }
+#afui.ibos .list .list-more a{ text-align: center; }
+#afui.ibos .list .list-more a:after,
+#afui.ibos .list .list-nolink:after{ display: none; }
 
 #afui.ibos .loginbar .list.inset{
 	border: 0;
@@ -552,16 +588,8 @@ input[type="color"],
 	padding:15px 10px;
 }
 #afui.ibos .vlist > li > a:hover,
-#afui.ibos .vlist > li > a:active,
-{
+#afui.ibos .vlist > li > a:active,{
 	background-color:#eee
-}
-
-.nopadding{
-	padding:0 !important;
-}
-.graybg{
-	background-color: #ecedf0;
 }
 
 
@@ -582,6 +610,8 @@ input[type="color"],
 }
 #afui.ibos .control-group .controls input{
 	border: 0 none;
+	background: transparent;
+	margin-top: 0;
 	margin-bottom: 0;
 	height: 44px;
 }
@@ -595,19 +625,15 @@ input[type="color"],
 	box-shadow: inset 0 1px 0 rgba(0, 0, 0, .1), 0 1px 0 #6F6F75;
 	-webkit-border-radius: 4px;
 	border-radius: 4px;
+	/*margin: 0 -10px;*/
 	padding-left: 28px;
 	/*padding-left: 2em;*/
 	height: 30px;
 	border: 1px solid #383C41;
-	background: #4E5054 url(../../images/i_search.png) no-repeat 7px center;
+	background: #4E5054 url(../../images/search.png) no-repeat 7px center;
 	-webkit-background-size: 14px 14px;
 	background-size: 14px 14px;
 	color: #FFF;
-}
-/*#afui.ibos input[type="search"]*/
-::-webkit-input-placeholder{
-	font-family: 'Simhei';
-	font-color: #BBBDC9;  
 }
 
 /* Menu */
@@ -615,6 +641,7 @@ input[type="color"],
 	-webkit-box-shadow: inset -1px 0 2px rgba(0, 0, 0, .5);
 	box-shadow: inset -1px 0 2px rgba(0, 0, 0, .5);
 	background-color: #58585C;
+	display: block !important;
 }
 #afui.ibos > #menu .list li{
 	-webkit-box-shadow: inset 0 1px 0px rgba(255, 255, 255, .2), inset 0 -1px 0 #383C41;
@@ -748,6 +775,37 @@ input[type="color"],
 	padding-bottom: 0;
 }
 
+/* 条目详细查看页 Use: Mail, Article*/
+#afui.ibos .view{}
+/* Detail */
+/* Content summary */
+#afui.ibos .view-title{
+	padding: 10px 15px;
+	font-weight: 400;
+}
+#afui.ibos .view-detail{
+	padding: 5px 15px;
+	border-bottom: 1px solid #DFDFDF;
+	color: #BBBDC9;
+	outline: 0 none;
+}
+#afui.ibos .view-detail summary{ position:  relative; outline: 0 none;}
+#afui.ibos .view-detail summary:after{
+	content: "查看详细";
+	position: absolute;
+	top: 0;
+	right: 0;
+	width: 50%;
+	height: 20px;
+	text-align: right;
+}
+#afui.ibos .view-detail[open] summary:after{ content: "隐藏详细";}
+
+#afui.ibos .view-content{ padding: 10px 15px; }
+#afui.ibos .view-content img{ width: auto; max-width: 100% !important; }
+
+
+
 #afui.ibos .tab-group{}
 #afui.ibos .tab-group a{
 	background-color: #24ACDD;
@@ -779,65 +837,12 @@ input[type="color"],
 	border-bottom-right-radius: 20px;
 }
 
-/*Toolbar*/
-#afui.ibos .toolbar{
-	display: table;
-	/*width: 100%;*/
-	height: 48px;
-	line-height: 48px;
-	margin:0 -10px;
-	padding:0 10px;
-	position: fixed;
-	bottom:0;
-}
-#afui.ibos .toolbar a,
-#afui.ibos .toolbar div
-{
-	display: table-cell;
-	text-decoration: none;
-	text-align: center;
-	color: #FFF;
-	line-height: inherit;
-}
 /* Backbutton */
 #afui.ibos #backButton{
-	-webkit-box-shadow: none;
-	box-shadow: none;
-	margin-left: 0!important;
-	width: 32px;
-	border: 0 none;
-	background: transparent url(../../images/i_back.png) no-repeat 0 center;
-	-webkit-background-size: 22px 22px;
-	background-size: 22px 22px;
-	text-indent: -9999px;
 	position: absolute;
+	background-image: url(../../images/act/back.png);
 }
-#afui.ibos #backButton:after{
-	display: none;
-}
-
-/* Icon */
-.o-msg-personal,
-.o-msg-system,
-.o-mark,
-.o-reply,
-.o-reply-all,
-.o-delete{
-	display: inline-block;
-	width: 22px;
-	height: 22px;
-	background-repeat: no-repeat;
-	-webkit-background-size: 22px 22px;
-	background-size: 22px 22px;
-	vertical-align: middle;
-}
-.o-msg-personal{ background-image: url(../../images/i_msg_personal.png);}
-.o-msg-system{ background-image: url(../../images/i_msg_system.png); }
-.o-mark{ background-image: url(../../images/i_mark.png);}
-.o-reply{ background-image: url(../../images/i_reply.png); }
-.o-reply-all{ background-image: url(../../images/i_reply_all.png); }
-.o-delete{ background-image: url(../../images/i_delete.png); }
-
+#afui.ibos #backButton:after{ display: none; }
 
 .icon:before {
 	height: 26px;
@@ -882,24 +887,22 @@ li .icon:before {
 }
 
 /* header button */
-.homeButton {
-	position:relative;
-	top:2px; 
-	height:36px; width:36px;
-	float:right;
-	-webkit-box-shadow: none;
-	box-shadow: none;
-	border: 0 none;
-	background: transparent url(../../images/i_home.png) no-repeat 0 center;
-	-webkit-background-size: 22px 22px;
-	background-size: 22px 22px;
-	text-indent: -9999px;
+.ao-cancel,
+.ao-menu,
+.ao-home,
+.ao-ok,
+.ao-send,
+.ao-edit{
+	position: absolute;
 }
-/* content summary */
-details {
-	border-bottom: 1px solid #eee;
-	padding-bottom: 10px;
-}
+
+.ao-cancel { background-image: url(../../images/act/cancel.png); left: 0;}
+.ao-menu { background-image: url(../../images/act/menu.png); left: 0;}
+.ao-home { background-image: url(../../images/act/home.png); right: 0; }
+.ao-ok { background-image: url(../../images/act/ok.png); right: 0;}
+.ao-send { background-image: url(../../images/act/send.png); right: 0;}
+.ao-edit { background-image: url(../../images/act/edit.png); right: 0;}
+
 
 /* other */
 .indexbg {
@@ -918,16 +921,13 @@ details {
 }
 .search-bar {
 	background: #58585c;
-	margin: 0 -10px;
+	/*margin: 0 -10px;*/
 	padding: 0 5px;
 }
 
 /* reset-bg */
 .afScrollPanel {
 	background-image: none;
-}
-.white-bg {
-	background-color:#fff !important;
 }
 
 
@@ -971,3 +971,31 @@ details {
 	height: 44px;
 	text-indent:-999em;	
 }
+
+/* Attach */
+#afui.ibos .attach-icon,
+#afui.ibos .attach-body,
+#afui.ibos .attach-operate{
+	display: inline-block;
+	vertical-align: top;
+}
+#afui.ibos .attach-icon{
+	width: 48px;
+	height: 48px;
+	margin-right: 5px;
+}
+#afui.ibos .attach-operate{ float: right;}
+#afui.ibos .attach-btn{
+	padding: 11px;
+	display: inline-block;
+}
+
+
+/* key-value list  */
+#afui.ibos .kvlist{}
+#afui.ibos .kvlist dt{ float: left;}
+
+
+#afui.ibos .control-group .controls .user-selector-list { margin-top: 10px; }
+
+

@@ -1,13 +1,12 @@
-				<div class="search-bar">
-					<input type="search" placeholder="搜索" name="mailSearchInput" id="mailSearchInput" onchange="" onblur="news.search(this.value)" />
-				</div>
-				<ul class="list mutil" id="newsList">
-				</ul>
-				<textarea style="display:none;" type="text/ibos-template" id="newsListTpl">
-					<li <%if(!readstatus){%>class="new"<%}%>>
-						<time><%=toDatetime(addtime)%></time>
-						<a href="#news_view" onclick="news.loadNews(<%=articleid%>,this)"><%=subject%>
-						<span><%=content%></span>
-						</a>
-					</li>
-				</textarea>
+<div class="search-bar">
+	<input type="search" placeholder="搜索" name="mailSearchInput" id="mailSearchInput" onchange="" onblur="news.search(this.value)" />
+</div>
+<ul class="list multi" id="newsList"></ul>
+<textarea style="display:none;" type="text/ibos-template" id="newsListTpl">
+	<li <%if(!readstatus){%>class="new"<%}%>>
+		<time><%=core.toDatetime(addtime)%></time>
+		<a href="#news_view" onclick="news.loadNews(<%=articleid%>,this)"><%=subject%>
+		<span><%=content%></span>
+		</a>
+	</li>
+</textarea>

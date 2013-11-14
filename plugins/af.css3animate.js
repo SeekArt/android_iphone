@@ -113,7 +113,7 @@
                         options.y += numOnly(cssMatrix.f);
                         options.x += numOnly(cssMatrix.e);
                     }
-                    if (!options["origin"]) options.origin = "0% 0%";
+                    if (!options["origin"]) options.origin = "50% 50%";
 
                     if (!options["scale"]) options.scale = "1";
 
@@ -123,7 +123,7 @@
                     if (!options["skewX"]) options.skewX = "0";
 
 
-                    if (!options["timingFunction"]) options["timingFunction"] = "linear";
+                    if (!options["timingFunction"]) options["timingFunction"] = "ease-out";
 
                     //check for percent or numbers
                     if (typeof(options.x) == "number" || (options.x.indexOf("%") == -1 && options.x.toLowerCase().indexOf("px") == -1 && options.x.toLowerCase().indexOf("deg") == -1)) options.x = parseInt(options.x, 10) + "px";

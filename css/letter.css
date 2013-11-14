@@ -1,0 +1,44 @@
+/* 字母索引表样式  */
+.letter{
+	--webkit-touch-callout: none;
+	-webkit-box-orient: vertical;
+	border-radius: 10px;
+	position: absolute;
+	display: -webkit-box;
+	padding: 10px 0;
+	width: 20px;
+	top: 5px;
+	right: 5px;
+	background: #000;
+	opacity: .4;
+	z-index: 1000;
+}
+.letter.active{
+	opacity: .6;
+}
+.letter a{
+	display: block;
+	-webkit-box-flex: 1;
+	box-flex: 1;
+	line-height: normal;
+	text-align: center;
+	text-decoration: none;
+	font-size: 14px;
+	color: #FFF;
+}
+.letter-box{
+	border-radius: 6px;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	z-index: 20000;
+	margin-top: -40px;
+	margin-left: -40px;
+	width: 80px;
+	height: 80px;
+	background: rgba(0, 0, 0, .6);
+	line-height: 80px;
+	text-align: center;
+	font-size: 32px;
+	color: #FFF;
+}

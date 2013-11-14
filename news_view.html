@@ -1,12 +1,12 @@
-				<div id="newsContent"></div>
-				<textarea style="display:none;" type="text/ibos-template" id="newsContentTpl">
-					<h2><%=subject%></h2>
-					<details>
-						<summary><time><%=addtime%></time></summary>
-						<p>
-							发布人:<%=author%><br />
-							审核人:<%=approver%><br />
-						</p>
-					</details>
-					<p><%=content%></p>
-				</textarea>
+<div id="newsContent" class="view"></div>
+<textarea id="newsContentTpl" class="hideim">
+	<h2 class="view-title"><%=subject%></h2>
+	<details class="view-detail">
+		<summary><time><%=addtime%></time></summary>
+		<p>
+			发布人:<%=author%><br />
+			审核人:<%=approver%><br />
+		</p>
+	</details>
+	<div class="view-content"><%=content%></div>
+</textarea>

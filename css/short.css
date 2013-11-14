@@ -1,0 +1,36 @@
+/* 通用短类集	*/
+
+/****** Short *******/
+
+.fll { float: left }
+.flr { float: right }
+
+.dib{ display: inline-block; }
+
+.pdz{ padding:0 !important; }
+.pds{ padding: 10px; }
+.pdhs{ padding-left: 10px; padding-right: 10px; }
+.pdhh{ padding-left: 15px; padding-right: 15px; }
+.pdhn{ padding-left: 20px; padding-right: 20px; }
+.pdvs{ padding-top: 10px; padding-bottom: 10px; }
+
+.bdbgr{ border-bottom: 1px solid #DFDFDF; }
+
+.bgw{ background-color: #FFF!important; }
+.bggr{ background-color: #ecedf0; }
+
+.xcw{ color: #FFF; }
+
+.vat{ vertical-align: top; }
+
+.xac{ text-align: center; }
+
+.trans-input{
+	border: 0 none !important;
+	background: transparent !important;
+}
+
+.hide{ display: none; }
+.hideim{ display: none !important; }
+
+

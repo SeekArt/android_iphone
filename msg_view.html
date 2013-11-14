@@ -1,0 +1,12 @@
+<ul class="list multi" id="msgList">
+	
+</ul>
+
+<textarea style="display:none;" type="text/ibos-template" id="msgListTpl">
+	<li <%if(!readstatus){%>class="new"<%}%>>
+		<time><%=core.toDatetime(addtime)%></time>
+		<a href="#msg_view" onclick="news.loadNews(<%=articleid%>,this)"><%=subject%>
+		<span><%=content%></span>
+		</a>
+	</li>
+</textarea>
