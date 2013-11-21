@@ -1,6 +1,5 @@
 /**
- * App Framwork  query selector class for HTML5 mobile apps on a WebkitBrowser.
- * Since most mobile devices (Android, iOS, webOS) use a WebKit browser, you only need to target one browser.
+ * App Framework  query selector class for HTML5 mobile apps on a Webkit or IE 10 browser.
  * We are able to increase the speed greatly by removing support for legacy desktop browsers and taking advantage of browser features, like native JSON parsing and querySelectorAll
 
 
@@ -1206,15 +1205,15 @@ if (!window.af || typeof(af) !== "function") {
                 if (val != nundefined)
                     return this.css("height", val);
                 if (this[0] == this[0].window)
-                    return window.innerHeight;
+                    return window.innerHeight + '';
                 if (this[0].nodeType == this[0].DOCUMENT_NODE)
-                    return this[0].documentElement.offsetheight;
+                    return this[0].documentElement.offsetheight + '';
                 else {
                     var tmpVal = this.css("height").replace("px", "");
                     if (tmpVal)
                         return tmpVal;
                     else
-                        return this.offset().height;
+                        return this.offset().height + '';
                 }
             },
             /**
@@ -1231,15 +1230,15 @@ if (!window.af || typeof(af) !== "function") {
                 if (val != nundefined)
                     return this.css("width", val);
                 if (this[0] == this[0].window)
-                    return window.innerWidth;
+                    return window.innerWidth + '';
                 if (this[0].nodeType == this[0].DOCUMENT_NODE)
-                    return this[0].documentElement.offsetwidth;
+                    return this[0].documentElement.offsetwidth + '';
                 else {
                     var tmpVal = this.css("width").replace("px", "");
                     if (tmpVal)
                         return tmpVal;
                     else
-                        return this.offset().width;
+                        return this.offset().width + '';
                 }
             },
             /**
@@ -1915,6 +1914,7 @@ if (!window.af || typeof(af) !== "function") {
          * .os.ieTouch
          * .os.supportsTouch
          * .os.playbook
+         $.os.tizen
          * .feat.nativetouchScroll
          * @api private
          */
@@ -1926,7 +1926,7 @@ if (!window.af || typeof(af) !== "function") {
             $.os.androidICS = $.os.android && userAgent.match(/(Android)\s4/) ? true : false;
             $.os.ipad = userAgent.match(/(iPad).*OS\s([\d_]+)/) ? true : false;
             $.os.iphone = !$.os.ipad && userAgent.match(/(iPhone\sOS)\s([\d_]+)/) ? true : false;
-            $.os.ios7 = userAgent.match(/(iPhone\sOS)\s([7_]+)/) ? true : false;
+            $.os.ios7 = ($.os.ipad||$.os.iphone)&&userAgent.match(/7_/) ? true : false;
             $.os.webos = userAgent.match(/(webOS|hpwOS)[\s\/]([\d.]+)/) ? true : false;
             $.os.touchpad = $.os.webos && userAgent.match(/TouchPad/) ? true : false;
             $.os.ios = $.os.ipad || $.os.iphone;
@@ -1936,8 +1936,9 @@ if (!window.af || typeof(af) !== "function") {
             $.os.chrome = userAgent.match(/Chrome/) ? true : false;
             $.os.opera = userAgent.match(/Opera/) ? true : false;
             $.os.fennec = userAgent.match(/fennec/i) ? true : userAgent.match(/Firefox/) ? true : false;
-            $.os.ie = userAgent.match(/MSIE 10.0/i) ? true : false;
+            $.os.ie = userAgent.match(/MSIE 10.0/i)||userAgent.match(/Trident\/7/i) ? true : false;
             $.os.ieTouch = $.os.ie && userAgent.toLowerCase().match(/touch/i) ? true : false;
+            $.os.tizen = userAgent.match(/Tizen/i)?true:false;
             $.os.supportsTouch = ((window.DocumentTouch && document instanceof window.DocumentTouch) || 'ontouchstart' in window);
             //features
             $.feat = {};
@@ -1948,7 +1949,6 @@ if (!window.af || typeof(af) !== "function") {
             $.feat.cssTransformEnd = !$.os.opera ? ",0)" : ")";
             if ($.os.android && !$.os.webkit)
                 $.os.android = false;
-
 
         }
 
@@ -2198,7 +2198,7 @@ if (!window.af || typeof(af) !== "function") {
                 set.push(handler);
                 element.addEventListener(handler.e, proxyfn, false);
             });
-            //element=null;
+            element=null;
         }
 
         /**
@@ -2337,28 +2337,31 @@ if (!window.af || typeof(af) !== "function") {
 
         * @param {String|Array|Object} selector
         * @param {String|Object} event
+        * @param {Object} data
         * @param {Function} callback
         * @return {Object} appframework object
-        * @title $().delegate(selector,event,callback)
+        * @title $().delegate(selector,event,[data],callback)
         */
-        function addDelegate(element,event,callback,selector){
+        function addDelegate(element,event,callback,selector,data){
             add(element, event, callback, selector, function(fn) {
                     return function(e) {
                         var evt, match = $(e.target).closest(selector, element).get(0);
                         if (match) {
                             evt = $.extend(createProxy(e), {
                                 currentTarget: match,
-                                liveFired: element
+                                liveFired: element,
+                                delegateTarget:element,
+                                data:data
                             });
                             return fn.apply(match, [evt].concat([].slice.call(arguments, 1)));
                         }
                     };
                 });
         }
-        $.fn.delegate = function(selector, event, callback) {
+        $.fn.delegate = function(selector, event,data, callback) {
 
             for (var i = 0; i < this.length; i++) {
-                addDelegate(this[i],event,callback,selector)
+                addDelegate(this[i],event,callback,selector,data)
             }
             return this;
         };
@@ -2392,12 +2395,18 @@ if (!window.af || typeof(af) !== "function") {
 
         * @param {String|Array|Object} selector
         * @param {String|Object} event
+        * @param {Object} data
         * @param {Function} callback
         * @return {Object} appframework object
-        * @title $().on(event,selector,callback);
+        * @title $().on(event,selector,[data],callback);
         */
-        $.fn.on = function(event, selector, callback) {
-            return selector === nundefined || $.isFunction(selector) ? this.bind(event, selector) : this.delegate(selector, event, callback);
+        $.fn.on = function(event, selector,data, callback) {
+            if(!$.isObject(data)){
+                callback=data;
+                data=null;
+            }
+
+            return selector === nundefined || $.isFunction(selector) ? this.bind(event, selector) : this.delegate(selector, event, data,callback);
         };
         /**
         * Removes event listeners for .on()

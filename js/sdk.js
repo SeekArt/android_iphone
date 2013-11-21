@@ -6,7 +6,6 @@
 */
 var appSdk = (function(){
 	var location= (function (){
-	
 		/**
 		* 启动定位功能	
 		*
@@ -38,7 +37,7 @@ var appSdk = (function(){
 				}
 			}
 		*/
-		function getAddress( inLatitude , inLongitude , getback){		
+		function getAddress( inLatitude , inLongitude , getback){
 		　　uexLocation.cbGetAddress = getback;
 			uexLocation.getAddress(inLatitude,inLongitude);
 		}

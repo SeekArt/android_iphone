@@ -26,7 +26,7 @@
 			<a class="button white large primary" href="#netSetting" id="selectNet">设置地址</a>
 			<input name="submit" value="登录" type="submit" class="button blue large primary" onclick="" />
 			<input name="gpsInput" id="gpsInput" value="" type="hidden" />
-			<input name="addressInput" id="addressInput" value="" type="hidden" />
+			<input name="addressInput" id="addressInput" value="" type="text" />
 	</div>
 		<span id="myAddress"> </span>
 		</form>
@@ -58,6 +58,15 @@ $(document).ready(function(){
 });
 </script>
 <script type="text/javascript">
+var ibos = {
+	onload: function(){
+		if(window.uexOnload){
+		
+		} else {
+		
+		}
+	}
+}
 window.uexOnload = function(type){
 	if (!type) {
 		//注册应用运行中Push事件通知函数

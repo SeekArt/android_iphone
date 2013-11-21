@@ -53,13 +53,6 @@
 			$.ui.enableSideMenu();
 		}
 		
-		function loadedPanel(what) {
-			//We are going to set the badge as the number of li elements inside the target
-			//$.ui.updateBadge("#navbar_msg", $("#msg").find("li").length);
-		}
-		function unloadedPanel(what) {
-			console.log("unloaded " + what.id);
-		}
 		if (!((window.DocumentTouch && document instanceof DocumentTouch) || 'ontouchstart' in window)) {
 			var script = document.createElement("script");
 			script.src = "plugins/af.desktopBrowsers.js";
@@ -95,10 +88,8 @@
              var search=document.location.search.toLowerCase().replace("?","");
              //if(!search)
                 //$.os.useOSThemes=false;
-                
             if(search) //Android fix has too many buggy issues on iOS - can't preview with $.os.android
             {
-
                $.os.useOSThemes=true;
                 if(search=="win8")
                     $.os.ie=true;
@@ -126,7 +117,7 @@
 			//hide splash screen
 			AppMobi.device.hideSplashScreen();
 			$.ui.blockPageScroll(); //block the page from scrolling at the header/footer
-			$.ui.animateHeaders = false;
+			$.ui.animateHeaders = true;
 		};
 		document.addEventListener("appMobi.device.ready", onDeviceReady, false);
 	</script>
@@ -178,15 +169,12 @@
 		<br>
 		<span class='ui-icon ui-icon-loading spin'></span>
 		<h1>正在载入...</h1>
-	</div>	
-	<!----------------------------------------------> 
-	
-	<div id="header">
 	</div>
-	
-	<div id="content">	
+	<!----------------------------------------------> 
+	<div id="header"></div>
+	<div id="content">
 		<!---------------------------------------------->
-			<div title='IBOS移动客户端' id="main" class="panel mainbg" data-load="loadedPanel" data-tab="navbar_main" style="overflow:hidden;">
+			<div title='IBOS移动客户端' id="main" class="panel mainbg" data-tab="navbar_main" style="overflow:hidden;">
 				<div class="home-item">
 					<a href="#news" data-transition="pop">
 						<i class="item-ico ico-article"></i>
@@ -290,10 +278,8 @@
 		<a href="#setting" id='navbar_setting' data-transition="none" class="icon setting">设置</a> 
 	</div>
 	<!--------------------footer-------------------------->
-	<footer id="footer_news">
-	</footer>
-	<footer id="footer_mail">
-	</footer>
+	<footer id="footer_news"></footer>
+	<footer id="footer_mail"></footer>
 	<footer id="footer_mail_view" class="toolbar">
 		<!-- <div class="toolbar"> -->
 			<a href="javascript:;" onclick="Email.markMail()">
@@ -354,7 +340,7 @@
 		<h1>我的日程</h1>
 		<a onclick="$.ui.goBack();" class='button ao-home'></a>
 	</header>
-	<header id="header_msg"  data-animate="false">
+	<header id="header_msg">
 		<div class="tab-group header-tab">
 			<a href="#sms" data-transition="none">
 				<i class="o-msg-personal"></i>
@@ -365,7 +351,7 @@
 		</div>
 	</header>
 	<!-- Header: 消息中心 -->
-	<header id="header_sms"  data-animate="false">
+	<header id="header_sms">
 		<div class="tab-group header-tab">
 			<a href="#sms" class="active" data-transition="none">
 				<i class="o-msg-personal"></i>
