@@ -1,4 +1,4 @@
-.af-badge {
+#afui .af-badge {
 	position:absolute;
 	top:2px; right:2px;
 	display:inline-block;
@@ -15,6 +15,6 @@
 	text-shadow:0 -1px 0 rgba(64,0,0,.6);
 }
 
-.af-badge.br { bottom:2px; right:2px; top:auto; left:auto; }
-.af-badge.bl { bottom:2px; left:2px; top:auto; right:auto; }
-.af-badge.tl { top:2px; left:2px; right:auto; bottom:auto; }
+#afui .af-badge.br { bottom:2px; right:2px; top:auto; left:auto; }
+#afui .af-badge.bl { bottom:2px; left:2px; top:auto; right:auto; }
+#afui .af-badge.tl { top:2px; left:2px; right:auto; bottom:auto; }

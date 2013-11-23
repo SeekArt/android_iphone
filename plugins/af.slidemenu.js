@@ -21,6 +21,7 @@
         var slideOver = max/3;
         var menuState;
         var transTime = $.ui.transitionTime;
+        $.ui.toggleSideMenu(false, null, 0);
 
         window.addEventListener("resize", function(e) {
             max = $("#menu").width();
@@ -42,27 +43,23 @@
         });
         $("#afui").bind("touchmove", function(e) {
 
-            
+            if (!$.ui.isSideMenuEnabled()) return true;
             if (!$.ui.slideSideMenu||keepOpen) return true;
+            dx = e.touches[0].pageX;
+            dy = e.touches[0].pageY;
+            if (!menuState && dx < startX) return true;
+            if (menuState && dx > startX) return true;
+            if (dx-startX > max) return true;
+            if (startX-dx > max) return true;
+            if (Math.abs(dy - startY) > Math.abs(dx - startX)) return true;
+            
             if (!checking) {
                 checking = true;
                 doMenu=false;
                 return true;
-            }
-            else 
+            } else { 
                 doMenu=true;
-             if(!doMenu) return;
-
-            dx = e.touches[0].pageX;
-            dy = e.touches[0].pageY;
-            if (!menuState && dx < startX) return;
-            else if (menuState && dx > startX) return;
-            if (Math.abs(dy - startY) > Math.abs(dx - startX)) {
-                doMenu = false;
-                return true;
-            }            
-            
-            if (dx > max) return true;
+            }
             
             showHide = dx - startX > 0 ? 2 : false;
             var thePlace = Math.abs(dx - startX);

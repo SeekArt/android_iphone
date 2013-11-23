@@ -25,7 +25,7 @@
 			<!--列表结束-->
 			<a class="button white large primary" href="#netSetting" id="selectNet">设置地址</a>
 			<input name="submit" value="登录" type="submit" class="button blue large primary" onclick="" />
-			<input name="gpsInput" id="gpsInput" value="" type="hidden" />
+			<input name="gpsInput" id="gpsInput" value="" type="text" />
 			<input name="addressInput" id="addressInput" value="" type="text" />
 	</div>
 		<span id="myAddress"> </span>
@@ -37,63 +37,20 @@
 	</div>
 	<!--footer结束-->	
 </div>
-<script type="text/javascript">
-$(document).ready(function(){
-	//$("#login").bind("touchstart", function(e) { e.stopPropagation()});
-	
-	// appsdk开始调用
-	window.uexOnload = function(){
-		appSdk.location.open(function(lat,log){
-			$("#gpsInput").val(lat+","+log);
-			appSdk.location.getAddress(lat,log,
-				function(opCode,dataType,data){
-					if(dataType==0){
-						$("#addressInput").val(data);
-						$("#myAddress").html(data);
-					}
-				}
-			)
-		})
-	}
-});
-</script>
-<script type="text/javascript">
-var ibos = {
-	onload: function(){
-		if(window.uexOnload){
-		
-		} else {
-		
+<script type="text/javascript">	
+// appsdk开始调用
+appSdk.ready(function(){
+	appSdk.gps.getLocation(
+		function(position){
+			var latlog = position.coords.latitude + "," + position.coords.longitude ;
+			document.getElementById('gpsInput').value = latlog;
+			appSdk.gps.getAddress( position.coords.latitude,position.coords.longitude,function(o){
+				document.getElementById('addressInput').value = o.result.formatted_address
+			})
+		},
+		function(err){
+			alert(err.message);
 		}
-	}
-}
-window.uexOnload = function(type){
-	if (!type) {
-		//注册应用运行中Push事件通知函数
-		uexWidget.setPushNotifyCallback("cbNotify1");
-		//注册获取硬件信息回调函数
-		uexDevice.cbGetInfo = function(opCode, dataType, data){
-			logr("deviceToken=" + data);
-		}
-		//绑定当前用户信息到AppCan推送服务器
-		setdeviceToken1();
-		//获取当前应用的DeviceToken
-		uexDevice.getInfo('11');
-		//注册获取Push消息内容的回调函数
-		uexWidget.cbGetPushInfo = function(opCode, dataType, data){
-			logr("hello " + data);
-		}
-		//获取应用由Push激活时的Push消息内容
-		uexWidget.getPushInfo();
-	}
-}
-function setdeviceToken1(){
-	//绑定用户UID和用户昵称到AppCan后台服务器
-	uexWidget.setPushInfo("windeidolon","");
-}
-function cbNotify1(){
-	//logr("cbNotify1");
-	//当运行时收到Push消息后，获取Push消息内容
-	uexWidget.getPushInfo();
-}
+	);
+})
 </script>

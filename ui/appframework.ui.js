@@ -327,7 +327,7 @@
  * Optimizations and bug improvements by Intel
  * @copyright Intel
  */ (function ($) {
-    var HIDE_REFRESH_TIME = 75; // hide animation of pull2ref duration in ms
+    var HIDE_REFRESH_TIME = 325; // hide animation of pull2ref duration in ms
     var cache = [];
     var objId = function (obj) {
         if (!obj.afScrollerId) obj.afScrollerId = $.uuid();
@@ -514,7 +514,7 @@
                 var that = this;
                 var orientationChangeProxy = function () {
                     //no need to readjust if disabled...
-                    if (that.eventsActive) that.adjustScroll();
+                    if (that.eventsActive||!$.feat.nativeTouchScroll) that.adjustScroll();
                 };
                 this.afEl.bind('destroy', function () {
                     that.disable(true); //with destroy notice
@@ -523,6 +523,7 @@
                     $.unbind($.touchLayer, 'orientationchange-reshape', orientationChangeProxy);
                 });
                 $.bind($.touchLayer, 'orientationchange-reshape', orientationChangeProxy);
+                $(window).bind('resize', orientationChangeProxy);
             },
             needsFormsFix: function (focusEl) {
                 return this.useJsScroll && this.isEnabled() && this.el.style.display != "none" && $(focusEl).closest(this.afEl).size() > 0;
@@ -565,20 +566,20 @@
                     if (orginalEl !== null) {
                         afEl = af(orginalEl);
                     } else {
-                        afEl = af("<div id='" + this.container.id + "_pulldown' class='afscroll_refresh' style='border-radius:.6em;border: 1px solid #2A2A2A;background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0,#666666),color-stop(1,#222222));background:#222222;margin:0px;height:60px;position:relative;text-align:center;line-height:60px;color:white;width:100%;'>" + this.refreshContent + "</div>");
+                        afEl = af("<div id='" + this.container.id + "_pulldown' class='afscroll_refresh' style='position:relative;height:60px;text-align:center;line-height:60px;font-weight:bold;'>" + this.refreshContent + "</div>");
                     }
                 } else {
                     afEl = af(this.refreshElement);
                 }
                 var el = afEl.get(0);
 
-                this.refreshContainer = af("<div style=\"overflow:hidden;width:100%;height:0;margin:0;padding:0;padding-left:5px;padding-right:5px;display:none;\"></div>");
+                this.refreshContainer = af('<div style="overflow:hidden;height:0;width:100%;display:none;"></div>');
                 $(this.el).prepend(this.refreshContainer.append(el, 'top'));
                 this.refreshContainer = this.refreshContainer[0];
             },
             fireRefreshRelease: function (triggered, allowHide) {
                 if (!this.refresh || !triggered) return;
-
+                this.setRefreshContent("Refreshing...");
                 var autoCancel = $.trigger(this, 'refresh-release', [triggered]) !== false;
                 this.preventHideRefresh = false;
                 this.refreshRunning = true;
@@ -652,6 +653,9 @@
             clearInfinite: function () {
                 this.infiniteTriggered = false;
                 this.scrollSkip = true;
+            },
+            scrollTo:function (pos, time) {
+                return this._scrollTo(pos, time);
             }
         };
 
@@ -833,13 +837,23 @@
             var difX = newcX-this.cX;
 
             //check for trigger
-            if (this.refresh && (this.el.scrollTop) < 0) {
+            if (this.refresh && (this.el.scrollTop < -this.refreshHeight)) {
                 this.showRefresh();
-                //check for cancel
-            } else if (this.refreshTriggered && this.refresh && (this.el.scrollTop > this.refreshHeight)) {
+            //check for cancel when refresh is running
+            } else if (this.refresh && this.refreshTriggered && this.refreshRunning && (this.el.scrollTop > this.refreshHeight)) {
                 this.refreshTriggered = false;
+                this.refreshRunning = false;
                 if (this.refreshCancelCB) clearTimeout(this.refreshCancelCB);
                 this.hideRefresh(false);
+                this.setRefreshContent("Pull to Refresh");
+                $.trigger(this, 'refresh-cancel');
+            //check for cancel when refresh is not running
+            } else if (this.refresh && this.refreshTriggered && !this.refreshRunning && (this.el.scrollTop > -this.refreshHeight)) {
+                this.refreshTriggered = false;
+                this.refreshRunning = false;
+                if (this.refreshCancelCB) clearTimeout(this.refreshCancelCB);
+                this.hideRefresh(false);
+                this.setRefreshContent("Pull to Refresh");
                 $.trigger(this, 'refresh-cancel');
             }
 
@@ -849,6 +863,7 @@
         nativeScroller.prototype.showRefresh = function () {
             if (!this.refreshTriggered) {
                 this.refreshTriggered = true;
+                this.setRefreshContent("Release to Refresh");
                 $.trigger(this, 'refresh-trigger');
             }
         };
@@ -901,16 +916,18 @@
 
             var that = this;
             var endAnimationCb = function (canceled) {
+                that.refreshContainer.style.top = "-60px";
+                that.refreshContainer.style.position = "absolute";
+                that.dY = that.cY = 0;
                 if (!canceled) { //not sure if this should be the correct logic....
                     that.el.style[$.feat.cssPrefix + "Transform"] = "none";
                     that.el.style[$.feat.cssPrefix + "TransitionProperty"] = "none";
                     that.el.scrollTop = 0;
                     that.logPos(that.el.scrollLeft, 0);
+                    that.refreshRunning = false;
+                    that.setRefreshContent("Pull to Refresh");
+                    $.trigger(that, "refresh-finish");
                 }
-                that.refreshContainer.style.top = "-60px";
-                that.refreshContainer.style.position = "absolute";
-                that.dY = that.cY = 0;
-                $.trigger(that, "refresh-finish");
             };
 
             if (animate === false || !that.afEl.css3Animate) {
@@ -1395,9 +1412,11 @@
             if (this.refresh && !this.preventPullToRefresh) {
                 if (!this.refreshTriggered && this.lastScrollInfo.top > this.refreshHeight) {
                     this.refreshTriggered = true;
+                    this.setRefreshContent("Release to Refresh");
                     $.trigger(this, 'refresh-trigger');
                 } else if (this.refreshTriggered && this.lastScrollInfo.top < this.refreshHeight) {
                     this.refreshTriggered = false;
+                    this.setRefreshContent("Pull to Refresh");
                     $.trigger(this, 'refresh-cancel');
                 }
             }
@@ -1492,16 +1511,22 @@
         };
 
         jsScroller.prototype.hideRefresh = function (animate) {
-            var that = this;
             if (this.preventHideRefresh) return;
-            this.scrollerMoveCSS({
-                x: 0,
-                y: 0,
-                complete: function () {
-                    $.trigger(that, "refresh-finish");
-                }
-            }, HIDE_REFRESH_TIME);
-            this.refreshTriggered = false;
+            var that = this;
+            var endAnimationCb = function () {
+                that.setRefreshContent("Pull to Refresh");
+                $.trigger(that, "refresh-finish");
+            };
+            this.scrollerMoveCSS({x: 0, y: 0}, HIDE_REFRESH_TIME);
+            if (animate === false || !that.afEl.css3Animate) {
+                endAnimationCb();
+            } else {
+                that.afEl.css3Animate({
+                    time: HIDE_REFRESH_TIME + "ms",
+                    complete: endAnimationCb
+                });
+            }
+            this.refreshTriggered = false;            
         };
 
         jsScroller.prototype.setMomentum = function (scrollInfo) {
@@ -2454,9 +2479,10 @@
                 touch.isDoubleTap = true;
             touch.last = now;
            longTapTimer=setTimeout(longTap, longTapDelay);
+           
             if ($.ui.useAutoPressed && !touch.el.data("ignore-pressed"))
                 touch.el.addClass("pressed");
-            if(prevEl && $.ui.useAutoPressed && !prevEl.data("ignore-pressed"))
+            if(prevEl && $.ui.useAutoPressed && !prevEl.data("ignore-pressed")&&prevEl[0]!=touch.el[0])
                 prevEl.removeClass("pressed");
             prevEl=touch.el;
         }).bind('touchmove', function(e) {
@@ -2482,8 +2508,6 @@
                 touch.x1 = touch.x2 = touch.y1 = touch.y2 = touch.last = 0;
             } else if ('last' in touch) {
                 touch.el.trigger('tap');
-
-
                 touchTimeout = setTimeout(function() {
                     touchTimeout = null;
                     if (touch.el)
@@ -2543,7 +2567,7 @@
     var inputElementRequiresNativeTap = $.os.blackberry||$.os.fennec || ($.os.android && !$.os.chrome); //devices which require the touchstart event to bleed through in order to actually fire the click on select elements
     var selectElementRequiresNativeTap = $.os.blackberry||$.os.fennec || ($.os.android && !$.os.chrome); //devices which require the touchstart event to bleed through in order to actually fire the click on select elements
     var focusScrolls = $.os.ios; //devices scrolling on focus instead of resizing
-    var requirePanning = $.os.ios; //devices which require panning feature
+    var requirePanning = $.os.ios&&!$.os.ios7; //devices which require panning feature
     var addressBarError = 0.97; //max 3% error in position
     var maxHideTries = 2; //HideAdressBar does not retry more than 2 times (3 overall)
     var skipTouchEnd = false; //Fix iOS bug with alerts/confirms
@@ -3175,7 +3199,7 @@
  * appframework.ui - A User Interface library for App Framework applications
  *
  * @copyright 2011 Intel
- * @author AppMobi
+ * @author Intel
  * @version 2.0
  */ (function($) {
     "use strict";
@@ -3199,23 +3223,7 @@
         this.availableTransitions = {};
         this.availableTransitions['default'] = this.availableTransitions.none = this.noTransition;
         //setup the menu and boot touchLayer
-        $(document).ready(function() {
-            //boot touchLayer
-            //create afui element if it still does not exist
-            var afui = document.getElementById("afui");
-            if (afui === null) {
-                afui = document.createElement("div");
-                afui.id = "afui";
-                var body = document.body;
-                while (body.firstChild) {
-                    afui.appendChild(body.firstChild);
-                }
-                $(document.body).prepend(afui);
-            }
-            if ($.os.supportsTouch) $.touchLayer(afui);
-            setupCustomTheme();
-
-        });
+       
 
         function checkNodeInserted(i) {
             if (i.target.id === "afui") {
@@ -3232,10 +3240,10 @@
 
 
 
-        if ("AppMobi" in window){ 
-            document.addEventListener("appMobi.device.ready", function() {
+        if ("intel" in window){ 
+            document.addEventListener("intel.xdk.device.ready", function() {
                 that.autoBoot();
-            });
+            },true);
         }
         else if (document.readyState == "complete" || document.readyState == "loaded") {
             if(that.init)
@@ -3243,24 +3251,40 @@
             else{
                 $(window).one("afui:init", function() {
         		  that.autoBoot();  
-			     });
+                });
             }
         } else $(document).ready(function() {
                 if(that.init)
                     that.autoBoot();
                 else{
-				    $(window).one("afui:init", function() {
-                    
-					   that.autoBoot();
-				    });
+                    $(window).one("afui:init", function() {
+                        that.autoBoot();
+                    });
                 }
             }, false);
 
-        if (!("AppMobi" in window)) window.AppMobi = {}, window.AppMobi.webRoot = "";
+        if (!("intel" in window)) window.intel = {xdk:{}}, window.intel.xdk.webRoot = "";
 
+         $(document).ready(function() {
+            //boot touchLayer
+            //create afui element if it still does not exist
+            var afui = document.getElementById("afui");
+            if (afui === null) {
+                afui = document.createElement("div");
+                afui.id = "afui";
+                var body = document.body;
+                while (body&&body.firstChild) {
+                    afui.appendChild(body.firstChild);
+                }
+                $(document.body).prepend(afui);
+            }
+            if ($.os.supportsTouch) $.touchLayer(afui);
+            setupCustomTheme();
+
+        });
         //click back event
         window.addEventListener("popstate", function() {
-
+            if(!that.useInteralRouting) return;
             var id = that.getPanelId(document.location.hash);
             var hashChecker = document.location.href.replace(document.location.origin + "/", "");
             //make sure we allow hash changes outside afui
@@ -3289,20 +3313,11 @@
                 else if ($.os.ios)
                     $("#afui").addClass("ios");
             }
-            //BB 10 hack to work with any theme
-            if ($.os.blackberry||$.os.blackberry10||$.os.playbook)
-            {
-                $("head").find("#bb10VisibilityHack").remove();
-                $("head").append("<style id='bb10VisibilityHack'>#afui .panel {-webkit-backface-visibility:visible  !important}</style>");
+            if($.os.ios){
+                $("head").find("#iosBlurrHack").remove();
+                $("head").append("<style id='iosBlurrHack'>#afui .panel > * {-webkit-backface-visibility: hidden;-webkit-perspective: 1000;}</style>");
             }
-            /** iOS 7 will get blurry if you use the perspective hack, so we remove it */
-            /** @TODO - refactor CSS to not use the perspective hack and move the ios5/6 hacks here */
-            else if($.os.ios7){
-                $("head").find("#ios7BlurrHack").remove();
-                $("head").append("<style id='ios7BlurrHack'>#afui .panel {-webkit-perspective:0  !important}</style>");   
-            }
-            //iOS 7 specific hack */
-
+            
         }
     };
 
@@ -3351,6 +3366,7 @@
         useAutoPressed: true,
         horizontalScroll:false,
         _currentHeaderID:"defaultHeader",
+        useInteralRouting:true,
         autoBoot: function() {
             this.hasLaunched = true;
             if (this.autoLaunch) {
@@ -4205,7 +4221,7 @@
                 jsScroll = true;
                 hasScroll = true;
             }
-            var title=tmp.title;
+            var title=tmp.title||tmp.getAttribute("data-title");
             tmp.title="";
             tmp.setAttribute("data-title",title);
 
@@ -4217,7 +4233,7 @@
                 tmp.removeAttribute("js-scrolling");
             }
 
-            if (!jsScroll) {
+            if (!jsScroll||$.os.desktop) {
                 container.appendChild(tmp);
                 scrollEl = tmp;
                 tmp.style['-webkit-overflow-scrolling'] = "none";
@@ -4606,7 +4622,7 @@
             if (this.activeDiv.id == "afui_ajax" && target == this.ajaxUrl) return;
             var urlHash = "url" + crc32(target); //Ajax urls
             var that = this;
-            if (target.indexOf("http") == -1) target = AppMobi.webRoot + target;
+            if (target.indexOf("http") == -1) target = intel.xdk.webRoot + target;
             var xmlhttp = new XMLHttpRequest();
         
             if (anchor && typeof(anchor) !== "object") {
@@ -4653,7 +4669,7 @@
                     } else {
                         that.updatePanel("afui_ajax", xmlhttp.responseText);
                         $.query("#afui_ajax").get(0).setAttribute("data-title",anchor.title ? anchor.title : target);
-                        that.loadContent("#afui_ajax", newTab, back);
+                        that.loadContent("#afui_ajax", newTab, back, transition);
                         doReturn = true;
                     }
                     //Let's load the content now.
@@ -4667,7 +4683,7 @@
                         return;
                     }
 
-                    that.loadContent("#" + urlHash);
+                    that.loadContent("#" + urlHash, newTab, back, transition);
                     if (that.showLoading) that.hideMask();
                     return null;
                 }
@@ -4710,7 +4726,7 @@
             }
 
             var that = this;
-            this.isIntel = (window.AppMobi && typeof(AppMobi) == "object" && AppMobi.app !== undefined) ? true : false;
+            
             this.viewportContainer = af.query("#afui");
             this.navbar = af.query("#navbar").get(0);
             this.content = af.query("#content").get(0);
@@ -4718,7 +4734,8 @@
             this.menu = af.query("#menu").get(0);
             //set anchor click handler for UI
             this.viewportContainer.on("click", "a", function(e) {
-                checkAnchorClick(e, e.currentTarget);
+                if(that.useInteralRouting)
+                    checkAnchorClick(e, e.currentTarget);
             });
 
 
@@ -4799,7 +4816,7 @@
                 });
                 if ($.feat.nativeTouchScroll) $.query("#menu_scroller").css("height", "100%");
 
-                this.asideMenu = $.create("div", {
+                /*this.asideMenu = $.create("div", {
                     id: "aside_menu",
                     html: '<div id="aside_menu_scroller"></div>'
                 }).get(0);
@@ -4814,7 +4831,9 @@
                     autoEnable: true,
                     lockBounce: this.lockPageBounce
                 });
+
                 if ($.feat.nativeTouchScroll) $.query("#aside_menu_scroller").css("height", "100%");
+                */
             }
 
             if (!this.content) {
@@ -4905,25 +4924,25 @@
                 for (var j in defer) {
                     (function(j) {
                         $.ajax({
-                            url: AppMobi.webRoot + defer[j],
+                            url: intel.xdk.webRoot + defer[j],
                             success: function(data) {
-                                if (data.length === 0) return;
-                                that.updatePanel(j, data);
-                                that.parseScriptTags($.query("#" + j).get(0));
+                                if (data.length > 0) {
+                                    that.updatePanel(j, data);
+                                    that.parseScriptTags($.query("#" + j).get(0));
+                                }
                                 loaded++;
                                 if (loaded >= toLoad) {
-                                    $(document).trigger("defer:loaded");
                                     loadingDefer = false;
-
+                                    $(document).trigger("defer:loaded");
                                 }
                             },
                             error: function(msg) {
                                 //still trigger the file as being loaded to not block $.ui.ready
-                                console.log("Error with deferred load " + AppMobi.webRoot + defer[j]);
+                                console.log("Error with deferred load " + intel.xdk.webRoot + defer[j]);
                                 loaded++;
                                 if (loaded >= toLoad) {
-                                    $(document).trigger("defer:loaded");
                                     loadingDefer = false;
+                                    $(document).trigger("defer:loaded");
                                 }
                             }
                         });
@@ -5003,8 +5022,12 @@
 
                     that.launchCompleted = true;
                     //trigger ui ready
-                    $(document).trigger("afui:ready");
                     $.query("#afui #splashscreen").remove();
+                    //Fix a bug with android dispatching events in the middle of other code execution
+                    setTimeout(function(){
+                        $(document).trigger("afui:ready");
+                    });
+                    
                 };
                 if (loadingDefer) {
                     $(document).one("defer:loaded", loadFirstDiv);
@@ -5118,7 +5141,7 @@
                 if (theTarget.href.toLowerCase().indexOf("javascript:") !== 0) {
                     if ($.ui.isIntel) {
                         e.preventDefault();
-                        AppMobi.device.launchExternal(theTarget.href);
+                        intel.xdk.device.launchExternal(theTarget.href);
                     } else if (!$.os.desktop) {
                         e.target.target = "_blank";
                     }
@@ -5134,7 +5157,7 @@
                 href = href.substring(prefix.length);
             }
             //empty links
-            if (href == "#" || (href.indexOf("#") === href.length - 1) || (href.length === 0 && theTarget.hash.length === 0)) return;
+            if (href == "#" || (href.indexOf("#") === href.length - 1) || (href.length === 0 && theTarget.hash.length === 0)) return e.preventDefault();
 
             //internal links
             e.preventDefault();
@@ -5171,10 +5194,11 @@
 
 
 
-//The following functions are utilitiy functions for afui within appMobi.
+//The following functions are utilitiy functions for afui within intel xdk.
 
 (function() {
-    $(document).one("appMobi.device.ready", function() { //in AppMobi, we need to undo the height stuff since it causes issues.
+    $(document).one("intel.xdk.device.ready", function() { //in intel xdk, we need to undo the height stuff since it causes issues.
+        $.ui.isIntel=true;
         setTimeout(function() {
             document.getElementById('afui').style.height = "100%";
             document.body.style.height = "100%";

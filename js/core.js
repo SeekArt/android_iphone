@@ -238,3 +238,138 @@ List.prototype = {
 		this.add(data);
 	}
 }
+
+
+/**
+* appInit
+
+* @author Aeolus
+* @copyright IBOS
+*/
+var appInit = (function(){
+	var isLogin = false,
+		isInit = false,
+		appUrl = defaultUrl = localStorage.getItem("defaultUrl") ,
+		user = core.getStorage("user"),
+		uid	= localStorage.getItem("uid"),
+		formHash = '';
+	
+	var userData = core.getStorage("ibosUserData");
+	var _isset = true;
+	if(!userData) {
+		_isset = false;
+		userData = {}
+	}
+
+	function init(){
+		if(!appInit.isInit){
+			//初始化完整的路径
+			appInit.appUrl += "/?r=mobile";
+			// $.jsonP({
+				// url: 		appInit.appUrl + '&callback=?',
+				// success: 	checkLogin,
+				// error: 		function(err){	console.log(err)	}
+			// });		
+			appInit.isInit = true;
+		}
+	}
+
+	function login(){
+		var username = $("#username").val(),
+			password = $("#password").val(),
+			gps = $("#gpsInput").val(),
+			address = $("#addressInput").val();
+			
+		//以下登录换用了rpc
+		// doLogin(username,password);		
+		$.jsonP({
+			url: 		appInit.appUrl + '/default/login&callback=?&username=' + username +'& password=' + password + '&gps=' + gps + '&address=' + address + '&issetuser=' + _isset,
+			success: 	function(res){
+				if(res.userData){
+					userData = res.userData;
+					core.setStorage("ibosUserData", res.userData);
+				}
+				checkLogin(res);
+			},
+			error: 		function(err){	
+				$.ui.popup('服务器错误,请检查');
+				console.log(err);
+			}
+		});
+	}
+	//这是用rpc形式请求的登录
+	// function doLogin(a,b){
+		// var client = new HproseHttpClient(appUrl + "/api", ["login"]);
+		// client.login(a,b, function(result) {
+			// $.ui.loadContent('main',false,false,'fade');
+		// });
+		
+	// }
+	
+	function logout(){
+		$.jsonP({
+			url: 		appInit.appUrl + '/default/logout&callback=?&formhash=' + formHash,
+			success: 	checkLogin,
+			error: 		function(err){	console.log(err) }
+		});
+	}
+	
+	function checkLogin(json){
+		if(json.login==true){
+			$.ui.loadContent('main',false,false,'fade');
+			formHash = json.formhash;
+			isLogin = true;
+			appInit.user = json.user;
+			appInit.uid = json.uid;
+			localStorage.setItem("uid", appInit.uid);
+			core.setStorage("user", appInit.user);
+		}else{
+			if(json.msg){
+				$.ui.popup(json.msg);
+			}
+			$.ui.loadContent('login',false,false,'fade');
+			console.log("dfdffffffffffffffffffffff");
+		}
+	}
+
+	function getUserData(){
+		return userData;
+	}
+	function getUser(uid){
+		var datas = userData.datas;
+		for(var i in datas) {
+			if(datas[i].uid == uid) {
+				return datas[i];
+			}
+		}
+		return null;
+	}
+	function getUserName(ids){
+		var argu = ids.split(",");
+		var results = [];
+		for(var i = 0; i < argu.length; i++){
+			var user = getUser(argu[i]);
+			if(user){
+				results.push(user.realname);
+			}
+		}
+		return results.join(",");
+	}
+
+	return {
+		isInit:		isInit,
+		defaultUrl:	defaultUrl,
+		appUrl:		appUrl,
+		uid:		uid,
+		user:		user,
+		init:		init,
+		login:		login,
+		logout:		logout,
+		checkLogin:	checkLogin,
+
+		getUserData: getUserData,
+		getUser: 	getUser,
+		getUserName:getUserName
+	}
+	
+})()

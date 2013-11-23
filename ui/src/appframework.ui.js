@@ -2,7 +2,7 @@
  * appframework.ui - A User Interface library for App Framework applications
  *
  * @copyright 2011 Intel
- * @author AppMobi
+ * @author Intel
  * @version 2.0
  */ (function($) {
     "use strict";
@@ -26,23 +26,7 @@
         this.availableTransitions = {};
         this.availableTransitions['default'] = this.availableTransitions.none = this.noTransition;
         //setup the menu and boot touchLayer
-        $(document).ready(function() {
-            //boot touchLayer
-            //create afui element if it still does not exist
-            var afui = document.getElementById("afui");
-            if (afui === null) {
-                afui = document.createElement("div");
-                afui.id = "afui";
-                var body = document.body;
-                while (body.firstChild) {
-                    afui.appendChild(body.firstChild);
-                }
-                $(document.body).prepend(afui);
-            }
-            if ($.os.supportsTouch) $.touchLayer(afui);
-            setupCustomTheme();
-
-        });
+       
 
         function checkNodeInserted(i) {
             if (i.target.id === "afui") {
@@ -59,10 +43,10 @@
 
 
 
-        if ("AppMobi" in window){ 
-            document.addEventListener("appMobi.device.ready", function() {
+        if ("intel" in window){ 
+            document.addEventListener("intel.xdk.device.ready", function() {
                 that.autoBoot();
-            });
+            },true);
         }
         else if (document.readyState == "complete" || document.readyState == "loaded") {
             if(that.init)
@@ -70,24 +54,40 @@
             else{
                 $(window).one("afui:init", function() {
         		  that.autoBoot();  
-			     });
+                });
             }
         } else $(document).ready(function() {
                 if(that.init)
                     that.autoBoot();
                 else{
-				    $(window).one("afui:init", function() {
-                    
-					   that.autoBoot();
-				    });
+                    $(window).one("afui:init", function() {
+                        that.autoBoot();
+                    });
                 }
             }, false);
 
-        if (!("AppMobi" in window)) window.AppMobi = {}, window.AppMobi.webRoot = "";
+        if (!("intel" in window)) window.intel = {xdk:{}}, window.intel.xdk.webRoot = "";
 
+         $(document).ready(function() {
+            //boot touchLayer
+            //create afui element if it still does not exist
+            var afui = document.getElementById("afui");
+            if (afui === null) {
+                afui = document.createElement("div");
+                afui.id = "afui";
+                var body = document.body;
+                while (body&&body.firstChild) {
+                    afui.appendChild(body.firstChild);
+                }
+                $(document.body).prepend(afui);
+            }
+            if ($.os.supportsTouch) $.touchLayer(afui);
+            setupCustomTheme();
+
+        });
         //click back event
         window.addEventListener("popstate", function() {
-
+            if(!that.useInteralRouting) return;
             var id = that.getPanelId(document.location.hash);
             var hashChecker = document.location.href.replace(document.location.origin + "/", "");
             //make sure we allow hash changes outside afui
@@ -116,20 +116,11 @@
                 else if ($.os.ios)
                     $("#afui").addClass("ios");
             }
-            //BB 10 hack to work with any theme
-            if ($.os.blackberry||$.os.blackberry10||$.os.playbook)
-            {
-                $("head").find("#bb10VisibilityHack").remove();
-                $("head").append("<style id='bb10VisibilityHack'>#afui .panel {-webkit-backface-visibility:visible  !important}</style>");
+            if($.os.ios){
+                $("head").find("#iosBlurrHack").remove();
+                $("head").append("<style id='iosBlurrHack'>#afui .panel > * {-webkit-backface-visibility: hidden;-webkit-perspective: 1000;}</style>");
             }
-            /** iOS 7 will get blurry if you use the perspective hack, so we remove it */
-            /** @TODO - refactor CSS to not use the perspective hack and move the ios5/6 hacks here */
-            else if($.os.ios7){
-                $("head").find("#ios7BlurrHack").remove();
-                $("head").append("<style id='ios7BlurrHack'>#afui .panel {-webkit-perspective:0  !important}</style>");   
-            }
-            //iOS 7 specific hack */
-
+            
         }
     };
 
@@ -178,6 +169,7 @@
         useAutoPressed: true,
         horizontalScroll:false,
         _currentHeaderID:"defaultHeader",
+        useInteralRouting:true,
         autoBoot: function() {
             this.hasLaunched = true;
             if (this.autoLaunch) {
@@ -1032,7 +1024,7 @@
                 jsScroll = true;
                 hasScroll = true;
             }
-            var title=tmp.title;
+            var title=tmp.title||tmp.getAttribute("data-title");
             tmp.title="";
             tmp.setAttribute("data-title",title);
 
@@ -1044,7 +1036,7 @@
                 tmp.removeAttribute("js-scrolling");
             }
 
-            if (!jsScroll) {
+            if (!jsScroll||$.os.desktop) {
                 container.appendChild(tmp);
                 scrollEl = tmp;
                 tmp.style['-webkit-overflow-scrolling'] = "none";
@@ -1433,7 +1425,7 @@
             if (this.activeDiv.id == "afui_ajax" && target == this.ajaxUrl) return;
             var urlHash = "url" + crc32(target); //Ajax urls
             var that = this;
-            if (target.indexOf("http") == -1) target = AppMobi.webRoot + target;
+            if (target.indexOf("http") == -1) target = intel.xdk.webRoot + target;
             var xmlhttp = new XMLHttpRequest();
         
             if (anchor && typeof(anchor) !== "object") {
@@ -1537,7 +1529,7 @@
             }
 
             var that = this;
-            this.isIntel = (window.AppMobi && typeof(AppMobi) == "object" && AppMobi.app !== undefined) ? true : false;
+            
             this.viewportContainer = af.query("#afui");
             this.navbar = af.query("#navbar").get(0);
             this.content = af.query("#content").get(0);
@@ -1545,7 +1537,8 @@
             this.menu = af.query("#menu").get(0);
             //set anchor click handler for UI
             this.viewportContainer.on("click", "a", function(e) {
-                checkAnchorClick(e, e.currentTarget);
+                if(that.useInteralRouting)
+                    checkAnchorClick(e, e.currentTarget);
             });
 
 
@@ -1626,7 +1619,7 @@
                 });
                 if ($.feat.nativeTouchScroll) $.query("#menu_scroller").css("height", "100%");
 
-                this.asideMenu = $.create("div", {
+                /*this.asideMenu = $.create("div", {
                     id: "aside_menu",
                     html: '<div id="aside_menu_scroller"></div>'
                 }).get(0);
@@ -1641,7 +1634,9 @@
                     autoEnable: true,
                     lockBounce: this.lockPageBounce
                 });
+
                 if ($.feat.nativeTouchScroll) $.query("#aside_menu_scroller").css("height", "100%");
+                */
             }
 
             if (!this.content) {
@@ -1732,25 +1727,25 @@
                 for (var j in defer) {
                     (function(j) {
                         $.ajax({
-                            url: AppMobi.webRoot + defer[j],
+                            url: intel.xdk.webRoot + defer[j],
                             success: function(data) {
-                                if (data.length === 0) return;
-                                that.updatePanel(j, data);
-                                that.parseScriptTags($.query("#" + j).get(0));
+                                if (data.length > 0) {
+                                    that.updatePanel(j, data);
+                                    that.parseScriptTags($.query("#" + j).get(0));
+                                }
                                 loaded++;
                                 if (loaded >= toLoad) {
-                                    $(document).trigger("defer:loaded");
                                     loadingDefer = false;
-
+                                    $(document).trigger("defer:loaded");
                                 }
                             },
                             error: function(msg) {
                                 //still trigger the file as being loaded to not block $.ui.ready
-                                console.log("Error with deferred load " + AppMobi.webRoot + defer[j]);
+                                console.log("Error with deferred load " + intel.xdk.webRoot + defer[j]);
                                 loaded++;
                                 if (loaded >= toLoad) {
-                                    $(document).trigger("defer:loaded");
                                     loadingDefer = false;
+                                    $(document).trigger("defer:loaded");
                                 }
                             }
                         });
@@ -1830,8 +1825,12 @@
 
                     that.launchCompleted = true;
                     //trigger ui ready
-                    $(document).trigger("afui:ready");
                     $.query("#afui #splashscreen").remove();
+                    //Fix a bug with android dispatching events in the middle of other code execution
+                    setTimeout(function(){
+                        $(document).trigger("afui:ready");
+                    });
+                    
                 };
                 if (loadingDefer) {
                     $(document).one("defer:loaded", loadFirstDiv);
@@ -1945,7 +1944,7 @@
                 if (theTarget.href.toLowerCase().indexOf("javascript:") !== 0) {
                     if ($.ui.isIntel) {
                         e.preventDefault();
-                        AppMobi.device.launchExternal(theTarget.href);
+                        intel.xdk.device.launchExternal(theTarget.href);
                     } else if (!$.os.desktop) {
                         e.target.target = "_blank";
                     }
@@ -1961,7 +1960,7 @@
                 href = href.substring(prefix.length);
             }
             //empty links
-            if (href == "#" || (href.indexOf("#") === href.length - 1) || (href.length === 0 && theTarget.hash.length === 0)) return;
+            if (href == "#" || (href.indexOf("#") === href.length - 1) || (href.length === 0 && theTarget.hash.length === 0)) return e.preventDefault();
 
             //internal links
             e.preventDefault();
@@ -1998,10 +1997,11 @@
 
 
 
-//The following functions are utilitiy functions for afui within appMobi.
+//The following functions are utilitiy functions for afui within intel xdk.
 
 (function() {
-    $(document).one("appMobi.device.ready", function() { //in AppMobi, we need to undo the height stuff since it causes issues.
+    $(document).one("intel.xdk.device.ready", function() { //in intel xdk, we need to undo the height stuff since it causes issues.
+        $.ui.isIntel=true;
         setTimeout(function() {
             document.getElementById('afui').style.height = "100%";
             document.body.style.height = "100%";

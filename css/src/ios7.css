@@ -17,6 +17,10 @@
     border-bottom:1px solid rgba(158,158,158,255);
 }
 
+#afui.ios7 #header .button {
+    border: 1px solid transparent !important; 
+}
+
 #afui.ios7 #header h1 {
     color:inherit;
     text-shadow:none;
@@ -202,9 +206,10 @@ color:black;
 #afui.ios7 .afPopup {
     display: block;
     border:1px solid rgba(158,158,158,255);
+    border-radius:10px;
     padding:0;
     text-align: center;
-    
+    width:280px;
     position: absolute;
     z-index: 1000000;
     top: 50%;
@@ -214,19 +219,35 @@ color:black;
     align:center;
 }
 
+#afui.ios7 .afPopup>HEADER{
+    padding:10px 0;
+}
+
+#afui.ios7 .afPopup>DIV{
+    font-size:14px;
+    padding-bottom:10px;
+}
+
+#afui.ios7 .afPopup>FOOTER{
+    border-top:1px solid #aaa;
+}
+
 #afui.ios7 .afPopup .button {
     border: none;
     width: 50%;
     margin: 0;
-    border-radius: 0;
     background: transparent;
-    border-top:1px solid rgba(158,158,158,255);
     color:rgba(82,155,234,255);
     padding:12px 0;
 }
 
+#afui.ios7 .afPopup .button.pressed {
+    background: none;
+}
+
 #afui.ios7 .button.pressed {
     font-weight:bold;
+    background: white;
 }
 
 
@@ -236,15 +257,16 @@ color:black;
 }
 
 #afui.ios7 #af_actionsheet {
-    background:white;
+    background-color:transparent;
     color:black;
-    padding-left:0;
-    padding-right:0;
+    padding-left:10px;
+    padding-right:10px;
+    border-top: transparent 1px solid;
+    box-shadow: 0px -1px 2px rgba(0,0,0,0);
 }
 
-#afui.ios7    #af_actionsheet a{
+#afui.ios7 #af_actionsheet a{
     background-image:none;
-    
     text-shadow:none;
     box-shadow:none;
     font-weight:normal;
@@ -252,13 +274,28 @@ color:black;
     border:none;
     -webkit-box-shadow:none;
     color:rgba(82,155,234,255);
-    background:white;
+    background-color:white;
     cursor:pointer;
-    border-radius:5px;
+    border-radius:0px;
+    line-height: 40px;
+    font-size: 20px;
+    margin-bottom: 1px;
 }
 
-#afui.ios7    #af_actionsheet a:not(:last-of-type){
-    border-bottom:1px solid rgba(82,155,234,255);
+#afui.ios7 #af_actionsheet a:first-child{
+    border-top-left-radius:5px;
+    border-top-right-radius:5px;
+}
+
+#afui.ios7 #af_actionsheet a:nth-last-child(2){
+    border-bottom-left-radius:5px;
+    border-bottom-right-radius:5px;
+}
+
+#afui.ios7 #af_actionsheet a.cancel{
+    font-weight:bold;
+    margin: 9px 0;
+    border-radius:5px;
 }
 
 #afui.ios7 #navbar a.pressed,#navbar .icon.pressed:before  {
@@ -267,7 +304,6 @@ color:black;
 
 
 #afui.ios7 .button.previous {
-
     border:none;
 }
 #afui.ios7 .button.next {
@@ -339,14 +375,13 @@ color:black;
 }
 
 #afui.ios7 .button.yellow {
-    color-color:#F1C222;
+    color:#F1C222;
     background-color:transparent;
 }
 
 #afui.ios7 .button.red {
     color:#b20000;
     background-color:transparent;
-    
 }
 
 #afui.ios7 .button.green {
