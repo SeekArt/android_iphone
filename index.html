@@ -61,6 +61,7 @@
 	<script type="text/javascript" charset="utf-8" src="./js/letter.js"></script>
 	<script type="text/javascript" charset="utf-8" src="./js/userselect.js"></script>
 	<script type="text/javascript" charset="utf-8" src="./cordova.js"></script>
+	<script src="PushNotification.js"></script>
 	<script type="text/javascript">
 		/* This function runs once the page is loaded, but appMobi is not yet active */
             //$.ui.animateHeaders=false;
@@ -103,6 +104,8 @@
 			AppMobi.device.hideSplashScreen();
 			$.ui.blockPageScroll(); //block the page from scrolling at the header/footer
 			$.ui.animateHeaders = true;
+			
+			PushNotification.register(function(e){alert("成功了");alert(e);},function(e){alert(e)})
 			
 		};
         document.addEventListener("deviceready", onDeviceReady, false);
