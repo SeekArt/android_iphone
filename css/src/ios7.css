@@ -106,14 +106,14 @@ color:black;
     left: 25px;
     text-overflow: ellipsis;
     font-size: 14px;
-    padding: none;
+    padding: 0;
     text-shadow: none;
     background-color: transparent;
     border:none;
     border-color:none;
     height: 44px;
     top:0;
-    border-radius: none;
+    border-radius: 0;
     box-shadow:none;
     margin: 0;
     padding-left: 0;
@@ -131,9 +131,9 @@ color:black;
     top: 10px;
     left: -20px;
     text-align: center;
-    border-radius: none;
+    border-radius: 0;
     border: none;
-    border-color: none;
+    border-color: transparent;
     box-shadow: none;
     -webkit-transform: none;
     transform: none;
@@ -193,8 +193,7 @@ color:black;
     border-left: 1px solid rgba(82,155,234,255);
     
 }
-#afui.ios7 .button-grouped.vertical >  .button:last-child {
-
+#afui.ios7 .button-grouped.vertical > .button:last-child {
     border-bottom:1px solid rgba(82,155,234,255);
 }
 
@@ -216,7 +215,7 @@ color:black;
     
     color:inherit;
     background:rgba(249,249,249,1);
-    align:center;
+    text-align:center;
 }
 
 #afui.ios7 .afPopup>HEADER{
@@ -270,7 +269,7 @@ color:black;
     text-shadow:none;
     box-shadow:none;
     font-weight:normal;
-    border-radius:none;
+    border-radius:0;
     border:none;
     -webkit-box-shadow:none;
     color:rgba(82,155,234,255);
@@ -319,9 +318,9 @@ color:black;
     top: 2px;
     left: -25px;
     text-align: center;
-    border-radius: none;
+    border-radius: 0;
     border: none;
-    border-color: none;
+    border-color: transparent;
     box-shadow: none;
     -webkit-transform: none;
     transform: none;
@@ -348,9 +347,9 @@ color:black;
     top: 6px;
     right: -25px;
     text-align: center;
-    border-radius: none;
+    border-radius: 0;
     border: none;
-    border-color: none;
+    border-color: transparent;
     box-shadow: none;
     -webkit-transform: none;
     transform: none;

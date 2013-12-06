@@ -1,18 +1,21 @@
 <div class="chat" id="smsView">
 </div>
-
+<form id="formPm" action="<%=appInit.appUrl%>/pm/postimg" method="post" target="hidden_frame" enctype="multipart/form-data">
+	<input id="pm_img" name="pmimage" style="display:none;" type="file"/>
+	<input id="pm_touid" name="pmtouid" style="display:none;" type="text" value="0"/>
+	<input id="pm_id" name="pmid" style="display:none;" type="text" value="0"/>
+</form>
 <textarea id="smsViewTpl" style="display:none;">
 	<%if(mtime-Sms.prevTime>60 && core.toDatetime(mtime) != core.toDatetime(Sms.prevTime)){%><div class="time"> <%=core.toDatetime(mtime)%></div><%}%>
 	<div class="chat-item <%if(fromuid==appInit.uid){%>chat-item-right<%}%>">
 		<div class="avatar">
-			<img src="<%=appInit.defaultUrl%><%=avatar_small%>" alt="">
+			<img src="<%=appInit.defaultUrl%>/<%=avatar_small%>" alt="">
 		</div>
 		<div class="chat-bubble <%if(fromuid==appInit.uid){%>gray<%}%>">
 			<%=content%>
 		</div> 
 	</div>
 </textarea>
-
 
 <footer>
 	<div class="input-toolbar">
@@ -24,11 +27,11 @@
 	</div>
 	<div class="opt-panel">
 		<ul class="opt-list">
-			<li>
+			<li onClick=" appSdk.camera.getImage(function(imageData){ $('#pm_img').val(imageData);$('#formPm').submit(); }); ">
 				<i class="o-picture"></i>
 				<p>图片</p>
 			</li>
-			<li>
+			<li onClick=" appSdk.camera.getPhoto(function(imageData){ $('#pm_img').val(imageData);$('#formPm').submit(); }); ">
 				<i class="o-camera"></i>
 				<p>拍照</p>
 			</li>

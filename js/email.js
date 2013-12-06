@@ -58,7 +58,6 @@ var Email = (function(){
 		}else{
 			list.set(json.datas);
 		}
-		
 		$("#readMoreMail").remove();
 		if( json.pages.pageCount > mailPage ){
 			$target.append('<li id="readMoreMail" class="list-more"><a onclick="Email.loadList(0,'+( mailPage + 1) +')">加载更多</a></li>');

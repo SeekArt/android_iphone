@@ -149,7 +149,7 @@ input.toggle:checked+label:before {
     left: 5px;
     width: 42px;
     text-align: left;
-    z-index: 3px;
+    z-index: 3;
     top: 3px;
     overflow: hidden;
     background-color: transparent;

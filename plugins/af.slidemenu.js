@@ -18,10 +18,15 @@
         var elems = $("#content, #header, #navbar");
         var $menu = $("#menu");
         var max = $("#menu").width();
-        var slideOver = max/3;
+        var slideOver = max/2;
         var menuState;
         var transTime = $.ui.transitionTime;
         $.ui.toggleSideMenu(false, null, 0);
+		
+		if (window.innerWidth >= $.ui.fixedSideMenuWidth)
+			doMenu = false,keepOpen=true;
+		else
+			doMenu = true,keepOpen=false;
 
         window.addEventListener("resize", function(e) {
             max = $("#menu").width();
@@ -30,19 +35,11 @@
         $("#afui").bind("touchstart", function(e) {
             startX = e.touches[0].pageX;
             startY = e.touches[0].pageY;
-
+			
             checking = false;
-            doMenu=false;
-            keepOpen=false;
-            if (window.innerWidth >= $.ui.fixedSideMenuWidth)
-                doMenu = false,keepOpen=true;
-            else
-                doMenu = true;
-            max = $("#menu").width();
             menuState = $menu.css("display") == "block";
         });
         $("#afui").bind("touchmove", function(e) {
-
             if (!$.ui.isSideMenuEnabled()) return true;
             if (!$.ui.slideSideMenu||keepOpen) return true;
             dx = e.touches[0].pageX;
@@ -51,7 +48,7 @@
             if (menuState && dx > startX) return true;
             if (dx-startX > max) return true;
             if (startX-dx > max) return true;
-            if (Math.abs(dy - startY) > Math.abs(dx - startX)) return true;
+            if (Math.abs(dy - startY) > Math.abs(dx - startX) || Math.abs(dy - startY)>100) return true;
             
             if (!checking) {
                 checking = true;

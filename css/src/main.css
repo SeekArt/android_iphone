@@ -7,7 +7,7 @@
 	-webkit-tap-highlight-color:rgba(0, 0, 0, 0); /* set highlight color for user interaction */
 	-moz-tap-highlight-color:rgba(0, 0, 0, 0); /* set highlight color for user interaction */
 	-ms-touch-action:none;
-	-moz-user-select:-moz-none
+	-moz-user-select:-moz-none;
 	-webkit-touch-callout: none; /* prevent the popup menu on any links*/
 	margin:0;
 	padding:0;
@@ -101,11 +101,11 @@ body {
 	-webkit-box-sizing:border-box; box-sizing:border-box;
 	height:44px;
     left:0; right:0;
-	background-color:#889BB3;
+/*	background-color:#889BB3;
 	background-image:-ms-linear-gradient(top, #B3BECD 0%, #889BB3 50%, #6E84A2 51%);
 	background-image:-webkit-gradient(linear, left top, left bottom, color-stop(0, #B3BECD), color-stop(.5, #889BB3), color-stop(.51, #6E84A2));
 	background-image:-webkit-linear-gradient(top, #B3BECD 0%, #889BB3 50%, #6E84A2 51%);
-	background-image:linear-gradient(to bottom, #B3BECD 0%, #889BB3 50%, #6E84A2 51%);
+	background-image:linear-gradient(to bottom, #B3BECD 0%, #889BB3 50%, #6E84A2 51%);*/
 	border: 1px solid;
 	border-color:#CCD2DA transparent #2D3033 transparent;
 } /* This is masthead bar that appears at the top of the UI */
@@ -180,11 +180,11 @@ body {
 	z-index:1000;
 	height:49px;
 	background-color:#000;
-	background-image:-ms-linear-gradient(top, #222 0%, #111 50%, #000 51%);
+/*	background-image:-ms-linear-gradient(top, #222 0%, #111 50%, #000 51%);
 	background-image:-webkit-gradient(linear, left top, left bottom, color-stop(0, #222), color-stop(0.5, #111), color-stop(.51, #000));
 	background-image:-webkit-linear-gradient(top, #222 0%, #111 50%, #000 51%);
 	background-image:linear-gradient(to bottom, #222 0%, #111 50%, #000 51%);
-	box-shadow:0 1px 0 #555 inset;
+	box-shadow:0 1px 0 #555 inset;*/
 	display:block;
 	left:0;
 	right:0;
@@ -195,8 +195,8 @@ body {
 #navbar a {
 	-webkit-box-sizing:border-box;
 	box-sizing: border-box;
-	top: 3px;
-	height: 43px;
+	top: 1px;
+	height: 44px;
 	overflow: hidden;
 	font-size:12px;
 	font-weight:normal;
@@ -384,12 +384,12 @@ h2 {
 .spin  {
 	-webkit-transform: rotate(360deg);
 	-webkit-animation-name: spin;
-	-webkit-animation-duration: 1s;
-	-webkit-animation-iteration-count:  infinite;
+	-webkit-animation-duration: 5s;
+	-webkit-animation-iteration-count:  2;
 }
 @-webkit-keyframes spin {
 	from {-webkit-transform: rotate(0deg);}
-  	to {-webkit-transform: rotate(360deg);}
+  	to {-webkit-transform: rotate(7200deg);}
 }
 
 .ui-icon-loading {

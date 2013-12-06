@@ -53,6 +53,7 @@
 	<script type="text/javascript" charset="utf-8" src="./plugins/af.slidemenu.js"></script>
 	<script type="text/javascript" charset="utf-8" src="./plugins/af.template.js"></script>
 	
+	
 	<script type="text/javascript" charset="utf-8" src="./js/LAB.js"></script>
 	<script type="text/javascript" charset="utf-8" src="./js/core.js"></script>
 	<script type="text/javascript" charset="utf-8" src="./js/function.js"></script>
@@ -60,7 +61,6 @@
 	<script type="text/javascript" charset="utf-8" src="./js/letter.js"></script>
 	<script type="text/javascript" charset="utf-8" src="./js/userselect.js"></script>
 	<script type="text/javascript" charset="utf-8" src="./cordova.js"></script>
-	
 	<script type="text/javascript">
 		/* This function runs once the page is loaded, but appMobi is not yet active */
             //$.ui.animateHeaders=false;
@@ -82,14 +82,20 @@
 		$.ui.resetScrollers=false;
 		
 		$(document).ready(function(){
-				$.ui.setSideMenuWidth($("#afui").width()-50);
-				$.ui.launch();
-				//屏蔽没侧栏的页面划动
-				$("[data-nav=none]").bind("touchstart", function(e) { e.stopPropagation()});
+			$.ui.setSideMenuWidth($("#afui").width()-50);
+			$.ui.launch();
+			//屏蔽没侧栏的页面划动
+			$("[data-nav=none]").bind("touchstart", function(e) { e.stopPropagation()});
+			$("[data-nav=none]").bind("touchmove", function(e) { e.stopPropagation()});		
+			$("[data-nav=none]").bind("touchend", function(e) { e.stopPropagation()});
+			appInit.init();  // 初始化我的数据
 		});
 		
 		/* This code is used to run as soon as appMobi activates */
-		var onDeviceReady = function () {
+		var onDeviceReady = function () {			
+			if ($.os.ios7) {
+				document.body.style.marginTop = "20px"; //如果是ios7则顶部预留出20像素
+			}			
 			AppMobi.device.setRotateOrientation("portrait");
 			AppMobi.device.setAutoRotate(false);
 			webRoot = AppMobi.webRoot + "";
@@ -98,9 +104,8 @@
 			$.ui.blockPageScroll(); //block the page from scrolling at the header/footer
 			$.ui.animateHeaders = true;
 			
-			appInit.init();  // 初始化我的数据
 		};
-            document.addEventListener("intel.xdk.device.ready", onDeviceReady, false);
+        document.addEventListener("deviceready", onDeviceReady, false);
 	</script>
 </head>
 <body>
@@ -139,18 +144,22 @@
 					</a><a href="#doc" data-transition="pop">
 						<i class="item-ico ico-doc"></i>
 						公文
+					</a><a href="#more" data-transition="pop">
+						<i class="item-ico ico-more"></i>
+						添加更多
 					</a>
 				</div>
 			</div>
 		<!---------------------------------------------->
-			<div title="消息中心" id="msg" class="panel" data-tab="navbar_msg" data-nav="none" data-header="header_msg" data-defer="msg.html" data-load="loadMsg"></div>
-			<div title="私信" id="sms" class="panel" data-tab="navbar_msg" data-nav="none" data-header="header_sms" data-defer="sms.html" data-load="loadSms"></div>
+			<div title="消息中心" id="msg" class="panel" data-tab="navbar_msg" data-nav="none" data-header="header_msg" data-defer="msg.html" data-load="loadMsg">
+		<a href="#msg">ggggggggg</a></div>
+			<div title="私信" id="sms" class="panel" data-tab="navbar_msg" data-nav="none" data-header="header_msg" data-defer="sms.html" data-load="loadSms"></div>
 			<div title="私信" id="sms_view" class="panel" data-tab="navbar_msg" data-nav="none" data-defer="sms_view.html" data-unload="cleartime"></div>
 		<!---------------------------------------------->
 			<div title="企业微博" id="weibo" class="panel" data-tab="navbar_weibo" data-header="header_weibo" data-defer="weibo.html"></div>
 		<!---------------------------------------------->
 			<div title="个人设置" id="setting" class="panel" data-tab="navbar_setting" data-header="header_setting" data-defer="setting.html" data-load="loadSetting"></div>
-			<div title="个人资料" id="setting_profile" class="panel" data-tab="navbar_setting" data-defer="setting_profile.html"></div>
+			<div title="个人资料" id="setting_profile" class="panel" data-tab="navbar_setting" data-footer="none" data-defer="setting_profile.html"></div>
 			
 		<!---------------------------------------------->
 			<div title="网络设置" id="netSetting" class="panel" data-load="showNetList" data-footer="none" data-nav="none" data-defer="net.html"></div>
@@ -192,6 +201,7 @@
 			<div title="用户选择2" id="mail_selector" class="panel" data-header="header_selector" data-footer="none" data-defer="mail_selector.html"></div>
 
 			<div title="登录" id="login" class="panel indexbg" data-defer="login.html" selected="true" data-footer="none" data-nav="none" data-load="loadLogin" data-unload="unloadLogin" style="overflow:hidden;"></div>
+			<div title="添加更多" id="more" class="panel mainbg" data-nav="none" ></div>
 		<!---------------------------------------------->
 	</div>		
 	<!---------------------------------------------->
@@ -211,14 +221,14 @@
 			<a href="javascript:;" onclick="Email.markMail()">
 				<i class="o-mark"></i>
 			</a>
-			<a href="#" class="">
-				<i class="o-reply" onclick="Email.replyMail()"></i>
+			<a href="#" onclick="Email.replyMail()">
+				<i class="o-reply"></i>
 			</a>
-			<a href="javascript:;">
-				<i class="o-reply-all" onclick="Email.replyAll()"></i>
+			<a href="javascript:;" onclick="Email.replyAll()">
+				<i class="o-reply-all"></i>
 			</a>
-			<a href="javascript:;">
-				<i class="o-delete" onclick="Email.deleteMail()"></i>
+			<a href="javascript:;" onclick="Email.deleteMail()">
+				<i class="o-delete"></i>
 			</a>
 		<!-- </div> -->
 	</footer>
@@ -266,26 +276,9 @@
 		<h1>我的日程</h1>
 		<a onclick="$.ui.goBack();" class='button ao-home'></a>
 	</header>
-	<header id="header_msg">
-		<div class="tab-group header-tab">
-			<a href="#sms" data-transition="none">
-				<i class="o-msg-personal"></i>
-			</a>
-			<a href="#msg" class="active" data-transition="none">
-				<i class="o-msg-system"></i>
-			</a>
-		</div>
-	</header>
 	<!-- Header: 消息中心 -->
-	<header id="header_sms">
-		<div class="tab-group header-tab">
-			<a href="#sms" class="active" data-transition="none">
-				<i class="o-msg-personal"></i>
-			</a>
-			<a href="#msg" data-transition="none">
-				<i class="o-msg-system"></i>
-			</a>
-		</div>
+	<header id="header_msg">
+		<h1>消息中心</h1>
 		<a href="javascript:;" class="button ao-edit" onclick="Sms.addSms()"></a>
 	</header>
 	<header id="header_weibo">

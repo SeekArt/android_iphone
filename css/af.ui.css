@@ -1,5 +1,6 @@
 /*src/main.css*/
-/**********************************************************
+
+/**********************************************************
 	GENERAL UI ELEMENTS
 **********************************************************/
 
@@ -8,7 +9,7 @@
 	-webkit-tap-highlight-color:rgba(0, 0, 0, 0); /* set highlight color for user interaction */
 	-moz-tap-highlight-color:rgba(0, 0, 0, 0); /* set highlight color for user interaction */
 	-ms-touch-action:none;
-	-moz-user-select:-moz-none
+	-moz-user-select:-moz-none;
 	-webkit-touch-callout: none; /* prevent the popup menu on any links*/
 	margin:0;
 	padding:0;
@@ -589,8 +590,10 @@ body {
       }
 }
 
-/*src/appframework.css*/
-/* blue #0190d6
+
+/*src/appframework.css*/
+
+/* blue #0190d6
 
  */
 
@@ -626,14 +629,14 @@ body {
     left: 25px;
     text-overflow: ellipsis;
     font-size: 14px;
-    padding: none;
+    padding: 0;
     text-shadow: none;
     background-color: transparent;
     border:none;
-    border-color:none;
+    border-color: transparent;
     height: 44px;
     top:0;
-    border-radius: none;
+    border-radius: 0;
     box-shadow:none;
     margin: 0;
     padding-left: 0;
@@ -651,7 +654,7 @@ body {
     top: 10px;
     left: -20px;
     text-align: center;
-    border-radius: none;
+    border-radius: 0;
     border: none;
     border-color: none;
     box-shadow: none;
@@ -674,8 +677,7 @@ body {
 
 }
 
-
- #afui > #navbar {
+#afui > #navbar {
      background:#0088D1;
     border:none;
     border-top:1px solid #0088D1;
@@ -823,7 +825,7 @@ body {
     top: 2px;
     left: -25px;
     text-align: center;
-    border-radius: none;
+    border-radius: 0;
     border: none;
     border-color: none;
     box-shadow: none;
@@ -844,7 +846,7 @@ body {
     background-color: transparent;
 }
 #afui .button.next::after {
-   color:black;
+    color:black;
 
     z-index: -1;
     font-size:22px;
@@ -852,7 +854,7 @@ body {
     top: 6px;
     right: -25px;
     text-align: center;
-    border-radius: none;
+    border-radius: 0;
     border: none;
     border-color: none;
     box-shadow: none;
@@ -908,8 +910,10 @@ body {
 }
 
 
-/*src/lists.css*/
-#afui .list {
+
+/*src/lists.css*/
+
+#afui .list {
   margin: 0px;
   padding: 0px;
   margin-bottom: 10px;
@@ -986,8 +990,10 @@ body {
   border-bottom: none;
 }
 
-/*src/forms.css*/
-#afui select,
+
+/*src/forms.css*/
+
+#afui select,
 #afui textarea,
 #afui input[type="text"],
 #afui input[type=search],
@@ -1142,7 +1148,7 @@ body {
   left: 5px;
   width: 42px;
   text-align: left;
-  z-index: 3px;
+  z-index: 3;
   top: 3px;
   overflow: hidden;
   background-color: transparent;
@@ -1216,8 +1222,10 @@ body {
   margin: 16px 0 8px;
 }
 
-/*src/buttons.css*/
-#afui .button {
+
+/*src/buttons.css*/
+
+#afui .button {
 	position:relative;
 	display:inline-block;
 	padding:8px 12px;
@@ -1409,8 +1417,10 @@ body {
 
 
 
-/*src/badges.css*/
-#afui .af-badge {
+
+/*src/badges.css*/
+
+#afui .af-badge {
 	position:absolute;
 	top:2px; right:2px;
 	display:inline-block;
@@ -1434,7 +1444,8 @@ body {
 #afui .af-badge.tl { top:2px; left:2px; right:auto; bottom:auto; }
 
 
-/*src/grid.css*/
+
+/*src/grid.css*/
 
 #afui .grid {
   width: 100%;
@@ -1470,8 +1481,10 @@ body {
   }
 }
 
-/*../plugins/css/af.actionsheet.css*/
-#af_actionsheet {
+
+/*../plugins/css/af.actionsheet.css*/
+
+#af_actionsheet {
     position:absolute;
     left:0px;
     right:0px;
@@ -1530,7 +1543,8 @@ body {
      background-color:rgba(255,0,0,1); 
 }
 
-/*../plugins/css/af.popup.css*/
+
+/*../plugins/css/af.popup.css*/
 
 
 BODY>DIV#mask{
@@ -1612,20 +1626,24 @@ color:inherit;
     margin:8px;
 }
 
-/*../plugins/css/af.scroller.css*/
-/** This can be your default scrollbar class.  You must use !important to override the default inline styles */
+
+/*../plugins/css/af.scroller.css*/
+
+/** This can be your default scrollbar class.  You must use !important to override the default inline styles */
 .scrollBar { 
    position:absolute !important;
    width:5px !important;
    height:20px !important;
    border-radius:2px !important;
-   border:1px soldid black !important;
+   border:1px solid black !important;
    background:black !important;
    opacity:0 !important;
 }
 
-/*../plugins/css/af.selectbox.css*/
-	#afModalMask {
+
+/*../plugins/css/af.selectbox.css*/
+
+	#afModalMask {
 		position:absolute;
 		top:0px;
 		left:0px;
@@ -1720,8 +1738,10 @@ color:inherit;
 		color:black;
 	}
 
-/*src/android.css*/
-/* Bg #33B5E5
+
+/*src/android.css*/
+
+/* Bg #33B5E5
 
 /* Font header #C6C6C6
  * reg white-space:
@@ -1852,7 +1872,7 @@ color:inherit;
 }
 
 #afui.android > #menu {
-    border-right:none;
+    border-right:1px solid rgba(128,128,128,0.5);
 	color:inherit;
 	background:inherit;
 }
@@ -1930,7 +1950,7 @@ color:inherit;
     border-radius: 0;
     -webkit-transform:none;
     transform:none;
-    --webkit-transition: none;
+    -webkit-transition: none;
     transition:none;
     position: absolute;
     z-index: 1000000;
@@ -1999,8 +2019,10 @@ color:inherit;
 }
 
 
-/*src/win8.css*/
-/* Bg #00ABA9
+
+/*src/win8.css*/
+
+/* Bg #00ABA9
 
 /* Font header #C6C6C6
  * reg white-space:
@@ -2245,7 +2267,7 @@ color:inherit;
 }
 
 #afui.win8 > #menu {
-  border-right:none;
+    border-right:1px solid rgba(128,128,128,0.5);
 	color:inherit;
 	background:inherit;
 }
@@ -2334,7 +2356,7 @@ margin-left:10px;
     border-radius: 0;
     -webkit-transform:none;
     transform:none;
-    --webkit-transition: none;
+    -webkit-transition: none;
     transition:none;
     position: absolute;
     z-index: 1000000;
@@ -2426,8 +2448,10 @@ margin-left:10px;
   }
 }
 
-/*src/bb.css*/
-#afui.bb {
+
+/*src/bb.css*/
+
+#afui.bb {
     font-family: "Slate Pro",Slate,"Myriad Pro","BBAlpha Sans",Helvetica;
     font-size: 12pt;
 }
@@ -2461,15 +2485,15 @@ border-color:#009CE1 transparent #004E92 transparent;
     left: 5px;
     text-overflow: ellipsis;
     font-size: 10px;
-    padding: none;
+    padding: 0;
     color: #fff;
     text-shadow: none;
     background-color: transparent;
     border:none;
-    border-color:none;
+    border-color: transparent;
     height: 44px;
     top:0;
-    border-radius: none;
+    border-radius: 0;
     box-shadow:none;
     margin: 0;
     padding-left: 0;
@@ -2487,7 +2511,7 @@ border-color:#009CE1 transparent #004E92 transparent;
     top: -15px;
     left: 15px;
     text-align: center;
-    border-radius: none;
+    border-radius: 0;
     border: none;
     border-color: none;
     box-shadow: none;
@@ -2526,7 +2550,7 @@ border-color:#009CE1 transparent #004E92 transparent;
     background: #0aa9dc;
     margin:auto;
     text-align: center;
-    border-radius: none;
+    border-radius: 0;
     border: none;
     border-color: none;
     box-shadow: none;
@@ -2568,7 +2592,7 @@ color: white;
 }
 
 #afui.bb #menu {
-    border-right:none;
+    border-right:1px solid #bbb;
     background: #fff;
     color: #000;
 }
@@ -2670,8 +2694,10 @@ color: white;
     color:#111;
 }
 
-/*src/ios7.css*/
-/** iOS 7 theme */
+
+/*src/ios7.css*/
+
+/** iOS 7 theme */
 
 /** Blue color color:rgba(82,155,234,255); */
 
@@ -2730,7 +2756,7 @@ color: white;
 }
 
 #afui.ios7 > #menu {
-    border-right:none;
+    border-right:1px solid #bbb;
     background:rgba(238,238,238,255);
      color:black;
 }
@@ -2779,14 +2805,14 @@ color:black;
     left: 25px;
     text-overflow: ellipsis;
     font-size: 14px;
-    padding: none;
+    padding: 0;
     text-shadow: none;
     background-color: transparent;
     border:none;
-    border-color:none;
+    border-color: transparent;
     height: 44px;
     top:0;
-    border-radius: none;
+    border-radius: 0;
     box-shadow:none;
     margin: 0;
     padding-left: 0;
@@ -2804,7 +2830,7 @@ color:black;
     top: 10px;
     left: -20px;
     text-align: center;
-    border-radius: none;
+    border-radius: 0;
     border: none;
     border-color: none;
     box-shadow: none;
@@ -2849,10 +2875,10 @@ color:black;
     border-top: 1px solid rgba(82,155,234,255);
 
 }
-#afui.ios7 .button-grouped >  .button:first-child {
+#afui.ios7 .button-grouped > .button:first-child {
     border-left: 1px solid rgba(82,155,234,255);
 }
-#afui.ios7  .button-grouped >.button:last-child {
+#afui.ios7 .button-grouped >.button:last-child {
     
 }
 
@@ -2862,11 +2888,11 @@ color:black;
     border-top: 1px solid rgba(82,155,234,255);
 }
 
-#afui.ios7  .button-grouped.vertical > .button:first-child {
+#afui.ios7 .button-grouped.vertical > .button:first-child {
     border-left: 1px solid rgba(82,155,234,255);
     
 }
-#afui.ios7 .button-grouped.vertical >  .button:last-child {
+#afui.ios7 .button-grouped.vertical > .button:last-child {
 
     border-bottom:1px solid rgba(82,155,234,255);
 }
@@ -2889,7 +2915,7 @@ color:black;
     
     color:inherit;
     background:rgba(249,249,249,1);
-    align:center;
+    text-align:center;
 }
 
 #afui.ios7 .afPopup>HEADER{
@@ -2992,7 +3018,7 @@ color:black;
     top: 2px;
     left: -25px;
     text-align: center;
-    border-radius: none;
+    border-radius: 0;
     border: none;
     border-color: none;
     box-shadow: none;
@@ -3021,7 +3047,7 @@ color:black;
     top: 6px;
     right: -25px;
     text-align: center;
-    border-radius: none;
+    border-radius: 0;
     border: none;
     border-color: none;
     box-shadow: none;
@@ -3083,8 +3109,10 @@ color:black;
     font-size:12px;
 }
 
-/*src/ios.css*/
-/* iOS theme */
+
+/*src/ios.css*/
+
+/* iOS theme */
 #afui.ios {
     color:black;
 }
@@ -3141,7 +3169,7 @@ color:black;
 
 
 #afui.ios > #menu.tabletMenu {
-   border-right:none;
+    border-right:none;
     background:#000;
     color:#fff;
 }
@@ -3305,4 +3333,4 @@ color:white;
     text-shadow:0 -1px 0 #000;
 }
 
-
+

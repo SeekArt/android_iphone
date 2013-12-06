@@ -88,6 +88,20 @@ var Sms = (function(){
 		if(Sms.timeout) window.clearTimeout(Sms.timeout)
 		Sms.timeout = setTimeout(Sms.loadSms,1500,smsId,sinceId); 
 	}
+	/**
+	* 设置聊天面板
+	*
+	*/
+	function setPanel(id){
+		if(typeof id == 'undefined'){
+			id = smsId;
+		}
+		if(id!=0){		
+			$("pm_id").val(id);
+		}
+		$("pm_touid").val(_newSms.id);
+		$("formPm").attr("action",appInit.appUrl+"/pm/postimg");
+	}
 	function send(){
 		
 		var id = smsId,
@@ -131,6 +145,7 @@ var Sms = (function(){
 		loadSms:		loadSms,
 		showList: 		showList,
 		showSms:		showSms,
+		setPanel:		setPanel,
 		send:			send,
 		addSms:         addSms
 	}

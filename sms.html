@@ -6,11 +6,11 @@
 						<%if(lastmessage["touid"][0] == appInit.uid){%>
 							<img src="<%=appInit.defaultUrl%><%=lastmessage["user"]["avatar_small"]%>" alt="">
 						<%}else{%>
-							<img src="<%=appInit.defaultUrl%><%=touserinfo[lastmessage["touid"][0]]["avatar_middle"]%>" alt="">
+							<img src="<%=appInit.defaultUrl%>/<%=touserinfo[lastmessage["touid"][0]]["avatar_middle"]%>" alt="">
 						<%}%>
 						</div>
 						<time>2013年8月28日</time>
-						<a href="#sms_view" onclick="Sms.loadSms(<%=listid%>)">
+						<a href="#sms_view" onclick="Sms.loadSms(<%=listid%>);sms.setpanel(<%=listid%>)">
 						<%if(lastmessage["touid"][0] == appInit.uid){%>
 							<p><%=lastmessage["user"]["realname"]%> </p>
 						<%}else{%>

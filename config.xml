@@ -1,15 +1,27 @@
-<?xml version="1.0" encoding="utf-8" standalone="no"?>
-<widget appId="11163876" channelCode="000" height="480" pid="" sreensize="4.5" version="00.01.0000" viewmode="application" widgetId="" width="320">
-<name>IBOS平台</name>
-<description/>
-<author email=""> </author>
-<icon src="icon.png"/>
-<license href=""/>
-<content encoding="utf-8" src="index.html"/>
-<updateurl/>
-<logserverip>192.168.1.7</logserverip> 
-<showmyspace>false</showmyspace>
-<obfuscation>false</obfuscation>
-<bgcolor/>
-<orientation>15</orientation>
+<?xml version="1.0" encoding="UTF-8"?>
+<widget xmlns = "http://www.w3.org/ns/widgets"
+    xmlns:gap = "http://phonegap.com/ns/1.0"
+	width="320" height="480" 
+    id = "cn.com.ibos.push" 
+    version = "0.1.0"> <!-- 注释：应用唯一ID --> <!-- 注释：应用版本-->
+    <name>移动Web开发社区</name><!-- 注释：应用名称，显示在移动终端桌面上和应用Logo一起 -->
+    <description><!-- 注释：应用描述 -->
+        IBOS推送测试
+    </description>
+    <author href="http://www.ibos.com.cn" email="Aeolus@ibos.com.cn"> 
+        Aeolus <!-- 注释：作者信息 -->
+    </author>
+    <gap:platforms> <!-- 注释：支持平台 -->
+        <gap:platform name="android" minVersion="2.1" />
+        <gap:platform name="webos" />
+        <gap:platform name="symbian.wrt" />
+        <gap:platform name="blackberry" project="widgets"/>
+    </gap:platforms>
+    <icon src="res/icon/ios/icon-57-2x.png" gap:role="default" /> <!-- 注释：应用Logo，显示在移动终端桌面上和应用名称一起 -->
+    <gap:splash src="res/screen/ios/screen-iphone-portrait-568h-2x.png"/> <!-- 注释： 程序启动时显示图像-->
+    <!--  程序需使用的Anbdroid权限
+    <feature name="http://api.phonegap.com/1.0/geolocation"/>
+    <feature name="http://api.phonegap.com/1.0/network"/>
+    -->
+	<gap:plugin name="com.phonegap.plugins.pushplugin" />
 </widget>

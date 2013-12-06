@@ -97,10 +97,10 @@ textarea::-webkit-input-placeholder {
 /* Header */
 #afui.ibos > #header{
 	box-shadow: 0 2px 2px rgba(0, 0, 0, .2);
-	background-color: #249CD5;
-	background-image: -ms-linear-gradient(top, #249CD5, #1D89CD);
+	background-color: rgba(36,156,213,0.95);/*background-color: #249CD5;*/
+/*	background-image: -ms-linear-gradient(top, #249CD5, #1D89CD);
 	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #249CD5), color-stop(1, #1D89CD));
-	background-image: -webkit-linear-gradient(top, #249CD5, #1D89CD);
+	background-image: -webkit-linear-gradient(top, #249CD5, #1D89CD);*/
 	background-image: linear-gradient(to bottom, #249CD5 , #1D89CD);
 	border-color: #249CD5 transparent #0B73BB transparent;
 }
@@ -110,15 +110,18 @@ textarea::-webkit-input-placeholder {
 
 /* Navbar */
 #afui.ibos > #navbar{
-	box-shadow: 0 1px 0 #818488 inset;
-	background-color: #3F4246;
-	background-image: -ms-linear-gradient(top, #4B4F54 60%, #3F4246);
+/*	box-shadow: 0 1px 0 #818488 inset;*/
+	background-color: #4B4F54;
+/*	background-image: -ms-linear-gradient(top, #4B4F54 60%, #3F4246);
 	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(.6, #4B4F54), color-stop(1, #3F4246));
 	background-image: -webkit-linear-gradient(top, #4B4F54 60%, #3F4246);
-	background-image: linear-gradient(to bottom, #4B4F54 60%, #3F4246);
+	background-image: linear-gradient(to bottom, #4B4F54 60%, #3F4246);*/
 	border-bottom: 1px solid #65686B;
-	border-top-color: #383C41;
+	border-top-color: #3F4246;
 	padding: 0 1px;
+}
+#afui #navbar footer{
+	border-top: 1px solid #818488;
 }
 #afui.ibos > #navbar > a{
 	border-left: 1px solid #383C41;
@@ -129,7 +132,7 @@ textarea::-webkit-input-placeholder {
 #afui.ibos > #navbar a.pressed,
 #afui.ibos > #navbar a:active{
 	border-radius: 0;
-	top: 2px;
+	top: 1px;
 	height: 44px;
 	background-color: #383C41;
 	box-shadow: 0 5px 13px rgba(56, 60, 65, .24) inset;
@@ -168,46 +171,52 @@ textarea::-webkit-input-placeholder {
 
 #afui.ibos .button.orange{
 	background-color: #EE8C0C;
-	background-image: -ms-linear-gradient(top, #EE8C0C, #EB750A);
+/*	background-image: -ms-linear-gradient(top, #EE8C0C, #EB750A);
 	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #EE8C0C), color-stop(1, #EB750A));
 	background-image: -webkit-linear-gradient(top, #EE8C0C, #EB750A);
-	background-image: linear-gradient(to bottom, #EE8C0C, #EB750A);
+	background-image: linear-gradient(to bottom, #EE8C0C, #EB750A);*/
 }
 #afui.ibos .button.orange:active{
 	background-color: #EB750A;
-	background-image: -ms-linear-gradient(top, #EB750A, #EC800B);
+/*	background-image: -ms-linear-gradient(top, #EB750A, #EC800B);
 	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #EB750A), color-stop(1, #EC800B));
 	background-image: -webkit-linear-gradient(top, #EB750A, #EC800B);
-	background-image: linear-gradient(to bottom, #EB750A, #EC800B);
+	background-image: linear-gradient(to bottom, #EB750A, #EC800B);*/
 }
 #afui.ibos .button.red{
 	background-color: #DC4040;
+/*
 	background-image: -ms-linear-gradient(top, #DC4040, #DF4848);
 	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #DC4040), color-stop(1, #DF4848));
 	background-image: -webkit-linear-gradient(top, #DC4040, #DF4848);
 	background-image: linear-gradient(to bottom, #DC4040, #DF4848);
+*/
 }
 #afui.ibos .button.red:active{
 	background-color: #E25050;
+/*
 	background-image: -ms-linear-gradient(top, #E25050, #DC4040);
 	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #E25050), color-stop(1, #DC4040));
 	background-image: -webkit-linear-gradient(top, #E25050, #DC4040);
 	background-image: linear-gradient(to bottom, #E25050, #DC4040);
+*/
 }
 #afui.ibos .button.blue{
 	background-color: #3497DB;
+/*
 	background-image: -ms-linear-gradient(top, #3497DB, #2A82D4);
 	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #3497DB), color-stop(1, #2A82D4));
 	background-image: -webkit-linear-gradient(top, #3497DB, #2A82D4);
 	background-image: linear-gradient(to bottom, #3497DB, #2A82D4);
+*/
 	color: #FFF;
 }
 #afui.ibos .button.blue:active{
 	background-color: #2A82D4;
-	background-image: -ms-linear-gradient(top, #2A82D4, #2F8CD7);
+/*	background-image: -ms-linear-gradient(top, #2A82D4, #2F8CD7);
 	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #2A82D4), color-stop(1, #2F8CD7));
 	background-image: -webkit-linear-gradient(top, #2A82D4, #2F8CD7);
-	background-image: linear-gradient(to bottom, #2A82D4, #2F8CD7);
+	background-image: linear-gradient(to bottom, #2A82D4, #2F8CD7);*/
 }
 .button.next::after,
 .button.previous::after{
@@ -219,7 +228,7 @@ textarea::-webkit-input-placeholder {
 	width:49%;
 	
 	border: 1px solid rgba(11, 115, 187, .5);
-	box-shadow: 0 1px 1px rgba(0, 0, 0, .3), 0 1px 1px rgba(255, 255, 255, .5) inset;
+	box-shadow: 0 1px 1px rgba(0, 0, 0, .3), 1px 1px 0  rgba(255, 255, 255, .5) inset;
 }
 #afui.ibos .button.primary:active{ box-shadow: 0 1px 1px rgba(0, 0, 0, .2) inset; }
 
@@ -285,7 +294,8 @@ textarea::-webkit-input-placeholder {
 /* switch */
 #afui.ibos input.toggle+label {
 	left: auto;
-	float: right;
+	position:absolute;
+	right:0;
 }
 
 #afui.ibos input.toggle+label{
@@ -416,12 +426,13 @@ textarea::-webkit-input-placeholder {
 #afui.ibos .avatar img{
 	width: 105%;
 	height: auto;
+	margin-top: -1px;
+	margin-left:-1px;
 }
 #afui.ibos .avatar img{
 	-webkit-border-radius: 4px;
 	border-radius: 4px;
 	border: 1px solid #BBBDC9;
-	
 }
 
 /* Chat */
@@ -438,7 +449,7 @@ textarea::-webkit-input-placeholder {
 
 #afui.ibos .chat-item .avatar{
 	position: absolute;
-	left: 0;
+	left: 1px;
 }
 #afui.ibos .chat-item .avatar img{
 	border: 1px solid #fff;
@@ -454,6 +465,7 @@ textarea::-webkit-input-placeholder {
 	min-height: 36px;
 	background-color: #E4EDF2;
 	float: left;
+	word-break: break-all;
 }
 #afui.ibos .chat-bubble:after{
 	-webkit-transform: skew(45deg);
