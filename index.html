@@ -96,7 +96,7 @@
 			if ($.os.ios7) {
 				alert(0);
 				document.body.style.marginTop = "20px"; //如果是ios7则顶部预留出20像素
-				alert(0);
+				
 			}
 			alert(1);
 			AppMobi.device.setRotateOrientation("portrait");
@@ -106,7 +106,8 @@
 			AppMobi.device.hideSplashScreen();
 			$.ui.blockPageScroll(); //block the page from scrolling at the header/footer
 			$.ui.animateHeaders = true;
-
+alert(3);
+alert(PushNotification);
 			PushNotification.register(function(e){alert("成功了");alert(e);},function(e){alert(e)})
 			alert(2);
 		};
