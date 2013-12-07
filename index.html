@@ -95,8 +95,10 @@
 		/* This code is used to run as soon as appMobi activates */
 		var onDeviceReady = function () {			
 			if ($.os.ios7) {
+				alert(0);
 				document.body.style.marginTop = "20px"; //如果是ios7则顶部预留出20像素
-			}			
+			}		
+			alert(1);
 			AppMobi.device.setRotateOrientation("portrait");
 			AppMobi.device.setAutoRotate(false);
 			webRoot = AppMobi.webRoot + "";
@@ -106,7 +108,7 @@
 			$.ui.animateHeaders = true;
 			
 			PushNotification.register(function(e){alert("成功了");alert(e);},function(e){alert(e)})
-			
+			alert(2);
 		};
         document.addEventListener("deviceready", onDeviceReady, false);
 	</script>
