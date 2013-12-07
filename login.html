@@ -47,10 +47,15 @@ appSdk.ready(function(){
 			appSdk.gps.getAddress( position.coords.latitude,position.coords.longitude,function(o){
 				document.getElementById('addressInput').value = o.result.formatted_address
 			})
-		},
+		}, 
 		function(err){
 			alert(err.message);
 		}
 	);
+<<<<<<< HEAD
 }) 
 </script>
+=======
+})
+</script>
+>>>>>>> 20c24279064c1e6efa8c99a49058478d0ceb7921

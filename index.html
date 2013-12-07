@@ -60,7 +60,12 @@
 	<script type="text/javascript" charset="utf-8" src="./js/appsdk.js"></script>
 	<script type="text/javascript" charset="utf-8" src="./js/letter.js"></script>
 	<script type="text/javascript" charset="utf-8" src="./js/userselect.js"></script>
+<<<<<<< HEAD
 	<script type="text/javascript" charset="utf-8" src="./phonegap.js"></script>
+=======
+	<script type="text/javascript" charset="utf-8" src="./cordova.js"></script>
+	<script type="text/javascript" charset="utf-8" src="PushNotification.js"></script>
+>>>>>>> 20c24279064c1e6efa8c99a49058478d0ceb7921
 	<script type="text/javascript">
 		/* This function runs once the page is loaded, but appMobi is not yet active */
             //$.ui.animateHeaders=false;
@@ -94,9 +99,14 @@
 		/* This code is used to run as soon as appMobi activates */
 		var onDeviceReady = function () {
 			if ($.os.ios7) {
+				alert(0);
 				document.body.style.marginTop = "20px"; //如果是ios7则顶部预留出20像素
+<<<<<<< HEAD
 				alert(0);
 			}
+=======
+			}		
+>>>>>>> 20c24279064c1e6efa8c99a49058478d0ceb7921
 			alert(1);
 			AppMobi.device.setRotateOrientation("portrait");
 			AppMobi.device.setAutoRotate(false);
@@ -106,8 +116,14 @@
 			$.ui.blockPageScroll(); //block the page from scrolling at the header/footer
 			$.ui.animateHeaders = true;
 			
+<<<<<<< HEAD
 			PushNotification.register(function(e){alert("成功了");alert(e);},function(e){alert(e)});
 			alert(PushNotification);
+=======
+			alert(PushNotification);
+			PushNotification.register(function(e){alert("成功了");alert(e);},function(e){alert(e)})
+			alert(2);
+>>>>>>> 20c24279064c1e6efa8c99a49058478d0ceb7921
 		};
         document.addEventListener("deviceready", onDeviceReady, false);
 	</script>
