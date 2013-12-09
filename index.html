@@ -61,7 +61,6 @@
 	<script type="text/javascript" charset="utf-8" src="./js/letter.js"></script>
 	<script type="text/javascript" charset="utf-8" src="./js/userselect.js"></script>
 	<script type="text/javascript" charset="utf-8" src="./phonegap.js"></script>
-	<script type="text/javascript" charset="utf-8" src="PushNotification.js"></script>
 	<script type="text/javascript">
 	function scaner(){
 		alert(99);
@@ -77,6 +76,48 @@
 			}
 		);
    }
+
+	// result contains any message sent from the plugin call
+	function successHandler (result) {
+		alert('result = ' + result);
+	}
+	// result contains any error description text returned from the plugin call
+	function errorHandler (error) {
+		alert('error = ' + error);
+	}
+	function tokenHandler (result) {
+		// Your iOS push server needs to know the token before it can push to this device
+		// here is where you might want to send it the token for later use.
+		alert('device token = ' + result);
+	}
+	function getpush(){
+		alert("start");
+		var pushNotification;
+		pushNotification = window.plugins.pushNotification;
+		alert("ok");
+		if ( device.platform == 'android' || device.platform == 'Android' )
+		{
+			alert(6666);
+			pushNotification.register(
+				successHandler,
+				errorHandler, {
+					"senderID":"replace_with_sender_id",
+					"ecb":"onNotificationGCM"
+				});
+		}
+		else
+		{
+			alert(7777);
+			pushNotification.register(
+				tokenHandler,
+				errorHandler, {
+					"badge":"true",
+					"sound":"true",
+					"alert":"true",
+					"ecb":"onNotificationAPN"
+				});
+		}
+	}
 	</script>
 	<script type="text/javascript">
 		/* This function runs once the page is loaded, but appMobi is not yet active */
@@ -115,48 +156,9 @@
 				document.body.style.marginTop = "20px"; //如果是ios7则顶部预留出20像素
 				
 			}
-			alert(1);
-
-// result contains any message sent from the plugin call
-function successHandler (result) {
-    alert('result = ' + result);
-}
-// result contains any error description text returned from the plugin call
-function errorHandler (error) {
-    alert('error = ' + error);
-}
-function tokenHandler (result) {
-    // Your iOS push server needs to know the token before it can push to this device
-    // here is where you might want to send it the token for later use.
-    alert('device token = ' + result);
-}
-var pushNotification;
-alert(2);
-pushNotification = window.plugins.pushNotification;
-alert(3);
-if ( device.platform == 'android' || device.platform == 'Android' )
-{
-    pushNotification.register(
-        successHandler,
-        errorHandler, {
-            "senderID":"replace_with_sender_id",
-            "ecb":"onNotificationGCM"
-        });
-}
-else
-{
-    pushNotification.register(
-        tokenHandler,
-        errorHandler, {
-            "badge":"true",
-            "sound":"true",
-            "alert":"true",
-            "ecb":"onNotificationAPN"
-        });
-}
-alert(5);
-			AppMobi.device.setRotateOrientation("portrait");
-			AppMobi.device.setAutoRotate(false);
+			getpush（）
+//			AppMobi.device.setRotateOrientation("portrait");
+//			AppMobi.device.setAutoRotate(false);
 			webRoot = AppMobi.webRoot + "";
 			//hide splash screen
 			AppMobi.device.hideSplashScreen();
