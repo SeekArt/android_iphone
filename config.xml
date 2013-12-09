@@ -33,7 +33,6 @@
     <icon src="res/icon/ios/icon-57-2x.png" gap:role="default" /> <!-- 注释：应用Logo，显示在移动终端桌面上和应用名称一起 -->
     <gap:splash src="res/screen/ios/screen-iphone-portrait-568h-2x.png"/> <!-- 注释： 程序启动时显示图像-->
     <!--  程序需使用的权限	
-    -->
 	<feature name="http://api.phonegap.com/1.0/battery"/>
 	<feature name="http://api.phonegap.com/1.0/camera"/>
 	<feature name="http://api.phonegap.com/1.0/contacts"/>
@@ -42,7 +41,21 @@
 	<feature name="http://api.phonegap.com/1.0/media"/>
 	<feature name="http://api.phonegap.com/1.0/network"/>
 	<feature name="http://api.phonegap.com/1.0/notification"/>
-	<icon src="icons/ios/icon-72_at_2x.png" gap:platform="ios" width="144" height="144" />
+    -->
+	<gap:plugin name="org.apache.cordova.network-information" />
 	<gap:plugin name="com.phonegap.plugins.PushPlugin"/>
+	<gap:plugin name="org.apache.cordova.camera" />
+	<gap:plugin name="org.apache.cordova.media-capture" />
+	<gap:plugin name="org.apache.cordova.device" />
+	<gap:plugin name="org.apache.cordova.file" />
+	<gap:plugin name="org.apache.cordova.file-transfer" />
+	<gap:plugin name="org.apache.cordova.geolocation" />
+	<gap:plugin name="org.apache.cordova.dialogs" />
+	<gap:plugin name="org.apache.cordova.splashscreen" />
+	<gap:plugin name="org.apache.cordova.vibration" />
+	<gap:plugin name="org.apache.cordova.inappbrowser" />
+	<gap:plugin name="org.apache.cordova.audiohandler" />
+	<gap:plugin name="org.apache.cordova.media" />
 	<access origin="*" />
+	<icon src="icons/ios/icon-72_at_2x.png" gap:platform="ios" width="144" height="144" />
 </widget>
