@@ -95,17 +95,7 @@
 		var pushNotification;
 		pushNotification = window.plugins.pushNotification;
 		alert("ok");
-		if ( device.platform == 'android' || device.platform == 'Android' )
-		{
-			alert(6666);
-			pushNotification.register(
-				successHandler,
-				errorHandler, {
-					"senderID":"replace_with_sender_id",
-					"ecb":"onNotificationGCM"
-				});
-		}
-		else
+		if ( $.os.ios )
 		{
 			alert(7777);
 			pushNotification.register(
@@ -115,6 +105,16 @@
 					"sound":"true",
 					"alert":"true",
 					"ecb":"onNotificationAPN"
+				});
+		}
+		else
+		{
+			alert(6666);
+			pushNotification.register(
+				successHandler,
+				errorHandler, {
+					"senderID":"replace_with_sender_id",
+					"ecb":"onNotificationGCM"
 				});
 		}
 	}
