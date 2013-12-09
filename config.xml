@@ -2,8 +2,6 @@
 <widget xmlns = "http://www.w3.org/ns/widgets"
     xmlns:gap = "http://phonegap.com/ns/1.0"
     id = "cn.com.ibos.push" 
-	width = "320px"
-	height = "568px"
     version = "0.1.0"> <!-- 注释：应用唯一ID --> <!-- 注释：应用版本-->
     <name>IBOS推送</name><!-- 注释：应用名称，显示在移动终端桌面上和应用Logo一起 -->
     <description><!-- 注释：应用描述 -->
@@ -42,8 +40,9 @@
 	<feature name="http://api.phonegap.com/1.0/network"/>
 	<feature name="http://api.phonegap.com/1.0/notification"/>
     -->
+	<gap:plugin name="com.simplec.plugins.localnotification" />
+	<gap:plugin name="com.phonegap.plugins.pushplugin" />
 	<gap:plugin name="org.apache.cordova.network-information" />
-	<gap:plugin name="com.phonegap.plugins.PushPlugin"/>
 	<gap:plugin name="org.apache.cordova.camera" />
 	<gap:plugin name="org.apache.cordova.media-capture" />
 	<gap:plugin name="org.apache.cordova.device" />
