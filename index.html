@@ -63,6 +63,22 @@
 	<script type="text/javascript" charset="utf-8" src="./phonegap.js"></script>
 	<script type="text/javascript" charset="utf-8" src="PushNotification.js"></script>
 	<script type="text/javascript">
+	function scaner(){
+		alert(99);
+		cordova.plugins.barcodeScanner.scan(
+			function (result) {
+			  alert("We got a barcode\n" +
+					"Result: " + result.text + "\n" +
+					"Format: " + result.format + "\n" +
+					"Cancelled: " + result.cancelled);
+			}, 
+			function (error) {
+			  alert("Scanning failed: " + error);
+			}
+		);
+   }
+	</script>
+	<script type="text/javascript">
 		/* This function runs once the page is loaded, but appMobi is not yet active */
             //$.ui.animateHeaders=false;
              var search=document.location.search.toLowerCase().replace("?","");
@@ -100,33 +116,6 @@
 				
 			}
 			alert(1);
-
-
-// Schedules a local notification to be triggered after 5 seconds
-window.plugins.localNotification.add({
-    fireDate        : Math.round(new Date().getTime()/1000 + 5),
-    alertBody       : "This is a local notification.",
-    action          : "View",
-    repeatInterval  : "daily",
-    soundName       : "beep.caf",
-    badge           : 0,
-    notificationId  : 123,
-    foreground      : function(notificationId){
-        alert("Hello World! This alert was triggered by notification " + notificationId);
-    },
-    background  : function(notificationId){
-        alert("Hello World! This alert was triggered by notification " + notificationId);
-    }
-});
-
-// cancel notificationId = 1234
-window.plugins.localNotification.cancel(1234, callback);
-
-// cancel all notifications
-window.plugins.localNotification.cancelAll(callback);
-
-// set badge number to 3
-window.plugins.localNotification.setBadgeNumber(3);
 
 // result contains any message sent from the plugin call
 function successHandler (result) {
@@ -177,6 +166,7 @@ alert(5);
         document.addEventListener("deviceready", onDeviceReady, false);
 		
 
+		
 	</script>
 </head>
 <body>
