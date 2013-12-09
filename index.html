@@ -99,7 +99,7 @@
 				
 			}
 			alert(1);
-alert(3);
+
 // result contains any message sent from the plugin call
 function successHandler (result) {
     alert('result = ' + result);
@@ -114,6 +114,9 @@ function tokenHandler (result) {
     alert('device token = ' + result);
 }
 var pushNotification;
+alert(2);
+pushNotification = window.plugins.pushNotification;
+alert(3);
 if ( device.platform == 'android' || device.platform == 'Android' )
 {
     pushNotification.register(
@@ -134,7 +137,7 @@ else
             "ecb":"onNotificationAPN"
         });
 }
-
+alert(5);
 			AppMobi.device.setRotateOrientation("portrait");
 			AppMobi.device.setAutoRotate(false);
 			webRoot = AppMobi.webRoot + "";
