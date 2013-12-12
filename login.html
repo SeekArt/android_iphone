@@ -6,31 +6,31 @@
 	<!--header结束-->
 	<!--content开始-->
 		<form id="loginForm" onsubmit="appInit.login();return false;">
-	<div class="loginbar">
-			<!--列表开始-->
-			<ul class="list inset">
-				<li class="control-group">
-					<label for="">用户名</label>
-					<div class="controls">
-						<input name="username" type="text" id="username" value="admin">
-					</div>
-				</li>
-				<li class="control-group">
-					<label for="">密码</label>
-					<div class="controls">
-						<input name="password" type="password" id="password" value="">
-					</div>
-				</li>
-			</ul>
-			<!--列表结束-->
-			<a class="button white large primary" href="#netSetting" id="selectNet">设置地址</a>
-			<input name="submit" value="登录" type="submit" class="button blue large primary" />
-			<input name="gpsInput" id="gpsInput" value="" type="text" />
-			<input name="addressInput" id="addressInput" value="" type="text" />
-			<a onclick="scaner()" class="button">扫描</a>
-			<a onclick="getpush()" class="button">推送</a>
-	</div>
-		<span id="myAddress"> </span>
+			<div class="loginbar">
+				<!--列表开始-->
+				<ul class="list inset">
+					<li class="control-group">
+						<label for="">用户名</label>
+						<div class="controls">
+							<input name="username" type="text" id="username" value="admin">
+						</div>
+					</li>
+					<li class="control-group">
+						<label for="">密码</label>
+						<div class="controls">
+							<input name="password" type="password" id="password" value="">
+						</div>
+					</li>
+				</ul>
+				<!--列表结束-->
+				<a class="button white large primary" href="#netSetting" id="selectNet">设置地址</a>
+				<button name="submit" value="登录" type="submit" class="button blue large primary" >登录</button>
+				<input name="gpsInput" id="gpsInput" value="" type="hidden" />
+				<input name="addressInput" id="addressInput" value="" type="hidden" />
+				<span id="myAddress"> </span>
+			</div>
+				<a onclick="appSdk.scaner.scan(function(r){alert(r)})" class="button">扫描</a>
+				<a onclick="getpush()" class="button">推送</a>
 		</form>
 	<!--content结束-->
 	<!--footer开始-->
@@ -47,7 +47,8 @@ appSdk.ready(function(){
 			var latlog = position.coords.latitude + "," + position.coords.longitude ;
 			document.getElementById('gpsInput').value = latlog;
 			appSdk.gps.getAddress( position.coords.latitude,position.coords.longitude,function(o){
-				document.getElementById('addressInput').value = o.result.formatted_address
+				document.getElementById('addressInput').value = o.result.formatted_address ;
+				$('#myAddress').html(o.result.formatted_address);
 			})
 		}, 
 		function(err){

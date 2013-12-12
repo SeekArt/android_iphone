@@ -90,8 +90,8 @@ appSdk.gps = {
 		navigator.geolocation.getCurrentPosition(onSuccess, onError, {enableHighAccuracy: true,frequency: 3000 });
 	},
 	getAddress : function(lat,lng,callback){
-		$.ajax({
-			url: 		"http://api.map.baidu.com/geocoder/v2/?ak=C0d3e4e14997877a90874ddf73572261&callback=?&location="+lat+","+lng+"&output=json&pois=0",
+		$.jsonP({
+			url: 		"http://api.map.baidu.com/geocoder/v2/?ak=C0d3e4e14997877a90874ddf73572261&callback=?&coordtype=wgs84ll&location="+lat+","+lng+"&output=json&pois=0",
 			/**	百度参数返回
 				+ result: 
 					+ addressComponent: 
@@ -109,7 +109,7 @@ appSdk.gps = {
 				status: 0
 			*/
 			success: 	callback,
-			error: 		onError
+			error: 		this.onError
 		});
 	},
 	/**	获取位置信息成功时调用的回调函数
@@ -132,7 +132,7 @@ appSdk.gps = {
 	},
 	// onError回调函数接收一个PositionError对象
 	onError : function (error) {
-		console.log('code: '    + error.code    + '\n' + 'message: ' + error.message + '\n');
+		alert('code: '    + error.code    + '\n' + 'message: ' + error.message + '\n');
 	}
 }
 appSdk.accel = {
@@ -222,7 +222,7 @@ appSdk.capture ={
 }
 appSdk.compass = {
 	get : function(callback){
-		navigator.compass.getCurrentHeading(success, onError, opt);
+		navigator.compass.getCurrentHeading( callback, onError, opt);
 	},
 	stop : function(watchCompassId) {
 		navigator.compass.clearWatch(watchCompassId);
@@ -232,4 +232,19 @@ appSdk.compass = {
 	onError : function (e) {
 		console.log("录制失败 " + e);
 	}
+}
+appSdk.scaner ={
+	/** 
+	*  callback Result: result.text 
+	*					result.format 
+	*					result.cancelled
+	*/
+	scan : function( callback, onError){
+		cordova.plugins.barcodeScanner.scan( callback, onError );
+	},
+	// onError callback
+	onError : function (e) {
+		console.log("扫描失败 " + e);
+	}
+	
 }

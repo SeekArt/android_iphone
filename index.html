@@ -60,10 +60,10 @@
 	<script type="text/javascript" charset="utf-8" src="./js/appsdk.js"></script>
 	<script type="text/javascript" charset="utf-8" src="./js/letter.js"></script>
 	<script type="text/javascript" charset="utf-8" src="./js/userselect.js"></script>
-	<script type="text/javascript" charset="utf-8" src="./phonegap.js"></script>
+	<script type="text/javascript" charset="utf-8" src="./phonegap.js"></script>	
+	<script type="text/javascript" charset="utf-8" src="./js/push.js"></script>
 	<script type="text/javascript">
 	function scaner(){
-		alert(99);
 		cordova.plugins.barcodeScanner.scan(
 			function (result) {
 			  alert("We got a barcode\n" +
@@ -75,100 +75,52 @@
 			  alert("Scanning failed: " + error);
 			}
 		);
-   }
-
-	// result contains any message sent from the plugin call
-	function successHandler (result) {
-		alert('result = ' + result);
-	}
-	// result contains any error description text returned from the plugin call
-	function errorHandler (error) {
-		alert('error = ' + error);
-	}
-	function tokenHandler (result) {
-		// Your iOS push server needs to know the token before it can push to this device
-		// here is where you might want to send it the token for later use.
-		alert('device token = ' + result);
-	}
-	function getpush(){
-		alert("start");
-		var pushNotification;
-		pushNotification = window.plugins.pushNotification;
-		alert("ok");
-		if ( $.os.ios )
-		{
-			alert(7777);
-			pushNotification.register(
-				tokenHandler,
-				errorHandler, {
-					"badge":"true",
-					"sound":"true",
-					"alert":"true",
-					"ecb":"onNotificationAPN"
-				});
-		}
-		else
-		{
-			alert(6666);
-			pushNotification.register(
-				successHandler,
-				errorHandler, {
-					"senderID":"replace_with_sender_id",
-					"ecb":"onNotificationGCM"
-				});
-		}
 	}
 	</script>
 	<script type="text/javascript">
 		/* This function runs once the page is loaded, but appMobi is not yet active */
-            //$.ui.animateHeaders=false;
-             var search=document.location.search.toLowerCase().replace("?","");
-             //if(!search)
-                //$.os.useOSThemes=false;
-            if(search) //Android fix has too many buggy issues on iOS - can't preview with $.os.android
-            {
-               $.os.useOSThemes=true;
-                if(search=="win8")
-                    $.os.ie=true;
-                $.ui.ready(function(){
-                    $("#afui").get(0).className=search;
-                });
-            }
+//            var search=document.location.search.toLowerCase().replace("?","");
+//             //if(!search)
+//                //$.os.useOSThemes=false;
+//            if(search) //Android fix has too many buggy issues on iOS - can't preview with $.os.android
+//            {
+//               $.os.useOSThemes=true;
+//                if(search=="win8")
+//                    $.os.ie=true;
+//                $.ui.ready(function(){
+//                    $("#afui").get(0).className=search;
+//                });
+//            }
 		var webRoot = "./";
 		$.ui.autoLaunch = false;
 		$.ui.openLinksNewTab = false;
-		$.ui.resetScrollers=false;
+		$.ui.resetScrollers = false;
 		
 		$(document).ready(function(){
-			$.ui.setSideMenuWidth($("#afui").width()-50);
+			//$.ui.setSideMenuWidth($("#afui").width()-50);
 			$.ui.launch();
+			appInit.init();  // 初始化我的数据
 			//屏蔽没侧栏的页面划动
 			$("[data-nav=none]").bind("touchstart", function(e) { e.stopPropagation()});
 			$("[data-nav=none]").bind("touchmove", function(e) { e.stopPropagation()});		
 			$("[data-nav=none]").bind("touchend", function(e) { e.stopPropagation()});
-			appInit.init();  // 初始化我的数据
 		});
 		
 		/* This code is used to run as soon as appMobi activates */
 		var onDeviceReady = function () {
 			if ($.os.ios7) {
-				alert(0);
 				document.body.style.marginTop = "20px"; //如果是ios7则顶部预留出20像素
-				
 			}
 			getpush();
 //			AppMobi.device.setRotateOrientation("portrait");
 //			AppMobi.device.setAutoRotate(false);
-			webRoot = AppMobi.webRoot + "";
+//			webRoot = AppMobi.webRoot + "";
 			//hide splash screen
-			AppMobi.device.hideSplashScreen();
+//			AppMobi.device.hideSplashScreen();
 			$.ui.blockPageScroll(); //block the page from scrolling at the header/footer
-			$.ui.animateHeaders = true;
+//			$.ui.animateHeaders = true;
 		};
         document.addEventListener("deviceready", onDeviceReady, false);
-		
-
-		
 	</script>
 </head>
 <body>
@@ -264,7 +216,8 @@
 			<div title="用户选择2" id="mail_selector" class="panel" data-header="header_selector" data-footer="none" data-defer="mail_selector.html"></div>
 
 			<div title="登录" id="login" class="panel indexbg" data-defer="login.html" selected="true" data-footer="none" data-nav="none" data-load="loadLogin" data-unload="unloadLogin" style="overflow:hidden;"></div>
-			<div title="添加更多" id="more" class="panel mainbg" data-nav="none" ></div>
+			<div title="添加更多" id="more" class="panel mainbg" data-nav="none" > 这里面目前没有程序
+			</div>
 		<!---------------------------------------------->
 	</div>		
 	<!---------------------------------------------->
