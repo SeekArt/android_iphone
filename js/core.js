@@ -323,6 +323,7 @@ var appInit = (function(){
 			appInit.uid = json.uid;
 			localStorage.setItem("uid", appInit.uid);
 			core.setStorage("user", appInit.user);
+			getpush();
 		}else{
 			if(json.msg){
 				$.ui.popup(json.msg);

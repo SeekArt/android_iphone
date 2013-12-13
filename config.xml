@@ -26,7 +26,6 @@
 	<icon src="icons/android/hdpi.png" gap:platform="android" gap:density="hdpi" />
 	<icon src="icons/android/xhdpi.png" gap:platform="android" gap:density="xhdpi" />
 	-->
-
 	<!-- retina iPad support: PhoneGap 2.5.0+ only -->
     <icon src="res/icon/ios/icon-57-2x.png" gap:role="default" /> <!-- 注释：应用Logo，显示在移动终端桌面上和应用名称一起 -->
     <gap:splash src="res/screen/ios/screen-iphone-portrait-568h-2x.png"/> <!-- 注释： 程序启动时显示图像-->
@@ -43,5 +42,4 @@
 	<gap:plugin name="com.phonegap.plugins.barcodescanner" />
 	<gap:plugin name="com.phonegap.plugins.pushplugin" />
 	<access origin="*" />
-	<icon src="icons/ios/icon-72_at_2x.png" gap:platform="ios" width="144" height="144" />
 </widget>
