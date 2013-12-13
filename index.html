@@ -138,27 +138,27 @@
 		<!---------------------------------------------->
 			<div title='IBOS移动客户端' id="main" class="panel mainbg" data-tab="navbar_main" style="overflow:hidden;">
 				<div class="home-item">
-					<a href="#news" data-transition="pop">
-						<i class="item-ico ico-article"></i>
-						信息
-					</a><a href="#mail" data-transition="pop">
+					<a href="#mail" data-transition="pop">
 						<i class="item-ico ico-mail"></i>
 						邮件
-					</a><a href="#diary" data-transition="pop">
-						<i class="item-ico ico-diary"></i>
-						工作日志
-					</a><a href="#work" data-transition="pop">
-						<i class="item-ico ico-work"></i>
-						工作流
-					</a><a href="#calendar" data-transition="pop">
-						<i class="item-ico ico-calendar"></i>
-						日程
-					</a><a href="#report" data-transition="pop">
-						<i class="item-ico ico-report"></i>
-						总结与计划
+					</a><a href="#news" data-transition="pop">
+						<i class="item-ico ico-article"></i>
+						信息
 					</a><a href="#doc" data-transition="pop">
 						<i class="item-ico ico-doc"></i>
 						公文
+					</a><a href="#diary" data-transition="pop">
+						<i class="item-ico ico-diary"></i>
+						工作日志
+					</a><a href="#report" data-transition="pop">
+						<i class="item-ico ico-report"></i>
+						总结与计划
+					</a><a href="#work" data-transition="pop">
+						<i class="item-ico ico-work"></i>
+						工作流
+					</a><a href="#phonebook" data-transition="pop">
+						<i class="item-ico ico-phonebook"></i>
+						通讯录
 					</a><a href="#more" data-transition="pop">
 						<i class="item-ico ico-more"></i>
 						添加更多
@@ -211,12 +211,26 @@
 			</div>
 			<!-----------calendar-----------> 
 			<div title="我的日程" id="calendar" class="panel" data-header="header_calendar" ></div>
+			<!-----------phonebook-----------> 
+			<div title="通讯录" id="phonebook" class="panel" data-nav="none" data-defer="phonebook.html"></div>
 			
-			<div title="用户选择" id="selector" class="panel" data-header="header_selector" data-footer="none" data-defer="selector.html"></div>
-			<div title="用户选择2" id="mail_selector" class="panel" data-header="header_selector" data-footer="none" data-defer="mail_selector.html"></div>
+			<div title="用户选择" id="selector" class="panel" data-header="header_selector" data-nav="none" data-footer="none" data-defer="selector.html"></div>
+			<div title="用户选择" id="mail_selector" class="panel" data-header="header_selector" data-nav="none" data-footer="none" data-defer="mail_selector.html"></div>
 
 			<div title="登录" id="login" class="panel indexbg" data-defer="login.html" selected="true" data-footer="none" data-nav="none" data-load="loadLogin" data-unload="unloadLogin" style="overflow:hidden;"></div>
-			<div title="添加更多" id="more" class="panel mainbg" data-nav="none" > 这里面目前没有程序
+			<div title="添加更多" id="more" class="panel mainbg" data-nav="none" > 
+				<div class="home-item">
+					<a href="#work" data-transition="pop">
+						<i class="item-ico ico-work"></i>
+						工作流
+					</a><a href="#calendar" data-transition="pop">
+						<i class="item-ico ico-calendar"></i>
+						日程
+					</a><a href="#report" data-transition="pop">
+						<i class="item-ico ico-report"></i>
+						总结与计划
+					</a>
+				</div>
 			</div>
 		<!---------------------------------------------->
 	</div>		

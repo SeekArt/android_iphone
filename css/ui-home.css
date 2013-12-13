@@ -47,6 +47,9 @@
 .ico-doc {
 	background-image:url('../images/ico/doc.png');
 }
+.ico-phonebook {
+	background-image:url('../images/ico/phonebook.png');
+}
 .ico-more {
 	background-image:url('../images/ico/more.png');
 	box-shadow:none;

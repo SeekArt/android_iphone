@@ -1,3 +1,7 @@
+/**
+* 这是选人框的框
+*
+*/
 var User = function(id, values, options) {
 	var elem;
 	if (id in this.constructor.instances) {
@@ -164,12 +168,15 @@ User.prototype = {
  * @param {Array}  options.buttons 自定义按钮，格式 [{text: "button", type: "button"}]
  */
 var UserList = function(id, data, options) {
+	var me = this;
 	if (id in this.constructor.instances) {
 		return this.constructor.instances[id];
 	}
 	this.id = id || "user_list";
 	this.data = data;
-	this.options = $.extend({}, options);
+	this.options = $.extend({
+		tpl: "<dd id='" + me.id + "_item_<%=uid%>' data-id='<%=uid%>'><span class='ckb'></span><%=realname%></dd>"
+	}, options);
 	// 用于放置选中项，格式为[{id:1, text: "1", type: "haha"}];
 	this.selected = [];
 	// 对数据进行缓存
@@ -214,10 +221,10 @@ UserList.prototype = {
 	 * @return {Object}      列表项$.afm节点
 	 */
 	_createItem: function(data) {
-		var tpl = "<dd id='" + this.uid + "_item_" + data.uid + "' data-id='" + data.uid + "'>" +
+		var $node = $.tmpl(this.options.tpl, data)
+		/*"<dd id='" + this.id + "_item_" + data.uid + "' data-id='" + data.uid + "'>" +
 			"<span class='ckb'></span>" +
-			data.realname + "</dd>";
-		var $node = $(tpl);
+			data.realname + "</dd>";*/
 		var $buttons = this._createButtons();
 
 		if($.is$($buttons) && $buttons.length){
@@ -262,6 +269,7 @@ UserList.prototype = {
 			} else {
 				that.select(id, type);
 			}
+			$(this).trigger("userlist:click", { id: id })
 		})
 	},
 
@@ -448,6 +456,11 @@ UserList.prototype = {
 			panelId: 'selector',
 			userId: 'common_user',
 			userListId: 'user_selector'
+		},
+		'phonebook':{
+			panelId: 'phonebook',
+			userId: 'pb_user',
+			userListId: 'phonebook_content'
 		}
 	}
 	appInit.userSelector = {

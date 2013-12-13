@@ -1,0 +1,15 @@
+<div id="phonebook_content"></div>
+<script>
+	appInit.letter.init("phonebook", "phonebook_content_");
+	var phonebook = new UserList('phonebook_content', appInit.getUserData(), {
+		tpl: "<dd id='item_<%=uid%>' data-id='<%=uid%>'><img width='30' height='30' style='vertical-align: middle' src='<%=appInit.defaultUrl%>/<%=avatar_small%>'> <%=realname%></dd>"
+	});
+/*	
+	$("#phonebook_content").on("userlist:click", function(evt, data){
+		console.log(arguments)
+	})
+	*/
+</script>
+
+
+
