@@ -355,7 +355,6 @@ var appInit = (function(){
 		}
 		return results.join(",");
 	}
-
 	return {
 		isInit:		isInit,
 		defaultUrl:	defaultUrl,
@@ -371,5 +370,4 @@ var appInit = (function(){
 		getUser: 	getUser,
 		getUserName:getUserName
 	}
-	
 })()

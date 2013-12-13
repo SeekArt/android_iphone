@@ -82,7 +82,6 @@ Letter.prototype = {
 			if(hash){
 				that.setHash(hash);
 			}
-
 			evt.preventDefault();
 			evt.stopPropagation();
 		});
