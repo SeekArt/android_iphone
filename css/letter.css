@@ -17,9 +17,10 @@
 	opacity: .6;
 }
 .letter a{
-	display: block;
 	-webkit-box-flex: 1;
 	box-flex: 1;
+	display: block;
+	margin: 0 -10px; /* 此样式用于增加点击范围 */
 	line-height: normal;
 	text-align: center;
 	text-decoration: none;
