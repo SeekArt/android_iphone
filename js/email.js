@@ -151,7 +151,7 @@ var Email = (function(){
 			$("#mail_new").off("loadpanel")
 		});
 
-		$.ui.loadContent("#mail_new");
+		$.ui.loadContent("mail_new");
 	}
 	
 	// ----------- Send
@@ -189,7 +189,7 @@ var Email = (function(){
 			url: 		mailUrl() + "/edit&callback=?&" + $.param(data),
 			success: 	function(){
 				$.ui.hideMask();
-				$.ui.loadContent("#mail");
+				$.ui.loadContent("mail");
 			},
 			error: 		function(err){ console.log(err) }
 		});

@@ -983,6 +983,29 @@ li .icon:before {
 	height: 44px;
 	text-indent:-999em;	
 }
+/* phonebook */ 
+#afui.ibos .phonebookPanel{
+	margin: 0 -10px; line-height: 40px;
+}
+#afui.ibos .headBg{
+max-width: 100%;
+}
+#afui.ibos .phonebookHead{
+ margin-top: -60px; position: relative
+}
+#afui.ibos .phonebookPanel .avatar{
+	width: 90px; 
+	height: 90px; 
+	border: 4px solid #fff; 
+	border-radius: 50%; 
+	overflow: hidden; 
+	margin-left: 15px;
+	position: absolute; 
+	bottom: 10px;
+}
+#afui.ibos .phonebookPanel .text{
+	padding-left: 115px; height: 40px;
+}
 
 /* Attach */
 #afui.ibos .attach-icon,
