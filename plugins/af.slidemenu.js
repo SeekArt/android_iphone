@@ -35,7 +35,7 @@
         $("#afui").bind("touchstart", function(e) {
             startX = e.touches[0].pageX;
             startY = e.touches[0].pageY;
-			
+
             checking = false;
             menuState = $menu.css("display") == "block";
         });
@@ -77,7 +77,6 @@
 
         });
         $("#afui").bind("touchend", function(e) {
-            
             if (doMenu && checking&&!keepOpen) {
                 $.ui.toggleSideMenu(showHide, null, transTime);
             }
