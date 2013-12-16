@@ -5,9 +5,9 @@
 	width="640px"
 	height="1136px"
     version = "0.1.0"> <!-- 注释：应用唯一ID --> <!-- 注释：应用版本-->
-    <name>IBOS推送</name><!-- 注释：应用名称，显示在移动终端桌面上和应用Logo一起 -->
+    <name>IBOS平台</name><!-- 注释：应用名称，显示在移动终端桌面上和应用Logo一起 -->
     <description><!-- 注释：应用描述 -->
-        IBOS推送测试
+        IBOS平台测试用版本
     </description>
     <author href="http://www.ibos.com.cn" email="Aeolus@ibos.com.cn"> 
         Aeolus <!-- 注释：作者信息 -->
