@@ -1,6 +1,6 @@
 <div class="pdhs" id="profileContent">
 </div>
-<iframe name='hidden_frame' id="hidden_frame"></iframe>
+<iframe name='hidden_frame' style="display:none;" id="hidden_frame"></iframe>
 <textarea id="profileTpl" style="display:none;">
 	<form id="formImg" action="<%=appInit.appUrl%>/setting/update" method="post" target="hidden_frame" enctype="multipart/form-data">
 		<div class="profile">
@@ -9,7 +9,7 @@
 			</div>
 			<a class="avatarBtn" onClick="appSdk.camera.getPhoto(function(imageData){ $('#myAvatar').attr('src',imageData);$('#avatar_input').val(imageData); });">编辑</a>
 		</div>
-		<input id="avatar_input" name="avatar" type="file"/>
+		<input id="avatar_input" name="avatar" style="display:none;" type="file"/>
 		<h3>基本信息</h3>
 		<ul class="list inset">
 			<li class="control-group">
