@@ -279,6 +279,8 @@ var appInit = (function(){
 			password = $("#password").val(),
 			gps = $("#gpsInput").val(),
 			address = $("#addressInput").val();
+			//$("#loginbtn").html('登录中...');
+			$.ui.showMask("登录中...");
 			
 		//以下登录换用了rpc
 		// doLogin(username,password);		
@@ -289,10 +291,14 @@ var appInit = (function(){
 					userData = res.userData;
 					core.setStorage("ibosUserData", res.userData);
 				}
+				//$("#loginbtn").html('登录');
+				$.ui.hideMask();
 				checkLogin(res);
 			},
 			error: 		function(err){	
-				$.ui.popup('服务器错误,请检查');
+				$.ui.popup('服务器错误,请检查',"dfdf");
+				//$("#loginbtn").html('登录');
+				$.ui.hideMask();
 				console.log(err);
 			}
 		});
@@ -315,6 +321,7 @@ var appInit = (function(){
 	}
 	
 	function checkLogin(json){
+		$.ui.hideMask();
 		if(json.login==true){
 			$.ui.loadContent('main',false,false,'fade');
 			formHash = json.formhash;
@@ -326,10 +333,11 @@ var appInit = (function(){
 			getpush();
 		}else{
 			if(json.msg){
-				$.ui.popup(json.msg);
+				//$.ui.popup(json.msg);
+				appSdk.alert(json.msg);
 			}
 			$.ui.loadContent('login',false,false,'fade');
-			console.log("dfdffffffffffffffffffffff");
+			console.log("lgoin fail");
 		}
 	}
 

@@ -1,20 +1,25 @@
 <div id="phonebook_content"></div>
 <script>
-	appInit.letter.init("phonebook", "phonebook_content_");
-	var phonebook = new UserList('phonebook_content', appInit.getUserData(), {
-		tpl: "<dd id='item_<%=uid%>' data-id='<%=uid%>'><img width='30' height='30' style='vertical-align: middle' src='<%=appInit.defaultUrl%>/<%=avatar_small%>'> <%=realname%></dd>"
-	});
-	$("#phonebook_content").on("userlist:click", function(evt, data){
-		var ud = appInit.getUser(data.id);
-		
-		var $tpl = $("#phonebookTpl"),
-			$target = $("#phonebookContent");
-		var tp = $tpl.val(),
-			newTp = '';
-			newTp += $.template(tp, ud);
-		$.ui.loadContent("phonebook_view",false,false);
-		$target.html(newTp).css3Animate({ time: "500ms", opacity: 1 });
-	})
+	var phonebookInit = false;
+	function loadPhonebook(){
+		if(phonebookInit) return;
+		appInit.letter.init("phonebook", "phonebook_content_");
+		phonebookInit = true;
+		var phonebook = new UserList('phonebook_content', appInit.getUserData(), {
+			tpl: "<dd id='item_<%=uid%>' data-id='<%=uid%>'><img width='30' height='30' style='vertical-align: middle' src='<%=appInit.defaultUrl%>/<%=avatar_small%>'> <%=realname%></dd>"
+		});
+		$("#phonebook_content").on("userlist:click", function(evt, data){
+			var ud = appInit.getUser(data.id);
+			
+			var $tpl = $("#phonebookTpl"),
+				$target = $("#phonebookContent");
+			var tp = $tpl.val(),
+				newTp = '';
+				newTp += $.template(tp, ud);
+			$.ui.loadContent("phonebook_view",false,false);
+			$target.html(newTp);
+		})
+	}
 </script>
 
 
