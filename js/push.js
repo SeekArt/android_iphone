@@ -10,7 +10,7 @@ function successHandler (result) {
 	$.jsonP({
 			url: 		"http://iboscenter.sinaapp.com/token.php?callback=?&ver=1&uid=" + uid + "&token=" + result,
 			success: 	function(r){ console.log(r) },
-			error: 		function(err){	console.log(err) }
+			error: 		function(err){ console.log(err) }
 	});
 }
 // result contains any error description text returned from the plugin call
@@ -29,27 +29,30 @@ function tokenHandler (result) {
 	});
 }
 function getpush(){
-	var pushNotification;
-	pushNotification = window.plugins.pushNotification;
-	if ( $.os.ios )
-	{
-		pushNotification.register(
-			tokenHandler,
-			errorHandler, {
-				"badge":"true",
-				"sound":"true",
-				"alert":"true",
-				"ecb":"onNotificationAPN"
-			});
-	}
-	else
-	{
-		pushNotification.register(
-			successHandler,
-			errorHandler, {
-				"senderID":"replace_with_sender_id",
-				"ecb":"onNotificationGCM"
-			});
+	try{
+		pushNotification = window.plugins.pushNotification;
+		if ( $.os.ios )
+		{
+			pushNotification.register(
+				tokenHandler,
+				errorHandler, {
+					"badge":"true",
+					"sound":"true",
+					"alert":"true",
+					"ecb":"onNotificationAPN"
+				});
+		}
+		else
+		{
+			pushNotification.register(
+				successHandler,
+				errorHandler, {
+					"senderID":"319183521528",
+					"ecb":"onNotificationGCM"
+				});
+		}
+	}catch(e){
+		console.log(e);
 	}
 }
 

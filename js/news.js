@@ -55,7 +55,6 @@ var news = (function(){
 	}
 
 	function showList(json){
-
 		if(newsPage > 1){
 			list.add(json.datas)
 		}else{

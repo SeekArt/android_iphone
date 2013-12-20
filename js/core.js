@@ -24,6 +24,7 @@ var core = {
 		h = dt.getHours();
 		m = dt.getMinutes();
 		s = dt.getSeconds();
+		W = dt.getDay();
 			
 		if(typeof type == "undefined") {
 			type = "u"
@@ -56,6 +57,10 @@ var core = {
 			case "dt":
 				datetime = Y + "-" + M + "-" + D + " " + h + ":" + m + ":" + s;
 				break;
+			case "cn":
+				datetime = Y + "年" + M + "月" + D ;
+				break;
+				
 		}
 		return datetime;
 	},
@@ -333,8 +338,8 @@ var appInit = (function(){
 			getpush();
 		}else{
 			if(json.msg){
-				//$.ui.popup(json.msg);
-				appSdk.alert(json.msg);
+				$.ui.popup(json.msg);
+				//appSdk.alert(json.msg);
 			}
 			$.ui.loadContent('login',false,false,'fade');
 			console.log("lgoin fail");

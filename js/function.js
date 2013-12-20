@@ -40,3 +40,13 @@ function loadNews(){
 		news.init(); 
 	});
 }
+function loadDocs(){
+	$LAB.script("js/docs.js").wait(function(){
+		docs.init(); 
+	});
+}
+function loadDiary(){
+	$LAB.script("js/diary.js").wait(function(){
+		diary.init();
+	})
+}

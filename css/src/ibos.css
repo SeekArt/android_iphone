@@ -47,7 +47,7 @@ textarea::-webkit-input-placeholder {
 	font-family: 'Helvetica Neue', Helvetica, Arial, 'microsoft Yahei';
 	color: #383C41;
 }
-#afui.ibos .panel { background-color:#58585c; }
+#afui.ibos .panel { background-color:#ebeff6; }
 
 #afui.ibos #uibuttons{ background-color: #585858; }
 #afui.ibos #uibuttons .button{ width: 100%; }
@@ -69,7 +69,7 @@ textarea::-webkit-input-placeholder {
 }
 
 #afui.ibos .well{
-	box-shadow: 0 2px 2px rgba(0, 0, 0, .2);
+	box-shadow: 1px 2px 3px rgba(0, 0, 0, .1);
 	border-radius: 4px;
 	margin: 10px 0;
 	padding: 10px;
@@ -97,12 +97,12 @@ textarea::-webkit-input-placeholder {
 /* Header */
 #afui.ibos > #header{
 	box-shadow: 0 2px 2px rgba(0, 0, 0, .2);
-	background-color: rgba(36,156,213,0.95);/*background-color: #249CD5;*/
+	background-color: rgba(36,156,213,0.97);/*background-color: #249CD5;*/
 /*	background-image: -ms-linear-gradient(top, #249CD5, #1D89CD);
 	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #249CD5), color-stop(1, #1D89CD));
-	background-image: -webkit-linear-gradient(top, #249CD5, #1D89CD);*/
-	background-image: linear-gradient(to bottom, #249CD5 , #1D89CD);
-	border-color: #249CD5 transparent #0B73BB transparent;
+	background-image: -webkit-linear-gradient(top, #249CD5, #1D89CD);
+	background-image: linear-gradient(to bottom, #249CD5 , #1D89CD);*/
+	border-color: #249CD5 transparent #358CC9 transparent;
 }
 #afui.ibos > #header h1{
 	text-shadow: 0 2px 0 rgba(0, 0, 0, .2);
@@ -117,11 +117,11 @@ textarea::-webkit-input-placeholder {
 	background-image: -webkit-linear-gradient(top, #4B4F54 60%, #3F4246);
 	background-image: linear-gradient(to bottom, #4B4F54 60%, #3F4246);*/
 	border-bottom: 1px solid #65686B;
-	border-top-color: #3F4246;
+	border-top-color: #4B4F54;
 	padding: 0 1px;
 }
 #afui #navbar footer{
-	border-top: 1px solid #818488;
+	border-top: 1px solid #66686B;
 }
 #afui.ibos > #navbar > a{
 	border-left: 1px solid #383C41;
@@ -159,7 +159,7 @@ textarea::-webkit-input-placeholder {
 #afui.ibos .button.red,
 #afui.ibos .button.blue{
 	border: 0 none;
-	box-shadow: 0 2px 2px rgba(0, 0, 0, .2), 0 1px 1px rgba(255, 255, 255, .5) inset;
+	box-shadow: 0 2px 2px rgba(0, 0, 0, .2), 0 1px 1px rgba(255, 255, 255, .2) inset;
 	text-shadow: 0 1px 1px rgba(0, 0, 0, .5);
 }
 #afui.ibos .button.orange:active,
@@ -226,9 +226,10 @@ textarea::-webkit-input-placeholder {
 	/*padding-left: 50px;
 	padding-right: 50px;*/
 	width:49%;
-	
+	/*
 	border: 1px solid rgba(11, 115, 187, .5);
 	box-shadow: 0 1px 1px rgba(0, 0, 0, .3), 0 1px 1px rgba(255, 255, 255, .5) inset;
+	*/
 }
 #afui.ibos .button.primary:active{ box-shadow: 0 1px 1px rgba(0, 0, 0, .2) inset; }
 
@@ -432,7 +433,7 @@ textarea::-webkit-input-placeholder {
 #afui.ibos .avatar img{
 	-webkit-border-radius: 4px;
 	border-radius: 4px;
-	border: 1px solid #BBBDC9;
+	
 }
 
 /* Chat */
@@ -525,6 +526,10 @@ textarea::-webkit-input-placeholder {
 	color: #383C41;
 	padding:15px 10px;
 }
+#afui.ibos .list > li > a > b{
+	color: #bbbdc9;
+	padding-right: 20px;
+}
 /*#afui.ibos .list > li > a:hover,*/
 /*#afui.ibos .list > li > a:active{
 	background-color:#eee
@@ -553,6 +558,9 @@ textarea::-webkit-input-placeholder {
 	display: block;
 	color: #bbbdc9;
 	font-weight: normal;
+}
+#afui.ibos .list > li p {
+	margin:0;
 }
 #afui.ibos .list > li.new:before{
 	content:"●";
@@ -592,8 +600,9 @@ textarea::-webkit-input-placeholder {
 	border-color: #DFDFDF;
 	list-style: none;
 	-webkit-box-flex: 1;
-	border-right: 1px solid #fff;
-	border-top: 2px solid #ddd;
+	border-left: 1px solid #ddd;
+	border-top: 1px solid #ddd;
+	padding-top:5px;
 }
 #afui.ibos .vlist > li > a{
 	color: #383C41;
@@ -653,7 +662,6 @@ textarea::-webkit-input-placeholder {
 	-webkit-box-shadow: inset -1px 0 2px rgba(0, 0, 0, .5);
 	box-shadow: inset -1px 0 2px rgba(0, 0, 0, .5);
 	background-color: #58585C;
-	display: block !important;
 }
 #afui.ibos > #menu .list li{
 	-webkit-box-shadow: inset 0 1px 0px rgba(255, 255, 255, .2), inset 0 -1px 0 #383C41;
@@ -986,9 +994,11 @@ li .icon:before {
 /* phonebook */ 
 #afui.ibos .phonebookPanel{
 	margin: 0 -10px; line-height: 40px;
+	background-color: #a98060;
 }
 #afui.ibos .headBg{
-max-width: 100%;
+	max-width: 100%;
+	min-height: 90px;
 }
 #afui.ibos .phonebookHead{
  margin-top: -60px; position: relative
@@ -1002,6 +1012,7 @@ max-width: 100%;
 	margin-left: 15px;
 	position: absolute; 
 	bottom: 10px;
+	background-color: #fff;
 }
 #afui.ibos .phonebookPanel .text{
 	padding-left: 115px; height: 40px;

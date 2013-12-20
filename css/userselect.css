@@ -36,13 +36,13 @@
 
 .userlist { 
 	-webkit-touch-callout: none;
-	margin: 0 -10px;
+	/* margin: 0 -10px; */
 	background-color: #EBEDF0; 
 }
-.userlist dt{ padding: 4px 20px; }
+.userlist dt{ padding: 4px 10px; }
 .userlist dd{
 	margin: 0;
-	padding: 11px 40px 11px 20px;
+	padding: 11px 30px 11px 10px;
 	background-color: #FFF;
 	font-size: 16px;
 }

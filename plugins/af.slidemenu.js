@@ -56,6 +56,8 @@
             } else { 
                 doMenu=true;
             }
+
+            $("#menu").show();
             
             showHide = dx - startX > 0 ? 2 : false;
             var thePlace = Math.abs(dx - startX);

@@ -67,6 +67,7 @@
 	/*border: 1px solid #ccc;*/
 	border-radius: 4px;
 	/*margin:10px;*/
+	box-shadow:1px 1px 3px rgba(0,0,0,.1);
 }
 .list.inset li:first-child { border-top:none; }
 .list.inset li:last-child {	border-bottom:none; }

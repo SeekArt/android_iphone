@@ -7,7 +7,7 @@
 <!-- 			<div style="background-color: #383C41; height: 40px; /* top: 30px; */ opacity: .5; position: absolute; top: 0; width: 100%;">
 			</div> -->
 			<div class="avatar">     
-				<img id="myAvatar" src="<%=appInit.defaultUrl%>/<%=avatar_big%>" />    
+				<img id="myAvatar" src="<%=appInit.defaultUrl%>/<%=avatar_middle%>" />    
 			</div>    
 			<div class="text">
 				<strong><%=realname%></strong>
@@ -19,13 +19,13 @@
 	</div>
 	<ul class="list inset">
 		<li>
-			<a>生日 <%=core.toDatetime(birthday,"d")%></a>
+			<a><b>生日</b> <%=core.toDatetime(birthday,"d")%></a>
 		</li>
 		<li>
-			<a>手机 <%=mobile%></a>
+			<a href="tel:<%=mobile%>"><b>手机</b> <%=mobile%></a>
 		</li>
 		<li>
-			<a>邮箱 <%=email%></a>
+			<a href="mailto:<%=mobile%>"><b>邮箱</b> <%=email%></a>
 		</li>
 	</ul>
 </textarea>

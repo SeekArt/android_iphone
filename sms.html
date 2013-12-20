@@ -1,22 +1,22 @@
-				<ul class="list multi" id="smsList">
-				</ul>
-				<textarea id="smsListTpl" style="display:none;">
-					<li>
-						<div class="avatar">
-						<%if(lastmessage["touid"][0] == appInit.uid){%>
-							<img src="<%=appInit.defaultUrl%><%=lastmessage["user"]["avatar_small"]%>" alt="">
-						<%}else{%>
-							<img src="<%=appInit.defaultUrl%>/<%=touserinfo[lastmessage["touid"][0]]["avatar_middle"]%>" alt="">
-						<%}%>
-						</div>
-						<time>2013年8月28日</time>
-						<a href="#sms_view" onclick="Sms.loadSms(<%=listid%>);sms.setpanel(<%=listid%>)">
-						<%if(lastmessage["touid"][0] == appInit.uid){%>
-							<p><%=lastmessage["user"]["realname"]%> </p>
-						<%}else{%>
-							<p>我对 <%=touserinfo[lastmessage["touid"][0]]["realname"]%> 说：</p>
-						<%}%>
-							<span><%=lastmessage["content"]%></span>
-						</a>
-					</li>
-				</textarea>
+<ul class="list multi" id="smsList">
+</ul>
+<textarea id="smsListTpl" style="display:none;">
+	<li>
+		<div class="avatar">
+		<%if(lastmessage["touid"][0] == appInit.uid){%>
+			<img src="<%=appInit.defaultUrl%><%=lastmessage["user"]["avatar_small"]%>" alt="">
+		<%}else{%>
+			<img src="<%=appInit.defaultUrl%>/<%=touserinfo[lastmessage["touid"][0]]["avatar_middle"]%>" alt="">
+		<%}%>
+		</div>
+		<time>2013年8月28日</time>
+		<a href="#sms_view" onclick="Sms.loadSms(<%=listid%>);sms.setpanel(<%=listid%>)">
+		<%if(lastmessage["touid"][0] == appInit.uid){%>
+			<p><%=lastmessage["user"]["realname"]%> </p>
+		<%}else{%>
+			<p>我对 <%=touserinfo[lastmessage["touid"][0]]["realname"]%> 说：</p>
+		<%}%>
+			<span><%=lastmessage["content"]%></span>
+		</a>
+	</li>
+</textarea>

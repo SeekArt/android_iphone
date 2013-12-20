@@ -21,6 +21,8 @@ var appSdk = {
         window.addEventListener("offline", func);
 	},
 	alert : function(message,callback,title){
+		callback =""
+		title="ddf"
 		navigator.notification.alert(message,callback,title);
 	},
 	confirm : function (message,callback,title,buttons) {
