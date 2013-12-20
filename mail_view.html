@@ -2,11 +2,11 @@
 <textarea id="mailContentTpl" class="hideim">
 	<h2 class="view-title"><%=subject%></h2>
 	<details class="view-detail">
-		<summary><%=appInit.getUserName(fromid)%></summary>
+		<summary><%=app.getUserName(fromid)%></summary>
 		<p>
-			发件人:<%=appInit.getUserName(fromid)%><br />
-			收件人:<%=appInit.getUserName(toids)%><br />
-			抄送人:<%=appInit.getUserName(copytoids)%><br />
+			发件人:<%=app.getUserName(fromid)%><br />
+			收件人:<%=app.getUserName(toids)%><br />
+			抄送人:<%=app.getUserName(copytoids)%><br />
 			时  间:<time><%=core.toDatetime(sendtime)%></time>
 		</p>
 	</details>

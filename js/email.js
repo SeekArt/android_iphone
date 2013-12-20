@@ -8,7 +8,7 @@ var Email = (function(){
 		mailId = 0,
 		isInit = false,
 		mailPage = 1,
-		mailUrl = function (){ return appInit.appUrl + '/mail' };
+		mailUrl = function (){ return app.appUrl + '/mail' };
 		
 	var list;
 	/**
@@ -201,7 +201,7 @@ var Email = (function(){
 	function replyMail(){
 		var subject = $("#mailSubjectHidden").val(),
 			toid = $("#mailFromIdHidden").val();
-		var user = [{ id: toid, text: appInit.getUserName(toid)}];
+		var user = [{ id: toid, text: app.getUserName(toid)}];
 		editMail({
 			subject: "回复：" + subject,
 			user: user
@@ -213,11 +213,11 @@ var Email = (function(){
 			toid = $("#mailFromIdHidden").val(),
 			copyArr = $("#mailCopyToIdsHidden").val().split(",")
 
-		var user = [{ id: toid, text: appInit.getUserName(toid)}];
+		var user = [{ id: toid, text: app.getUserName(toid)}];
 
 		for(var i = 0; i < copyArr.length; i++){
 			if(copyArr[i]){
-				user.push({id: copyArr[i], text: appInit.getUserName(copyArr[i])})
+				user.push({id: copyArr[i], text: app.getUserName(copyArr[i])})
 			}
 		}
 

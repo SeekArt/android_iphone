@@ -5,7 +5,7 @@ var setup = {
 		var tp = $tpl.val(),
 			newTp = '',
 			obj = {};				
-			obj = appInit.user;
+			obj = app.user;
 			newTp += $.template(tp, obj);
 		$target.html(newTp).css3Animate({ time: "500ms", opacity: 1 });
 	},
@@ -16,7 +16,7 @@ var setup = {
 		var tp = $tpl.val(),
 			newTp = '',
 			obj = {};				
-			obj = appInit.user;
+			obj = app.user;
 			newTp += $.template(tp, obj);
 		$target.html(newTp).css3Animate({ time: "500ms", opacity: 1 });
 	}

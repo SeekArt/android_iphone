@@ -144,7 +144,7 @@ Letter.prototype = {
 	}
 }
 
-appInit.letter = {
+app.letter = {
 	ins: null,
 	on: function(prefix) {
 		prefix = prefix || "";

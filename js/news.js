@@ -8,7 +8,7 @@ var news = (function(){
 		newsId = 0, //
 		isInit = false,
 		newsPage = 1, // 当前页码
-		newsUrl = function (){ return appInit.appUrl + '/news' };
+		newsUrl = function (){ return app.appUrl + '/news' };
 
 	var list;
 		
@@ -189,7 +189,7 @@ Module.prototype = {
 	},
 	
 	_getUrl: function(){
-		return this.options.url || (appInit && appInit.appUrl + "/" + this.name);
+		return this.options.url || (app && app.appUrl + "/" + this.name);
 	},
 
 	loadList: function(catid, page, params){

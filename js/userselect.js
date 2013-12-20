@@ -463,7 +463,7 @@ UserList.prototype = {
 			userListId: 'phonebook_content'
 		}
 	}
-	appInit.userSelector = {
+	app.userSelector = {
 		user: "",
 		userListId: "",
 		panelId: "",
@@ -478,7 +478,7 @@ UserList.prototype = {
 
 				$panel = $("#" + settings.panelId);
 				$panel.off(".getuser").on("loadpanel.getuser", function(){
-					var userlist = new UserList(settings.userListId, appInit.getUserData(), settings.userListSettings);
+					var userlist = new UserList(settings.userListId, app.getUserData(), settings.userListSettings);
 					userlist.set(userValue);
 			
 					that.panelId = settings.panelId;
@@ -504,13 +504,13 @@ UserList.prototype = {
 		}
 	}
 
-	appInit.selectOneUser = function(callback){
+	app.selectOneUser = function(callback){
 		var settings = selectorSettings['common'];
 		var list;
 
 		$("#" + settings.panelId).on("loadpanel", function(){
 
-			list = new UserList(settings.userListId, appInit.getUserData());
+			list = new UserList(settings.userListId, app.getUserData());
 			$("#" + settings.userListId).off("userlist:select").on("userlist:select", function(evt, data){
 				
 				callback && callback(data);

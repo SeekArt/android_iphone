@@ -144,7 +144,7 @@
 			var tp = $tpl.val(),
 				newTp = '',
 				obj = {};				
-				obj = appInit.user;
+				obj = app.user;
 				newTp += $.template(tp, obj);
 			$target.html(newTp).css3Animate({ time: "500ms", opacity: 1 });
 		}
@@ -155,7 +155,7 @@
 			var tp = $tpl.val(),
 				newTp = '',
 				obj = {};				
-				obj = appInit.user;
+				obj = app.user;
 				newTp += $.template(tp, obj);
 			$target.html(newTp).css3Animate({ time: "500ms", opacity: 1 });
 		}
@@ -375,7 +375,7 @@
 	<header id="header_selector">
 		<a href="javascript:;" class="button ao-cancel" onclick="$.ui.goBack()"></a>
 		<h1>用户选择</h1>
-		<a href="javascript:;" class="button ao-ok" onclick="appInit.userSelector.save()"></a>
+		<a href="javascript:;" class="button ao-ok" onclick="app.userSelector.save()"></a>
 	</header>
 
 	<!---------------------nav------------------------->
@@ -383,7 +383,7 @@
 		<ul class="list">
 			<li class="divider icon home">侧边栏</li>
 		</ul>
-		<a class="button orange" onClick="appInit.logout()">退出登录</a>
+		<a class="button orange" onClick="app.logout()">退出登录</a>
 	</nav>
 	<nav id="menu_news">
 		<ul class="list list-ico" id="newsCat">

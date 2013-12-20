@@ -5,7 +5,7 @@
 	<div class="well pdz">
 		<div class="profilePanel" onclick="$.ui.loadContent('setting_profile');setup.loadProfile();">
 			<div class="avatar">
-				<img src="<%=appInit.defaultUrl%>/<%=avatar_middle%>" alt=""></div>
+				<img src="<%=app.defaultUrl%>/<%=avatar_middle%>" alt=""></div>
 			<h2><%=realname%></h2>
 			<span><%=deptname%></span>
 		</div>
@@ -53,5 +53,5 @@
 			<a href="#">关于我们</a>
 		</li>
 	</ul>
-	<a class="button button-block red large primary" onClick="appInit.logout()">退出登录</a>
+	<a class="button button-block red large primary" onClick="app.logout()">退出登录</a>
 </textarea>

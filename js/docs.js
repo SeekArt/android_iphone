@@ -8,7 +8,7 @@ var docs = (function(){
 		docsId = 0, //
 		isInit = false,
 		docsPage = 1, // 当前页码
-		docsUrl = function (){ return appInit.appUrl + '/docs' };
+		docsUrl = function (){ return app.appUrl + '/docs' };
 
 	var list;
 		

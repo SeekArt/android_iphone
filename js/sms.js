@@ -5,7 +5,7 @@ var Sms = (function(){
 		isInit = false,
 		prevTime = 0,
 		smsPage = 1,
-		smsUrl = function (){ return appInit.appUrl + '/pm' };
+		smsUrl = function (){ return app.appUrl + '/pm' };
 
 	var _newSms;
 		
@@ -100,7 +100,7 @@ var Sms = (function(){
 			$("pm_id").val(id);
 		}
 		$("pm_touid").val(_newSms.id);
-		$("formPm").attr("action",appInit.appUrl+"/pm/postimg");
+		$("formPm").attr("action",app.appUrl+"/pm/postimg");
 	}
 	function send(){
 		
@@ -129,7 +129,7 @@ var Sms = (function(){
 	}
 
 	function addSms(data){
-		appInit.selectOneUser(function(data){
+		app.selectOneUser(function(data){
 			_newSms = data;
 			$.ui.loadContent("#sms_view");
 			$.ui.setTitle(_newSms.text);

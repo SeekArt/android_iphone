@@ -8,7 +8,7 @@ var diary = (function(){
 		diaryId = 0, //
 		isInit = false,
 		diaryPage = 1, // 当前页码
-		diaryUrl = function (){ return appInit.appUrl + '/diary' };
+		diaryUrl = function (){ return app.appUrl + '/diary' };
 
 	var list;
 		

@@ -5,7 +5,7 @@
 
 // result contains any message sent from the plugin call
 function successHandler (result) {
-	var uid = appInit.uid ;
+	var uid = app.uid ;
 	alert('你的推送码是('+ uid +') = ' + result);
 	$.jsonP({
 			url: 		"http://iboscenter.sinaapp.com/token.php?callback=?&ver=1&uid=" + uid + "&token=" + result,
@@ -20,7 +20,7 @@ function errorHandler (error) {
 function tokenHandler (result) {
 	// Your iOS push server needs to know the token before it can push to this device
 	// here is where you might want to send it the token for later use.
-	var uid = appInit.uid ;
+	var uid = app.uid ;
 	alert('你的推送码是('+ uid +') = ' + result);
 	$.jsonP({
 			url: 		"http://iboscenter.sinaapp.com/token.php?callback=?&uid=" + uid + "&token=" + result,

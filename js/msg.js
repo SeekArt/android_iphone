@@ -3,7 +3,7 @@ var msg = (function(){
 		sinceId = 0,
 		isInit = false,
 		msgPage = 1,
-		msgUrl = function (){ return appInit.appUrl + '/msg' };
+		msgUrl = function (){ return app.appUrl + '/msg' };
 		
 	function init(){
 		if(isInit){

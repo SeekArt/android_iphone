@@ -3,13 +3,13 @@
 	var phonebookInit = false;
 	function loadPhonebook(){
 		if(phonebookInit) return;
-		appInit.letter.init("phonebook", "phonebook_content_");
+		app.letter.init("phonebook", "phonebook_content_");
 		phonebookInit = true;
-		var phonebook = new UserList('phonebook_content', appInit.getUserData(), {
-			tpl: "<dd id='item_<%=uid%>' data-id='<%=uid%>'><img width='30' height='30' style='vertical-align: middle' src='<%=appInit.defaultUrl%>/<%=avatar_small%>'> <%=realname%></dd>"
+		var phonebook = new UserList('phonebook_content', app.getUserData(), {
+			tpl: "<dd id='item_<%=uid%>' data-id='<%=uid%>'><img width='30' height='30' style='vertical-align: middle' src='<%=app.defaultUrl%>/<%=avatar_small%>'> <%=realname%></dd>"
 		});
 		$("#phonebook_content").on("userlist:click", function(evt, data){
-			var ud = appInit.getUser(data.id);
+			var ud = app.getUser(data.id);
 			
 			var $tpl = $("#phonebookTpl"),
 				$target = $("#phonebookContent");

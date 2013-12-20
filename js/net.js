@@ -28,9 +28,9 @@ var netSetting = (function(){
 		}
 	}
 	function setDefault(i){
-		appInit.appUrl = netSetList[i].url;
-		appInit.isInit = false;
-		appInit.init();
+		app.appUrl = netSetList[i].url;
+		app.isInit = false;
+		app.init();
 		localStorage.setItem("defaultUrl", netSetList[i].url);
 		localStorage.setItem("defaultName", netSetList[i].name);
 		localStorage.setItem("defaultID", netSetList[i].id);

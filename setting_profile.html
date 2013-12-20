@@ -2,10 +2,10 @@
 </div>
 <iframe name='hidden_frame' style="display:none;" id="hidden_frame"></iframe>
 <textarea id="profileTpl" style="display:none;">
-	<form id="formImg" action="<%=appInit.appUrl%>/setting/update" method="post" target="hidden_frame" enctype="multipart/form-data">
+	<form id="formImg" action="<%=app.appUrl%>/setting/update" method="post" target="hidden_frame" enctype="multipart/form-data">
 		<div class="profile">
 			<div class="avatar" onClick="appSdk.camera.getImage(function(imageData){ $('#myAvatar').attr('src',imageData);$('#avatar_input').val(imageData); });">
-				<img id="myAvatar" src="<%=appInit.defaultUrl%>/<%=avatar_big%>" alt="">
+				<img id="myAvatar" src="<%=app.defaultUrl%>/<%=avatar_big%>" alt="">
 			</div>
 			<a class="avatarBtn" onClick="appSdk.camera.getPhoto(function(imageData){ $('#myAvatar').attr('src',imageData);$('#avatar_input').val(imageData); });">编辑</a>
 		</div>

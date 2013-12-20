@@ -246,12 +246,12 @@ List.prototype = {
 
 
 /**
-* appInit
+* app
 
 * @author Aeolus
 * @copyright IBOS
 */
-var appInit = (function(){
+var app = (function(){
 	var isLogin = false,
 		isInit = false,
 		appUrl = defaultUrl = localStorage.getItem("defaultUrl") ,
@@ -267,15 +267,15 @@ var appInit = (function(){
 	}
 
 	function init(){
-		if(!appInit.isInit){
+		if(!app.isInit){
 			//初始化完整的路径
-			appInit.appUrl += "/?r=mobile";
+			app.appUrl += "/?r=mobile";
 			// $.jsonP({
-				// url: 		appInit.appUrl + '&callback=?',
+				// url: 		app.appUrl + '&callback=?',
 				// success: 	checkLogin,
 				// error: 		function(err){	console.log(err)	}
 			// });		
-			appInit.isInit = true;
+			app.isInit = true;
 		}
 	}
 
@@ -290,7 +290,7 @@ var appInit = (function(){
 		//以下登录换用了rpc
 		// doLogin(username,password);		
 		$.jsonP({
-			url: 		appInit.appUrl + '/default/login&callback=?&username=' + username +'& password=' + password + '&gps=' + gps + '&address=' + address + '&issetuser=' + _isset,
+			url: 		app.appUrl + '/default/login&callback=?&username=' + username +'& password=' + password + '&gps=' + gps + '&address=' + address + '&issetuser=' + _isset,
 			success: 	function(res){
 				if(res.userData){
 					userData = res.userData;
@@ -319,7 +319,7 @@ var appInit = (function(){
 	
 	function logout(){
 		$.jsonP({
-			url: 		appInit.appUrl + '/default/logout&callback=?&formhash=' + formHash,
+			url: 		app.appUrl + '/default/logout&callback=?&formhash=' + formHash,
 			success: 	checkLogin,
 			error: 		function(err){	console.log(err) }
 		});
@@ -331,10 +331,10 @@ var appInit = (function(){
 			$.ui.loadContent('main',false,false,'fade');
 			formHash = json.formhash;
 			isLogin = true;
-			appInit.user = json.user;
-			appInit.uid = json.uid;
-			localStorage.setItem("uid", appInit.uid);
-			core.setStorage("user", appInit.user);
+			app.user = json.user;
+			app.uid = json.uid;
+			localStorage.setItem("uid", app.uid);
+			core.setStorage("user", app.user);
 			getpush();
 		}else{
 			if(json.msg){
