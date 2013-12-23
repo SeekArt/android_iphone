@@ -19,7 +19,7 @@
 }
 
 /* Active */
-#afui .button.pressed { background:#fff; }
+#afui .button.pressed { background-color:#fff; }
 
 #afui .button.previous {
 
@@ -197,6 +197,10 @@
 	background-color: transparent;
 }
 
+#afui #header .button.pressed{
+	background-color:#2090d0;	
+	border:1px solid #358cc9;
+}
 
 
 

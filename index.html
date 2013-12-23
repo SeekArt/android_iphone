@@ -60,6 +60,7 @@
 	<script type="text/javascript" charset="utf-8" src="./js/appsdk.js"></script>
 	<script type="text/javascript" charset="utf-8" src="./js/letter.js"></script>
 	<script type="text/javascript" charset="utf-8" src="./js/userselect.js"></script>
+	<script type="text/javascript" charset="utf-8" src="./js/when.js"></script>
 	<!--script type="text/javascript" charset="utf-8" src="./phonegap.js"></script-->	
 	<script type="text/javascript" charset="utf-8" src="./js/push.js"></script>
 	<script type="text/javascript">
@@ -170,7 +171,7 @@
 		<!---------------------------------------------->
 			<div title="企业微博" id="weibo" class="panel" data-tab="navbar_weibo" data-header="header_weibo" data-defer="weibo.html"></div>
 		<!---------------------------------------------->
-			<div title="个人设置" id="setting" class="panel" data-tab="navbar_setting" data-header="header_setting" data-defer="setting.html" data-load="loadSetting"></div>
+			<div title="个人设置" id="setting" class="panel" data-tab="navbar_setting" data-header="header_setting" data-nav="none" data-defer="setting.html" data-load="loadSetting"></div>
 			<div title="个人资料" id="setting_profile" class="panel" data-tab="navbar_setting" data-footer="none" data-defer="setting_profile.html"></div>
 			
 		<!---------------------------------------------->
@@ -314,7 +315,6 @@
 		<h1>最新记录</h1>
 	</header>
 	<header id="header_setting">
-		<a class='button ao-menu' onclick='af.ui.toggleSideMenu()'></a>
 		<h1>个人设置</h1>
 	</header>
 

@@ -1,5 +1,7 @@
 <ul class="list multi" id="smsList">
 </ul>
+<ul class="list multi" id="msgList">
+</ul>
 <textarea id="smsListTpl" style="display:none;">
 	<li>
 		<div class="avatar">
@@ -10,13 +12,21 @@
 		<%}%>
 		</div>
 		<time>2013年8月28日</time>
-		<a href="#sms_view" onclick="Sms.loadSms(<%=listid%>);sms.setpanel(<%=listid%>)">
+		<a href="#sms_view" onclick="Sms.loadSms(<%=listid%>);sms.setPanel(<%=listid%>)">
 		<%if(lastmessage["touid"][0] == app.uid){%>
 			<p><%=lastmessage["user"]["realname"]%> </p>
 		<%}else{%>
 			<p>我对 <%=touserinfo[lastmessage["touid"][0]]["realname"]%> 说：</p>
 		<%}%>
 			<span><%=lastmessage["content"]%></span>
+		</a>
+	</li>
+</textarea>
+<textarea id="msgListTpl" style="display:none;">
+	<li <%if(!readstatus){%>class="new"<%}%>>
+		<time><%=core.toDatetime(addtime)%></time>
+		<a href="#msg_view" onclick="news.loadNews(<%=msgid%>,this)"><%=subject%>
+		<span><%=content%></span>
 		</a>
 	</li>
 </textarea>

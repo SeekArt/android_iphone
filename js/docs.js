@@ -24,7 +24,6 @@ var docs = (function(){
 	
 		docs.loadCat();
 		docs.loadList(docsCatId);
-
 		isInit = true;
 	}
 	//------ Docs List
@@ -51,15 +50,17 @@ var docs = (function(){
 			success: 	showList,
 			error: 		function(err){	console.log(err) }
 		});
-
 	}
 
 	function showList(json){
+	setTimeout(function(){
 		if(docsPage > 1){
 			list.add(json.datas)
 		}else{
 			list.set(json.datas);
 		}
+		$("#docsList").append("<li>pop</li>")
+	},500)
 		
 		$("#readMoreDocs").remove();
 		if( json.pages.pageCount > docsPage ){

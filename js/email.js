@@ -51,7 +51,6 @@ var Email = (function(){
 		});
 	}
 	function showList(json){
-		var $target = $("#mailList")
 		if(mailPage > 1){
 			list.add(json.datas)
 		}else{
@@ -59,8 +58,11 @@ var Email = (function(){
 		}
 		$("#readMoreMail").remove();
 		if( json.pages.pageCount > mailPage ){
-			$target.append('<li id="readMoreMail" class="list-more"><a onclick="Email.loadList(0,'+( mailPage + 1) +')">加载更多</a></li>');
+			$("#mailList").append('<li id="readMoreMail" class="list-more"><a onclick="Email.loadList(0,'+( mailPage + 1) +')">加载更多</a></li>');
 		}
+		$("#mailList").hide()
+		setTimeout(function(){ $("#mailList").show() },0);
+		
 		$.ui.hideMask();
 	}
 	
@@ -95,10 +97,12 @@ var Email = (function(){
 	}
 	
 	// --------- Mail View
-	function loadMail(id){
+	function loadMail(id,dom){
 		$("#mailContent").empty().css3Animate({ time: "300ms", opacity: 0 });
 		$.ui.showMask();
-
+		if(typeof dom !="undefined"){
+			$(dom).parent().removeClass("new"); //取消未读
+		}
 		if(typeof id === 'undefined'){
 			id = Email.mailId;
 		}	
@@ -188,7 +192,8 @@ var Email = (function(){
 			url: 		mailUrl() + "/edit&callback=?&" + $.param(data),
 			success: 	function(){
 				$.ui.hideMask();
-				$.ui.loadContent("mail");
+				Email.loadList('inbox')
+				$.ui.goBack();
 			},
 			error: 		function(err){ console.log(err) }
 		});

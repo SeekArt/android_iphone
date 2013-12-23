@@ -537,6 +537,10 @@ textarea::-webkit-input-placeholder {
 #afui.ibos .list.multi >li {
 	padding: 15px 20px 15px 30px;
 }
+#afui.ibos .list > li:active{
+	background-color: #ebeff6;
+	box-shadow:inset 0 0 5px rgba(0,0,0,.1);
+}
 #afui.ibos .list.multi >li > a{
 	line-height:1.45em;
 }

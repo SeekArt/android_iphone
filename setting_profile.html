@@ -4,12 +4,11 @@
 <textarea id="profileTpl" style="display:none;">
 	<form id="formImg" action="<%=app.appUrl%>/setting/update" method="post" target="hidden_frame" enctype="multipart/form-data">
 		<div class="profile">
-			<div class="avatar" onClick="appSdk.camera.getImage(function(imageData){ $('#myAvatar').attr('src',imageData);$('#avatar_input').val(imageData); });">
+			<div class="avatar" onClick="setting.takePicture().then(setting.uploadPicture).then(setting.deletePictureFromCache);">
 				<img id="myAvatar" src="<%=app.defaultUrl%>/<%=avatar_big%>" alt="">
 			</div>
-			<a class="avatarBtn" onClick="appSdk.camera.getPhoto(function(imageData){ $('#myAvatar').attr('src',imageData);$('#avatar_input').val(imageData); });">编辑</a>
+			<a class="avatarBtn" onClick="appSdk.camera.getPhoto(function(imageData){ $('#myAvatar').attr('src',imageData); $('#avatar_input').val(imageData); setup.uploadPicture(); });">编辑</a>
 		</div>
-		<input id="avatar_input" name="avatar" style="display:none;" type="file"/>
 		<h3>基本信息</h3>
 		<ul class="list inset">
 			<li class="control-group">
@@ -49,3 +48,52 @@
 		<button class="button button-block blue large primary" type="submit">保存</button>
 	</form>
 </textarea>
+
+
+<!-- 
+
+	// 等待加载PhoneGap
+	document.addEventListener("deviceready", onDeviceReady, false); 
+	
+	// PhoneGap加载完成
+	function onDeviceReady() { 
+
+		// 从指定来源检索图像文件位置
+		navigator.camera.getPicture(uploadPhoto, 
+			function(message) { 
+				alert('get picture failed'); 
+			}, 
+			{ quality: 50, 
+				destinationType: navigator.camera.DestinationType.FILE_URI, 
+				sourceType: navigator.camera.PictureSourceType.PHOTOLIBRARY 
+			}
+			); 
+	}  
+
+	function uploadPhoto(imageURI) { 
+		var options = new FileUploadOptions(); 
+		options.fileKey="file"; 
+		options.fileName=imageURI.substr(imageURI.lastIndexOf('/')+1); 
+		options.mimeType="image/jpeg"; 
+
+		var params = new Object(); 
+		params.value1 = "test"; 
+		params.value2 = "param";  
+
+		options.params = params;  
+
+		var ft = new FileTransfer(); 
+		ft.upload(imageURI, "http://some.server.com/upload.php", win, fail, options); 
+	} 
+
+	function win(r) { 
+		console.log("Code = " + r.responseCode);
+		console.log("Response = " + r.response); 
+		console.log("Sent = " + r.bytesSent); 
+	} 
+
+	function fail(error) { 
+		alert("An error has occurred: Code = " = error.code);
+	}  
+
+-->

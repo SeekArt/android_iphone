@@ -32,7 +32,6 @@ var news = (function(){
 		//$(dom).parent().addClass("active"); //选中分类
 		//$(dom).parent().siblings().removeClass("active"); //选中分类
 		var pageurl;
-
 		$.ui.showMask();
 		// 目录变更
 		if(catid !== newsCatId) {
@@ -43,7 +42,6 @@ var news = (function(){
 		if(typeof page !== "undefined" && page !== newsPage){
 			newsPage = page;
 		}
-
 		pageurl = "&page=" + newsPage;
 
 		$.jsonP({
@@ -51,17 +49,17 @@ var news = (function(){
 			success: 	showList,
 			error: 		function(err){	console.log(err) }
 		});
-
 	}
 
 	function showList(json){
+	setTimeout(function(){
 		if(newsPage > 1){
 			list.add(json.datas)
 		}else{
 			list.set(json.datas);
 		}
-		
-
+		$("#newsList").append("<li>nn</li>")
+	},0)
 		$("#readMoreNews").remove();
 		if( json.pages.pageCount > newsPage ){
 			$("#newsList").append('<li id="readMoreNews" class="list-more"><a onclick="news.loadList(' + newsCatId + ','+( newsPage + 1) +')">加载更多</a></li>');
@@ -111,7 +109,7 @@ var news = (function(){
 		$.jsonP({
 			url: 		newsUrl() + "/show&callback=?&id="+id,
 			success: 	news.showNews,
-			error: 		function(err){	console.log(err)	 }
+			error: 		function(err){ console.log(err) }
 		});
 	}
 	function showNews(json){
@@ -137,7 +135,6 @@ var news = (function(){
 			success: 	showList,
 			error: 		function(err){	console.log(err) }
 		});
-		
 	}
 
 	// @Debug: 测试用
