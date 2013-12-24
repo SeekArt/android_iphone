@@ -16,8 +16,8 @@
 		<gap:platform name="android" />
     </gap:platforms>
 	<preference name="phonegap-version" value="3.1.0" /> <!-- 注释：版本-->
-	<preference name="fullscreen" value="false" />
-    <preference name="webviewbounce" value="true" />
+	<preference name="fullscreen" value="true" />
+    <preference name="webviewbounce" value="false" />
 
 	<icon src="icon.png" />
     <icon src="res/icon/ios/icon-57-2x.png" gap:role="default" /> <!-- 注释：应用Logo，显示在移动终端桌面上和应用名称一起 -->
