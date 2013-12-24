@@ -55,7 +55,11 @@ var news = (function(){
 		if(newsPage > 1){
 			list.add(json.datas)
 		}else{
-			list.set(json.datas);
+			if(json.datas.length){
+				list.set(json.datas);
+			}else{
+				$("#newsList").html("<li class='no-info'></li>");
+			}
 		}
 		$("#readMoreNews").remove();
 		if( json.pages.pageCount > newsPage ){

@@ -7,7 +7,9 @@ var loadLogin = function (what){
 var unloadLogin = function (){
 	$.ui.enableSideMenu();
 }
-
+function mainload(){
+	$.ui.hideMask();
+}
 function loadSms(){
 	$LAB.script("js/sms.js").wait(function(){
 		Sms.init();

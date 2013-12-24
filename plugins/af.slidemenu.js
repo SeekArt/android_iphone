@@ -48,7 +48,7 @@
             if (menuState && dx > startX) return true;
             if (dx-startX > max) return true;
             if (startX-dx > max) return true;
-			if (Math.abs(startX-dx) < 30) return true;
+			if (Math.abs(startX-dx) < 20) return true;
             if (Math.abs(dy - startY) > Math.abs(dx - startX) || Math.abs(dy - startY)>100) return true;
             if (!checking) {
                 checking = true;

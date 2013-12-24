@@ -506,12 +506,9 @@ textarea::-webkit-input-placeholder {
 	background-color: #AFB1BF;
 }
 #afui.ibos .time{
-	border-bottom: 1px dashed #fff;
-	border-top: 1px dashed #ccc;
-	height: 1px;
-	line-height: 1px;
+	border-bottom: 1px dashed #ccc;
 	text-align: center;
-	margin: 20px 0;
+	margin: 20px 0 10px;
 	color: #BBBDC9;
 }
 
@@ -1051,3 +1048,8 @@ li .icon:before {
 #afui.ibos .control-group .controls .user-selector-list { margin-top: 10px; }
 
 
+#afui.ibos .no-info{
+	background: url(../../images/no-info.png) center center ;
+	min-height: 300px;
+	width: 100%;
+}

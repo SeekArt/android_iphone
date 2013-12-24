@@ -2,6 +2,7 @@ var msg = (function(){
 	var msgId = 0,
 		sinceId = 0,
 		isInit = false,
+		prevTime = 0,
 		msgPage = 1,
 		msgUrl = function (){ return app.appUrl + '/msg' };
 		
@@ -54,6 +55,7 @@ var msg = (function(){
 					obj = json.datas[val]; //没有特殊要处理的则直接对象赋于就行了
 					for(var v in obj){
 						obj.hasOwnProperty(v) && (newTp += $.template(tp, obj[v]));
+						msg.prevTime = obj[v]["ctime"];
 					}
 				}
 			}

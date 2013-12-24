@@ -54,7 +54,11 @@ var Email = (function(){
 		if(mailPage > 1){
 			list.add(json.datas)
 		}else{
-			list.set(json.datas);
+			if(json.datas.length){
+				list.set(json.datas);
+			}else{
+				$("#mailList").html("<li class='no-info'></li>");
+			}
 		}
 		$("#readMoreMail").remove();
 		if( json.pages.pageCount > mailPage ){
@@ -94,7 +98,7 @@ var Email = (function(){
 			if(json.noread>0){
 				$.ui.updateBadge("#inbox", json.noread);
 			}
-		$target.append(newTp);
+			$target.append(newTp);
 	}
 	
 	// --------- Mail View

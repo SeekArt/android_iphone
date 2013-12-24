@@ -25,7 +25,7 @@ var setup = {
         var deferred  = when.defer(),
             destinationType=navigator.camera.DestinationType,
             options = {
-                quality: 100,
+                quality: 20,
                 destinationType: destinationType.FILE_URI
                 //sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
                 //cameraDirection: Camera.Direction.FRONT,

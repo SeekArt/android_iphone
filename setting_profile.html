@@ -4,7 +4,7 @@
 <textarea id="profileTpl" style="display:none;">
 	<form id="formImg" action="<%=app.appUrl%>/setting/update" method="post" target="hidden_frame" enctype="multipart/form-data">
 		<div class="profile">
-			<div class="avatar" onClick="setting.takePicture().then(setting.uploadPicture).then(setting.deletePictureFromCache);">
+			<div class="avatar" onClick="setup.takePicture().then(setup.uploadPicture).then(setup.deletePictureFromCache);">
 				<img id="myAvatar" src="<%=app.defaultUrl%>/<%=avatar_big%>" alt="">
 			</div>
 			<a class="avatarBtn" onClick="appSdk.camera.getPhoto(function(imageData){ $('#myAvatar').attr('src',imageData); $('#avatar_input').val(imageData); setup.uploadPicture(); });">编辑</a>
