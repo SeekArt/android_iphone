@@ -65,8 +65,6 @@
 	<gap:plugin name="org.apache.cordova.dialogs" />
 	<gap:plugin name="org.apache.cordova.vibration" />
 
-	<gap:plugin name="Accelerometer" value="org.apache.cordova.Accelerometer" />
-
 	<gap:plugin name="org.apache.cordova.splashscreen" />
 	<preference name="splashscreen" value="foo" />
 
