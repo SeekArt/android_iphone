@@ -1,6 +1,6 @@
-<ul class="list multi" id="smsList">
-</ul>
 <ul class="list multi" id="msgList">
+</ul>
+<ul class="list multi" id="smsList" style="margin-top:-11px;">
 </ul>
 <textarea id="smsListTpl" style="display:none;">
 	<li>
@@ -12,7 +12,7 @@
 		<%}%>
 		</div>
 		<time>2013年8月28日</time>
-		<a href="#sms_view" onclick="Sms.loadSms(<%=listid%>);sms.setPanel(<%=listid%>)">
+		<a href="#sms_view" onclick="Sms.loadSms(<%=listid%>);Sms.setPanel(<%=listid%>)">
 		<%if(lastmessage["touid"][0] == app.uid){%>
 			<p><%=lastmessage["user"]["realname"]%> </p>
 		<%}else{%>
@@ -22,11 +22,15 @@
 		</a>
 	</li>
 </textarea>
-<textarea id="msgListTpl" style="display:none;">
-	<li <%if(!readstatus){%>class="new"<%}%>>
-		<time><%=core.toDatetime(addtime)%></time>
-		<a href="#msg_view" onclick="news.loadNews(<%=msgid%>,this)"><%=subject%>
-		<span><%=content%></span>
+<textarea style="display:none;" type="text/ibos-template" id="msgListTpl">
+	<li id="mod_<%=id%>">
+		<div class="avatar">
+			<img src="images/ico/<%=id%>.png" alt="">
+		</div>
+		<time><%if(unread>0){%><%=core.toDatetime(newlist[0]["ctime"])%><%}else{%><%=latest["ctime"]%><%}%></time>
+		<a href="#msg_view" onclick="msg.loadMsg('<%=id%>',this)"><%=name%>
+			<span><%if(unread>0){%><%=newlist[0]["title"]%><%}else{%><%=latest["title"]%><%}%></span>
 		</a>
+		<%if(unread>0){%><span class="af-badge lr"><%=unread%></span><%}%>
 	</li>
 </textarea>

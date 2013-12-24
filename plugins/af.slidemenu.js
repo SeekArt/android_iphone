@@ -18,7 +18,7 @@
         var elems = $("#content, #header, #navbar");
         var $menu = $("#menu");
         var max = $("#menu").width();
-        var slideOver = max/2;
+        var slideOver = max/3;
         var menuState;
         var transTime = $.ui.transitionTime;
         $.ui.toggleSideMenu(false, null, 0);
@@ -48,6 +48,7 @@
             if (menuState && dx > startX) return true;
             if (dx-startX > max) return true;
             if (startX-dx > max) return true;
+			if (Math.abs(startX-dx) < 30) return true;
             if (Math.abs(dy - startY) > Math.abs(dx - startX) || Math.abs(dy - startY)>100) return true;
             if (!checking) {
                 checking = true;

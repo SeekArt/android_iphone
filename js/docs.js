@@ -53,19 +53,19 @@ var docs = (function(){
 	}
 
 	function showList(json){
-	setTimeout(function(){
 		if(docsPage > 1){
 			list.add(json.datas)
 		}else{
 			list.set(json.datas);
 		}
-		$("#docsList").append("<li>pop</li>")
-	},500)
 		
 		$("#readMoreDocs").remove();
 		if( json.pages.pageCount > docsPage ){
 			$("#docsList").append('<li id="readMoreDocs" class="list-more"><a onclick="docs.loadList(' + docsCatId + ','+( docsPage + 1) +')">加载更多</a></li>');
 		}
+		$("#docsList").hide()
+		setTimeout(function(){ $("#docsList").show() },0);
+		
 		$.ui.hideMask();
 		return;
 	}

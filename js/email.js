@@ -64,6 +64,7 @@ var Email = (function(){
 		setTimeout(function(){ $("#mailList").show() },0);
 		
 		$.ui.hideMask();
+		return;
 	}
 	
 	

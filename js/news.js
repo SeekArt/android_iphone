@@ -52,18 +52,18 @@ var news = (function(){
 	}
 
 	function showList(json){
-	setTimeout(function(){
 		if(newsPage > 1){
 			list.add(json.datas)
 		}else{
 			list.set(json.datas);
 		}
-		$("#newsList").append("<li>nn</li>")
-	},0)
 		$("#readMoreNews").remove();
 		if( json.pages.pageCount > newsPage ){
 			$("#newsList").append('<li id="readMoreNews" class="list-more"><a onclick="news.loadList(' + newsCatId + ','+( newsPage + 1) +')">加载更多</a></li>');
 		}
+		$("#newsList").hide()
+		setTimeout(function(){ $("#newsList").show() },0);
+		
 		$.ui.hideMask();
 		return;
 	}

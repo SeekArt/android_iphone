@@ -8,10 +8,10 @@ var msg = (function(){
 	function init(){
 		if(isInit){
 			return false;
+			msg.loadList();
 		}
 		
 		list = new List('msgList', $("#msgListTpl").val(), {"id": "id"});
-		
 		msg.loadList();
 		
 		isInit = true;
@@ -22,7 +22,7 @@ var msg = (function(){
 		//$.ui.showMask();
 		
 		$.jsonP({
-			url: 		msgUrl() + "/list&callback=?",
+			url: 		msgUrl() + "/index&callback=?",
 			success: 	showList,
 			error: 		function(err){	console.log(err) }
 		});
@@ -30,16 +30,17 @@ var msg = (function(){
 	
 	function showList(json){
 		$.ui.hideMask();
-		list.add(json.datas);
-	}	
-	function loadMsg(id,sinceid){
-		$("#msgContent").empty().css3Animate({ time: "300ms", opacity: 0 });
-		//$.ui.showMask();
+		list.add(json);
+	}
+	function loadMsg(module,dom){
+		$.ui.showMask();
+		$("#msgView").empty()
 		$.jsonP({
-			url: 		msgUrl() + "/show&callback=?&id="+id,
+			url: 		msgUrl() + "/list&callback=?&module="+module,
 			success: 	msg.showMsg,
 			error: 		function(err){	console.log(err)	 }
 		});
+		$.ui.removeBadge("#mod_"+module);
 	}
 	function showMsg(json){
 		var $tpl = $("#msgViewTpl"),
@@ -47,17 +48,19 @@ var msg = (function(){
 		var tp = $tpl.val(),
 			newTp = '',
 			obj = {};
-		if(json.data.length>0){
-			for(var val in json.data){
-				obj = json.data[val]; //没有特殊要处理的则直接对象赋于就行了
-				newTp += $.template(tp, obj);
+		if(json.datas){
+			for(var val in json.datas){
+				if(json.datas.hasOwnProperty(val)){
+					obj = json.datas[val]; //没有特殊要处理的则直接对象赋于就行了
+					for(var v in obj){
+						obj.hasOwnProperty(v) && (newTp += $.template(tp, obj[v]));
+					}
+				}
 			}
-			$target.append(newTp).css3Animate({ time: "500ms", opacity: 1 });
+			$target.append(newTp);
 			$.ui.scrollToBottom('msg_view');
 			$.ui.hideMask();
 		}
-		//判断当前页面是否是私信页
-		timeout = setTimeout(msg.loadMsg,4000,msg.msgId,msg.sinceId); 
 	}	
 	return {
 		init:			init,

@@ -35,7 +35,7 @@ var core = {
 				var time = (now - dt)/1000;
 					// 七天以前
 					if (time > 604800){
-						datetime = Y + "-" + M + "-" + D;
+						datetime = Y + "年" + M + "月" + D +"日";
 					// 一天至七天
 					} else if (time > 86400){
 						datetime = Math.floor(time / 86400) + "天前";
@@ -270,11 +270,15 @@ var app = (function(){
 		if(!app.isInit){
 			//初始化完整的路径
 			app.appUrl += "/?r=mobile";
-			// $.jsonP({
-				// url: 		app.appUrl + '&callback=?',
-				// success: 	checkLogin,
-				// error: 		function(err){	console.log(err)	}
-			// });		
+			UserNP = core.getStorage("defaultLogin");
+			if(UserNP){
+				$.jsonP({
+					url: 		app.appUrl + '/default/login&callback=?&username='+UserNP.u+"&password="+UserNP.p,
+					success: 	checkLogin,
+					error: 		function(err){	console.log(err)	}
+				});
+			}
+			
 			app.isInit = true;
 		}
 	}
@@ -286,7 +290,12 @@ var app = (function(){
 			address = $("#addressInput").val();
 			//$("#loginbtn").html('登录中...');
 			$.ui.showMask("登录中...");
+			if(localStorage.getItem("lastUrl")!=defaultUrl){
+				_isset = false;			
+			}
+			localStorage.setItem("defaultID", defaultUrl);
 			
+						
 		//以下登录换用了rpc
 		// doLogin(username,password);		
 		$.jsonP({
@@ -296,6 +305,8 @@ var app = (function(){
 					userData = res.userData;
 					core.setStorage("ibosUserData", res.userData);
 				}
+				core.setStorage("defaultLogin", {"u":username,"p":password});
+				
 				//$("#loginbtn").html('登录');
 				$.ui.hideMask();
 				checkLogin(res);
@@ -323,6 +334,7 @@ var app = (function(){
 			success: 	checkLogin,
 			error: 		function(err){	console.log(err) }
 		});
+		$.ui.loadContent('login',false,false,'fade');
 	}
 	
 	function checkLogin(json){

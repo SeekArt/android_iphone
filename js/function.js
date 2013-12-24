@@ -12,6 +12,7 @@ function loadSms(){
 	$LAB.script("js/sms.js").wait(function(){
 		Sms.init();
 	});
+	loadMsg()
 }
 function loadMsg(){
 	$LAB.script("js/msg.js").wait(function(){

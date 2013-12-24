@@ -1,12 +1,15 @@
-<ul class="list multi" id="msgList">
+<div class="chat" id="msgView">
 	
-</ul>
+</div>
 
-<textarea style="display:none;" type="text/ibos-template" id="msgListTpl">
-	<li <%if(!readstatus){%>class="new"<%}%>>
-		<time><%=core.toDatetime(addtime)%></time>
-		<a href="#msg_view" onclick="news.loadNews(<%=articleid%>,this)"><%=subject%>
-		<span><%=content%></span>
-		</a>
-	</li>
+<textarea style="display:none;" type="text/ibos-template" id="msgViewTpl">
+	<div class="time"> <%=core.toDatetime(ctime)%></div>
+	<div class="chat-item">
+		<div class="avatar">
+			<img src="images/ico/<%=module%>.png" alt="">
+		</div>
+		<div class="chat-bubble">
+			<%=title%>
+		</div>
+	</div>
 </textarea>

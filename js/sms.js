@@ -65,7 +65,7 @@ var Sms = (function(){
 		$.jsonP({
 			url: 		smsUrl() + "/show&callback=?&id="+id+"&sinceid="+sid,
 			success: 	Sms.showSms,
-			error: 		function(err){	console.log(err)	 }
+			error: 		function(err){ console.log(err) }
 		});
 	}
 	function showSms(json){
