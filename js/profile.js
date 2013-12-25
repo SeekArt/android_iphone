@@ -49,11 +49,11 @@ var setup = {
         
         var ft = new FileTransfer();
         //上传回调
-        ft.onprogress = setup.showUploadingProgress;
-        navigator.notification.progressStart("", "当前上传进度");
-        ft.upload( imageURI, encodeURI(app.appUrl + '/setting/upload'), function(){ 
+        //ft.onprogress = setup.showUploadingProgress;
+        //navigator.notification.progressStart("", "当前上传进度");
+		ft.upload( imageURI, encodeURI(app.appUrl + '/setting/upload'), function(){ 
             deferred.resolve( imageURI );
-            navigator.notification.progressStop();
+			//navigator.notification.progressStop();
         } , null, options);
         return deferred.promise
     },
