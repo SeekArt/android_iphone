@@ -30,8 +30,8 @@ var setup = {
                 destinationType: destinationType.FILE_URI,
                 //sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
                 cameraDirection: Camera.Direction.FRONT,
-                targetWidth: 300,
-                targetHeight: 300,
+                targetWidth: 500,
+                targetHeight: 500,
                 //correctOrientation: true
 				popoverOptions: popover
         };
