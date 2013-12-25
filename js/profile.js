@@ -22,16 +22,18 @@ var setup = {
 	},
 	// 摄像头拍照
     takePicture: function () {
+		var popover = new CameraPopoverOptions(300, 300, 100, 100, Camera.PopoverArrowDirection.ARROW_ANY);
         var deferred  = when.defer(),
             destinationType=navigator.camera.DestinationType,
             options = {
-                quality: 20,
-                destinationType: destinationType.FILE_URI
+                quality: 50,
+                destinationType: destinationType.FILE_URI,
                 //sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
-                //cameraDirection: Camera.Direction.FRONT,
-                //targetWidth: 240,
-                //targetHeight: 320,
+                cameraDirection: Camera.Direction.FRONT,
+                targetWidth: 300,
+                targetHeight: 300,
                 //correctOrientation: true
+				popoverOptions: popover
         };
         navigator.camera.getPicture(function(data){
             deferred.resolve(data);
