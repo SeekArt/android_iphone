@@ -1,17 +1,18 @@
 <div class="search-bar">
 	<input type="search" placeholder="搜索" name="diarySearchInput" id="diarySearchInput" onchange="" onblur="diary.search(this.value)" />
 </div>
-<ul class="list multi" id="diaryList">
-</ul>
+<ul class="list multi" id="diaryList"></ul>
 <textarea id="diaryListTpl" style="display:none;">
 	<li>
+		<a href="#diary_view" onclick="" class="media list-nolink">
 		<div class="avatar">
 			<img src="<%=app.defaultUrl%>/<%=app.getUser(uid)["avatar_small"]%>">
 		</div>
-		<time><%=core.toDatetime(addtime)%></time>
-		<a href="#diary_view" onclick="">
-			<p><%=core.toDatetime(diarytime,"cn")%></p>
-			<span><%=content%></span>
+			<div class="media-body brief">
+				<h4><%=core.toDatetime(diarytime,"cn")%></h4>
+				<div class="content"><%=content%></div>
+				<time class="time"><%=core.toDatetime(addtime)%></time>
+			</div>
 		</a>
 	</li>
 </textarea>

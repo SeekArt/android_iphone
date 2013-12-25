@@ -440,6 +440,8 @@ textarea::-webkit-input-placeholder {
 	
 }
 
+/* Box */
+#afui.ibos .box { padding: 10px; background-color: #FFF;}
 /* Chat */
 #afui.ibos .chat{
 	/*background-color: #58585C;*/
@@ -505,7 +507,7 @@ textarea::-webkit-input-placeholder {
 #afui.ibos .chat-bubble.gray:after{
 	background-color: #AFB1BF;
 }
-#afui.ibos .time{
+#afui.ibos .timesep{
 	border-bottom: 1px dashed #ccc;
 	text-align: center;
 	margin: 20px 0 10px;
@@ -528,43 +530,39 @@ textarea::-webkit-input-placeholder {
 	color: #bbbdc9;
 	padding-right: 20px;
 }
-/*#afui.ibos .list > li > a:hover,*/
-/*#afui.ibos .list > li > a:active{
-	background-color:#eee
-}*/
-#afui.ibos .list.multi >li {
-	padding: 15px 20px 15px 30px;
-}
-#afui.ibos .list > li:active{
+
+#afui.ibos .list.multi >li { padding: 15px 20px 15px 30px; }
+#afui.ibos .list > li:not(.divider):active{
 	background-color: #ebeff6;
 	box-shadow:inset 0 0 5px rgba(0,0,0,.1);
 }
-#afui.ibos .list.multi >li > a{
-	line-height:1.45em;
+#afui.ibos .list .divider{ 
+	-webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, .05);
+	box-shadow: inset 0 1px 2px rgba(0, 0, 0, .05);
+	background-color: #EBEFF6; 
+	color: #82939E; 
 }
+#afui.ibos .list.multi > li > a{ line-height:1.45em; }
 #afui.ibos .list.multi .avatar{
 	float: left;
 	margin:-2px 10px 0 -20px;
 	position:relative;
 }
 
-#afui.ibos .list > li > time
-{
-	float: right;
-	font-size: 10px;
-	font-weight: normal;
-	color: #BBBDC9;
+#afui.ibos .list > li > time {
 	margin-right: -12px;
+	float: right;
+	font-size: 12px;
+	font-weight: 700;
+	/*color: #BBBDC9;*/
+	color: #B2C0D1;
 }
-#afui.ibos .list > li > a > span
-{
+#afui.ibos .list > li > a > span {
 	display: block;
 	color: #bbbdc9;
 	font-weight: normal;
 }
-#afui.ibos .list > li p {
-	margin:0;
-}
+#afui.ibos .list > li p { margin:0; }
 #afui.ibos .list > li.new:before{
 	content:"●";
 	position: absolute;
@@ -582,19 +580,23 @@ textarea::-webkit-input-placeholder {
 	top: auto;
 	bottom: 1em;
 }
+/* 高度压缩版 list */
+#afui.ibos .list.list-condensed li{ padding-top: 14px; padding-bottom: 14px; }
+#afui.ibos .list.list-condensed .divider{ padding-top: 6px; padding-bottom: 6px; }
 #afui.ibos .list.multi li.list-more { padding-left: 20px; }
 #afui.ibos .list .list-more a{ text-align: center; }
 #afui.ibos .list .list-more a:after,
 #afui.ibos .list .list-nolink:after{ display: none; }
 
+.titlebar { padding: 14px 10px; background-color: #F8F9FA; color: #82939E; border-top: 1px solid #DFDFDF;}
 #afui.ibos .loginbar .list.inset{
 	border: 0;
 	margin: 0;
 	box-shadow: 1px 1px 2px rgba(0,0,0,0.2);
 }
-/* vlist */
+/* 横向列表 */
 #afui.ibos .vlist{
-	display:flex;
+	/*display:flex;*/
 	display:-webkit-box;
 	height: 48px;
 	text-align: center;
@@ -949,9 +951,7 @@ li .icon:before {
 }
 
 /* reset-bg */
-.afScrollPanel {
-	background-image: none;
-}
+.afScrollPanel { background-image: none; }
 
 
 /*  */
@@ -1017,9 +1017,7 @@ li .icon:before {
 	bottom: 10px;
 	background-color: #fff;
 }
-#afui.ibos .phonebookPanel .text{
-	padding-left: 115px; height: 40px;
-}
+#afui.ibos .phonebookPanel .text{ padding-left: 115px; height: 40px; }
 
 /* Attach */
 #afui.ibos .attach-icon,
@@ -1053,3 +1051,11 @@ li .icon:before {
 	min-height: 300px;
 	width: 100%;
 }
+/* 左图右字 */
+.media{}
+.media-costar{ float: left; margin-right: 10px;}
+.media-body{ overflow: hidden; }
+/* 简要信息，一般包含标题、简介、及时间 */
+#afui.ibos .brief .title{}
+#afui.ibos .brief .content{ font-weight: 400; color: #58585C; }
+#afui.ibos .brief .time{ font-size: 12px; font-weight: 700; color: #B2C0D1; }

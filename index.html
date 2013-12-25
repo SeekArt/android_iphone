@@ -87,10 +87,8 @@
 			$.ui.setSideMenuWidth($("#afui").width()-50);
 			$.ui.launch();
 			app.init();  // 初始化我的数据
-			//屏蔽没侧栏的页面划动
-			$("[data-nav=none]").bind("touchstart", function(e) { e.stopPropagation()});
-			$("[data-nav=none]").bind("touchmove", function(e) { e.stopPropagation()});		
-			$("[data-nav=none]").bind("touchend", function(e) { e.stopPropagation()});
+			// 若没有侧栏菜单，则禁止侧滑功能
+			$("[data-nav=none]").bind("touchstart touchmove touchend", function(e) { e.stopPropagation()});
 		});
 		
 		/* This code is used to run as soon as appMobi activates */
@@ -192,6 +190,8 @@
 		<!---------------------panel------------------------->
 			<!-----------diary-----------> 
 			<div title="我的日志" id="diary" class="panel" data-load="loadDiary" data-header="header_diary" data-footer="none" data-nav="menu_diary" data-defer="diary.html">			
+			</div>
+			<div title="查看日志" id="diary_view" class="panel"  data-header="header_diary" data-footer="none" data-nav="menu_diary" data-defer="diary_view.html">
 			</div>
 			
 			<!-----------work-----------> 

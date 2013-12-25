@@ -69,20 +69,15 @@ var core = {
 	// Storage
 	// 获取和储存本地缓存
 	setStorage: function(name, value){
-		if(typeof value === "object" && value !== null) {
 			value = JSON.stringify(value);
-		}
 		localStorage.setItem(name, value);
 	},
 
 	getStorage: function(name){
 		// debugger;
 		var result = localStorage.getItem(name);
-		if(result){
 			// 当结果只是纯粹的字符串时，JSON.parse方法会出错
-			return JSON.parse(result);
-		}
-		return result;
+		return result ? JSON.parse(result) : result;
 	},
 
 
@@ -268,6 +263,9 @@ var app = (function(){
 
 	function init(){
 		if(!app.isInit){
+			if(!app.appUrl){
+				$.ui.loadContent('login',false,false,'fade');
+			}
 			//初始化完整的路径
 			app.appUrl += "/?r=mobile";
 			UserNP = core.getStorage("defaultLogin");
@@ -278,7 +276,6 @@ var app = (function(){
 					error: 		function(err){	console.log(err)	}
 				});
 			}
-			
 			app.isInit = true;
 		}
 	}

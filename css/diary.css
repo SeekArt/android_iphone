@@ -1,0 +1,13 @@
+/**/
+.diary-view .list{ margin-bottom: 0; }
+.diary-view .list + .titlebar{ border-top: 0 none; }
+.progress-badge{ 
+	border-radius: 4px; 
+	float: right; 
+	margin-right: -10px;
+	padding: 0 10px; 
+	height: 20px; 
+	line-height: 20px;
+	background-color: #91CE31; 
+	color: #FFF;
+}
