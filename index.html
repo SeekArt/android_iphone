@@ -63,21 +63,7 @@
 	<script type="text/javascript" charset="utf-8" src="./phonegap.js"></script>	
 	<script type="text/javascript" charset="utf-8" src="./js/push.js"></script>
 	<script type="text/javascript" charset="utf-8" src="./js/when.js"></script>
-	<script type="text/javascript">
-	function scaner(){
-		cordova.plugins.barcodeScanner.scan(
-			function (result) {
-			  alert("We got a barcode\n" +
-					"Result: " + result.text + "\n" +
-					"Format: " + result.format + "\n" +
-					"Cancelled: " + result.cancelled);
-			}, 
-			function (error) {
-			  alert("Scanning failed: " + error);
-			}
-		);
-	}
-	</script>
+
 	<script type="text/javascript">
 		/* This function runs once the page is loaded, but appMobi is not yet active */
 //            var search=document.location.search.toLowerCase().replace("?","");
@@ -119,6 +105,7 @@
 			$.ui.blockPageScroll(); //block the page from scrolling at the header/footer 
 			//AppMobi.device.hideSplashScreen();
 			$("#splashscreen").hide()
+			navigator.splashscreen.hide();
 //			$.ui.animateHeaders = true;
 		};
         document.addEventListener("deviceready", onDeviceReady, false);

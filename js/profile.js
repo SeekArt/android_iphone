@@ -20,7 +20,7 @@ var setup = {
 			newTp += $.template(tp, obj);
 		$target.html(newTp).css3Animate({ time: "500ms", opacity: 1 });
 	},
-	// ÉãÏñÍ·ÅÄÕÕ
+	// æ‘„åƒå¤´æ‹ç…§
     takePicture: function () {
         var deferred  = when.defer(),
             destinationType=navigator.camera.DestinationType,
@@ -39,7 +39,7 @@ var setup = {
         
         return deferred.promise
     },
-	// ÉÏ´«Í¼Æ¬µ½·şÎñÆ÷
+	//ä¸Šä¼ å›¾ç‰‡åˆ°æœåŠ¡å™¨
     uploadPicture: function( imageURI ){
         var deferred  = when.defer(),
             options = new FileUploadOptions();
@@ -48,23 +48,23 @@ var setup = {
         options.mimeType = "image/jpeg";
         
         var ft = new FileTransfer();
-        // ÉÏ´«»Øµ÷
-        ft.onprogress = showUploadingProgress;
-        navigator.notification.progressStart("", "µ±Ç°ÉÏ´«½ø¶È");
-        ft.upload( imageURI, encodeURI('http://ibos2.cc/?r=mobile/setting/upload'), function(){ 
+        //ä¸Šä¼ å›è°ƒ
+        ft.onprogress = setup.showUploadingProgress;
+        navigator.notification.progressStart("", "å½“å‰ä¸Šä¼ è¿›åº¦");
+        ft.upload( imageURI, encodeURI(app.appUrl + '/setting/upload'), function(){ 
             deferred.resolve( imageURI );
             navigator.notification.progressStop();
         } , null, options);
         return deferred.promise
     },
     
-    // ÏÔÊ¾ÉÏ´«½ø¶È
+    // æ˜¾ç¤ºä¸Šä¼ è¿›åº¦
     showUploadingProgress: function( progressEvt ){
         if( progressEvt.lengthComputable ){
             navigator.notification.progressValue( Math.round( ( progressEvt.loaded / progressEvt.total ) * 100) );
         }
     },
-    // ´Ó»º´æÖĞÉ¾³ıÍ¼Æ¬
+    // ä»ç¼“å­˜ä¸­åˆ é™¤å›¾ç‰‡
     deletePictureFromCache: function( imageURI ){
         window.resolveLocalFileSystemURI(fileURI, function( fileEntry ){
             fileEntry.remove();
