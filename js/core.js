@@ -13,6 +13,7 @@ var core = {
 
 	// Date
 	/*------ funcion -------*/
+	// unix  秒数时间戳
 	toDatetime: function(unix, type) {
 	    var dt = new Date(parseInt(unix) * 1000);
 		var now = new Date();
@@ -25,13 +26,10 @@ var core = {
 		m = dt.getMinutes();
 		s = dt.getSeconds();
 		W = dt.getDay();
-			
-		if(typeof type == "undefined") {
-			type = "u"
-		}
 
 		switch(type){
 			case "u":
+			default:
 				var time = (now - dt)/1000;
 					// 七天以前
 					if (time > 604800){
@@ -60,6 +58,9 @@ var core = {
 			case "cn":
 				datetime = Y + "年" + M + "月" + D ;
 				break;
+			case "cnday":
+				datetime = Y + "年" + M + "月" + D + "日 星期" + ("日一二三四五六".charAt(W));
+				break;
 				
 		}
 		return datetime;
@@ -69,39 +70,26 @@ var core = {
 	// Storage
 	// 获取和储存本地缓存
 	setStorage: function(name, value){
-			value = JSON.stringify(value);
+		value = JSON.stringify(value);
 		localStorage.setItem(name, value);
 	},
 
 	getStorage: function(name){
-		// debugger;
 		var result = localStorage.getItem(name);
-			// 当结果只是纯粹的字符串时，JSON.parse方法会出错
 		return result ? JSON.parse(result) : result;
 	},
-
-
-	// Input 
-	/**
-	 * textarea高度自适应
-	 * @param  {[type]} elem      [description]
-	 * @param  {[type]} extra     [description]
-	 * @param  {[type]} maxHeight [description]
-	 * @return {[type]}           [description]
-	 */
-	autoTextarea: function(elem, extra, maxHeight) {
+	// @Todo: 这里只有自动增高的功能，是否有在内容减少后自动减去高度的需要
+	adjustTextarea: function(elem, extra, maxHeight){
 		extra = extra || 20;
+		// 这个判断也许没有必要
 		var isOpera = !! window.opera && !! window.opera.toString().indexOf('Opera'),
-			addEvent = function(type, callback) {
-				elem.addEventListener(type, callback, false)
-			},
-			getStyle = function(name) {
-				return $(elem).css(name);
-			},
+			getStyle = function(name) { return $(elem).css(name); },
 			minHeight = parseFloat(getStyle('height'));
-		// getStyle('heigth')有可能返回auto值
+
+		// getStyle('heigth')有可能返回auto值, 此时将最小高度设置offsetHeight
 		isNaN(minHeight) && (minHeight = elem.offsetHeight);
 
+		// 有最小高度会限制高度的增长，所以去掉
 		elem.style.maxHeight = elem.style.resize = 'none';
 
 		var change = function() {
@@ -137,12 +125,28 @@ var core = {
 				elem.currHeight = parseInt(style.height, 10);
 			};
 		};
-
-		addEvent('propertychange', change);
-		addEvent('input', change);
-		addEvent('focus', change);
 		change();
-	}
+	},
+	// Input 
+	/**
+	 * textarea高度自适应
+	 * @param  {[type]} elem      [description]
+	 * @param  {[type]} extra     [description]
+	 * @param  {[type]} maxHeight [description]
+	 * @return {[type]}           [description]
+	 */
+	autoTextarea: function(elem, extra, maxHeight) {
+		var that = this;
+		elem.addEventListener('input', function(){
+			that.adjustTextarea(elem, extra, maxHeight)
+		}, false);
+		elem.addEventListener('focus', function(){
+			that.adjustTextarea(elem, extra, maxHeight)
+		}, false);
+		change();
+	},
+
+	error: function(err){ console && console.log(err) }
 }
 
 var ui = {
@@ -179,13 +183,14 @@ var List = function(id, tpl, options){
 	this.tpl = tpl,
 	this.options = $.extend({}, List.defaults, options);
 
-	this._cache = {};
-
 	this.$list = $("#" + this.id);
 
 	if(!core.isset(this.$list) || !tpl || typeof tpl !== "string") {
 		throw new Error("List: 初始化失败，参数不正确")
 	}
+
+	this._cache = {};
+
 }
 List.defaults = {
 	id: "id"
@@ -206,13 +211,15 @@ List.prototype = {
 	},
 
 	add: function(data){
+		data = $.isArray(data) ? data : [data];
+		for(var i = 0; i < data.length; i++){
+			var $item = $.tmpl(this.tpl, data[i]);
 
-		if($.isArray(data)){
-			for(var i = 0; i < data.length; i++){
-				this._add(data[i]);
+			this.$list.append($item);
+
+			if(this.options.id in data[i]) {
+				this._cache[data[i][this.options.id]] = $item;
 			}
-		} else {
-			this._add(data);
 		}
 	},
 
@@ -276,6 +283,7 @@ var app = (function(){
 					error: 		function(err){	console.log(err)	}
 				});
 			}
+			
 			app.isInit = true;
 		}
 	}
@@ -393,4 +401,18 @@ var app = (function(){
 		getUser: 	getUser,
 		getUserName:getUserName
 	}
-})()
+})();
+
+
+// 一些全局初始化事件
+
+$(document).ready(function(){
+	var $doc = app.$doc = $(this),
+		$body = app.$body = $("body");
+
+	// 文本框自动高度
+	$doc.on("focusin input", "[data-auto-height]", function(){
+		core.adjustTextarea(this)
+	});
+})
+

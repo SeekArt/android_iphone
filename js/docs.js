@@ -122,7 +122,7 @@ var docs = (function(){
 			obj = {};
 			
 			//对json数据做一些处理之后，赋给obj
-			obj = json;
+			obj = json.data;
 			newTp += $.template(tp, obj);
 		$target.html(newTp).css3Animate({ time: "500ms", opacity: 1 });
 		$.ui.hideMask();

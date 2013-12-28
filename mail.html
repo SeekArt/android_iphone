@@ -1,16 +1,35 @@
+<header id="header_mail">
+	<a onclick='af.ui.toggleSideMenu()' class='button ao-menu'></a>
+	<h1>我的收件箱</h1>
+	<a onclick="$.ui.goBack();" class='button ao-home'></a>
+</header>
 <!-- search box -->
 <div class="search-bar">
 	<input type="search" placeholder="搜索" name="mailSearchInput" id="mailSearchInput" />				
 </div>
-
-<ul class="list multi" id="mailList"></ul>
+<ul class="list list-active multi" id="mailList"></ul>
 <!-- list template -->
 <textarea style="display:none;" type="text/ibos-template" id="mailListTpl">
-	<li <%if(isread==0){%> class="new" <%}%> id="mail_item_<%=emailid%>">
+	<% { var isDraft = (typeof emailid === "undefined"); } %>
+	<li <%if(typeof isread == "undefined" && !isDraft){%> class="new" <%}%> id="mail_item_<% if(!isDraft){ %><%=emailid%><% } else {%><%=bodyid%><% } %>">
 		<time><%=core.toDatetime(sendtime)%></time>
-		<a href="#mail_view" onclick="Email.loadMail(<%=emailid%>,this)">
+		<a href="#mail_view" onclick="<% if(!isDraft){ %>Email.loadMail(<%=emailid%>,this)<% } else {%>Email.loadDraft(<%=bodyid%>)<% } %>">
 			<span><%=fromuser%></span>
 			<%=subject%>
 		</a>
 	</li>
 </textarea>
+<nav id="menu_mail">
+	<a href="javascript:;" onclick="Email.editMail()" class="button orange">写邮件</a>
+	<ul class="list list-active list-ico" id="mailCat">
+		<li id="inbox"> <a href="#mail" onclick="Email.loadList('inbox')"><i class="ao-inbox"></i>收件箱</a> </li>
+		<li> <a href="#mail" onclick="Email.loadList('todo')"><i class="ao-mark"></i>待办邮件</a> </li>
+		<li> <a href="#mail" onclick="Email.loadList('draft')"><i class="ao-draft"></i>草稿箱</a> </li>
+		<li> <a href="#mail" onclick="Email.loadList('send')"><i class="ao-send"></i>已发送</a> </li>
+		<li> <a href="#mail" onclick="Email.loadList('del')"><i class="ao-trash"></i>已删除</a> </li>
+		<li class="divider">我的文件夹</li>
+		<textarea style="display:none" type="text/ibos-template" id="mailCatTpl">
+			<li <%=classname%>> <a href="#mail" onclick="Email.loadList(<%=boxid%>)"><i class="o-folder"></i> <%=name%></a> </li>
+		</textarea>
+	</ul>
+</nav>

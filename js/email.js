@@ -50,6 +50,8 @@ var Email = (function(){
 			error: 		function(err){	console.log(err) }
 		});
 	}
+
+
 	function showList(json){
 		if(mailPage > 1){
 			list.add(json.datas)
@@ -70,7 +72,6 @@ var Email = (function(){
 		$.ui.hideMask();
 		return;
 	}
-	
 	
 	//-------- Mail Catelog
 	function loadCat(){
@@ -101,36 +102,53 @@ var Email = (function(){
 			$target.append(newTp);
 	}
 	
-	// --------- Mail View
-	function loadMail(id,dom){
-		$("#mailContent").empty().css3Animate({ time: "300ms", opacity: 0 });
+
+	function _loadMail(url, param, callback) {
+		// $("#mailContent").empty().css3Animate({ time: "300ms", opacity: 0 });
 		$.ui.showMask();
+		$.jsonP({
+			url:     url + "&callback=?&" + $.param(param),
+			success: function(res) {
+				res && callback && callback(res);
+				$.ui.hideMask();
+			},
+			error: core.error
+		});
+	}
+
+	// --------- Mail View
+	function loadMail(id, dom){
+		$("#mailContent").empty().css3Animate({ time: "300ms", opacity: 0 });
+		id = typeof id === 'undefined' ? Email.mailId : id;
 		if(typeof dom !="undefined"){
 			$(dom).parent().removeClass("new"); //取消未读
 		}
-		if(typeof id === 'undefined'){
-			id = Email.mailId;
-		}	
-
-		$.jsonP({
-			url: 		mailUrl() + "/show&callback=?&id="+id,
-			success: 	showMail,
-			error: 		function(err){ console.log(err) }
-		});
+		_loadMail(mailUrl() + "/show", { id: id }, showMail)
 	}
-	function showMail(json){
-		var $tpl = $("#mailContentTpl"),
-			$target = $("#mailContent");
-		var tp = $tpl.val(),
-			newTp = '';
-			// obj = {};
-			
-			// //对json数据做一些处理之后，赋给obj
-			// obj = json;
-		newTp += $.template(tp, json);
+
+	function loadDraft(id) {
+		$("#mailContent").empty().css3Animate({ time: "300ms", opacity: 0 });
+		id = typeof id === 'undefined' ? Email.mailId : id;
+		_loadMail(mailUrl() + "/draftshow", { bodyid: id }, showDraft)
+	}
+
+	function _show (tpl, json) {
+		var $target = $("#mailContent"),
+			newTp = $.template(tpl, json);
 		$target.html(newTp).css3Animate({ time: "500ms", opacity: 1 });
 		mailId = json.emailid;
-		$.ui.hideMask();
+	}
+
+	function showMail(json){
+		_show($("#mailContentTpl").val(), json);
+		mailId = json.emailid;
+		bodyId = 0;
+	}
+
+	function showDraft(json){
+		_show($("#mailContentTpl").val(), json);
+		bodyId = json.bodyid;
+		mailId = 0;
 	}
 
 	function editMail(data){
@@ -155,16 +173,13 @@ var Email = (function(){
 			} else{
 				inUser.clear();
 			}
-
 			$("#mail_new").off("loadpanel")
 		});
-
 		$.ui.loadContent("mail_new");
 	}
 	
 	// ----------- Send
 	function sendMail(){
-		$.ui.showMask("邮件发送中...");
 		var data = {},
 			user = User.get("mail_user").get();
 			toids = [],
@@ -173,7 +188,6 @@ var Email = (function(){
 
 		data.subject = $("#mailSubjectInput").val(),
 		data.content = $("#mailContentInput").val();
-
 		if(user.length){
 			for(var i = 0; i < user.length; i++) {
 				// 抄送
@@ -191,7 +205,11 @@ var Email = (function(){
 			data.ccids = ccids.join(",");
 			data.mcids = mcids.join(",");
 		}
-
+		if( data.subject=="" || data.content=="" || !data.toids) {
+			$.ui.popup("收件人(蓝色)、主题和内容都不可为空！");
+			return false;
+		};
+		$.ui.showMask("邮件发送中...");
 
 		$.jsonP({
 			url: 		mailUrl() + "/edit&callback=?&" + $.param(data),
@@ -238,14 +256,22 @@ var Email = (function(){
 	}
 
 	function deleteMail(){
-		$.jsonP({
-			url: 		mailUrl() + "/del&callback=?&emailid=" + mailId,
-			success: 	function(){
-				$("#mail_item_" + mailId).remove();
+
+		var url = mailUrl() + "/del&callback=?&" + (mailId ? "emailid=" + mailId : "bodyid=" + bodyId),
+			onsuccess = function(){
+				if(mailId) {
+					$("#mail_item_" + mailId).remove();
+					mailId = 0;
+				} else {
+					$("#mail_item_" + bodyId).remove();
+					bodyId = 0;
+				}
 				$.ui.goBack();
-				mailId = 0;
-			},
-			error: 		function(err){	console.log(err)	}
+			}
+		$.jsonP({
+			url: 		url,
+			success: 	onsuccess,
+			error: 		core.error
 		});
 	}
 
@@ -254,9 +280,10 @@ var Email = (function(){
 		loadList: 		loadList,
 		loadCat:		loadCat,
 		loadMail:		loadMail,
+		loadDraft:      loadDraft,
 		showList: 		showList,
 		showCat:		showCat,
-		showMail:		showMail,
+
 		sendMail:       sendMail,
 		editMail:       editMail,
 

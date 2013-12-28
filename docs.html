@@ -1,12 +1,30 @@
+<header id="header_doc">
+	<a onclick='af.ui.toggleSideMenu()' class='button ao-menu'></a>
+	<h1>公文</h1>
+	<a onclick="$.ui.goBack();" class='button ao-home'></a>
+</header>
+
 <div class="search-bar">
 	<input type="search" placeholder="搜索" name="docsSearchInput" id="docsSearchInput" onchange="" onblur="docs.search(this.value)" />
 </div>
-<ul class="list multi" id="docsList"></ul>
+<ul class="list list-active multi" id="docsList"></ul>
 <textarea style="display:none;" type="text/ibos-template" id="docsListTpl">
-	<li <%if(!readstatus){%>class="new"<%}%>>
+	<li <%if(!readStatus){%>class="new"<%}%>>
 		<time><%=core.toDatetime(addtime)%></time>
-		<a href="#docs_view" onclick="docs.loadDocs(<%=articleid%>,this)"><%=subject%>
+		<a href="#docs_view" onclick="docs.loadDocs(<%=docid%>,this)"><%=subject%>
 		<span><%=content%></span>
 		</a>
 	</li>
 </textarea>
+<nav id="menu_docs">
+	<ul class="list list-active list-ico" id="docsCat">
+		<li> 公文中心 </li>
+		<li> <a href="#docs" onclick="docs.loadList(0)"><i class="ao-doc"></i>已发布</a> </li>
+		<li> <a href="#docs" onclick="docs.loadList(-1)"><i class="ao-unreceipted"></i>未签收</a> </li>
+		<li> <a href="#docs" onclick="docs.loadList(-2)"><i class="ao-receipted"></i>已签收</a> </li>
+		<li class="divider">分类查看</li>
+		<textarea style="display:none" type="text/ibos-template" id="docCatTpl">
+			<li <%=classname%>> <a href="#docs" onclick="docs.loadList(<%=catid%>)"><i class="ao-file"></i><%=name%></a> </li>
+		</textarea>
+	</ul>
+</nav>

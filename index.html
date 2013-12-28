@@ -119,7 +119,7 @@
 	<div id="header"></div>
 	<div id="content">
 		<!---------------------------------------------->
-			<div title='IBOS移动客户端' id="main" selected="true" class="panel mainbg" data-tab="navbar_main" data-load="mainload" style="overflow:hidden;">
+			<div title='IBOS移动客户端' id="main" selected="true" class="panel mainbg" data-tab="navbar_main" data-load="mainload" data-nav="none" style="overflow:hidden;">
 				<div class="home-item">
 					<a href="#mail" data-transition="pop">
 						<i class="item-ico ico-mail"></i>
@@ -127,7 +127,7 @@
 					</a><a href="#news" data-transition="pop">
 						<i class="item-ico ico-article"></i>
 						信息
-					</a><a href="#doc" data-transition="pop">
+					</a><a href="#docs" data-transition="pop">
 						<i class="item-ico ico-doc"></i>
 						公文
 					</a><a href="#diary" data-transition="pop">
@@ -162,7 +162,8 @@
 			<div title="私信" id="sms_view" class="panel" data-tab="navbar_msg" data-nav="none" data-defer="sms_view.html" data-unload="cleartime"></div>
 			<div title="消息中心" id="msg_view" class="panel" data-tab="navbar_msg" data-nav="none" data-defer="msg_view.html"></div>
 		<!---------------------------------------------->
-			<div title="企业微博" id="weibo" class="panel" data-tab="navbar_weibo" data-header="header_weibo" data-defer="weibo.html"></div>
+			<div title="企业微博" id="weibo" class="panel" data-tab="navbar_weibo" data-header="header_weibo" data-nav="none" data-defer="weibo.html">
+			</div>
 		<!---------------------------------------------->
 			<div title="个人设置" id="setting" class="panel" data-tab="navbar_setting" data-header="header_setting" data-nav="none" data-defer="setting.html" data-load="loadSetting"></div>
 			<div title="个人资料" id="setting_profile" class="panel" data-tab="navbar_setting" data-footer="none" data-defer="setting_profile.html"></div>
@@ -174,37 +175,56 @@
 		<!---------------------panel-------------------------> 
 			<div title="信息中心" id="news" class="panel" data-header="header_news" data-nav="menu_news" data-load="loadNews" data-footer="none" data-defer="news.html"></div>
 			<!-----------news-view----------->
-			<div title="查看新闻" id="news_view" class="panel bgw no-nav" data-nav="menu_news" data-footer="none" data-defer="news_view.html"></div>
+			<div title="查看新闻" id="news_view" class="panel bgw no-nav" data-nav="none" data-footer="none" data-defer="news_view.html"></div>
 			<!-----------doc-----------> 
-			<div title="公文" id="doc" class="panel" data-load="loadDocs" data-nav="menu_docs" data-header="header_doc" data-footer="none" data-defer="docs.html">
+			<div title="公文" id="docs" class="panel" data-load="loadDocs" data-nav="menu_docs" data-header="header_doc" data-footer="none" data-defer="docs.html">
 			</div>
 			<!-----------docs-view----------->
-			<div title="查看公文" id="docs_view" class="panel bgw no-nav" data-nav="menu_docs" data-footer="none" data-defer="docs_view.html"></div>
+			<div title="查看公文" id="docs_view" class="panel bgw no-nav" data-nav="none" data-footer="none" data-defer="docs_view.html"></div>
 		<!---------------------panel------------------------->
 			<!-----------mail----------->
 			<div title="收件箱" id="mail" class="panel" data-nav="menu_mail" data-header="header_mail" data-load="loadEmail" data-footer="none" data-defer="mail.html"></div>
 			<!-----------mail-----------> 
 			<div title="写邮件" id="mail_new" class="panel bgw" data-nav="menu_mail" data-header="header_mail_new" data-footer="none" data-defer="mail_edit.html"></div>
 			<!-----------mail-view-----------> 
-			<div title="查看邮件" id="mail_view" class="panel bgw" data-nav="menu_mail" data-footer="footer_mail_view" data-defer="mail_view.html"></div>			
+			<div title="查看邮件" id="mail_view" class="panel bgw" data-nav="none" data-footer="footer_mail_view" data-defer="mail_view.html"></div>			
 		<!---------------------panel------------------------->
 			<!-----------diary-----------> 
 			<div title="我的日志" id="diary" class="panel" data-load="loadDiary" data-header="header_diary" data-footer="none" data-nav="menu_diary" data-defer="diary.html">			
 			</div>
-			<div title="查看日志" id="diary_view" class="panel"  data-header="header_diary" data-footer="none" data-nav="menu_diary" data-defer="diary_view.html">
+			<div title="查看日志" id="diary_view" class="panel"  data-footer="footer_diary_view" data-nav="none" data-defer="diary_view.html">
 			</div>
-			
+			<div title="编辑日志" id="diary_edit" class="panel" data-footer="none" data-nav="none" data-defer="diary_edit.html"></div>
+			<div title="日志评阅" id="diary_comment_list" class="panel" data-footer="none" data-nav="menu_diary" data-defer="diary_comment_list.html"></div>
+			<div title="点评" id="diary_comment" class="panel" data-nav="none" data-defer="diary_comment.html"></div>
+
 			<!-----------work-----------> 
 			<div title="待办工作" id="work" class="panel" data-header="header_work" data-footer="none" >
+				<header id="header_work">
+					<a onclick='af.ui.toggleSideMenu()' class='button ao-menu'></a>
+					<h1>工作流</h1>
+					<a onclick="$.ui.goBack();" class='button ao-home'></a>
+				</header>
 				<img src="images/modulepic/work.png" width="100%">
 			</div>
 			<!-----------report-----------> 
 			<div title="总结与计划" id="report" class="panel" data-header="header_report" data-footer="none">
+				<header id="header_report">
+					<a onclick='af.ui.toggleSideMenu()' class='button ao-menu'></a>
+					<h1>总结与计划</h1>
+					<a onclick="$.ui.goBack();" class='button ao-home'></a>
+				</header>
 				<img src="images/modulepic/report.png" width="100%">
 			</div>
-			<!-----------calendar-----------> 
-			<div title="我的日程" id="calendar" class="panel" data-header="header_calendar" ></div>
-			<!-----------phonebook-----------> 
+			<!-- ---------calendar--------- --> 
+			<div title="我的日程" id="calendar" class="panel" data-header="header_calendar" >						
+				<header id="header_calendar">
+					<a onclick='af.ui.toggleSideMenu()' class='button ao-menu'></a>
+					<h1>我的日程</h1>
+					<a onclick="$.ui.goBack();" class='button ao-home'></a>
+				</header>			
+			</div>
+			<!-- ---------phonebook-----------> 
 			<div title="通讯录" id="phonebook" class="panel" data-nav="none" data-defer="phonebook.html" data-load="loadPhonebook"></div>
 			<div title="通讯录" id="phonebook_view" class="panel" data-nav="none" data-defer="phonebook_view.html"></div>
 			
@@ -212,7 +232,6 @@
 			<div title="用户选择" id="mail_selector" class="panel" data-header="header_selector" data-nav="none" data-footer="none" data-defer="mail_selector.html"></div>
 
 			<div title="登录" id="login" class="panel indexbg" data-defer="login.html" data-footer="none" data-nav="none" data-load="loadLogin" data-unload="unloadLogin" style="overflow:hidden;"></div>
-
 		<!---------------------------------------------->
 	</div>		
 	<!---------------------------------------------->
@@ -224,81 +243,8 @@
 		<a href="#weibo" id='navbar_weibo' data-transition="none" class="icon weibo">微博</a>
 		<a href="#setting" id='navbar_setting' data-transition="none" class="icon setting">设置</a> 
 	</div>
-	<!--------------------footer-------------------------->
-	<footer id="footer_news"></footer>
-	<footer id="footer_mail"></footer>
-	<footer id="footer_mail_view" class="toolbar">
-		<!-- <div class="toolbar"> -->
-			<a href="javascript:;" onclick="Email.markMail()">
-				<i class="o-mark"></i>
-			</a>
-			<a href="#" onclick="Email.replyMail()">
-				<i class="o-reply"></i>
-			</a>
-			<a href="javascript:;" onclick="Email.replyAll()">
-				<i class="o-reply-all"></i>
-			</a>
-			<a href="javascript:;" onclick="Email.deleteMail()">
-				<i class="o-delete"></i>
-			</a>
-		<!-- </div> -->
-	</footer>
-	<!--------------------header-------------------------->	
-	<header id="header_news">
-		<a onclick='af.ui.toggleSideMenu()' class='button ao-menu'></a>
-		<h1>信息中心</h1>
-		<a onclick="$.ui.goBack();" class='button ao-home'></a>
-	</header>
-	<header id="header_mail">
-		<a onclick='af.ui.toggleSideMenu()' class='button ao-menu'></a>
-		<h1>我的收件箱</h1>
-		<a onclick="$.ui.goBack();" class='button ao-home'></a>
-	</header>
 
-	<!-- Header: 新建邮件 -->
-	<header id="header_mail_new">
-		<a onclick='af.ui.goBack()' class='button ao-cancel'></a>
-		<h1>新建邮件</h1>
-		<a onclick="Email.sendMail();" class='button ao-send'></a>
-	</header>
-	
-	<header id="header_diary">
-		<a onclick='af.ui.toggleSideMenu()' class='button ao-menu'></a>
-		<h1>工作日志</h1>
-		<a onclick="$.ui.goBack();" class='button ao-home'></a>
-	</header>
-	<header id="header_report">
-		<a onclick='af.ui.toggleSideMenu()' class='button ao-menu'></a>
-		<h1>总结与计划</h1>
-		<a onclick="$.ui.goBack();" class='button ao-home'></a>
-	</header>
-	<header id="header_work">
-		<a onclick='af.ui.toggleSideMenu()' class='button ao-menu'></a>
-		<h1>工作流</h1>
-		<a onclick="$.ui.goBack();" class='button ao-home'></a>
-	</header>
-	<header id="header_doc">
-		<a onclick='af.ui.toggleSideMenu()' class='button ao-menu'></a>
-		<h1>公文</h1>
-		<a onclick="$.ui.goBack();" class='button ao-home'></a>
-	</header>
-	<header id="header_calendar">
-		<a onclick='af.ui.toggleSideMenu()' class='button ao-menu'></a>
-		<h1>我的日程</h1>
-		<a onclick="$.ui.goBack();" class='button ao-home'></a>
-	</header>
-	<!-- Header: 消息中心 -->
-	<header id="header_msg">
-		<h1>消息中心</h1>
-		<a href="javascript:;" class="button ao-edit" onclick="Sms.addSms()"></a>
-	</header>
-	<header id="header_weibo">
-		<a class='button ao-menu' onclick='af.ui.toggleSideMenu()'></a>
-		<h1>最新记录</h1>
-	</header>
-	<header id="header_setting">
-		<h1>个人设置</h1>
-	</header>
+	<!-- ------------------header------------------------ -->	
 
 	<!-- Header: 用户选择列表 -->
 	<header id="header_selector">
@@ -307,62 +253,14 @@
 		<a href="javascript:;" class="button ao-ok" onclick="app.userSelector.save()"></a>
 	</header>
 
-	<!---------------------nav------------------------->
+	<!-- -------------------nav----------------------- -->
 	<nav>
-		<ul class="list">
+		<ul class="list list-active">
 			<li class="divider icon home">侧边栏</li>
 		</ul>
 		<a class="button orange" onClick="app.logout()">退出登录</a>
 	</nav>
-	<nav id="menu_news">
-		<ul class="list list-ico" id="newsCat">
-			<li class="divider"> 信息中心 </li>
-			<li> <a href="#news" onclick="news.loadList(0)"><i class="o-news-all"></i>全部</a> </li>
-			<li> <a href="#news" onclick="news.loadList(-1)"><i class="o-news-catnew"></i>最新公告</a> </li>
-			<li> <a href="#news" onclick="news.loadList(-2)"><i class="o-news-read"></i>已读公告</a> </li>
-			<li class="divider">分类查看</li>
-			<textarea style="display:none" type="text/ibos-template" id="newsCatTpl">
-				<li <%=classname%>> <a href="#news" onclick="news.loadList(<%=catid%>)"><i class="o-news-cat"></i><%=name%></a> </li>
-			</textarea>
-		</ul>
-	</nav>
-	<nav id="menu_docs">
-		<ul class="list list-ico" id="docsCat">
-			<li class="divider"> 公文 </li>
-			<li> <a href="#docs" onclick="news.loadList(0)"><i class="o-news-all"></i>全部</a> </li>
-			<li> <a href="#docs" onclick="news.loadList(-1)"><i class="o-news-catnew"></i>最新公告</a> </li>
-			<li> <a href="#docs" onclick="news.loadList(-2)"><i class="o-news-read"></i>已读公告</a> </li>
-			<li class="divider">分类查看</li>
-			<textarea style="display:none" type="text/ibos-template" id="docCatTpl">
-				<li <%=classname%>> <a href="#docs" onclick="docs.loadList(<%=catid%>)"><i class="o-news-cat"></i><%=name%></a> </li>
-			</textarea>
-		</ul>
-	</nav>
-	<nav id="menu_mail">
-		<a href="javascript:;" onclick="Email.editMail()" class="button orange">写邮件</a>
-		<ul class="list list-ico" id="mailCat">
-			<li id="inbox"> <a href="#mail" onclick="Email.loadList('inbox')"><i class="o-inbox"></i>收件箱</a> </li>
-			<li> <a href="#mail" onclick="Email.loadList('todo')"><i class="o-mark"></i>待办邮件</a> </li>
-			<li> <a href="#mail" onclick="Email.loadList('draft')"><i class="o-draft"></i>草稿箱</a> </li>
-			<li> <a href="#mail" onclick="Email.loadList('send')"><i class="o-send"></i>已发送</a> </li>
-			<li> <a href="#mail" onclick="Email.loadList('del')"><i class="o-delete"></i>已删除</a> </li>
-			<li class="divider">我的文件夹</li>
-			<textarea style="display:none" type="text/ibos-template" id="mailCatTpl">
-				<li <%=classname%>> <a href="#mail" onclick="Email.loadList(<%=boxid%>)"><i class="o-folder"></i> <%=name%></a> </li>
-			</textarea>
-		</ul>
-	</nav>
-	<nav id="menu_diary">
-		<a href="javascript:;" onclick="Diary.edit()" class="button orange">写日志</a>
-		<ul class="list list-ico" id="diaryCat">
-			<li> <a href="#diary" onclick="Diary.loadList(0)"><i class="o-inbox"></i>我的日志</a> </li>
-			<li> <a href="#diary" onclick="Diary.loadList()"><i class="o-mark"></i>日志评阅</a> </li>
-			<textarea style="display:none" type="text/ibos-template" id="diaryCatTpl">
-				<li class="divider">我的文件夹</li>
-				<li <%=classname%>> <a href="#diary" onclick="Email.loadList(<%=boxid%>)"><i class="o-folder"></i> <%=name%></a> </li>
-			</textarea>
-		</ul>
-	</nav>
+
 </div>
 </body>
 </html>

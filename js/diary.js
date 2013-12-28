@@ -8,7 +8,7 @@ var diary = (function(){
 		diaryId = 0, //
 		isInit = false,
 		diaryPage = 1, // 当前页码
-		diaryUrl = function (){ return app.appUrl + '/diary' };
+		diaryUrl = function(){ return app.appUrl + '/diary'};
 
 	var list;
 		
@@ -20,9 +20,9 @@ var diary = (function(){
 			return false;
 		}
 		
-		list = new List('diaryList', $("#diaryListTpl").val(), {"id": "articleid"});
+		list = new List('diaryList', $("#diaryListTpl").val(), {"id": "diaryid"});
 	
-		diary.loadCat();
+		//diary.loadCat();
 		diary.loadList(diaryCatId);
 
 		isInit = true;
@@ -98,55 +98,44 @@ var diary = (function(){
 	}
 	
 	//------ diary View
-	function loadDiary(id,dom){
-		$("#diaryContent").empty().css3Animate({ time: "300ms", opacity: 0 });
+	function _load(id, callback) {
 		$.ui.showMask();
-
-		$(dom).parent().removeClass("new"); //取消未读
-		if(typeof id === 'undefined'){
-			id = diary.diaryId;
-		}
-		
+		id = typeof id === "undefined" ? diaryId : id;
 		$.jsonP({
-			url: 		diaryUrl() + "/show&callback=?&id="+id,
-			success: 	diary.showDiary,
-			error: 		function(err){	console.log(err)	 }
+			url: 	diaryUrl() + "/show&callback=?&id="+id,
+			success:  function(){
+				callback && callback.apply(this, arguments);
+				$.ui.hideMask();
+				diaryId = id;
+			},
+			error: 	function(e){ console.log(e) }
 		});
 	}
+
+	function loadDiary(id,dom){
+		$("#diaryContent").empty();
+		_load(id, diary.showDiary);
+
+	}
+
 	function showDiary(json){
-		var $tpl = $("#diaryContentTpl"),
+		var tp = $("#diaryContentTpl").val(),
 			$target = $("#diaryContent");
-		var tp = $tpl.val(),
-			newTp = '',
-			obj = {};
 			
-			//对json数据做一些处理之后，赋给obj
-			obj = json;
-			newTp += $.template(tp, obj);
-		$target.html(newTp).css3Animate({ time: "500ms", opacity: 1 });
-		$.ui.hideMask();
+		$target.html($.template(tp, json));
 	}
-	function edit(data){
-		var $subject = $("#mailSubjectInput"),
-			$content = $("#mailContentInput");
-		data = $.extend({
-			subject: "",
-			content: "",
-			user: null
-		}, data);
-		$("#mail_new").on("loadpanel", function(){
-			var inUser = new User('mail_user');
-			core.autoTextarea($content.get(0));
-			$subject.val(data.subject);
-			$content.val(data.content);
-			if(data.user){
-				inUser.set(data.user);
-			} else{
-				inUser.clear();
-			}
-			$("#mail_new").off("loadpanel")
-		});
-		$.ui.loadContent("mail_new");
+
+
+
+	function editDiary(id, callback){
+		var $target = $("#diaryEditContent"),
+			tpl = $("#diaryEditTpl").val();
+
+		$target.empty();
+
+		_load(id, function(res){
+			res && $target.html($.template(tpl, res));
+		})
 	}
 	
 	//------ Search
@@ -165,6 +154,31 @@ var diary = (function(){
 		return list;
 	}
 	
+
+	function _addItemBeforeLast(container, tpl, data){
+		var $item = $($.template(tpl, data)).insertBefore($(container).find("li").eq(-1));
+		// 焦点放置到新建项
+		// $item.find("input").focus(); 
+		return $item;
+	}
+	function _removeItem(elem){
+		return $(elem).parent().parent().remove();
+	}
+
+	function addDiaryRecord(){
+		var tpl = document.getElementById('diaryRecordTpl').value,
+			container = document.getElementById("diaryRecordList");
+		return _addItemBeforeLast(container, tpl, {})
+	}
+
+	function addDiaryPlan(){
+		var tpl = document.getElementById('diaryPlanTpl').value,
+			container = document.getElementById("diaryPlanList");
+		return _addItemBeforeLast(container, tpl, {})
+	}
+
+
+
 	return {
 		init:			init,
 		loadList: 		loadList,
@@ -173,7 +187,14 @@ var diary = (function(){
 		showList: 		showList,
 		showCat:		showCat,
 		showDiary:		showDiary,
+		editDiary:      editDiary,
 		search:			search,
-		getList:        getList
+		getList:        getList,
+
+		addDiaryPlan:   addDiaryPlan,
+		removeDiaryPlan: _removeItem,
+		addDiaryRecord: addDiaryRecord,
+		removeDiaryRecord: _removeItem
 	}
 })();
+

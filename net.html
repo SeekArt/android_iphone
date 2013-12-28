@@ -1,6 +1,6 @@
 <div class="pdhs">
 	<ul class="list inset" id="netSettingList"></ul>
-	<ul class="list inset">
+	<ul class="list list-active inset">
 		<li><a href="#netEdit" onclick="netSetting.edit()">添加一个新的地址</a></li>
 	</ul>
 	
@@ -8,7 +8,7 @@
 		<li class="radio-group">
 			<input id="netRadio<%=id%>" type="radio" name="netSelect" value="<%=url%>" <%if(defautlID==id){%>checked="checked"<%}%> onclick="netSetting.setDefault(<%=id%>)" />
 			<label for="netRadio<%=id%>" ><%=name%></label>
-			<span onclick="netSetting.edit(<%=id%>)">编辑</span>
+			<span onclick="netSetting.edit(<%=id%>)" class="curp">编辑</span>
 		</li>
 	</textarea>
 </div>

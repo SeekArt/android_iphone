@@ -21,17 +21,17 @@
 .bggr{ background-color: #ecedf0; }
 
 .xcw{ color: #FFF; }
+.xcm{ color: #58585C; } /* 主文字颜色 */
+.xca{ color: #82939E; } /* 辅助文字颜色 */
+.xcn{ color: #B2C0D1; } /* 注释文字颜色 */
 
 .vat{ vertical-align: top; }
 
 .xac{ text-align: center; }
 
-.trans-input{
-	border: 0 none !important;
-	background: transparent !important;
-}
 
 .hide{ display: none; }
 .hideim{ display: none !important; }
 
+.curp { cursor: pointer; }
 

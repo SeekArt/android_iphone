@@ -1,10 +1,16 @@
+<!-- Header: 新建邮件 -->
+<header id="header_mail_new">
+	<a onclick='af.ui.goBack()' class='button ao-cancel'></a>
+	<h1>新建邮件</h1>
+	<a onclick="Email.sendMail();" class='button ao-send'></a>
+</header>
 <form action="">
 	<div>
 		<div class="control-group bdbgr">
 			<label for="" class="">收件人：</label>
 			<div class="controls">
 				<!-- <input id="mailToInput" name="mailToInput" type="text" /> -->
-				<a href="javascript:;" class="o-more-gray flr" onclick="app.userSelector.get('mail')" style="margin-right: 10px;"></a>
+				<a href="javascript:;" class="aoicon ao-more-gray flr" onclick="app.userSelector.get('mail')" style="margin-right: 10px;"></a>
 				<ul class="user-selector-list" id="mail_user"></ul>
 			</div>
 		</div>

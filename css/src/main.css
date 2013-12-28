@@ -127,7 +127,6 @@ body {
 
 	color:#fff;
 	padding:10px 0;
-	text-shadow:rgba(0,0,0,0.8) 0 -1px 0;
 	text-align:center;
 	text-overflow:ellipsis;
 	white-space:nowrap;
@@ -161,7 +160,7 @@ body {
 	background:#e7e7e7;
 	/*padding:10px;*/
 	/*padding-top:0px;*/
-	padding-bottom: 10px;
+	/*padding-bottom: 10px;*/
 } /* This class is applied to the divs that contain the various "views" or pages of the app. */
 
 .panel > * {

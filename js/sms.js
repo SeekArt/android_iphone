@@ -98,8 +98,9 @@ var Sms = (function(){
 		}
 		if(id!=0){		
 			$("pm_id").val(id);
+		} else{
+			$("pm_touid").val(_newSms.id);
 		}
-		$("pm_touid").val(_newSms.id);
 		$("formPm").attr("action",app.appUrl+"/pm/postimg");
 	}
 	function send(){
@@ -130,8 +131,11 @@ var Sms = (function(){
 
 	function addSms(data){
 		app.selectOneUser(function(data){
+			//临时屏蔽自己
+			if(data.id==app.uid){return false;}
 			_newSms = data;
 			$.ui.loadContent("#sms_view");
+			$("#sms_view").empty();
 			$.ui.setTitle(_newSms.text);
 		})
 	}

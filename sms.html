@@ -1,34 +1,40 @@
-<ul class="list multi" id="msgList">
+<!-- Header: 消息中心 -->
+<header id="header_msg">
+	<h1>消息中心</h1>
+	<a href="javascript:;" class="button ao-new" onclick="Sms.addSms()"></a>
+</header>
+<ul class="list list-active" id="msgList">
 </ul>
-<ul class="list multi" id="smsList" style="margin-top:-11px;">
+<ul class="list list-active" id="smsList" style="margin-top:-11px;">
 </ul>
 <textarea id="smsListTpl" style="display:none;">
 	<li>
-		<div class="avatar">
-		<%if(lastmessage["touid"][0] == app.uid){%>
-			<img src="<%=app.defaultUrl%><%=lastmessage["user"]["avatar_small"]%>" alt="">
-		<%}else{%>
-			<img src="<%=app.defaultUrl%>/<%=touserinfo[lastmessage["touid"][0]]["avatar_middle"]%>" alt="">
-		<%}%>
-		</div>
-		<time>2013年8月28日</time>
+		<time><%=core.toDatetime(ctime)%></time>
 		<a href="#sms_view" onclick="Sms.loadSms(<%=listid%>);Sms.setPanel(<%=listid%>)">
-		<%if(lastmessage["touid"][0] == app.uid){%>
-			<p><%=lastmessage["user"]["realname"]%> </p>
-		<%}else{%>
-			<p>我对 <%=touserinfo[lastmessage["touid"][0]]["realname"]%> 说：</p>
-		<%}%>
-			<span><%=lastmessage["content"]%></span>
+			<div class="avatar">
+			<%if(lastmessage["touid"][0] == app.uid){%>
+				<img src="<%=app.defaultUrl%>/<%=lastmessage["user"]["avatar_small"]%>" alt="">
+			<%}else{%>
+				<img src="<%=app.defaultUrl%>/<%=touserinfo[lastmessage["touid"][0]]["avatar_middle"]%>" alt="">
+			<%}%>
+			</div>
+			<%if(lastmessage["touid"][0] == app.uid){%>
+				<p><%=lastmessage["user"]["realname"]%> </p>
+			<%}else{%>
+				<p>我对 <%=touserinfo[lastmessage["touid"][0]]["realname"]%> 说：</p>
+			<%}%>
+				<span><%=lastmessage["content"]%></span>
 		</a>
 	</li>
 </textarea>
 <textarea style="display:none;" type="text/ibos-template" id="msgListTpl">
 	<li id="mod_<%=id%>">
-		<div class="avatar">
-			<img src="images/ico/<%=id%>.png" alt="">
-		</div>
-		<time><%if(unread>0){%><%=core.toDatetime(newlist[0]["ctime"])%><%}else{%><%=latest["ctime"]%><%}%></time>
-		<a href="#msg_view" onclick="msg.loadMsg('<%=id%>',this)"><%=name%>
+		<time><%if(unread>0){%><%=core.toDatetime(newlist[0]["ctime"])%><%}else{%><%=core.toDatetime(latest["ctime"])%><%}%></time>
+		<a href="#msg_view" onclick="msg.loadMsg('<%=id%>',this)">
+			<div class="avatar">
+				<img src="images/ico/<%=id%>.png" alt="">
+			</div>
+		<%=name%>
 			<span><%if(unread>0){%><%=newlist[0]["title"]%><%}else{%><%=latest["title"]%><%}%></span>
 		</a>
 		<%if(unread>0){%><span class="af-badge lr"><%=unread%></span><%}%>

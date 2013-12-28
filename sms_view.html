@@ -19,7 +19,7 @@
 
 <footer>
 	<div class="input-toolbar">
-		<div class="sms-plus" onclick="ui.switchOptionPanel()"><i class="o-more"></i></div>
+		<div class="sms-plus" onclick="ui.switchOptionPanel()"><i class="aoicon ao-more"></i></div>
 		<div class="sms-input">
 			<input type="text" maxlength="140" placeholder="输入内容" name="smsInput" id="smsInput" class="vat"/>
 		</div>
@@ -28,11 +28,11 @@
 	<div class="opt-panel">
 		<ul class="opt-list">
 			<li onClick=" appSdk.camera.getImage(function(imageData){ $('#pm_img').val(imageData);$('#formPm').submit(); }); ">
-				<i class="o-picture"></i>
+				<i class="aoicon ao-picture"></i>
 				<p>图片</p>
 			</li>
 			<li onClick=" appSdk.camera.getPhoto(function(imageData){ $('#pm_img').val(imageData);$('#formPm').submit(); }); ">
-				<i class="o-camera"></i>
+				<i class="aoicon ao-camera"></i>
 				<p>拍照</p>
 			</li>
 		</ul>

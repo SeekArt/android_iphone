@@ -56,74 +56,73 @@
 }
 
 /* -------------------- */
-.list-ico li i{
-	margin-right:4px;
-	float: left;
-	margin-top: -5px;
-}
-
-
-
-/*------- Icon -------*/
-.o-mark,
-.o-delete,
-.o-download,
-.o-download-gray,
-.o-more,
-.o-more-gray,
-.o-picture,
-.o-camera,
-
-.o-msg-personal,
-.o-msg-system,
-
-.o-send,
-.o-inbox,
-.o-reply,
-.o-reply-all,
-.o-draft,
-.o-folder,
-
-.o-news-all,
-.o-news-read,
-.o-news-catnew,
-.o-news-cat{
+.list-ico li i,
+.aoicon{
 	display: inline-block;
 	width: 22px;
 	height: 22px;
 	background-repeat: no-repeat;
-	-webkit-background-size: 22px 22px;
-	background-size: 22px 22px;
+	-webkit-background-size: 100% 100%;
+	background-size: 100% 100%;
 	vertical-align: middle;
 }
-/* Icon common */
-.o-mark{ background-image: url(../images/act/mark.png);}
-.o-delete{ background-image: url(../images/act/trash.png); }
-.o-send{ background-image: url('../images/act/send.png'); }
-.o-download{ background-image: url(../images/act/download.png); }
-.o-download-gray{ background-image: url(../images/act/downloadgray.png); }
-.o-more{ background-image: url(../images/act/more.png); }
-.o-more-gray{ background-image: url(../images/act/moregray.png); }
-.o-picture{ background-image: url(../images/act/picture.png); }
-.o-camera{ background-image: url(../images/act/camera.png); }
+.list-ico li i{ margin-right:4px; }
 
-/* Icon msg */
-.o-msg-personal{ background-image: url(../images/msg/msg.png);}
-.o-msg-system{ background-image: url(../images/msg/ring.png); }
+/* Icon common */
+.ao-mark{ background-image: url(../images/act/mark.png);}
+.ao-trash{ background-image: url(../images/act/trash.png); }
+
+.ao-download{ background-image: url(../images/act/download.png); }
+.ao-download-gray{ background-image: url(../images/act/downloadgray.png); }
+.ao-more{ background-image: url(../images/act/more.png); }
+.ao-more-gray{ background-image: url(../images/act/moregray.png); }
+.ao-picture{ background-image: url(../images/act/picture.png); }
+.ao-camera{ background-image: url(../images/act/camera.png); }
+
 
 /* Icon mail*/
-.o-inbox{ background-image: url('../images/mail/inbox.png'); }
-.o-reply{ background-image: url(../images/mail/reply.png); }
-.o-reply-all{ background-image: url(../images/mail/replyall.png); }
-.o-draft{background-image: url('../images/mail/draft.png'); }
-.o-folder{background-image: url('../images/mail/folder.png'); }
+.ao-inbox{ background-image: url('../images/act/inbox.png'); }
+.ao-reply{ background-image: url(../images/act/reply.png); }
+.ao-reply-all{ background-image: url(../images/act/replyall.png); }
+.ao-draft{background-image: url('../images/act/draft.png'); }
+.ao-folder{background-image: url('../images/act/folder.png'); }
 
 /* Icon news */
-.o-news-all{background-image: url('../images/news/all.png'); }
-.o-news-read{background-image: url('../images/news/read.png'); }
-.o-news-catnew{background-image: url('../images/news/new.png'); }
-.o-news-cat{background-image: url('../images/news/cat.png'); }
+.ao-news{background-image: url('../images/act/news.png'); }
+.ao-read{background-image: url('../images/act/read.png'); }
+.ao-unread{background-image: url('../images/act/unread.png'); }
 
+/**/
+.ao-file{ background-image: url('../images/act/file.png'); }
+
+
+.ao-cancel { background-image: url(../images/act/cancel.png); left: 0;}
+.ao-menu { background-image: url(../images/act/menu.png); left: 0;}
+.ao-home { background-image: url(../images/act/home.png); right: 0; }
+.ao-ok { background-image: url(../images/act/ok.png); right: 0;}
+.ao-send { background-image: url(../images/act/send.png); right: 0;}
+.ao-new { background-image: url(../images/act/new.png); right: 0;}
+.ao-edit { background-image: url(../images/act/edit.png); }
+.ao-up { background-image: url(../images/act/up.png); }
+.ao-down { background-image: url(../images/act/down.png); }
+.ao-comment-gray{  background-image: url(../images/act/commentgray.png); }
+.ao-date-gray{ background-image: url(../images/act/dategray.png); }
+.ao-date-gray.pressed{ background-image: url(../images/act/dateblue.png); }
+.ao-trash-gray{ background-image: url(../images/act/trashgray.png); }
+.ao-trash-gray.pressed{ background-image: url(../images/act/trashred.png); }
+.ao-plus-gray{ background-image: url(../images/act/plusgray.png); }
+.ao-face{ background-image: url(../images/act/face.png); }
+.ao-stamp{ background-image: url(../images/act/stamp.png); }
+
+.ao-user{ background-image: url(../images/act/user.png); }
+.ao-appraise{ background-image: url(../images/act/appraise.png); }
+.ao-share{ background-image: url(../images/act/share.png); }
+.ao-underling{ background-image: url(../images/act/underling.png); }
+.ao-star{ background-image: url(../images/act/star.png); }
+
+.ao-doc{ background-image: url(../images/act/doc.png); } 
+.ao-receipted{ background-image: url(../images/act/receipted.png); } 
+.ao-unreceipted{ background-image: url(../images/act/unreceipted.png); } 
 
 /* --------- Login ----------- */
 .login{
@@ -147,3 +146,22 @@
 	position: absolute;
 	bottom:-20px;
 }
+
+/* 日期选择 */
+#afui input[type="date"].datepicker{
+	margin: 0;
+	padding: 0;
+	width: auto;
+	height: 22px;
+	border: 0 none;
+	background: transparent;
+	vertical-align: middle;
+}
+/*#afui input[type="date"].datepicker::-webkit-datetime-edit { }*/
+/*#afui input[type="date"].datepicker::-webkit-datetime-edit-fields-wrapper { }
+#afui input[type="date"].datepicker::-webkit-datetime-edit-text { }
+#afui input[type="date"].datepicker::-webkit-datetime-edit-year-field {  }
+#afui input[type="date"].datepicker::-webkit-datetime-edit-month-field {  }
+#afui input[type="date"].datepicker::-webkit-datetime-edit-day-field {}
+#afui input[type="date"].datepicker::-webkit-inner-spin-button { }
+#afui input[type="date"].datepicker::-webkit-calendar-picker-indicator {  }*/
