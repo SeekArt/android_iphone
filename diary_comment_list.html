@@ -9,24 +9,26 @@
 <textarea class="hide" id="reviewTpl">
 <div class="diary-comment-date">
 	<div class="direction-bar">
-		<a href="javascript:diary.loadReview(<%=prevAndNextDate.prev%>)"></a>
-		<a href="javascript:diary.loadReview(<%=prevAndNextDate.next%>);"></a>
+		<a href="javascript:diary.loadReview('<%=prevAndNextDate.prev%>')"></a>
+		<a href="javascript:diary.loadReview('<%=prevAndNextDate.next%>');"></a>
 	</div>
 	<div class="noti xac">
 		<span><%=dateWeekDay.year%>-<%=dateWeekDay.month%>-<%=dateWeekDay.day%> <%=dateWeekDay.weekday%></span>
 	</div>
 </div>
 <ul class="list list-active">
-<%for(var i in data){%>
+<%for(var i in data){
+%>
+<%{var thisUser = app.getUser(data[i].uid);}%>
 	<li>
-		<a href="#diary_comment" onclick="" class="media nochevron">
+		<a href="#diary_view" onclick="diary.loadDiary(<%=data[i].diaryid%>)" class="media nochevron">
 			<div class="avatar">
-				<img src="">
+				<img src="<%=app.defaultUrl%>/<%=thisUser.avatar_small%>">
 			</div>
 			<div class="media-body brief">
-				<h4>张三</h4>
+				<h4><%=thisUser.realname%></h4>
 				<div class="content"><%=data[i].content%></div>
-				<time class="time"><%=core.toDatetime(diarytime)%></time>
+				<time class="time"><%=core.toDatetime(data[i].diarytime)%></time>
 			</div>
 		</a>
 	</li>

@@ -8,6 +8,8 @@ var diary = (function(){
 		diaryId = 0, //
 		isInit = false,
 		diaryPage = 1, // 当前页码
+		reviewPage = 1,
+		reviewUid = 0,
 		diaryUrl = function(){ return app.appUrl + '/diary'};
 
 	var list;
@@ -68,6 +70,36 @@ var diary = (function(){
 		$.ui.hideMask();
 		return;
 	}
+
+	function loadReview(date,uid,page){
+		url="";
+		if(typeof uid != "undefined") {
+			url += "&uid=" + uid;
+		}
+		if(typeof date != "undefined") {
+			url += "&date=" + date;
+		}
+		// 页码变更
+		if(typeof page !== "undefined" && page !== reviewPage){
+			reviewPage = page;
+		}
+		pageurl = "&page=" + reviewPage;
+		
+		$.jsonP({
+			url: 		diaryUrl() + "/review&callback=?"+ url + pageurl,
+			success: 	showReview,
+			error: 		function(err){	console.log(err) }
+		});
+	}
+	function showReview(json){
+		var tp = $("#reviewTpl").val(),
+			$target = $("#reviewList");
+	
+		$target.html($.template(tp, json));
+		$.ui.hideMask();
+		return;
+	}
+	
 	
 	//------ diary Catelog
 	function loadCat(){
@@ -124,9 +156,8 @@ var diary = (function(){
 			
 		$target.html($.template(tp, json));
 	}
-
-
-
+	
+	
 	function editDiary(id, callback){
 		var $target = $("#diaryEditContent"),
 			tpl = $("#diaryEditTpl").val();
@@ -136,6 +167,19 @@ var diary = (function(){
 		_load(id, function(res){
 			res && $target.html($.template(tpl, res));
 		})
+	}
+	
+	function addDiary(date,callback){		
+		var $target = $("#diaryEditContent"),
+			tpl = $("#diaryEditTpl").val();
+		$target.empty();
+		$.jsonP({
+			url: 	diaryUrl() + "/add&callback=?",
+			success:  function(res){
+				$target.html($.template(tpl, res));
+			},
+			error: 	function(e){ console.log(e) }
+		});
 	}
 	
 	//------ Search
@@ -190,6 +234,8 @@ var diary = (function(){
 		editDiary:      editDiary,
 		search:			search,
 		getList:        getList,
+		loadReview:		loadReview,
+		addDiary:		addDiary,
 
 		addDiaryPlan:   addDiaryPlan,
 		removeDiaryPlan: _removeItem,
@@ -197,4 +243,3 @@ var diary = (function(){
 		removeDiaryRecord: _removeItem
 	}
 })();
-

@@ -99,8 +99,9 @@
 			//hide splash screen
 			$.ui.blockPageScroll(); //block the page from scrolling at the header/footer 
 			//AppMobi.device.hideSplashScreen();
-			$("#splashscreen").hide()
 			try{navigator.splashscreen.hide();}catch(e){};
+			setTimeout(function(){$("#splashscreen").hide()},500);
+			$.ui.defaultMenu = $("#defaultMenu");
 //			$.ui.animateHeaders = true;
 		};
         document.addEventListener("deviceready", onDeviceReady, false);
@@ -192,7 +193,8 @@
 			<!-----------diary-----------> 
 			<div title="我的日志" id="diary" class="panel" data-load="loadDiary" data-header="header_diary" data-footer="none" data-nav="menu_diary" data-defer="diary.html">			
 			</div>
-			<div title="查看日志" id="diary_view" class="panel"  data-footer="footer_diary_view" data-nav="none" data-defer="diary_view.html">
+			<div title="查看日志" id="diary_view" class="panel" data-footer="none" data-nav="none" data-defer="diary_view.html">
+			<!-- data-footer="footer_diary_view" -->
 			</div>
 			<div title="编辑日志" id="diary_edit" class="panel" data-footer="none" data-nav="none" data-defer="diary_edit.html"></div>
 			<div title="日志评阅" id="diary_comment_list" class="panel" data-footer="none" data-nav="menu_diary" data-defer="diary_comment_list.html"></div>
@@ -254,7 +256,7 @@
 	</header>
 
 	<!-- -------------------nav----------------------- -->
-	<nav>
+	<nav id="defaultMenu">
 		<ul class="list list-active">
 			<li class="divider icon home">侧边栏</li>
 		</ul>

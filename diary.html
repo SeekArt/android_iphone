@@ -7,7 +7,7 @@
 <ul class="list list-active" id="diaryList"></ul>
 <textarea id="diaryListTpl" style="display:none;">
 	<li>
-		<a href="#diary_view" onclick="diary.loadDiary(<%=diaryid%>)" class="media nochevron">
+		<a href="#diary_view" onclick="diary.loadDiary(<%=diaryid%>)" class="media ">
 			<div class="avatar">
 				<img src="<%=app.defaultUrl%>/<%=app.getUser(uid)["avatar_small"]%>">
 			</div>
@@ -19,12 +19,13 @@
 		</a>
 	</li>
 </textarea>
-
+ 
 <nav id="menu_diary">
-	<a href="#diary_edit" onclick="diary.editDiary(0)" class="button orange">写日志</a>
+<!--	<a href="#diary_edit" onclick="diary.addDiary()" class="button orange">写日志</a>
+-->
 	<ul class="list list-active list-ico" id="diaryCat">
 		<li> <a href="#diary" onclick="diary.loadList(0)"><i class="ao-user"></i>我的日志</a> </li>
-		<li> <a href="#diary_comment_list" onclick="diary.loadList()"><i class="ao-appraise"></i>日志评阅</a> </li>
+		<li> <a href="#diary_comment_list" onclick="diary.loadReview()"><i class="ao-appraise"></i>日志评阅</a> </li>
 		<!--<li> <a href="#diary" onclick="diary.loadShare()"><i class="ao-share"></i>共享日志</a> </li>-->
 		<!--<li> <a href="#diary" onclick="diary.loadList(-1)"><i class="ao-star"></i>已关注日志</a> </li>-->
 		

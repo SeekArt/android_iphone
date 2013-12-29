@@ -271,7 +271,7 @@ var app = (function(){
 	function init(){
 		if(!app.isInit){
 			if(!app.appUrl){
-				$.ui.loadContent('login',false,false,'fade');
+				setTimeout(function(){$.ui.loadContent('login',false,false,'fade')},100);
 			}
 			//初始化完整的路径
 			app.appUrl += "/?r=mobile";
@@ -283,7 +283,6 @@ var app = (function(){
 					error: 		function(err){	console.log(err)	}
 				});
 			}
-			
 			app.isInit = true;
 		}
 	}
