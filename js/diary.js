@@ -217,13 +217,27 @@ var diary = (function(){
 	function addDiaryRecord(){
 		var tpl = document.getElementById('diaryRecordTpl').value,
 			container = document.getElementById("diaryRecordList");
-		return _addItemBeforeLast(container, tpl, {})
+		return _addItemBeforeLast(container, tpl, {timestamp:(new Date()).valueOf()})
 	}
 
 	function addDiaryPlan(){
 		var tpl = document.getElementById('diaryPlanTpl').value,
 			container = document.getElementById("diaryPlanList");
 		return _addItemBeforeLast(container, tpl, {})
+	}
+	function submit(){
+		$form = $('#diaryEditForm');
+		if($form[0]["diaryContent"].value==""){
+			$.ui.popup("需要完整填好各项内容才能提交");
+			return false;
+		}		
+		$.ui.showMask("提交中");
+		$form[0].submit()
+		setTimeout(function(){
+			$.ui.goBack();
+			diary.loadList(0);
+			$.ui.hideMask();
+		},1000);
 	}
 
 
@@ -241,6 +255,7 @@ var diary = (function(){
 		getList:        getList,
 		loadReview:		loadReview,
 		addDiary:		addDiary,
+		submit:			submit,
 
 		addDiaryPlan:   addDiaryPlan,
 		removeDiaryPlan: _removeItem,

@@ -2,7 +2,7 @@
 <header>
 	<a href="javascript:;" class="button ao-cancel" onclick="$.ui.goBack();"></a>
 	<h1>编辑日志</h1>
-	<a href="javascript:;" class="button ao-ok" onclick="$('#diaryEditForm')[0].submit();$.ui.goBack();diary.loadList(0);"></a>
+	<a href="javascript:;" class="button ao-ok" onclick="diary.submit()"></a>
 </header>
 <div id="diaryEditContent"></div>
 <textarea id="diaryEditTpl" class="hide">
@@ -29,9 +29,9 @@
 			<li class="divider">计划外</li>
 				<%for(var i = 0; i < data.outsidePlanList.length; i++){%>
 				<li class="diary-edit-item counter-item">
-					<input name="planOutside[][content]" type="text" class="trans-input" value="<%=data.outsidePlanList[i].content%>" <% if(i === 0) { %>autofocus="true" <% } %>>
+					<input name="planOutside[<%=i%>][content]" type="text" class="trans-input" value="<%=data.outsidePlanList[i].content%>" <% if(i === 0) { %>autofocus="true" <% } %>>
 					<div class="negflr">
-						<select name="planOutside[][schedule]" class="progress-badge" value="<%=data.outsidePlanList[i].schedule%>">
+						<select name="planOutside[<%=i%>][schedule]" class="progress-badge" value="<%=data.outsidePlanList[i].schedule%>">
 							<% var ousche = data.outsidePlanList[i].schedule;%>
 							<option value="0" <% if(ousche == "0") {%>selected<% } %>>0%</option>
 							<option value="1" <% if(ousche == "1") {%>selected<% } %>>25%</option>
@@ -89,12 +89,12 @@
 </textarea>
 <textarea id="diaryRecordTpl" class="hide">
 	<li  class="diary-edit-item counter-item">
-		<input type="text" name="planOutside[][content]" class="trans-input" value="">
+		<input type="text" name="planOutside[<%=timestamp%>][content]" class="trans-input" value="">
 		<div class="negflr">
 			<a href="javascript:;" class="aoicon ao-trash-gray" data-node-type="removeDiaryRecord" onclick="diary.removeDiaryRecord(this);"></a>
 		</div>
 		<div class="negflr">
-			<select name="planOutside[][schedule]" class="progress-badge" >
+			<select name="planOutside[<%=timestamp%>][schedule]" class="progress-badge" >
 				<option value="0">0%</option>
 				<option value="1">25%</option>
 				<option value="2">50%</option>
