@@ -176,6 +176,11 @@ var diary = (function(){
 		$.jsonP({
 			url: 	diaryUrl() + "/add&callback=?",
 			success:  function(res){
+				if(res.msg){
+					$.ui.popup(res.msg);
+					$.ui.goBack();
+					return false;
+				}
 				$target.html($.template(tpl, res));
 			},
 			error: 	function(e){ console.log(e) }
