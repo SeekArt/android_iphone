@@ -3,10 +3,10 @@
 <textarea id="profileTpl" style="display:none;">
 	<form id="formImg" action="<%=app.appUrl%>/setting/update" method="post" target="hidden_frame">
 		<div class="profile">
-			<div class="avatar" onClick="setup.takePicture().then(setup.uploadPicture).then(setup.deletePictureFromCache).then($('#myAvatar').attr('src','<%=app.defaultUrl%>/<%=avatar_big%>' + Math.random()));">
-				<img id="myAvatar" src="<%=app.defaultUrl%>/<%=avatar_big%>" alt="">
+			<div class="avatar" onClick="appSdk.camera.getImage( function(imageData){ setup.uploadPicture(imageData).then(setup.reloadAvatar); });">
+				<img id="myAvatar" src="<%=app.defaultUrl%>/<%=avatar_big%>">
 			</div>
-			<a class="avatarBtn" onClick="appSdk.camera.getPhoto(function(imageData){ setup.uploadPicture(imageData).then($('#myAvatar').attr('src','<%=app.defaultUrl%>/<%=avatar_big%>' + Math.random())) });">编辑</a>
+			<a class="avatarBtn" onClick="setup.takePicture().then(setup.uploadPicture).then(setup.reloadAvatar).then(setup.deletePictureFromCache);">编辑</a>
 		</div>
 		<h3>基本信息</h3>
 		<ul class="list inset">

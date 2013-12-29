@@ -143,7 +143,7 @@ var core = {
 		elem.addEventListener('focus', function(){
 			that.adjustTextarea(elem, extra, maxHeight)
 		}, false);
-		change();
+		//change();
 	},
 
 	error: function(err){ console && console.log(err) }

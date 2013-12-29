@@ -4,18 +4,18 @@ var setup = {
 			$target = $("#settingContent");
 		var tp = $tpl.val(),
 			newTp = '',
-			obj = {};				
+			obj = {};
 			obj = app.user;
 			newTp += $.template(tp, obj);
 		$target.html(newTp).css3Animate({ time: "500ms", opacity: 1 });
 	},
 	
-	loadProfile: function(){			
+	loadProfile: function(){
 		var $tpl = $("#profileTpl"),
 			$target = $("#profileContent");
 		var tp = $tpl.val(),
 			newTp = '',
-			obj = {};				
+			obj = {};
 			obj = app.user;
 			newTp += $.template(tp, obj);
 		$target.html(newTp).css3Animate({ time: "500ms", opacity: 1 });
@@ -48,6 +48,7 @@ var setup = {
         options.fileKey = "avatar",
         options.fileName = imageURI.substr(imageURI.lastIndexOf('/')+1);
         options.mimeType = "image/jpeg";
+		$.ui.showMask("正在上传");
         
         var ft = new FileTransfer();
         //上传回调
@@ -71,5 +72,15 @@ var setup = {
         window.resolveLocalFileSystemURI(fileURI, function( fileEntry ){
             fileEntry.remove();
         }, null);
-    }
+    },
+	takePic: function(){
+		
+	},
+	reloadAvatar: function(imageURI){
+		$.ui.hideMask();
+		var deferred  = when.defer(),
+		$('#myAvatar').attr('src','<%=app.defaultUrl%>/<%=avatar_big%>' + Math.random());
+		deferred.resolve( imageURI );
+        return deferred.promise
+	}
 }

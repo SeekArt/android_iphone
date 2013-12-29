@@ -63,7 +63,6 @@ var appSdk = {
 appSdk.camera = {
 	// “Capture Photo”按钮点击事件触发函数
 	getImage : function (callback) {
-		// 使用设备上的摄像头拍照，并获得Base64编码字符串格式的图像
 		navigator.camera.getPicture(callback, this.onError, { 
 			quality: 50, 
 			destinationType: navigator.camera.DestinationType.FILE_URI, 

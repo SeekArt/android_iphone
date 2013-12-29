@@ -830,7 +830,7 @@ textarea::-webkit-input-placeholder {
 #afui.ibos .view-detail[open] summary:after{ content: "隐藏详细";}
 
 #afui.ibos .view-content{ padding: 10px 15px; }
-#afui.ibos .view-content img{ width: auto; max-width: 100% !important; }
+#afui.ibos .view-content img{ width: auto; max-width: 100% !important; height: auto !important;}
 
 /* Backbutton */
 #afui.ibos #backButton{
