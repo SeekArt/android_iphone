@@ -102,6 +102,10 @@
 			try{navigator.splashscreen.hide();}catch(e){};
 			setTimeout(function(){$("#splashscreen").hide()},600);
 			$.ui.defaultMenu = $("#defaultMenu");
+			alert(screen.avalidHeight);
+			alert("do"+document.documentElement.offsetHeight);
+			alert("wi"+window.innerHeight);
+			alert("b"+document.body.offsetHeight);
 //			$.ui.animateHeaders = true;
 		};
         document.addEventListener("deviceready", onDeviceReady, false);

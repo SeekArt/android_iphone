@@ -73,8 +73,10 @@ var setup = {
     },
 	reloadAvatar: function(imageURI){
 		$.ui.hideMask();
+		alert(imageURI);
 		var deferred  = when.defer();
 		$('#myAvatar').attr('src','<%=app.defaultUrl%>/<%=avatar_big%>' + Math.random());
+		alert($('#myAvatar').attr('src'));
 		deferred.resolve( imageURI );
         return deferred.promise
 	}
