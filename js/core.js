@@ -412,5 +412,14 @@ $(document).ready(function(){
 	$doc.on("focusin input", "[data-auto-height]", function(){
 		core.adjustTextarea(this)
 	});
+
+	// 侧栏菜单的处理，在加载panel时, 如果panel上有 data-nav="none" 值，则禁止菜单，否则开启菜单
+	$doc.on("loadpanel", function(evt){
+		if(evt.target.getAttribute('data-nav') === "none") {
+			$.ui.disableSideMenu();
+		} else {
+			$.ui.enableSideMenu()
+		}
+	})
 })
 

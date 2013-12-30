@@ -88,7 +88,7 @@
 			$.ui.launch();
 			app.init();  // 初始化我的数据
 			// 若没有侧栏菜单，则禁止侧滑功能
-			$("[data-nav=none]").bind("touchstart touchmove touchend", function(e) { e.stopPropagation()});
+			//$("[data-nav=none]").bind("touchstart touchmove touchend", function(e) { e.stopPropagation()});
 		});
 		
 		/* This code is used to run as soon as appMobi activates */
@@ -107,7 +107,7 @@
         document.addEventListener("deviceready", onDeviceReady, false);
 	</script>
 </head>
-<body>
+<body style="overflow:hidden;">
 <div id="afui" class="ibos">
 	<!-- this is the splashscreen you see. -->
 	<div id="splashscreen" class='ui-loader heavy'>

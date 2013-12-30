@@ -16,8 +16,6 @@
 	box-sizing:border-box;
 }
 
-
-
 body {
 	overflow-x:hidden;
 	-webkit-text-size-adjust:none;
@@ -32,8 +30,12 @@ body {
 	-webkit-box-align:stretch;
 } /* General styles that apply to elements not contained within other classes and styles */
 
+
 #afui input,textarea { -webkit-user-select:text; -moz-user-select:-moz-text;-moz-user-select:text;} /* allow users to select text that appears in input fields */
+
 #afui img { border:none; } /* Remove default borders for images */
+
+
 #afui p {
 	display:block;
 	margin:6px 0;
@@ -63,8 +65,8 @@ body {
 	-webkit-perspective: 1000;
 }
 
-.afmScrollbar { background:white !important; } /* Sets the color of the scrollbar */
-.afmScrollPanel { width:100%; min-height:100%;overflow:hidden;/*hack to auto expand height with floats*/ }
+.afScrollbar { background:white !important; } /* Sets the color of the scrollbar */
+.afScrollPanel { width:100%; min-height:100%;overflow:hidden;/*hack to auto expand height with floats*/ }
 
 #afui {
 	position:absolute;
@@ -402,6 +404,9 @@ h2 {
 .ui-corner-all { border-radius:.6em; }
 
 #afui_mask { position:absolute;top:45%;z-index:999999; }
+
+.afui_panel_mask { position:absolute;top:0;bottom:0;left:0;right:0;z-index:2000;background-color:rgba(0,0,0,0.1);display:none}
+
 
 .hasMenu{
 	position:absolute;

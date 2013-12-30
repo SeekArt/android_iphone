@@ -192,7 +192,7 @@
                 var that = this;
                 var orientationChangeProxy = function () {
                     //no need to readjust if disabled...
-                    if (that.eventsActive||!$.feat.nativeTouchScroll) that.adjustScroll();
+                    if (that.eventsActive&&!$.feat.nativeTouchScroll) that.adjustScroll();
                 };
                 this.afEl.bind('destroy', function () {
                     that.disable(true); //with destroy notice
@@ -252,7 +252,7 @@
                 var el = afEl.get(0);
 
                 this.refreshContainer = af('<div style="overflow:hidden;height:0;width:100%;display:none;"></div>');
-                $(this.el).prepend(this.refreshContainer.append(el, 'top'));
+                $(this.el).prepend(this.refreshContainer.prepend(el));
                 this.refreshContainer = this.refreshContainer[0];
             },
             fireRefreshRelease: function (triggered, allowHide) {

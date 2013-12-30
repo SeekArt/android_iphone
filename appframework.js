@@ -1043,7 +1043,7 @@ if (!window.af || typeof(af) !== "function") {
                     return this;
                 if ($.isArray(element) || $.isObject(element))
                     element = $(element);
-                var i;
+                var i, node;
 
 
                 for (i = 0; i < this.length; i++) {
@@ -1055,10 +1055,15 @@ if (!window.af || typeof(af) !== "function") {
                         if (obj == nundefined || obj.length === 0) {
                             obj = document.createTextNode(element);
                         }
-                        if (obj.nodeName != nundefined && obj.nodeName.toLowerCase() == "script" && (!obj.type || obj.type.toLowerCase() === 'text/javascript')) {
-                            window['eval'](obj.innerHTML);
-                        } else if (obj instanceof $afm) {
-                            _insertFragments(obj, this[i], insert);
+                        if (obj instanceof $afm) {
+                            for (var k=0,lenk=obj.length; k<lenk; k++) {
+                            	node = obj[k];
+                            	if (node.nodeName != nundefined && node.nodeName.toLowerCase() == "script" && (!node.type || node.type.toLowerCase() === 'text/javascript')) {
+                            	    window['eval'](node.innerHTML);	
+                            	} else {
+                            	    _insertFragments($(node), this[i], insert);
+                            	}
+                            }	
                         } else {
                             insert != nundefined ? this[i].insertBefore(obj, this[i].firstChild) : this[i].appendChild(obj);
                         }
@@ -1205,15 +1210,15 @@ if (!window.af || typeof(af) !== "function") {
                 if (val != nundefined)
                     return this.css("height", val);
                 if (this[0] == this[0].window)
-                    return window.innerHeight + '';
+                    return window.innerHeight;
                 if (this[0].nodeType == this[0].DOCUMENT_NODE)
-                    return this[0].documentElement.offsetheight + '';
+                    return this[0].documentElement.offsetHeight;
                 else {
                     var tmpVal = this.css("height").replace("px", "");
                     if (tmpVal)
-                        return tmpVal;
+                        return +tmpVal;
                     else
-                        return this.offset().height + '';
+                        return this.offset().height;
                 }
             },
             /**
@@ -1230,15 +1235,15 @@ if (!window.af || typeof(af) !== "function") {
                 if (val != nundefined)
                     return this.css("width", val);
                 if (this[0] == this[0].window)
-                    return window.innerWidth + '';
+                    return window.innerWidth;
                 if (this[0].nodeType == this[0].DOCUMENT_NODE)
-                    return this[0].documentElement.offsetwidth + '';
+                    return this[0].documentElement.offsetWidth;
                 else {
                     var tmpVal = this.css("width").replace("px", "");
                     if (tmpVal)
-                        return tmpVal;
+                        return +tmpVal;
                     else
-                        return this.offset().width + '';
+                        return this.offset().width;
                 }
             },
             /**
@@ -1329,6 +1334,31 @@ if (!window.af || typeof(af) !== "function") {
                 }
                 return this.setupOld($(elems).filter(selector));
             },
+            /**
+            * Returns the child nodes of the elements based off the selector and includes text nodes
+                ```
+                $("#foo").contents('.bar'); //Selector
+                $("#foo").contents($('.bar')); //Objects
+                $("#foo").contents($('.bar').get(0)); //Single element
+                ```
+
+            * @param {String|Array|Object} [selector]
+            * @return {Object} appframework object with unique children
+            * @title $().contents(selector)
+            */
+            contents:function(selector){
+                if (this.length === 0)
+                    return this;
+                var elems = [];
+                for (var i = 0; i < this.length; i++) {
+                    if (this[i].parentNode)
+                        //elems = elems.concat(this[i].childNodes);
+                        _shimNodes(this[i].childNodes,elems);
+                }
+                return this.setupOld($(elems).filter(selector));
+            },
+            /**
+
             /**
             * Returns the closest element based off the selector and optional context
                 ```
@@ -1421,7 +1451,17 @@ if (!window.af || typeof(af) !== "function") {
             * @title $().data(key,[value]);
             */
             data: function(key, value) {
-                return this.attr('data-' + key, value);
+                var retData;
+                // setter
+                if (value) {
+                    return this.attr('data-' + key, value);
+                }
+                // getter
+                retData = this.attr('data-' + key);
+                try {
+                    retData = $.parseJSON(retData);
+                } catch(ex) {}
+                return retData;
             },
             /**
             * Rolls back the appframework elements when filters were applied
@@ -1576,7 +1616,7 @@ if (!window.af || typeof(af) !== "function") {
             }
             var callbackName = 'jsonp_callback' + (++_jsonPID);
             var abortTimeout = "",
-                context;
+                context, callback;
             var script = document.createElement("script");
             var abort = function() {
                 $(script).remove();
@@ -1589,7 +1629,18 @@ if (!window.af || typeof(af) !== "function") {
                 delete window[callbackName];
                 options.success.call(context, data);
             };
-            script.src = options.url.replace(/=\?/, '=' + callbackName);
+            if (options.url.indexOf('callback=?') !== -1) {
+                script.src = options.url.replace(/=\?/, '=' + callbackName);
+            } else {
+                callback = options.jsonp ? options.jsonp : 'callback';
+                if (options.url.indexOf("?") === -1) {
+                    options.url += ("?" + callback + '=' + callbackName);
+                }
+                else {
+                    options.url += ("&" + callback + '=' + callbackName);
+                }
+                script.src = options.url;
+            }
             if (options.error) {
                 script.onerror = function() {
                     clearTimeout(abortTimeout);
@@ -1649,8 +1700,17 @@ if (!window.af || typeof(af) !== "function") {
 
                 if (!('async' in settings) || settings.async !== false)
                     settings.async = true;
+                    
+                if ($.isObject(settings.data))
+                    settings.data = $.param(settings.data);
+                if (settings.type.toLowerCase() === "get" && settings.data) {
+                    if (settings.url.indexOf("?") === -1)
+                        settings.url += "?" + settings.data;
+                    else
+                        settings.url += "&" + settings.data;
+                }
 
-                if (!settings.dataType)
+		if (!settings.dataType)
                     settings.dataType = "text/html";
                 else {
                     switch (settings.dataType) {
@@ -1669,22 +1729,15 @@ if (!window.af || typeof(af) !== "function") {
                         case "text":
                             settings.dataType = 'text/plain';
                             break;
+                        case "jsonp":
+                            return $.jsonP(settings);
+                            break;
                         default:
                             settings.dataType = "text/html";
                             break;
-                        case "jsonp":
-                            return $.jsonP(opts);
                     }
                 }
-                if ($.isObject(settings.data))
-                    settings.data = $.param(settings.data);
-                if (settings.type.toLowerCase() === "get" && settings.data) {
-                    if (settings.url.indexOf("?") === -1)
-                        settings.url += "?" + settings.data;
-                    else
-                        settings.url += "&" + settings.data;
-                }
-
+                
                 if (/=\?/.test(settings.url)) {
                     return $.jsonP(settings);
                 }
@@ -2198,7 +2251,6 @@ if (!window.af || typeof(af) !== "function") {
                 set.push(handler);
                 element.addEventListener(handler.e, proxyfn, false);
             });
-            element=null;
         }
 
         /**
@@ -2239,7 +2291,7 @@ if (!window.af || typeof(af) !== "function") {
         * @title $().bind(event,callback)
         */
         $.fn.bind = function(event, callback) {
-            for (var i = 0; i < this.length; i++) {
+            for (var i = 0, len = this.length; i < len; i++) {
                 add(this[i], event, callback);
             }
             return this;
@@ -2257,7 +2309,7 @@ if (!window.af || typeof(af) !== "function") {
         * @title $().unbind(event,[callback]);
         */
         $.fn.unbind = function(event, callback) {
-            for (var i = 0; i < this.length; i++) {
+            for (var i = 0, len = this.length; i < len; i++) {
                 remove(this[i], event, callback);
             }
             return this;
@@ -2358,10 +2410,13 @@ if (!window.af || typeof(af) !== "function") {
                     };
                 });
         }
-        $.fn.delegate = function(selector, event,data, callback) {
-
-            for (var i = 0; i < this.length; i++) {
-                addDelegate(this[i],event,callback,selector,data)
+        $.fn.delegate = function(selector, event, data, callback) {
+            if ($.isFunction(data)) {
+                callback = data;
+                data = null;
+            }
+            for (var i = 0, len = this.length; i < len; i++) {
+                addDelegate(this[i],event,callback,selector,data);
             }
             return this;
         };
@@ -2380,7 +2435,7 @@ if (!window.af || typeof(af) !== "function") {
         * @title $().undelegate(selector,event,[callback]);
         */
         $.fn.undelegate = function(selector, event, callback) {
-            for (var i = 0; i < this.length; i++) {
+            for (var i = 0, len = this.length; i < len; i++) {
                 remove(this[i], event, callback, selector);
             }
             return this;
@@ -2400,10 +2455,10 @@ if (!window.af || typeof(af) !== "function") {
         * @return {Object} appframework object
         * @title $().on(event,selector,[data],callback);
         */
-        $.fn.on = function(event, selector,data, callback) {
-            if(!$.isObject(data)){
-                callback=data;
-                data=null;
+        $.fn.on = function(event, selector, data, callback) {
+            if ($.isFunction(data)) {
+                callback = data;
+                data = null;
             }
 
             return selector === nundefined || $.isFunction(selector) ? this.bind(event, selector) : this.delegate(selector, event, data,callback);
@@ -2441,7 +2496,7 @@ if (!window.af || typeof(af) !== "function") {
             if (typeof event == 'string')
                 event = $.Event(event, props);
             event.data = data;
-            for (var i = 0; i < this.length; i++) {
+            for (var i = 0, len = this.length; i < len; i++) {
                 this[i].dispatchEvent(event);
             }
             return this;

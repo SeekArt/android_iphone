@@ -1000,7 +1000,7 @@ li .icon:before {
 
 
 #afui.ibos .no-info{
-	background: url(../../images/no-info.png) center center ;
+	background: url(../../images/no-info.png) center center no-repeat;
 	min-height: 300px;
 	width: 100%;
 }

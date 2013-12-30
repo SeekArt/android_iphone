@@ -22,11 +22,6 @@
         var menuState;
         var transTime = $.ui.transitionTime;
         $.ui.toggleSideMenu(false, null, 0);
-		
-		if (window.innerWidth >= $.ui.fixedSideMenuWidth)
-			doMenu = false,keepOpen=true;
-		else
-			doMenu = true,keepOpen=false;
 
         window.addEventListener("resize", function(e) {
             max = $("#menu").width();
@@ -37,6 +32,13 @@
             startY = e.touches[0].pageY;
 
             checking = false;
+            doMenu=false;
+            keepOpen=false;
+            if (window.innerWidth >= $.ui.fixedSideMenuWidth)
+                doMenu = false,keepOpen=true;
+            else
+                doMenu = true;
+            max = $("#menu").width();
             menuState = $menu.css("display") == "block";
         });
         $("#afui").bind("touchmove", function(e) {

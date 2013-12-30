@@ -162,6 +162,7 @@
         menuAnimation: null,
         togglingSideMenu: false,
         sideMenuWidth: "200px",
+        handheldMinWidth: "768",
         trimBackButtonText: true,
         useOSThemes: true,
         lockPageBounce: false,
@@ -575,9 +576,18 @@
             var that = this;
             var menu = $.query("#menu");
             var els = $.query("#content,  #header, #navbar");
+            var panelMask = $.query(".afui_panel_mask");
             time = time || this.transitionTime;
             var open = this.isSideMenuOn();
 
+            if(panelMask.length === 0 && window.innerWidth < $.ui.handheldMinWidth){
+                els.append('<div class="afui_panel_mask"></div>');
+                panelMask = $.query(".afui_panel_mask");
+                $(".afui_panel_mask").bind("click", function(){
+                    $.ui.toggleSideMenu(false);
+                });
+            }
+            
             if (force === 2 || (!open && ((force !== undefined && force !== false) || force === undefined))) {
                 this.togglingSideMenu = true;
                 menu.show();
@@ -588,6 +598,9 @@
                         that.togglingSideMenu = false;
                         els.vendorCss("Transition", "");
                         if (callback) callback(canceled);
+                        if(panelMask.length !== 0 && window.innerWidth < $.ui.handheldMinWidth){
+                            panelMask.show();
+                        }
                     }
                 });
 
@@ -603,6 +616,9 @@
                         that.togglingSideMenu = false;
                         if (callback) callback(canceled);
                         menu.hide();
+                        if(panelMask.length !== 0 && window.innerWidth < $.ui.handheldMinWidth){
+                            panelMask.hide();
+                        }
                     }
                 });
             }
@@ -823,7 +839,7 @@
          */
         setBackButtonText: function(text) {
             if(this._currentHeaderID!=="defaultHeader") return;
-            if (this.trimBackButtonText)
+            if (this.trimBackButtonText && text.length >= 7)
                 text = text.substring(0, 5) + "...";
             if (this.backButtonText.length > 0) $.query("#header header:not(.ignore) #backButton").html(this.backButtonText);
             else $.query("#header header:not(.ignore)  #backButton").html(text);
@@ -858,6 +874,11 @@
             $.query("#afui_mask").hide();
         },
         /**
+         * @api private
+        */
+        modalReference_:null,
+
+        /**
          * Load a content panel in a modal window.  We set the innerHTML so event binding will not work.  Please use the data-load or panelloaded events to setup any event binding
            ```
            $.ui.showModal("#myDiv","fade");
@@ -873,9 +894,22 @@
             if (typeof(id) === "string")
                 id = "#" + id.replace("#", "");
             var $panel = $.query(id);
+            this.modalReference_=$panel;
+
             if ($panel.length) {
                 var useScroller = this.scrollingDivs.hasOwnProperty( $panel.attr("id") );
-                modalDiv.html($.feat.nativeTouchScroll || !useScroller ? $.query(id).html() : $.query(id).get(0).childNodes[0].innerHTML + '', true);
+                var useScroller = this.scrollingDivs.hasOwnProperty($panel.attr("id"));
+                //modalDiv.html($.feat.nativeTouchScroll || !useScroller ? $.query(id).html() : $.query(id).get(0).childNodes[0].innerHTML + '', true);
+                modalDiv.empty();
+                var elemsToCopy;
+                if($.feat.nativeTouchScroll || !useScroller ){
+                    elemsToCopy=$panel.contents();
+                }
+                else {
+                    elemsToCopy=$($panel.get(0).childNodes[0]).contents();
+                }
+                modalDiv.append(elemsToCopy);
+
                 modalDiv.append("<a onclick='$.ui.hideModal();' class='closebutton modalbutton'></a>");
                 that.modalWindow.style.display = "block";
 
@@ -908,18 +942,33 @@
          */
         hideModal: function() {
             var self = this;
-            $.query("#modalContainer").html("", true);
+            //$.query("#modalContainer").html("", true);
+            var $cnt=$.query("#modalContainer");
+            $cnt.find(".closebutton.modalbutton").remove();
+            var useScroller = this.scrollingDivs.hasOwnProperty(this.modalReference_.attr("id"));
+
 
             this.runTransition(self.modalTransition, self.modalWindow, self.modalTransContainer, true);
-
             this.scrollingDivs.modal_container.disable();
 
-            var tmp = $.query($.query("#modalContainer").data("panel"));
+            //var tmp = $.query($.query("#modalContainer").data("panel"));
+            var tmp = $.query($cnt.data("panel"));
+
             var fnc = tmp.data("unload");
             if (typeof fnc == "string" && window[fnc]) {
                 window[fnc](tmp.get(0));
             }
             tmp.trigger("unloadpanel");
+            setTimeout(function(){               
+                if($.feat.nativeTouchScroll || !useScroller){
+                    self.modalReference_.append($cnt.contents());
+                }
+                else {
+                    $(self.modalReference_.get(0).childNodes[0]).append($cnt.contents());
+                }
+                $cnt.html("", true);
+            },this.transitionTime);
+
 
         },
 
@@ -1647,7 +1696,7 @@
             }
 
             //insert backbutton (should optionally be left to developer..)
-            $(this.header).html('<a id="backButton" class="button"></a> <h1 id="pageTitle"></h1>' + header.innerHTML);
+            $(this.header).html('<a id="backButton" class="button"></a> <h1 id="pageTitle"></h1>' + this.header.innerHTML);
             this.backButton = $.query("#header #backButton").css("visibility", "hidden");
             $(document).on("click", "#header #backButton", function(e) {
                 e.preventDefault();

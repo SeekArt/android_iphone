@@ -8,8 +8,6 @@
      font-family:'HelveticaNeue', 'Helvetica Neue',Helvetica, Arial, sans-serif;
 }
 
-
-
 #afui.ios7 #header {
     background:rgb(249,249,249);
     color:inherit;
@@ -18,14 +16,16 @@
 }
 
 #afui.ios7 #header .button {
-    border: 1px solid transparent !important; 
+    color:rgba(82,155,234,255);
+    border-color:transparent;
+    font-size:14px;
+    font-weight:normal;
 }
 
 #afui.ios7 #header h1 {
     color:inherit;
     text-shadow:none;
 }
-
 
 #afui.ios7 .panel {
     background:rgba(238,238,238,255);    
@@ -57,9 +57,9 @@
 }
 
 #afui.ios7 > #menu {
-    border-right:none;
+    border-right:1px solid #bbb;
     background:rgba(238,238,238,255);
-     color:black;
+    color:black;
 }
 
 #afui.ios7 #menu .list li,#afui.ios7 #menu .list .divider,#afui.ios7 #menu .list li:first-child,#afui.ios7 #menu .list li:last-child {
@@ -72,15 +72,13 @@
     background:rgba(238,238,238,255);
     color:inherit;
     font-size: 1em;
-border-bottom:1px solid rgb(215,215,215);
-color:black;
-
+    border-bottom:1px solid rgb(215,215,215);
+    color:black;
 }
 
 #afui.ios7 #menu .list a {
     color:black;
 }
-
 
 #afui.ios7 #menu .list {
     background:white;
@@ -102,7 +100,6 @@ color:black;
     display: block;
     position: absolute;
     line-height:44px;
-
     left: 25px;
     text-overflow: ellipsis;
     font-size: 14px;
@@ -110,7 +107,7 @@ color:black;
     text-shadow: none;
     background-color: transparent;
     border:none;
-    border-color:none;
+    border-color: transparent;
     height: 44px;
     top:0;
     border-radius: 0;
@@ -121,7 +118,6 @@ color:black;
     width:50px;
     padding:0 !important;
     margin:0 !important;
-
 }
 
 #afui.ios7 #backButton::before {
@@ -137,7 +133,6 @@ color:black;
     box-shadow: none;
     -webkit-transform: none;
     transform: none;
-
     font-family: 'chevron';
     speak: none;
     font-style: normal;
@@ -150,8 +145,6 @@ color:black;
     -webkit-transform:rotate(180deg);
     transform:rotate(180deg);
     background-color: transparent;
-    
-
 }
 
 #afui.ios7 #backButton::after {
@@ -170,34 +163,16 @@ color:black;
     text-shadow:none;
 }
 
-#afui.ios7 .button-grouped * {
-    border-right: 1px solid rgba(82,155,234,255);
-    border-bottom: 1px solid rgba(82,155,234,255);
-    border-top: 1px solid rgba(82,155,234,255);
-
-}
-#afui.ios7 .button-grouped >  .button:first-child {
-    border-left: 1px solid rgba(82,155,234,255);
-}
-#afui.ios7  .button-grouped >.button:last-child {
-    
+#afui.ios7 .button-grouped * ,
+#afui.ios7 .button-grouped >  .button:first-child,
+#afui.ios7 .button-grouped.vertical * ,
+#afui.ios7 .button-grouped.vertical >  .button:last-child, 
+#afui.ios7 #header .button-grouped > .button {
+    border-color:rgba(82,155,234,255);
 }
 
-#afui.ios7 .button-grouped.vertical * {
-    border-left: 1px solid rgba(82,155,234,255);
-    border-right: 1px solid rgba(82,155,234,255);
-    border-top: 1px solid rgba(82,155,234,255);
-}
-
-#afui.ios7  .button-grouped.vertical > .button:first-child {
-    border-left: 1px solid rgba(82,155,234,255);
-    
-}
-#afui.ios7 .button-grouped.vertical > .button:last-child {
-    border-bottom:1px solid rgba(82,155,234,255);
-}
-
-#afui.ios7 .button-grouped .button.pressed {
+#afui.ios7 .button-grouped > .button.pressed ,
+#afui.ios7 #header .button-grouped > .button.pressed{
     color:white;
     background:rgba(82,155,234,255);
 }
@@ -212,7 +187,6 @@ color:black;
     position: absolute;
     z-index: 1000000;
     top: 50%;
-    
     color:inherit;
     background:rgba(249,249,249,1);
     text-align:center;
@@ -249,9 +223,7 @@ color:black;
     background: white;
 }
 
-
 #afui.ios7 .afPopup a:not(:first-of-type) {
-
     border-left:1px solid rgba(158,158,158,255);
 }
 
@@ -269,7 +241,7 @@ color:black;
     text-shadow:none;
     box-shadow:none;
     font-weight:normal;
-    border-radius:0;
+    border-radius: 0;
     border:none;
     -webkit-box-shadow:none;
     color:rgba(82,155,234,255);
@@ -301,14 +273,13 @@ color:black;
     color:rgba(82,155,234,255);
 }
 
-
 #afui.ios7 .button.previous {
     border:none;
 }
+
 #afui.ios7 .button.next {
     border:none;   
 }
-
 
 #afui.ios7 .button.previous::after {
     color:rgba(82,155,234,255);
@@ -324,7 +295,6 @@ color:black;
     box-shadow: none;
     -webkit-transform: none;
     transform: none;
-
     font-family: 'chevron';
     speak: none;
     font-style: normal;
@@ -338,9 +308,9 @@ color:black;
     transform:rotate(180deg);
     background-color: transparent;
 }
-#afui.ios7 .button.next::after {
-   color:rgba(82,155,234,255);
 
+#afui.ios7 .button.next::after {
+    color:rgba(82,155,234,255);
     z-index: -1;
     font-size:22px;
     position: absolute;
@@ -353,7 +323,6 @@ color:black;
     box-shadow: none;
     -webkit-transform: none;
     transform: none;
-
     font-family: 'chevron';
     speak: none;
     font-style: normal;
@@ -363,10 +332,8 @@ color:black;
     line-height: 1;
     -webkit-font-smoothing: antialiased;
     content: "\f054";
-    
     background-color: transparent;
 }
-
 
 #afui.ios7 .button.gray {
     color:#999;
