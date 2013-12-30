@@ -100,7 +100,7 @@
 			$.ui.blockPageScroll(); //block the page from scrolling at the header/footer 
 			//AppMobi.device.hideSplashScreen();
 			try{navigator.splashscreen.hide();}catch(e){};
-			setTimeout(function(){$("#splashscreen").hide()},500);
+			setTimeout(function(){$("#splashscreen").hide()},600);
 			$.ui.defaultMenu = $("#defaultMenu");
 //			$.ui.animateHeaders = true;
 		};
@@ -120,7 +120,7 @@
 	<div id="header"></div>
 	<div id="content">
 		<!---------------------------------------------->
-			<div title='IBOS移动客户端' id="main" selected="true" class="panel mainbg" data-tab="navbar_main" data-load="mainload" data-nav="none" style="overflow:hidden;">
+			<div title='IBOS移动客户端' id="main" selected="true" class="panel mainbg" data-tab="navbar_main" data-load="mainload" data-nav="none" >
 				<div class="home-item">
 					<a href="#mail" data-transition="pop">
 						<i class="item-ico ico-mail"></i>

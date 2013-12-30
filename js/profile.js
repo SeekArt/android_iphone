@@ -9,7 +9,6 @@ var setup = {
 			newTp += $.template(tp, obj);
 		$target.html(newTp).css3Animate({ time: "500ms", opacity: 1 });
 	},
-	
 	loadProfile: function(){
 		var $tpl = $("#profileTpl"),
 			$target = $("#profileContent");
@@ -60,7 +59,6 @@ var setup = {
         } , null, options);
         return deferred.promise
     },
-    
     // 显示上传进度
     showUploadingProgress: function( progressEvt ){
         if( progressEvt.lengthComputable ){
@@ -73,12 +71,9 @@ var setup = {
             fileEntry.remove();
         }, null);
     },
-	takePic: function(){
-		
-	},
 	reloadAvatar: function(imageURI){
 		$.ui.hideMask();
-		var deferred  = when.defer(),
+		var deferred  = when.defer();
 		$('#myAvatar').attr('src','<%=app.defaultUrl%>/<%=avatar_big%>' + Math.random());
 		deferred.resolve( imageURI );
         return deferred.promise

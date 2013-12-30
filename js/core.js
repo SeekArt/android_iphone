@@ -143,7 +143,6 @@ var core = {
 		elem.addEventListener('focus', function(){
 			that.adjustTextarea(elem, extra, maxHeight)
 		}, false);
-		//change();
 	},
 
 	error: function(err){ console && console.log(err) }
@@ -271,7 +270,7 @@ var app = (function(){
 	function init(){
 		if(!app.isInit){
 			if(!app.appUrl){
-				setTimeout(function(){$.ui.loadContent('login',false,false,'fade')},100);
+				setTimeout(function(){$.ui.loadContent('login',false,false,'fade')},500);
 			}
 			//初始化完整的路径
 			app.appUrl += "/?r=mobile";
