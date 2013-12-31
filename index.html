@@ -80,7 +80,7 @@
 //            }
 		var webRoot = "./";
 		$.ui.autoLaunch = false;
-		$.ui.openLinksNewTab = false;
+		$.ui.openLinksNewTab = true;
 		$.ui.resetScrollers = false;
 		
 		$(document).ready(function(){
@@ -97,17 +97,20 @@
 //			AppMobi.device.setAutoRotate(false);
 //			webRoot = AppMobi.webRoot + "";
 			//hide splash screen
-			$.ui.blockPageScroll(); //block the page from scrolling at the header/footer 
 			//AppMobi.device.hideSplashScreen();
 			try{navigator.splashscreen.hide();}catch(e){};
 			setTimeout(function(){$("#splashscreen").hide()},600);
 			$.ui.defaultMenu = $("#defaultMenu");
-			alert(screen.avalidHeight);
-			alert("do"+document.documentElement.offsetHeight);
-			alert("wi"+window.innerHeight);
-			alert("b"+document.body.offsetHeight);
+			setTimeout(function() {
+				document.getElementById('afui').style.height = "100%";
+				document.body.style.height = "100%";
+				document.documentElement.style.minHeight = window.innerHeight;
+			}, 300);
 //			$.ui.animateHeaders = true;
 		};
+		$.ui.ready(function() {
+			$.ui.blockPageScroll(); //block the page from scrolling at the header/footer 
+		});
         document.addEventListener("deviceready", onDeviceReady, false);
 	</script>
 </head>

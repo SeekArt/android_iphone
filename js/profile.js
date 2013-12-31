@@ -75,7 +75,7 @@ var setup = {
 		$.ui.hideMask();
 		alert(imageURI);
 		var deferred  = when.defer();
-		$('#myAvatar').attr('src','<%=app.defaultUrl%>/<%=avatar_big%>' + Math.random());
+		$('#myAvatar').attr('src',$('#myAvatar').attr('src') + Math.random());
 		alert($('#myAvatar').attr('src'));
 		deferred.resolve( imageURI );
         return deferred.promise

@@ -23,7 +23,6 @@ var diary = (function(){
 		}
 		
 		list = new List('diaryList', $("#diaryListTpl").val(), {"id": "diaryid"});
-	
 		//diary.loadCat();
 		diary.loadList(diaryCatId);
 
@@ -31,8 +30,8 @@ var diary = (function(){
 	}
 	//------ diary List
 	function loadList(catid, page){
-		//$(dom).parent().addClass("active"); //选中分类
-		//$(dom).parent().siblings().removeClass("active"); //选中分类
+		//$(this).parent().addClass("active"); //选中分类
+		//$(this).parent().siblings().removeClass("active"); //选中分类
 		var pageurl;
 
 		$.ui.showMask();
