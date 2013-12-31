@@ -1,3 +1,5 @@
+
+
 <div class="chat" id="smsView">
 </div>
 <form id="formPm" action="<%=app.appUrl%>/pm/postimg" method="post" target="hidden_frame" enctype="multipart/form-data">
@@ -18,27 +20,7 @@
 </textarea>
 
 <footer>
-	<div class="input-toolbar">
-		<div class="sms-plus" onclick="ui.switchOptionPanel()"><i class="aoicon ao-more"></i></div>
-		<div class="sms-input">
-			<input type="text" maxlength="140" placeholder="输入内容" name="smsInput" id="smsInput" class="vat"/>
-		</div>
-		<button type="submit" onclick="Sms.send()" class="button blue sms-submit" value="发送">发送</button>
-	</div>
-	<div class="opt-panel">
-		<ul class="opt-list">
-			<li onClick=" appSdk.camera.getImage(function(imageData){ $('#pm_img').val(imageData);$('#formPm').submit(); }); ">
-				<i class="aoicon ao-picture"></i>
-				<p>图片</p>
-			</li>
-			<li onClick=" appSdk.camera.getPhoto(function(imageData){ $('#pm_img').val(imageData);$('#formPm').submit(); }); ">
-				<i class="aoicon ao-camera"></i>
-				<p>拍照</p>
-			</li>
-		</ul>
-	</div>
-</footer>
-<!-- @Todo: 样式迁移 -->
+	<!-- @Todo: 样式迁移 -->
 <style>
 	#afui.ibos .sms-input,
 	#afui.ibos .sms-plus,
@@ -92,3 +74,23 @@
 		height: 22px;
 	}
 </style>
+	<div class="input-toolbar">
+		<div class="sms-plus" onclick="ui.switchOptionPanel()"><i class="aoicon ao-more"></i></div>
+		<div class="sms-input">
+			<input type="text" maxlength="140" placeholder="输入内容" name="smsInput" id="smsInput" class="vat"/>
+		</div>
+		<button type="submit" onclick="Sms.send()" class="button blue sms-submit" value="发送">发送</button>
+	</div>
+	<div class="opt-panel">
+		<ul class="opt-list">
+			<li onClick=" appSdk.camera.getImage(function(imageData){ $('#pm_img').val(imageData);$('#formPm').submit(); }); ">
+				<i class="aoicon ao-picture"></i>
+				<p>图片</p>
+			</li>
+			<li onClick=" appSdk.camera.getPhoto(function(imageData){ $('#pm_img').val(imageData);$('#formPm').submit(); }); ">
+				<i class="aoicon ao-camera"></i>
+				<p>拍照</p>
+			</li>
+		</ul>
+	</div>
+</footer>

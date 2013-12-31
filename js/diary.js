@@ -205,8 +205,12 @@ var diary = (function(){
 
 	function _addItemBeforeLast(container, tpl, data){
 		var $item = $($.template(tpl, data)).insertBefore($(container).find("li").eq(-1));
+		// 如果新建时正在编辑状态，则给新建项赋予焦点，目的是不用关闭键盘
+		if(/input|textarea|select/.test(document.activeElement.nodeName.toLowerCase())) {
+			$item.find("input").focus(); 
+		}
+		// 否则则不给焦点
 		// 焦点放置到新建项
-		// $item.find("input").focus(); 
 		return $item;
 	}
 	function _removeItem(elem){
