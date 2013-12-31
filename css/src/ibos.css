@@ -642,6 +642,7 @@ textarea::-webkit-input-placeholder {
 }
 #afui.ibos .control-group .controls{
 	margin-left: 80px;
+	line-height: 44px;
 }
 #afui.ibos .control-group .controls input{
 	border: 0 none;

@@ -79,5 +79,14 @@ var setup = {
 		alert($('#myAvatar').attr('src'));
 		deferred.resolve( imageURI );
         return deferred.promise
+	},
+	saveOK: function(){
+		$.ui.showMask("保存中");
+		setTimeout(function(){
+			$.ui.hideMask();
+			$.ui.popup("保存成功");		
+		},
+		100);
+		
 	}
 }
