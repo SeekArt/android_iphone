@@ -78,7 +78,7 @@ Letter.prototype = {
 			var y;
 			// 尚未开始字母拖拽时，就算进入了touchmove事件，也应该让其直接返回
 			if(!_hasStartDrag) {
-				return false;
+				return true;
 			}
 			// 获取touch事件的页面y坐标
 			y = evt.y || (evt.changedTouches && evt.changedTouches[0].clientY);
