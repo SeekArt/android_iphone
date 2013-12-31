@@ -73,10 +73,8 @@ var setup = {
     },
 	reloadAvatar: function(imageURI){
 		$.ui.hideMask();
-		alert(imageURI);
 		var deferred  = when.defer();
-		$('#myAvatar').attr('src',$('#myAvatar').attr('src') + Math.random());
-		alert($('#myAvatar').attr('src'));
+		$('#myAvatar').attr('src',$('#myAvatar').attr('src') + "&" + Math.random());
 		deferred.resolve( imageURI );
         return deferred.promise
 	},
@@ -86,7 +84,6 @@ var setup = {
 			$.ui.hideMask();
 			$.ui.popup("保存成功");		
 		},
-		100);
-		
+		1000);		
 	}
 }

@@ -1,5 +1,3 @@
-
-
 <div class="chat" id="smsView">
 </div>
 <form id="formPm" action="<%=app.appUrl%>/pm/postimg" method="post" target="hidden_frame" enctype="multipart/form-data">
@@ -75,7 +73,7 @@
 	}
 </style>
 	<div class="input-toolbar">
-		<div class="sms-plus" onclick="ui.switchOptionPanel()"><i class="aoicon ao-more"></i></div>
+		<div class="sms-plus" onclick="return false;ui.switchOptionPanel()"><i class="aoicon ao-more"></i></div>
 		<div class="sms-input">
 			<input type="text" maxlength="140" placeholder="输入内容" name="smsInput" id="smsInput" class="vat"/>
 		</div>

@@ -44,13 +44,13 @@ var core = {
 					} else if (time > 60) {
 						datetime = Math.floor(time / 60) + "分钟前" ;
 					} else if (time >= 0) {
-						datetime = time + "秒前" ;
+						datetime = Math.floor(time) + "秒前" ;
 					} else {
 						datetime = Y + "-" + M + "-" + D;
-					}			
+					}
 				break;
 			case "d":
-				datetime = Y + "-" + M + "-" + D;
+				datetime = Y + "-" + ("00" + M).substr(("" + M).length) + "-" + ("00" + D).substr(("" + D).length);
 				break;
 			case "dt":
 				datetime = Y + "-" + M + "-" + D + " " + h + ":" + m + ":" + s;

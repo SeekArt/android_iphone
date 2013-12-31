@@ -635,7 +635,6 @@ textarea::-webkit-input-placeholder {
 #afui.ibos .control-group label{
 	padding: 12px 0;
 	width: 80px;
-	font-size: 16px;
 	color: #BBBDC9;
 	text-indent: 10px;
 	text-align: left;
@@ -925,7 +924,6 @@ li .icon:before {
 }
 
 #afui.ibos .profile {
-	margin: -10px -10px 10px;
 	padding: 10px;
 	background: #333;
 }
@@ -940,7 +938,7 @@ li .icon:before {
 
 #afui.ibos .avatarBtn {
 	position: absolute;
-	margin: -55px 0 0 170px;
+	margin: -45px 0 0 80px;
 	background: url(../../images/setting/avatarbtn.png) #FFA115;
 	background-size: 100%;
 	border-radius: 50%;
