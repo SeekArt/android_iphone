@@ -78,6 +78,10 @@ var core = {
 		var result = localStorage.getItem(name);
 		return result ? JSON.parse(result) : result;
 	},
+	removeStorage: function(name){
+		var result = localStorage.removeItem(name);
+		return result
+	},
 	// @Todo: 这里只有自动增高的功能，是否有在内容减少后自动减去高度的需要
 	adjustTextarea: function(elem, extra, maxHeight){
 		extra = extra || 20;
@@ -344,6 +348,9 @@ var app = (function(){
 			success: 	checkLogin,
 			error: 		function(err){	console.log(err) }
 		});
+		core.removeStorage("defaultLogin");
+		core.removeStorage("user");
+		core.removeStorage("uid");		
 		$.ui.loadContent('login',false,false,'fade');
 	}
 	
