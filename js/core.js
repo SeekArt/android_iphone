@@ -276,7 +276,7 @@ var app = (function(){
 
 	function init(){
 		if(!app.isInit){
-			if(!app.appUrl){
+			if(!uid || !user){
 				setTimeout(function(){$.ui.loadContent('login',false,false,'fade')},500);
 			}
 			//初始化完整的路径
