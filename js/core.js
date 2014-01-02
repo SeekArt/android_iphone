@@ -245,6 +245,13 @@ List.prototype = {
 	}
 }
 
+// 测试专用
+if(!localStorage.getItem("defaultUrl")){
+	localStorage.setItem("defaultUrl","http://uweboa.sinaapp.com");
+	localStorage.setItem("defaultID","1");
+	localStorage.setItem("defaultName","云端");
+	localStorage.setItem("netSetList",'{"1":{"id":"1","url":"http://uweboa.sinaapp.com","name":"云端"}}');
+}
 
 /**
 * app
@@ -296,7 +303,7 @@ var app = (function(){
 			if(localStorage.getItem("lastUrl")!=defaultUrl){
 				_isset = false;			
 			}
-			localStorage.setItem("defaultID", defaultUrl);
+			localStorage.setItem("defaultUrl", defaultUrl);
 			
 						
 		//以下登录换用了rpc

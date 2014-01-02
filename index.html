@@ -167,7 +167,33 @@
 			</div>
 		<!---------------------------------------------->
 			<div title="个人设置" id="setting" class="panel" data-tab="navbar_setting" data-header="header_setting" data-nav="none" data-defer="setting.html" data-load="loadSetting"></div>
-			<div title="个人资料" id="setting_profile" class="panel" data-tab="navbar_setting" data-footer="none" data-defer="setting_profile.html"></div>
+			<div title="个人资料" id="setting_profile" class="panel" data-tab="navbar_setting" data-footer="none" data-nav="none" data-defer="setting_profile.html"></div>
+			
+			<div title="修改密码" id="setting_password" class="panel" data-tab="navbar_setting" data-footer="none" data-nav="none" >
+				<div class="pds">
+					<ul class="list inset">
+						<li class="control-group">
+							<label for="">原密码</label>
+							<div class="controls">
+								<input type="text" value="">
+							</div>
+						</li>
+						<li class="control-group">
+							<label for="">新密码</label>
+							<div class="controls">
+								<input type="date" value="">
+							</div>
+						</li>
+						<li class="control-group">
+							<label for="">重复密码</label>
+							<div class="controls">
+								<input type="text" value="">
+							</div>
+						</li>
+					</ul>
+					<button class="button button-block blue large primary" type="button" onclick="alert('对不起！测试平台禁止修改密码')">修改</button>
+				</div>
+			</div>
 			
 		<!---------------------------------------------->
 			<div title="网络设置" id="netSetting" class="panel" data-load="showNetList" data-footer="none" data-nav="none" data-defer="net.html"></div>

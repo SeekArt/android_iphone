@@ -18,7 +18,6 @@ var Sms = (function(){
 	}
 	
 	function loadList(page){
-
 		if(page != smsPage && typeof(page) != "undefined" ){
 			smsPage = page;
 			pageurl = "&page=" + page;
@@ -57,7 +56,7 @@ var Sms = (function(){
 		if(typeof id == 'undefined'){
 			id = smsId;
 		}else if(smsId != id){
-			$("#smsView").empty().css3Animate({ time: "300ms", opacity: 0 });
+			$("#smsView").empty();//.css3Animate({ time: "300ms", opacity: 0 });
 			smsId = id;
 			sid = 0;
 		}
@@ -80,7 +79,7 @@ var Sms = (function(){
 				newTp += $.template(tp, obj);
 				Sms.prevTime = obj["mtime"]
 			}
-			$target.append(newTp).css3Animate({ time: "500ms", opacity: 1 });
+			$target.append(newTp);//.css3Animate({ time: "500ms", opacity: 1 });
 			$.ui.scrollToBottom('sms_view');
 			sinceId = json.sinceid;
 		}
@@ -135,7 +134,7 @@ var Sms = (function(){
 			if(data.id==app.uid){return false;}
 			_newSms = data;
 			$.ui.loadContent("#sms_view");
-			$("#sms_view").empty();
+			$("#smsView").empty();
 			$.ui.setTitle(_newSms.text);
 		})
 	}
