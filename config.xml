@@ -67,5 +67,10 @@
 
 	<gap:plugin name="com.phonegap.plugins.barcodescanner" />
 	<gap:plugin name="com.phonegap.plugins.pushplugin" />
+	<gap:plugin name="ihome.cordova.plugin.local-notification" />
+	<gap:plugin name="com.phonegap.plugin.statusbar" />
+	<gap:plugin name="com.teamnemitoff.phonedialer" />
+	<gap:plugin name="nl.x-services.plugins.calendar" />
+	
 	<access origin="*" />
 </widget>

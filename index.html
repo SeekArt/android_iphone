@@ -60,10 +60,14 @@
 	<script type="text/javascript" charset="utf-8" src="./js/appsdk.js"></script>
 	<script type="text/javascript" charset="utf-8" src="./js/letter.js"></script>
 	<script type="text/javascript" charset="utf-8" src="./js/userselect.js"></script>
-	<script type="text/javascript" charset="utf-8" src="./phonegap.js"></script>	
+	<script type="text/javascript" charset="utf-8" src="./phonegap.js"></script>
 	<script type="text/javascript" charset="utf-8" src="./js/push.js"></script>
 	<script type="text/javascript" charset="utf-8" src="./js/when.js"></script>
-
+<!--
+https://github.com/EddyVerbruggen/Calendar-PhoneGap-Plugin/blob/6e6c4020832a66a17c69b48357623ad2f64d6913/README.md
+-->
+	<script src="js/plugins/Calendar.js"></script>
+	
 	<script type="text/javascript">
 		/* This function runs once the page is loaded, but appMobi is not yet active */
 //            var search=document.location.search.toLowerCase().replace("?","");
@@ -98,7 +102,10 @@
 			//hide splash screen
 			$.ui.blockPageScroll(); //block the page from scrolling at the header/footer 
 			//AppMobi.device.hideSplashScreen();
-			try{navigator.splashscreen.hide();}catch(e){};
+			try{
+				navigator.splashscreen.hide();
+				StatusBar.styleLightContent();
+			}catch(e){};
 			setTimeout(function(){$("#splashscreen").hide()},600);
 			$.ui.defaultMenu = $("#defaultMenu");
 

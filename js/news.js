@@ -22,8 +22,8 @@ var news = (function(){
 		
 		list = new List('newsList', $("#newsListTpl").val(), {"id": "articleid"});
 	
-		news.loadCat();
-		news.loadList(newsCatId);
+		loadCat();
+		loadList(newsCatId);
 
 		isInit = true;
 	}
@@ -76,7 +76,7 @@ var news = (function(){
 	function loadCat(){
 		$.jsonP({
 			url: 		newsUrl() + "/category&callback=?",
-			success: 	news.showCat,
+			success: 	showCat,
 			error: 		function(err){	console.log(err)	}
 		});
 	}
@@ -112,7 +112,7 @@ var news = (function(){
 		
 		$.jsonP({
 			url: 		newsUrl() + "/show&callback=?&id="+id,
-			success: 	news.showNews,
+			success: 	showNews,
 			error: 		function(err){ console.log(err) }
 		});
 	}

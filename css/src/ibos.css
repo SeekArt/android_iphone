@@ -831,7 +831,7 @@ textarea::-webkit-input-placeholder {
 
 #afui.ibos .view-content{ padding: 10px 15px; }
 #afui.ibos .view-content img{ width: auto; max-width: 100% !important; height: auto !important;}
-
+#afui.ibos .view-content table{width: 100% !important; }
 /* Backbutton */
 #afui.ibos #backButton{
 	position: absolute;

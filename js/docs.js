@@ -22,8 +22,8 @@ var docs = (function(){
 		
 		list = new List('docsList', $("#docsListTpl").val(), {"id": "docid"});
 	
-		docs.loadCat();
-		docs.loadList(docsCatId);
+		loadCat();
+		loadList(docsCatId);
 		isInit = true;
 	}
 	//------ Docs List
@@ -74,7 +74,7 @@ var docs = (function(){
 	function loadCat(){
 		$.jsonP({
 			url: 		docsUrl() + "/category&callback=?",
-			success: 	docs.showCat,
+			success: 	showCat,
 			error: 		function(err){	console.log(err)	}
 		});
 	}
@@ -110,7 +110,7 @@ var docs = (function(){
 		
 		$.jsonP({
 			url: 		docsUrl() + "/show&callback=?&id="+id,
-			success: 	docs.showDocs,
+			success: 	showDocs,
 			error: 		function(err){ console.log(err) }
 		});
 	}
