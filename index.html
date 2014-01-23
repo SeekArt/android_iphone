@@ -105,6 +105,7 @@ https://github.com/EddyVerbruggen/Calendar-PhoneGap-Plugin/blob/6e6c4020832a66a1
 			try{
 				navigator.splashscreen.hide();
 				StatusBar.styleLightContent();
+				StatusBar.backgroundColorByName("black");
 			}catch(e){};
 			setTimeout(function(){$("#splashscreen").hide()},600);
 			$.ui.defaultMenu = $("#defaultMenu");
