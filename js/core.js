@@ -245,10 +245,10 @@ List.prototype = {
 
 // 测试专用
 if(!localStorage.getItem("defaultUrl")){
-	localStorage.setItem("defaultUrl","http://uweboa.sinaapp.com");
+	localStorage.setItem("defaultUrl","http://vclub.storagechina.net");
 	localStorage.setItem("defaultID","1");
-	localStorage.setItem("defaultName","云端");
-	localStorage.setItem("netSetList",'{"1":{"id":"1","url":"http://uweboa.sinaapp.com","name":"云端"}}');
+	localStorage.setItem("defaultName","V专家俱乐部");
+	localStorage.setItem("netSetList",'{"1":{"id":"1","url":"http://vclub.storagechina.net","name":"V专家俱乐部"}}');
 }
 
 /**
