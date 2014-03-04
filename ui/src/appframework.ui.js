@@ -1655,7 +1655,11 @@
                     id: "menu",
                     html: '<div id="menu_scroller"></div>'
                 }).get(0);
-                this.viewportContainer.append(this.menu);
+
+                // 若#menu在#content节点之后，会造成nav重复插入文档
+                // 此处暂时用hack将#menu调整至#content之前
+                $(this.menu).insertAfter(this.header);
+                // this.viewportContainer.append(this.menu);
                 this.menu.style.overflow = "hidden";
                 this.scrollingDivs.menu_scroller = $.query("#menu_scroller").scroller({
                     scrollBars: true,
@@ -1850,6 +1854,7 @@
                         $.query("#afui #menu").addClass("tabletMenu");
                     }
                     //go to activeDiv
+                    
                     var firstPanelId = that.getPanelId(defaultHash);
                     //that.history=[{target:'#'+that.firstDiv.id}];   //set the first id as origin of path
                     var isFirstPanel = !!(firstPanelId == "#" + that.firstDiv.id);
@@ -1974,7 +1979,7 @@
         //this technique fails when considerable content exists inside anchor, should be recursive ?
         if (theTarget.tagName.toLowerCase() != "a" && theTarget.parentNode) return checkAnchorClick(e, theTarget.parentNode); //let's try the parent (recursive)
         //anchors
-        if (theTarget.tagName !== "undefined" && theTarget.tagName.toLowerCase() == "a") {
+        if (theTarget.tagName != "undefined" && theTarget.tagName.toLowerCase() == "a") {
 
             var custom = (typeof $.ui.customClickHandler == "function") ? $.ui.customClickHandler : false;
             if (custom !== false) {

@@ -1,0 +1,456 @@
+var WorkStart = (function(){
+	// @Todo: 优化内存
+	var flowData;
+	var init = function(){
+		var itemTpl = $.query("#work_start_item_tpl").val(),
+			cateTpl = $.query("#work_start_cate_tpl").val();
+	
+		flowData = {
+			common: [
+				{ flowId: 1, flowName: "请假申请" },
+				{ flowId: 2, flowName: "加班登记" },
+				{ flowId: 7, flowName: "项目下单流程" }
+			],
+			cate: [
+				{ 	
+					cateId: 1,
+					cateName: "人事",
+					flowCount: 8,
+					flows: [
+						{ flowId: 1, flowName: "请假申请" },
+						{ flowId: 2, flowName: "加班登记" }
+					]
+				},
+				{ 
+					cateId: 2, 
+					cateName: "行政", 
+					flowCount: 9,
+					flows: [
+						{ flowId: 3, flowName: "采购申请" },
+						{ flowId: 4, flowName: "外出登记" }
+					]
+				},
+				{ 
+					cateId: 3, 
+					cateName: "财务", 
+					flowCount: 9,
+					flows: [
+						{ flowId: 5, flowName: "请款付款申请" },
+						{ flowId: 6, flowName: "发票申请" }
+					]
+				},
+				{ 
+					cateId: 4, 
+					cateName: "项目", 
+					flowCount: 10,
+					flows: [
+						{ flowId: 7, flowName: "项目下单流程" }
+					]
+				}
+			]
+		}
+		
+		var itemList = new List("work_start_item_list", itemTpl, { id: "flowId" });
+		itemList.set(flowData.common);
+	
+		var cateList = new List("work_start_cate_list", cateTpl, { id: "cateId"});
+		cateList.set(flowData.cate);
+	};
+
+	// 获取分类数据
+	var _getCateData = function(cateid){
+		if(flowData.cate && flowData.cate.length) {
+			for(var i = 0; i < flowData.cate.length; i++) {
+				if(flowData.cate[i].cateId === cateid) {
+					return flowData.cate[i].flows || [];
+				}
+			}
+		} else {
+			return [];
+		}
+	};
+
+	// 读取分类下的流程列表
+	var loadCateList = function(cateid, cateName) {
+		var cateData = _getCateData(cateid);
+		$(document).one("loadpanel", function(){
+			var tpl = $.query("#work_flow_item_tpl").val();
+			var list = new List("work_flow_list", tpl, { id: "flowId" });
+
+			$.query("#work_flow_list_title").html(cateName);
+			list.set(cateData);
+		});
+		$.ui.loadContent("view/work/flowcate.html");
+	};
+
+	// 发起工作流
+	// type => ["new", "operate", "sponsor"]
+	var startFlow = function(flowId, type) {
+		// @Debug: 滚动交互测试
+		// $(document).one("loadpanel", function(){
+		// 	var scroller = $.ui.scrollingDivs["work_handle"];
+		// 	$.bind(scroller, "scrollstart", function(){
+		// 		console.log(this)
+		// 	})
+		// });
+
+		$.ui.loadContent("view/work/handle.html");
+	};
+
+	return {
+		init: init,
+		loadCateList: loadCateList,
+		startFlow: startFlow
+	}
+})();
+
+(function(){
+	app.evt.add({
+		// 滚动定位
+		"workHandleScroll": function(domid, elem){
+			app.ui.scrollTo(domid, 200, { y: -44 });
+			$(elem).addClass("pressed").siblings().removeClass("pressed")
+			// @Todo: 考虑滚动监控的实现
+		},
+
+		// 工作流回退
+		"workRollback": function(param){
+			app.ui.prompt("请输入回退理由:", function(val){
+				$.ui.showMask();
+				// $.jsonP({
+				// 	url: "&callback=?&runid=" + param.runId + "content=" + val,
+				// 	success: function(res){
+						console.log("流程id: "+ param.runId + " 回退理由: " + val)
+						$.ui.hideMask();
+						$.ui.goBack();
+				// 	},
+				// 	error: core.error
+				// })
+			})
+		},
+
+		// 保存工作流表单
+		"workSaveForm": function(param){
+			var $form = $.query("#form_work_handle");
+			$.ui.showMask();
+			// @Todo: 数据有可能超过255字节
+			// $.jsonP({
+			// 	url: "&callback=?&runid=" + param.flowId + $form.serialize(),
+			// 	success: function(res){
+					$.ui.hideMask();
+					app.ui.tip("保存成功");
+			// 	},
+			// 	error: core.error
+			// })
+		},
+
+		// 进入工作转交页
+		"toForwardWork": function(param){
+			var $form = $.query("#form_work_handle");
+			app.param.set("runId", param.runId);
+			// 先保存表单
+			
+			// $.jsonP({
+			// 	url: "&callback=?&op=forward&runid=" + param.runId + $form.serialize(),
+			// 	success: function(res){
+					// 返回步骤信息
+					res = {
+						steps: [
+							{ stepId: 2, stepName: "部门审批", selected: 1 },
+							{ stepId: 3, stepName: "总监审批" },
+							{ stepId: 4, stepName: "人事部审批" }
+						]
+					}
+					$(document).one("loadpanel", function(){
+						var $stepItem = $.tmpl($.query("#work_forward_step_tpl").val(), res);
+						$.query("#work_forward_step_list").append($stepItem);
+					});
+
+					$LAB.script("js/userselect.js")
+					.wait(function(){
+						$.ui.loadContent("view/work/forward.html");
+					})
+				// },
+				// error: core.error
+			// })
+		},
+
+		// 转交工作
+		"workForward": function(param){
+			var $form = $.query("#form_work_forward"),
+				sponsorIns = User.get("work_sponsor"),
+				operatorIns = User.get("work_operator"),
+				sponsorUid,
+				operatorUids;
+
+			if(!sponsorIns || !sponsorIns.get().length) {
+				app.ui.tip("请选择主办人");
+				return false;
+			}
+			sponsorUid = sponsorIns.get()[0].id;
+			if(operatorIns) {
+				var  operators = operatorIns.get();
+				if(operators.length) {
+					operators.forEach(function(o, i){
+						operatorUids = operatorUids ? (operatorUids + "," + o.id) : o.id;
+					})
+				}
+			}
+
+			$.ui.showMask();
+			console.log(sponsorUid, operatorUids, $form.serialize());
+			// $.jsonP({
+			// 	url: "callback=?&runid=" + app.param.get("runId")  + $form.serialize(),
+			// 	success: function(res){
+					$.ui.hideMask();
+					sponsorIns.destory();
+					operatorIns && operatorIns.destory();
+					app.param.remove("flowId");
+					app.ui.tip("转交成功");
+					$.ui.goBack(2);
+			// 	},
+			// 	error: core.error
+			// })
+		},
+
+		// 取消工作转交
+		"cancelWorkForward": function(){
+			var sponsorIns = User.get("work_sponsor"),
+				operatorIns = User.get("work_operator");
+			sponsorIns && sponsorIns.destory();
+			operatorIns && operatorIns.destory();
+			app.param.remove("runId");
+			$.ui.goBack();
+		},
+
+		// 添加主办人
+		"addWorkSponsor": function(){
+			var userIns = new User("work_sponsor");
+			app.openSelector({
+				values: userIns.get(),
+				maxSelect: 1,
+				onSave: function(evt, data){
+					userIns.set(data.values);
+					$.ui.goBack();
+				}
+			});
+		},
+
+		// 添加经办人
+		"addWorkOperator": function(){
+			var userIns =  new User("work_operator");
+			app.openSelector({
+				values: userIns.get(),
+				onSave: function(evt, data){
+					userIns.set(data.values);
+					$.ui.goBack();
+				}
+			});
+		},
+
+		// 查看原表
+		"viewSourceForm": function(param){
+			window.location.href = "http://www.baidu.com/&flowid=" + param.runId;
+		},
+
+		// 显示表单空项
+		"showFormNullTerm": function(param){
+			$.ui.showMask();
+			$.jsonP({
+				url: "&callback=?&runid=" + param.runId,
+				success: function(res){
+					$.query("#work_handle_form_content").append(res);
+					$.ui.hideMask();
+				},
+				error: core.error
+			})
+		},
+
+		// 会签
+		"addWorkSign": function(param){
+			app.param.set("signRunId", param.runId);
+			$.ui.loadContent("view/work/countersign.html");
+		},
+
+		// 编辑会签
+		"editWorkSign": function(param, elem){
+			var content = $(elem).closest('[data-node="countersignBox"]').find('[data-node="countersignContent"]').html();
+			app.param.set("signId", param.signId);
+			app.param.set("signContent", content);
+			$.ui.loadContent("view/work/countersign.html");
+		},
+
+		// 保存会签
+		"saveWorkSign": function(){
+			var content = $.query("#countersign_content").val(),
+				signId = app.param.get("signId"),
+				runId = app.param.get("signRunId"),
+				url;
+			// 编辑会签的情况
+			if(signId) {
+				url = "" + "&callback=?&signid=" + signId + "&content=" + content;
+				console.log("%c会签id: %c" + signId + " %c会签内容: %c" + content,  "", "color: red",  "", "color: red");
+			// 新增会签的情况
+			} else {
+				url = "" + "&callback=?&runid=" + runId + "&content=" + content;
+				console.log("%c流程id: %c" + runId + " %c会签内容: %c" + content,  "", "color: red",  "", "color: red");
+			}
+
+			// @Todo: 附件处理
+			$.ui.showMask();
+
+			// $.jsonP({
+			// 	url: url,
+			// 	success: function(res){
+					$.ui.hideMask();
+					var res = {
+						signId: 1,
+						realname: "张小牛",
+						avatar: "",
+						date: "2014-02-22",
+						flowProgress: 2,
+						flowType: "加班登记",
+						signContent: content,
+						attachments: [
+							{ aid: 1, name: "悠悠飘落.jpg", size: "1M", uploadTime: "2014-02-24 14:20", type: "photo" },
+							{ aid: 2, name: "直至世界的终结.mp3", size: "13M", uploadTime: "2014-02-24 14:20", type: "music" }
+						]
+					}
+					var $item = $.tmpl($.query("#countersign_tpl").val(), res);
+
+					// 编辑会签的情况
+					if(signId) {
+						$.query("#work_handle_sign_list").find('[data-signid="' + signId + '"]').remove();
+						app.param.remove("signId");
+					}
+					$.query("#work_handle_sign_list").append($item);
+					$.ui.goBack();
+					app.param.remove("signRunId");
+			// 	},
+			// 	error: core.error
+			// })
+		},
+
+		// 取消会签
+		"cancelWorkSign": function(){
+			app.param.remove("signId");
+			app.param.remove("signRunId");
+			$.ui.goBack();
+		},
+
+		// 删除会签
+		"removeWorkSign": function(param, elem){
+			app.ui.confirm("确定要删除这条会签吗？", function(){
+				var $countersignBox = $(elem).closest('[data-node="countersignBox"]');
+				// $.jsonP({
+				// 	url: "" + "&callback=?&signid=" + param.signId,
+					// success: function(res){
+						app.ui.fadeRemove($countersignBox)
+					// }
+				// })
+			})
+		},
+
+		// 上传会签图片
+		"addWorkSignPic": function(){
+			console.log("上传会签图片");
+		},
+
+		// 拍照并上传会签图片
+		"addWorkSignPht": function(){
+			console.log("拍照并上传会签图片");
+		},
+
+		// 上传会签文件
+		"addWorkSignFile": function(){
+			console.log("上传会签文件");
+		},
+
+		// 催办提醒
+		"addWorkUrge": function(param){
+			app.param.set("urgeRunId", param.runId);
+			// 获取催办人员，通过jsonP或者数据缓存
+			// $.jsonP({
+			// 	url: "callback=?&runid=" + param.runId,
+			// 	success: function(res){
+					var res = [
+						{ uid: 1, realname: "张小牛" },
+						{ uid: 2, realname: "陈小西" }
+					]
+					$(document).one("loadpanel", function(){
+						core.autoTextarea(document.getElementById("urge_content"));
+						var realnames = res.map(function(o, i){ 
+							return o.realname;
+						}).join("; ");
+						var uids = res.map(function(o, i){
+							return o.uid;
+						}).join(",");
+						$.query("#work_urge_realname").html(realnames);
+						$.query("#work_urge_uid").val(uids);
+					});
+					$.ui.loadContent("view/work/urge.html");
+			// 	},
+			// 	error: core.error
+			// })
+
+		},
+
+		// 取消催办
+		"cancelWorkUrge": function(){
+			app.param.remove("urgeRunId");
+			$.ui.goBack();
+		},
+
+		// 保存催办
+		"saveWorkUrge": function(){
+			var uids = $.query("#work_urge_uid").val(),
+				content = $.query("#urge_content").val(),
+				runId = app.param.get("urgeRunId");
+			$.ui.showMask()
+
+			console.log("%c流程id: %c" + runId + " %c用户id: %c" + uids + " %c催办内容: %c" + content,  "", "color: red",  "", "color: red", "", "color: red");
+			// jsonP success
+			// app.ui.tip("催办工作成功");
+			$.ui.hideMask();
+			$.ui.goBack();
+			app.param.remove("urgeRunId");
+		},
+
+		// 上传附件（伪）
+		"addWorkAttach": function(){
+			var data = {
+				aid: 1,
+				flowProgress: 2,
+				flowType: "部门审批",
+				realname: "郭小四",
+				fileType: "video",
+				fileName: "万万没想到",
+				fileTime: "2013-10-10 11:11",
+				fileSize: "201M"
+			};
+			// 插入附件节点
+			var $item = $.tmpl($.query("#work_handle_attach_tpl").val(), data);
+			var $container = $.query("#work_handle_attach_content");
+			$item.insertBefore($container.children().eq(-1));
+			// 将附件id赋予指定隐藏域
+			core.util.addValue($.query("#work_handle_attach_value"), data.aid);
+		},
+
+		// 删除附件（伪）
+		"removeWorkAttach": function(param, elem) {
+			app.ui.confirm("确定要删除该附件吗？", function(){
+				// $.jsonP({
+				// 	url: "&callback=?&runid=" + param.runId + "&aid=" + param.aid,
+				// 	success: function(res){
+						// 移除附件节点
+						var $attachBox = $(elem).closest('[data-node="workAttachBox"]');
+						app.ui.fadeRemove($attachBox);
+						// 将附近id从隐藏域移除
+						core.util.addValue($.query("#work_handle_attach_value"), param.aid);
+				// 	},
+				// 	error: core.error
+				// })
+			})
+		}
+	})
+})();

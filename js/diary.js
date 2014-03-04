@@ -3,14 +3,46 @@
 * @author Aeolus
 * @copyright IBOS
 */
+
+var diaryModel = {
+	_baseUrl: app.appUrl + "/diary",
+
+	// 读取单条日志的数据
+	loadDiary: function(id, callback) {
+		if(id == null) {
+			return false;
+		}
+		$.jsonP({
+			url: 	this._baseUrl + "/show&callback=?&id=" + id,
+			success:  function(){
+				callback && callback.apply(this, arguments);
+			},
+			error: 	core.error
+		});
+	}
+}
+
+var diaryView = {
+	renderDiaryView: function(data){
+		var tpl = $("#diaryContentTpl").val(),
+			$container = $("#diaryContent");
+		$container.html($.template(tpl, data));
+	},
+	renderDiaryEdit: function(data){
+		var $container = $("#diaryEditContent"),
+			tpl = $("#diaryEditTpl").val();
+		$container.html($.template(tpl, data));
+	}
+}
+
 var diary = (function(){
 	var diaryCatId = 0, // 当前分类, 0为默认，显示所有
 		diaryId = 0, //
-		isInit = false,
+
 		diaryPage = 1, // 当前页码
 		reviewPage = 1,
 		reviewUid = 0,
-		diaryUrl = function(){ return app.appUrl + '/diary'};
+		diaryUrl = app.appUrl + '/diary';
 
 	var list;
 		
@@ -18,10 +50,7 @@ var diary = (function(){
 	* 初始化新闻模块时，载入一些基础数据，比如分类，默认页新闻，未读条数等
 	*/
 	function init(){
-		if(isInit){
-			return false;
-		}
-		
+
 		list = new List('diaryList', $("#diaryListTpl").val(), {"id": "diaryid"});
 		//diary.loadCat();
 		diary.loadList(diaryCatId);
@@ -48,11 +77,10 @@ var diary = (function(){
 		pageurl = "&page=" + diaryPage;
 
 		$.jsonP({
-			url: 		diaryUrl() + "&callback=?&catid=" + diaryCatId + pageurl,
+			url: 		diaryUrl + "&callback=?&catid=" + diaryCatId + pageurl,
 			success: 	showList,
-			error: 		function(err){	console.log(err) }
+			error: 		core.error
 		});
-
 	}
 
 	function showList(json){
@@ -85,9 +113,9 @@ var diary = (function(){
 		pageurl = "&page=" + reviewPage;
 		
 		$.jsonP({
-			url: 		diaryUrl() + "/review&callback=?"+ url + pageurl,
+			url: 		diaryUrl + "/review&callback=?"+ url + pageurl,
 			success: 	showReview,
-			error: 		function(err){	console.log(err) }
+			error: 		core.error
 		});
 	}
 	function showReview(json){
@@ -103,13 +131,13 @@ var diary = (function(){
 	//------ diary Catelog
 	function loadCat(){
 		$.jsonP({
-			url: 		diaryUrl() + "/category&callback=?",
+			url: 		diaryUrl + "/category&callback=?",
 			success: 	diary.showCat,
-			error: 		function(err){	console.log(err)	}
+			error: 		core.error
 		});
 	}
+	
 	function showCat(json){
-		// debugger;
 		// var $tpl = $("#diaryCatTpl"),
 			// $target = ;
 		// var tp = $tpl.val(),
@@ -129,60 +157,56 @@ var diary = (function(){
 	}
 	
 	//------ diary View
-	function _load(id, callback) {
+	function loadDiary(id){
 		$.ui.showMask();
-		id = typeof id === "undefined" ? diaryId : id;
-		$.jsonP({
-			url: 	diaryUrl() + "/show&callback=?&id="+id,
-			success:  function(){
-				callback && callback.apply(this, arguments);
-				$.ui.hideMask();
-				diaryId = id;
-			},
-			error: 	function(e){ console.log(e) }
-		});
+		diaryModel.loadDiary(id, function(res){
+			$.ui.hideMask();
+			showDiary(res);
+			diaryId = id;
+		})
 	}
 
-	function loadDiary(id,dom){
-		$("#diaryContent").empty();
-		_load(id, diary.showDiary);
-
+	function loadAdjacentDiary(id){
+		$.ui.showMask();
+		diaryModel.loadDiary(id, function(res){
+			diaryView.renderDiaryView(res);
+			$.ui.hideMask();
+		})
 	}
 
 	function showDiary(json){
-		var tp = $("#diaryContentTpl").val(),
-			$target = $("#diaryContent");
-			
-		$target.html($.template(tp, json));
+		$(document).one("loadpanel", function(){
+			diaryView.renderDiaryView(json);
+		})
+
+		$.ui.loadContent("view/diary/diary_view.html", 0, 0);
 	}
 	
 	
 	function editDiary(id, callback){
-		var $target = $("#diaryEditContent"),
-			tpl = $("#diaryEditTpl").val();
-
-		$target.empty();
-
-		_load(id, function(res){
-			res && $target.html($.template(tpl, res));
+		diaryModel.loadDiary(id, function(res){
+			$(document).one("loadpanel", function(){
+				diaryView.renderDiaryEdit(res);
+			});
+			$.ui.loadContent("view/diary/diary_edit.html", 0, 0);
 		})
 	}
 	
-	function addDiary(date,callback){		
-		var $target = $("#diaryEditContent"),
-			tpl = $("#diaryEditTpl").val();
-		$target.empty();
+	function addDiary(date, callback){
 		$.jsonP({
-			url: 	diaryUrl() + "/add&callback=?",
-			success:  function(res){
-				if(res.msg){
-					$.ui.popup(res.msg);
-					$.ui.goBack();
+			url: 	diaryUrl + "/add&callback=?",
+			success: function(res) {
+				// 当今日已经写了日志时，给予提示
+				if(res.msg) {
+					app.ui.alert(res.msg);
 					return false;
 				}
-				$target.html($.template(tpl, res));
+				$(document).one("loadpanel", function(){
+					diaryView.renderDiaryEdit(res)
+				});
+				$.ui.loadContent("view/diary/diary_edit.html", 0, 0)
 			},
-			error: 	function(e){ console.log(e) }
+			error: 	core.error
 		});
 	}
 	
@@ -191,17 +215,11 @@ var diary = (function(){
 		// 发起搜索时，重置页码为1
 		diaryPage = 1;
 		$.jsonP({
-			url: 		diaryUrl() + "&callback=?&search=" + data,
+			url: 		diaryUrl + "&callback=?&search=" + data,
 			success: 	showList,
-			error: 		function(err){	console.log(err) }
+			error: 		core.error
 		});
 	}
-
-	// @Debug: 测试用
-	function getList(){
-		return list;
-	}
-	
 
 	function _addItemBeforeLast(container, tpl, data){
 		var $item = $($.template(tpl, data)).insertBefore($(container).find("li").eq(-1));
@@ -209,8 +227,6 @@ var diary = (function(){
 		if(/input|textarea|select/.test(document.activeElement.nodeName.toLowerCase())) {
 			$item.find("input").focus(); 
 		}
-		// 否则则不给焦点
-		// 焦点放置到新建项
 		return $item;
 	}
 	function _removeItem(elem){
@@ -228,34 +244,44 @@ var diary = (function(){
 			container = document.getElementById("diaryPlanList");
 		return _addItemBeforeLast(container, tpl, {})
 	}
+
+	// 避免重复提交
+	var submitLock = false;
 	function submit(){
-		$form = $('#diaryEditForm');
-		if($form[0]["diaryContent"].value==""){
-			$.ui.popup("需要完整填好各项内容才能提交");
+		if(submitLock) {
 			return false;
-		}		
+		}
+		submitLock = true;
+		var diaryEditForm = document.getElementById("diaryEditForm");
+			contentElem = diaryEditForm.diaryContent;
+
+		if(diaryEditForm.diaryContent.value.trim() === "") {
+			app.ui.alert("需要完整填好各项内容才能提交");
+			return false;
+		}
+
 		$.ui.showMask("提交中");
-		$form[0].submit()
-		setTimeout(function(){
-			$.ui.goBack();
-			diary.loadList(0);
+		$.query("#hidden_frame").one("load", function(){
+			$.ui.loadContent("diary", 0, 1);
 			$.ui.hideMask();
-		},1000);
+			diary.loadList(0);
+			setTimeout(function(){
+				submitLock = false;
+			}, 230);
+		})
+		
+		diaryEditForm.submit();
 	}
-
-
 
 	return {
 		init:			init,
 		loadList: 		loadList,
 		loadCat:		loadCat,
 		loadDiary:		loadDiary,
-		showList: 		showList,
-		showCat:		showCat,
-		showDiary:		showDiary,
+		loadAdjacentDiary: loadAdjacentDiary,
+
 		editDiary:      editDiary,
 		search:			search,
-		getList:        getList,
 		loadReview:		loadReview,
 		addDiary:		addDiary,
 		submit:			submit,
@@ -265,4 +291,44 @@ var diary = (function(){
 		addDiaryRecord: addDiaryRecord,
 		removeDiaryRecord: _removeItem
 	}
+})();
+
+
+// Events
+(function(){
+
+	app.evt.add({
+		// 编辑日志
+		"editDiary": function(){
+			var currentDiaryId = document.getElementById("diary_current_id").value;
+			diary.editDiary(currentDiaryId);
+		},
+
+		// 上一篇日志
+		"prevDiary": function(){
+			var prevDiaryId = document.getElementById("diary_prev_id").value;
+			if(prevDiaryId && prevDiaryId != "0") {
+				diary.loadAdjacentDiary(prevDiaryId);
+			} else {
+				app.ui.alert("没有更早的日志了")
+			}
+		},
+
+		// 下一篇日志
+		"nextDiary": function(){
+			var nextDiaryId = document.getElementById("diary_next_id").value;
+			if(nextDiaryId && nextDiaryId != "0") {
+				diary.loadAdjacentDiary(nextDiaryId);			
+			} else {
+				app.ui.alert("没有更新的日志了")
+			}
+		},
+
+		"removeDiary": function(){
+			var currentDiaryId = document.getElementById("diary_current_id").value;
+			// diary.removeDiary();
+			diary.loadList();
+			$.ui.loadContent("#diary");
+		}
+	})
 })();

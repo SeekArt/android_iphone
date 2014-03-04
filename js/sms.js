@@ -29,7 +29,7 @@ var Sms = (function(){
 		$.jsonP({
 			url: 		smsUrl() + "/list&callback=?" + pageurl,
 			success: 	showList,
-			error: 		function(err){	console.log(err) }
+			error: 		core.error
 		});
 	}
 	
@@ -64,7 +64,7 @@ var Sms = (function(){
 		$.jsonP({
 			url: 		smsUrl() + "/show&callback=?&id="+id+"&sinceid="+sid,
 			success: 	Sms.showSms,
-			error: 		function(err){ console.log(err) }
+			error: 		core.error
 		});
 	}
 	function showSms(json){
@@ -124,21 +124,26 @@ var Sms = (function(){
 							}
 							Sms.loadSms(id,sinceId);
 						},
-			error: 		function(err){	console.log(err)	 }
+			error: 		core.error
 		});
 	}
 
 	function addSms(data){
-		app.selectOneUser(function(data){
-			//临时屏蔽自己
-			if(data.id==app.uid){return false;}
-			_newSms = data;
-			$.ui.loadContent("#sms_view");
-			$("#smsView").empty();
-			$.ui.setTitle(_newSms.text);
-		})
+		app.openSelector({
+			maxSelect: 1,
+			filter: function(data){
+				// 不能发送给自己
+				return data.uid != app.uid
+			},
+			onSelect: function(evt, data){
+				_newSms = data;
+				$.ui.loadContent("#sms_view");
+				$("#smsView").empty();
+				$.ui.setTitle(_newSms.text);
+			}
+		})		
 	}
-	
+
 	return {
 		prevTime:		prevTime,
 		timeout:		timeout,
@@ -156,7 +161,6 @@ var Sms = (function(){
 
 
 function cleartime(){
-	console.log("0")
 	clearTimeout(Sms.timeout);
 	//$("#smsView").empty();
 }

@@ -1,0 +1,86 @@
+<div id="work_forward" class="panel" data-title="转交下一步" data-nav="none" data-footer="footer_work_forward">
+	<header id="header_work_forward">
+		<a href="javascript:;" class='button ao-cancel' data-evt="cancelWorkForward"></a>
+		<h1>转交下一步</h1>
+	</header>
+	<form action="javascript:;" id="form_work_forward">
+	<div class="pdhs pdvs">
+		<div class="inset-list-divider">选择下一步骤</div>
+		<ul class="list inset" id="work_forward_step_list"></ul>
+		<div class="inset-list-divider">办理人</div>
+		<ul class="list inset">
+			<li>
+				<div class="control-group">
+					<label class="xcd">主办</label>
+					<div class="controls user-selector-bar">
+						<a href="javascript:;" class="aoicon ao-more-gray posa-o" data-evt="addWorkSponsor"></a>
+						<ul class="user-selector-list" id="work_sponsor"></ul>
+					</div>
+				</div>
+			</li>
+			<li>
+				<div class="control-group">
+					<label class="xcd">经办</label>
+					<div class="controls user-selector-bar">
+						<a href="javascript:;" class="aoicon ao-more-gray posa-o" data-evt="addWorkOperator"></a>
+						<ul class="user-selector-list" id="work_operator"></ul>
+					</div>
+				</div>
+			</li>
+		</ul>
+		<div class="inset-list-divider">事务提醒</div>
+		<ul class="list inset">
+			<li>
+				<input id="next_actoruser" type="checkbox" name="remind" value="nextActoruser" checked class="toggle">		
+				<label for="next_actoruser" data-on="ON" data-off="OFF">
+					<span></span>
+				</label>
+				<span>下一步办理人</span>
+			</li>
+			<li>
+				<input id="originator" type="checkbox" name="remind" value="originator" class="toggle">		
+				<label for="originator" data-on="ON" data-off="OFF">
+					<span></span>
+				</label>
+				<span>发起人</span>
+			</li>
+			<li>
+				<input id="all_actoruser" type="checkbox" name="remind" value="allActoruser" class="toggle">		
+				<label for="all_actoruser" data-on="ON" data-off="OFF">
+					<span></span>
+				</label>
+				<span>全部办理人</span>
+			</li>
+			<li>
+				<div class="control-group">
+					<label class="xcd">提醒内容</label>
+					<div class="controls">
+						<input type="text" placeholder="请输入提醒内容" name="remindContent">
+					</div>
+				</div>
+			</li>
+		</ul>
+	</div>
+	</form>
+	<footer id="footer_work_forward">
+		<div class="opbar">
+			<div class="op-main">
+				<button class="button blue infoot" data-evt="workForward">确定</button>
+			</div>
+		</div>
+	</footer>
+	<!-- Template -->
+	<textarea id="work_forward_step_tpl" class="hideim">
+		<% for(var i = 0; i < steps.length; i++) { %>
+		<% var step = steps[i]; %>
+		<li class="radio-group">
+			<input type="radio" name="nextstep" value="<%=step.stepId%>" id="nextstep_<%=step.stepId%>" <% if (step.selected) { %>checked<% } %>>
+			<label for="nextstep_<%=step.stepId%>">
+				<span class="label black"><%=step.stepId%></span>
+				<span><%=step.stepName%></span>
+			</label>
+		</li>
+		<% } %>
+	</textarea>
+</div>
+

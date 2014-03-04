@@ -6,79 +6,18 @@
 var Email = (function(){
 	var mailCatId = 0,
 		mailId = 0,
-		isInit = false,
 		mailPage = 1,
 		mailUrl = function (){ return app.appUrl + '/mail' };
-		
-	var list;
+
 	/**
 	* 初始化新闻模块时，载入一些基础数据，比如分类，默认页新闻，未读条数等
 	*/
-	function init(){
-		if(isInit){
-			return false;
-		}
-		list = new List("mailList", $("#mailListTpl").val())
-		//Email.loadCat();
-		Email.loadList("inbox");
-
-		isInit = true;
-	}
-	
-	//-------- Mail List
-	function loadList(catid,page){
-		var pageurl = '';
-		$.ui.showMask();
-		if( typeof(catid)== "string" ){
-			stype = catid;
-			catid = 0;
-		}else if(catid != mailCatId){
-			mailCatId = catid;
-			stype = "";
-		}else{
-			stype = "";
-		}
-
-		if(page != mailPage && typeof(page) != "undefined" ){
-			mailPage = page;
-			pageurl = "&page=" + page;
-		}
-		
-		$.jsonP({
-			url: 		mailUrl() + "&callback=?&catid=" + mailCatId + "&type=" + stype + pageurl + "&formhash="+ Math.random(),
-			success: 	showList,
-			error: 		function(err){	console.log(err) }
-		});
-	}
-
-
-	function showList(json){
-		if(mailPage > 1){
-			list.add(json.datas)
-		}else{
-			if(json.datas.length){
-				list.set(json.datas);
-			}else{
-				$("#mailList").html("<li class='no-info'></li>");
-			}
-		}
-		$("#readMoreMail").remove();
-		if( json.pages.pageCount > mailPage ){
-			$("#mailList").append('<li id="readMoreMail" class="list-more"><a onclick="Email.loadList(0,'+( mailPage + 1) +')">加载更多</a></li>');
-		}
-		$("#mailList").hide()
-		setTimeout(function(){ $("#mailList").show() },0);
-		
-		$.ui.hideMask();
-		return;
-	}
-	
 	//-------- Mail Catelog
 	function loadCat(){
 		$.jsonP({
 			url: 		mailUrl() + "/category&callback=?",
 			success: 	Email.showCat,
-			error: 		function(err){	console.log(err)	}
+			error: 		core.error
 		});
 	}
 	function showCat(json){
@@ -102,9 +41,7 @@ var Email = (function(){
 			$target.append(newTp);
 	}
 	
-
 	function _loadMail(url, param, callback) {
-		// $("#mailContent").empty().css3Animate({ time: "300ms", opacity: 0 });
 		$.ui.showMask();
 		$.jsonP({
 			url:     url + "&callback=?&" + $.param(param),
@@ -118,18 +55,23 @@ var Email = (function(){
 
 	// --------- Mail View
 	function loadMail(id, dom){
-		$("#mailContent").empty().css3Animate({ time: "300ms", opacity: 0 });
 		id = typeof id === 'undefined' ? Email.mailId : id;
+
 		if(typeof dom !="undefined"){
 			$(dom).parent().removeClass("new"); //取消未读
 		}
-		_loadMail(mailUrl() + "/show", { id: id }, showMail)
+		$(document).one("loadpanel", function(){
+			_loadMail(mailUrl() + "/show", { id: id }, showMail)
+		})
+		$.ui.loadContent("view/mail/mail_view.html", 0, 0)
 	}
 
 	function loadDraft(id) {
-		$("#mailContent").empty().css3Animate({ time: "300ms", opacity: 0 });
 		id = typeof id === 'undefined' ? Email.mailId : id;
-		_loadMail(mailUrl() + "/draftshow", { bodyid: id }, showDraft)
+		$(document).one("loadpanel", function(){
+			_loadMail(mailUrl() + "/draftshow", { bodyid: id }, showDraft)
+		})
+		$.ui.loadContent("view/mail/mail_view.html", 0, 0)
 	}
 
 	function _show (tpl, json) {
@@ -152,30 +94,16 @@ var Email = (function(){
 	}
 
 	function editMail(data){
-		var $subject = $("#mailSubjectInput"),
-			$content = $("#mailContentInput");
-
+		var insUser;
 		data = $.extend({
 			subject: "",
 			content: "",
 			user: null
 		}, data);
 
-		$("#mail_new").on("loadpanel", function(){
-			var inUser = new User('mail_user');
+		app.param.set("mailEditData", data)
 
-			core.autoTextarea($content.get(0));
-			
-			$subject.val(data.subject);
-			$content.val(data.content);
-			if(data.user){
-				inUser.set(data.user);
-			} else{
-				inUser.clear();
-			}
-			$("#mail_new").off("loadpanel")
-		});
-		$.ui.loadContent("mail_new");
+		$.ui.loadContent("view/mail/mail_edit.html", 0, 0);
 	}
 	
 	// ----------- Send
@@ -218,7 +146,7 @@ var Email = (function(){
 				Email.loadList('inbox')
 				$.ui.goBack();
 			},
-			error: 		function(err){ console.log(err) }
+			error: 		core.error
 		});
 	}
 	// Todo
@@ -255,8 +183,12 @@ var Email = (function(){
 		})
 	}
 
+	/**
+	 * 删除邮件
+	 * @method deleteMail
+	 * @return {[type]} [description]
+	 */
 	function deleteMail(){
-
 		var url = mailUrl() + "/del&callback=?&" + (mailId ? "emailid=" + mailId : "bodyid=" + bodyId),
 			onsuccess = function(){
 				if(mailId) {
@@ -275,13 +207,33 @@ var Email = (function(){
 		});
 	}
 
+	/**
+	 * 选择收件人
+	 * @method selectRecipient
+	 * @return {[type]} [description]
+	 */
+	function selectRecipient(){
+		var defValues = User.get("mail_user").get();
+		app.openSelector({
+			buttons: [{text: "抄送", type: "green"}, {text: "密送", type: "red"}],
+			values: defValues,
+			onSave: function(evt, data){
+				User.get("mail_user").set(data.values);
+				$.ui.goBack();
+			}
+		})
+
+	}
+
+	// 获取当前所在类别
+	function getCateType (){
+		return currentType;
+	}
+
 	return {
-		init:			init,
-		loadList: 		loadList,
 		loadCat:		loadCat,
 		loadMail:		loadMail,
 		loadDraft:      loadDraft,
-		showList: 		showList,
 		showCat:		showCat,
 
 		sendMail:       sendMail,
@@ -290,6 +242,27 @@ var Email = (function(){
 		markMail:       markMail,  
 		replyMail:      replyMail,
 		replyAll:       replyAll,
-		deleteMail:     deleteMail
+		deleteMail:     deleteMail,
+
+		selectRecipient: selectRecipient,
+		getCateType:    getCateType
 	}
 })();
+
+var MailInbox = (function(){
+	var listIns,
+		mainListIns;
+
+	var init = function(){
+		listIns = new List("mailList", $.query("#mailListTpl").val());
+		mainListIns = new MainList(listIns, { url: app.appUrl + '/mail' })
+		mainListIns.load({ "type": "inbox" });;
+	}
+
+	// 读取列表
+	return {
+		init: init
+	}
+})();
+
+

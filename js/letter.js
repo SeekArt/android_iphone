@@ -1,31 +1,43 @@
 var Letter = function(options) {
-	var $target = $("#content");
-	this.$elem = $('<div class="letter"></div>').appendTo($target);
-	this.$elem.height($target.offset().height - 10);
+	var $container = $.ui.viewportContainer;
+	this.$elem = $.query("#letter");
+	// 没有字母索引节点时，则创建
+	if(!this.$elem.length) {
+		this.$elem = $.create("div", {
+			id: "letter",
+			className: "letter"
+		}).appendTo($container);
+		this._createHash();
+		this._bindEvent();
+	}
 
-	this.options = $.extend({}, options);
+	this.options = $.extend({}, Letter.defaults, options);
 	this.hash = "";
 	this.letterInfo = [];
-	this._init();
-}
+	
+	this.$elem.css({
+		top: $.ui.header.offsetHeight + this.options.top,
+		bottom: $.ui.navbar.offsetHeight + this.options.bottom
+	})
 
+}
+Letter.defaults = {
+	top: 5,
+	bottom: 5,
+	prefix: ""
+}
 Letter.prototype = {
 	constructor: Letter,
 
-	_init: function() {
-
+	_createHash: function() {
 		// 生成通用匹配节点#
-		this.$elem.append('<a data-hash="#' + (this.options.prefix || "") + '#">#</a>');
+		this.$elem.append('<a data-hash="#">#</a>');
 
 		// 生成A-Z节点，65-90 为大写字母Unicode
 		for (var i = 65; i <= 90; i++) {
 			var ca = String.fromCharCode(i);
-			this.$elem.append('<a data-hash="#' + (this.options.prefix || "") + ca + '">' + ca + '</a>');
+			this.$elem.append('<a data-hash="' + ca + '">' + ca + '</a>');
 		}
-		// 保存当前的hash值
-		this.hash = "";
-
-		this._bindEvent();
 	},
 
 	// 此函数用于刷新字母位置信息，当屏幕大小变化时或字母位置变化时，应刷新信息。
@@ -112,11 +124,10 @@ Letter.prototype = {
 	 * @param {[type]} hash [description]
 	 */
 	setHash: function(hash) {
-
 		var $node;
 		if (hash !== this.hash) {
-			$node = $(hash);
-			if($node.length){			
+			$node = $.query("#" + this.options.prefix + hash);
+			if($node.length){	
 				// 调动scroller对象的scrollToItem方法
 				$.ui.scrollingDivs[$.ui.activeDiv.id].scrollToItem($node);
 				this.hash = hash;
@@ -140,33 +151,40 @@ Letter.prototype = {
 	destory: function() {
 		$(document).off(".letter");
 		this.$elem.off(".letter");
-		this.$elem.remove();
-	}
-}
-
-app.letter = {
-	ins: null,
-	on: function(prefix) {
-		prefix = prefix || "";
-		this.ins = new Letter({
-			prefix: prefix
-		});
-	},
-	off: function() {
-		this.ins.destory();
-		this.ins = null;
-	},
-
-	init: function(panel, prefix) {
-
-		var that = this;
-		if (!this.ins) {
-			$("#" + panel).on("loadpanel", function(){
-				that.on(prefix) 
-			})
-			.on("unloadpanel", function(){ 
-				that.off(); 
-			})
+		if(this.$box){
+			this.$box.remove();
+			this.$box = null;
 		}
+		this.$elem.remove();
+		this.$elem = null;
 	}
 }
+
+// app.letter = {
+// 	ins: null,
+// 	on: function(prefix) {
+// 		prefix = prefix || "";
+// 		this.ins = new Letter({
+// 			prefix: prefix
+// 		});
+// 	},
+// 	off: function() {
+// 		this.ins.destory();
+// 		this.ins = null;
+// 	},
+
+// 	init: function(panel, prefix) {
+
+// 		var that = this;
+// 		if (!this.ins) {
+// 			$("#" + panel)
+// 			.off("loadpanel unloadpanel")
+// 			.on("loadpanel", function(){
+// 				that.on(prefix) 
+// 			})
+// 			.on("unloadpanel", function(){ 
+// 				that.off();
+// 			})
+// 		}
+// 	}
+// }

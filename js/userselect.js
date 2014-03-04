@@ -52,7 +52,7 @@ User.prototype = {
 			// 创建新节点
 			item = document.createElement("li");
 			item.setAttribute("data-id", value.id);
-			item.id = "user_item_" + value.id;
+			item.id = this.$elem.get(0).id + value.id;
 
 			value.text && (item.innerHTML = value.text);
 			value.type && (item.className = value.type);
@@ -82,7 +82,7 @@ User.prototype = {
 				this.$elem.trigger("user:remove", this.values[i]);
 				this.values.splice(i, 1);
 				// $("[data-id='" + id + "']", this.$elem).remove();
-				$("#user_item_" + id).remove();
+				$("#" + this.$elem.get(0).id + id).remove();
 				return;
 			}
 		}
@@ -156,7 +156,15 @@ User.prototype = {
 
 	_triggerChange: function() {
 		var values = this.values;
-		this.$elem.trigger("user:change", values);
+		this.$elem.trigger("userchange", values);
+	},
+
+	destory: function(){
+		for(var i in User.instances) {
+			if(User.instances[i] === this) {
+				delete User.instances[i];
+			}
+		}
 	}
 }
 
@@ -169,14 +177,19 @@ User.prototype = {
  */
 var UserList = function(id, data, options) {
 	var me = this;
-	if (id in this.constructor.instances) {
-		return this.constructor.instances[id];
-	}
+	// if (id in this.constructor.instances) {
+	// 	return this.constructor.instances[id];
+	// }
 	this.id = id || "user_list";
-	this.data = data;
+	this.data = data || {};
+	this.data.group = this.data.group || {};
+	this.data.datas = this.data.datas || {};
+
 	this.options = $.extend({
 		tpl: "<dd id='" + me.id + "_item_<%=uid%>' data-id='<%=uid%>'><span class='ckb'></span><%=realname%></dd>"
 	}, options);
+
+
 	// 用于放置选中项，格式为[{id:1, text: "1", type: "haha"}];
 	this.selected = [];
 	// 对数据进行缓存
@@ -187,6 +200,10 @@ var UserList = function(id, data, options) {
 	this._bindEvent();
 
 	this.constructor.instances[id] = this;
+
+	if(this.options.values) {
+		this.set(this.options.values);
+	}
 }
 UserList.instances = {};
 UserList.get = function(id){
@@ -201,17 +218,27 @@ UserList.prototype = {
 	 * @return {[type]} [description]
 	 */
 	_build: function() {
-		var userids;
+		var userids,
+			group = this.data.group,
+			datas = this.data.datas;
+
 		this.$list = $("<dl class='userlist'></dl>");
-		for (var letter in this.data.group) {
-			if(this.data.group.hasOwnProperty(letter)){			
+
+		// 循环每字母组
+		for (var letter in group) {
+			if(group.hasOwnProperty(letter)){			
 				this.$list.append("<dt id='" + this.id + "_" + letter + "'>" + letter + "</dt>");
-				userids = this.data.group[letter];
+				userids = group[letter];
+				// 循环字母组内的成员
 				for (var i = 0; i < userids.length; i++) {
-					this.$list.append(this._createItem(this.data.datas[userids[i]]));
+					// 过滤
+					if(!this.options.filter || this.options.filter.call(this, datas[userids[i]])) {
+						this.$list.append(this._createItem(datas[userids[i]]));
+					}
 				}
 			}
 		};
+
 		this.$elem.append(this.$list);
 	},
 	/**
@@ -221,10 +248,7 @@ UserList.prototype = {
 	 * @return {Object}      列表项$.afm节点
 	 */
 	_createItem: function(data) {
-		var $node = $.tmpl(this.options.tpl, data)
-		/*"<dd id='" + this.id + "_item_" + data.uid + "' data-id='" + data.uid + "'>" +
-			"<span class='ckb'></span>" +
-			data.realname + "</dd>";*/
+		var $node = $.tmpl(this.options.tpl, data);
 		var $buttons = this._createButtons();
 
 		if($.is$($buttons) && $buttons.length){
@@ -267,9 +291,11 @@ UserList.prototype = {
 			if (info && info.type === type) {
 				that.unselect(id);
 			} else {
+				if(that.options.maxSelect && that.options.maxSelect > 0 && that.selected.length >= that.options.maxSelect){
+					that.unselect(that.selected[that.selected.length - 1].id);
+				}
 				that.select(id, type);
 			}
-			$(this).trigger("userlist:click", { id: id })
 		})
 	},
 
@@ -277,11 +303,6 @@ UserList.prototype = {
 		this.$elem.off(".userlist")
 	},
 
-	_toggleSelect: function(id, type) {
-		// if(this.isSelected(id)){
-
-		// }
-	},
 	/**
 	 * 获取Id对应的$.afm节点
 	 * @method _getItem
@@ -336,7 +357,7 @@ UserList.prototype = {
 				text: text
 			};
 		this.selected.push(data);
-		this.$elem.trigger("userlist:select", data);
+		this.$elem.trigger("userselect", data);
 	},
 
 	/**
@@ -371,6 +392,7 @@ UserList.prototype = {
 		var index = this.indexOf(id);
 		if (index !== -1) {
 			this.selected.splice(index, 1);
+			this.$elem.trigger("userunselect");
 		}
 	},
 
@@ -442,85 +464,77 @@ UserList.prototype = {
 	}
 };
 
-(function(){
-	var selectorSettings = {
-		'mail': {
-			panelId: 'mail_selector',
-			userId: 'mail_user',
-			userListId: 'mail_user_selector',
-			userListSettings: {
-				buttons: [{text: "抄送", type: "green"}, {text: "密送", type: "red"}]
-			}
-		},
-		'common': {
-			panelId: 'selector',
-			userId: 'common_user',
-			userListId: 'user_selector'
-		},
-		'phonebook':{
-			panelId: 'phonebook',
-			userId: 'pb_user',
-			userListId: 'phonebook_content'
-		}
-	}
-	app.userSelector = {
-		user: "",
-		userListId: "",
-		panelId: "",
+// (function(){
+// 	var selectorSettings = {
+// 		'common': {
+// 			panelId: 'selector',
+// 			userId: 'common_user',
+// 			userListId: 'user_selector'
+// 		},
+// 		'phonebook':{
+// 			panelId: 'phonebook',
+// 			userId: 'pb_user',
+// 			userListId: 'phonebook_content'
+// 		}
+// 	}
+// 	app.userSelector = {
+// 		user: "",
+// 		userListId: "",
+// 		panelId: "",
 
-		get: function(type) {
-			var settings = selectorSettings[type],
-				that = this,
-				$panel;
-			if(settings) {
-				var user = new User(settings.userId),
-					userValue = user.get();
+// 		get: function(type) {
+// 			var settings = selectorSettings[type],
+// 				that = this,
+// 				$panel;
+// 			if(settings) {
+// 				var user = new User(settings.userId),
+// 					userValue = user.get();
 
-				$panel = $("#" + settings.panelId);
-				$panel.off(".getuser").on("loadpanel.getuser", function(){
-					var userlist = new UserList(settings.userListId, app.getUserData(), settings.userListSettings);
-					userlist.set(userValue);
+// 				$panel = $("#" + settings.panelId);
+// 				$panel.off(".getuser").on("loadpanel.getuser", function(){
+// 					var userlist = new UserList(settings.userListId, app.getUserData(), settings.userListSettings);
+// 					userlist.set(userValue);
 			
-					that.panelId = settings.panelId;
-					that.user = user;
-					that.userlist = userlist;
-				});
+// 					that.panelId = settings.panelId;
+// 					that.user = user;
+// 					that.userlist = userlist;
+// 				});
 
 
-				$.ui.loadContent("#" + settings.panelId);
-			}
-		},
+// 				$.ui.loadContent("#" + settings.panelId);
+// 			}
+// 		},
 
-		save: function(){
+// 		save: function(){
 			
-			var userlist = this.userlist,
-				user = this.user;
+// 			var userlist = this.userlist,
+// 				user = this.user;
 
-			if(user && userlist) {
-				user.set(userlist.get());
-				this.userId = this.userListId = this.panelId = "";
-				$.ui.goBack();
-			}
-		}
-	}
+// 			if(user && userlist) {
+// 				user.set(userlist.get());
+// 				this.userId = this.userListId = this.panelId = "";
+// 				$.ui.goBack();
+// 			}
+// 		}
+// 	}
 
-	app.selectOneUser = function(callback){
-		var settings = selectorSettings['common'];
-		var list;
+// 	app.selectOneUser = function(callback){
+// 		var settings = selectorSettings['common'];
+// 		var list;
 
-		$("#" + settings.panelId).on("loadpanel", function(){
+// 		$("#" + settings.panelId).on("loadpanel", function(){
 
-			list = new UserList(settings.userListId, app.getUserData());
-			$("#" + settings.userListId).off("userlist:select").on("userlist:select", function(evt, data){
+// 			list = new UserList(settings.userListId, app.getUserData());
+// 			$("#" + settings.userListId).off("userlist:select").on("userlist:select", function(evt, data){
 				
-				callback && callback(data);
-				list.clear();
-				// sms.addSms(data);
-				// $.ui.loadContent("#sms_view");
+// 				callback && callback(data);
+// 				list.clear();
+// 				// sms.addSms(data);
+// 				// $.ui.loadContent("#sms_view");
 
-			});
-		});
+// 			});
+// 		});
 
-		$.ui.loadContent("#" + settings.panelId);
-	}
-})();
+// 		$.ui.loadContent("#" + settings.panelId);
+// 	}
+// })();

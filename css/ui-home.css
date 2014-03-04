@@ -57,16 +57,20 @@
 
 /* -------------------- */
 .list-ico li i,
-.aoicon{
+.aoicon,
+.moicon{
 	display: inline-block;
-	width: 22px;
-	height: 22px;
 	background-repeat: no-repeat;
 	-webkit-background-size: 100% 100%;
 	background-size: 100% 100%;
 	vertical-align: middle;
+	/*vertical-align: -6px;*/
 }
+.list-ico li i,
+.aoicon{ width: 22px; height: 22px; }
 .list-ico li i{ margin-right:4px; }
+#afui #header .button.aol{ -webkit-box-shadow: inset -1px 0 0 rgba(255, 255, 255, .2); -moz-box-shadow: inset -1px 0 0 rgba(255, 255, 255, .2); box-shadow: inset -1px 0 0 rgba(255, 255, 255, .2); border-right: 1px solid #1977C5; }
+#afui #header .button.aor{ -webkit-box-shadow: inset 1px 0 0 rgba(255, 255, 255, .2); -moz-box-shadow: inset 1px 0 0 rgba(255, 255, 255, .2); box-shadow: inset 1px 0 0 rgba(255, 255, 255, .2); border-left: 1px solid #1977C5; }
 
 /* Icon common */
 .ao-mark{ background-image: url(../images/act/mark.png);}
@@ -103,6 +107,7 @@
 .ao-send { background-image: url(../images/act/send.png); right: 0;}
 .ao-new { background-image: url(../images/act/new.png); right: 0;}
 .ao-edit { background-image: url(../images/act/edit.png); }
+.ao-edit-gray { background-image: url(../images/act/editgray.png); }
 .ao-up { background-image: url(../images/act/up.png); }
 .ao-down { background-image: url(../images/act/down.png); }
 .ao-comment-gray{  background-image: url(../images/act/commentgray.png); }
@@ -122,7 +127,18 @@
 
 .ao-doc{ background-image: url(../images/act/doc.png); } 
 .ao-receipted{ background-image: url(../images/act/receipted.png); } 
-.ao-unreceipted{ background-image: url(../images/act/unreceipted.png); } 
+.ao-unreceipted{ background-image: url(../images/act/unreceipted.png); }
+
+.ao-briefcase { background-image: url(../images/act/briefcase.png); }
+.ao-workdone { background-image: url(../images/act/workdone.png); }
+.ao-workfinish { background-image: url(../images/act/workfinish.png); }
+
+.ao-goldstar{ background-image: url(../images/cm/goldstar.png); }
+.ao-upload-add{ background-image: url(../images/cm/uploadadd.png); }
+
+
+.moicon{ width: 14px; height: 14px; }
+.mo-search-gray{ background-image: url(../images/mini/search_gray.png); }
 
 /* --------- Login ----------- */
 .login{
@@ -165,3 +181,37 @@
 #afui input[type="date"].datepicker::-webkit-datetime-edit-day-field {}
 #afui input[type="date"].datepicker::-webkit-inner-spin-button { }
 #afui input[type="date"].datepicker::-webkit-calendar-picker-indicator {  }*/
+
+/* ------------ Download Panel */
+.download-body{ position: absolute; top: 50%; left: 20%; margin-top: -100px; width: 60%; height: 200px; text-align: center;}
+.download-footer{ position: absolute; bottom: 40px; width: 100%; text-align: center; font-size: 12px; color: #BBBDC9;}
+.dlc-button{ width: 120px; }
+
+/* ------------ Work */
+/* view source form button */
+#afui .wf-vsf-btn{ position: absolute; right: 10px; bottom: 10px; margin: 0; }
+
+/* 抵销 List Item 里的padding */
+.list-full{ margin: -11px -20px -11px -10px; }
+
+/* Button Ex */
+#afui.ibos .button.infoot{ 
+	-webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, .2), 0 1px 0 rgba(255, 255, 255, .1);
+	box-shadow: inset 0 1px 0 rgba(255, 255, 255, .2), 0 1px 0 rgba(255, 255, 255, .1);
+	margin: 0;
+	padding-top: 6px;
+	padding-bottom: 6px;
+	width: 100%;
+	border-color: #383C41;
+	background-color: #58585C;
+	color: #FFF;
+	text-shadow: none;
+}
+#afui.ibos .button.infoot:active,
+#afui.ibos .button.infoot.pressed{ -webkit-box-shadow: inset 0 1px 0 rgba(0, 0, 0, .1), 0 1px 0 rgba(255, 255, 255, .1); box-shadow: inset 0 1px 0 rgba(0, 0, 0, .1), 0 1px 0 rgba(255, 255, 255, .1); }
+
+#afui.ibos .button.infoot.blue{ background-color: #3497DB; }
+#afui.ibos .button.infoot.blue:active{ background-color: #3091D8; }
+
+#afui footer .cmflex .cmflex-item{ padding: 8px 0; }
+#afui footer .cmflex .button.infoot{ width: 90%; }

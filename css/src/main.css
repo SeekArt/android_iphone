@@ -125,7 +125,7 @@ body {
     text-align:center;
 	height:44px;
 	font-size:18px;
-	font-weight:bold;
+	font-weight:400;
 
 	color:#fff;
 	padding:10px 0;
@@ -512,3 +512,150 @@ h2 {
 .panel  .list.inset {
 	margin:10px 0px;
 }
+
+/*-------------------------------------------------------------  Label */
+.label{
+	-webkit-border-radius: 3px;
+	border-radius: 3px;
+	background-color: #F8F8F8;
+	border: 1px solid #B2C0D1;
+	padding: 2px 6px;
+	color: #B2C0D1;
+	font-size: 14px;
+	text-decoration: none;
+}
+.label:hover{ background-color: #FFF; }
+.label.green,
+.label.red,
+.label.black,
+.label.orange{ color: #FFF; }
+
+.label.green{ background-color: #DBE6CA; border-color: #C3CCB4; }
+.label.red{ background-color: #F5D7D7; border-color: #CCB1B1; }
+.label.black{ background-color: #58585C; border-color: #58585C; }
+.label.orange{ background-color: #EE8C0C; border-color: #EE8C0C; }
+
+.label-small{ -webkit-border-radius: 2px; border-radius: 2px; padding: 0 4px; font-size: 11px; }
+
+/*-------------------------------------------------------------  Progress */
+.progress,
+.progress-bar{
+	-webkit-border-radius: 6px; 
+	border-radius: 6px; 
+	height: 12px; 
+}
+.progress{ 
+	-webkit-box-shadow: inset 0 2px 5px #6F8390; 
+	box-shadow: inset 0 2px 5px #6F8390; 
+	background-color: #82939E;
+}
+.progress-bar{ position: relative; overflow: hidden; background-color: #3497DB;}
+.progress-bar:after{ position: absolute; top: 0; left: 0; width: 100%; height: 3px; content: " "; background-color: rgba(255, 255, 255, .2) }
+
+.progress.success .progress-bar{ background-color: #91CE31; }
+
+/*------------------------------------------------------------- Attach */
+.att-list{ margin: 10px 0; }
+.att{ position: relative; padding: 8px 10px; border: 1px solid #DFDFDF; background-color: #FDFDFD; border-bottom: 0 none;}
+.att-list > .att:first-child{ border-top-left-radius: 4px; border-top-right-radius: 4px; }
+.att-list > .att:last-child{  border-bottom-left-radius: 4px; border-bottom-right-radius: 4px; border-bottom: 1px solid #DFDFDF;}
+
+.att-icon{ position: absolute; }
+.att-content { margin: 0 60px 0 50px; height: 44px; }
+.att-content h4{ overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-weight: 400; }
+#afui .att-desc{ margin-bottom: 0; font-size: 12px; color: #BBBDC9; }
+#afui .att-op{ position: absolute; top: 50%; right: 10px; margin-top: -11px; height: 22px; }
+#afui .att-op > a,
+#afui .att-op > .attp-op-btn{ margin-left: 5px; }
+#afui .list > li.att{ border: 0 none; border-bottom: 1px solid #DFDFDF; }
+
+
+/*------------------------------------------------------------- Operate bar */
+.opbar{ position: relative; }
+.opgroup{ display: -webkit-flex; display: flex; }
+.opgroup .opgroup-btn{ height: 100%; text-align: center; -webkit-flex: 1; flex: 1; }
+.opgroup .opgroup-btn:active,
+.opgroup .opgroup-btn.pressed{ background-color: #383C41; }
+#navbar footer .opgroup{ height: 44px; line-height: 44px; }
+
+#afui.ibos .op-main{ position: absolute; top: 9px; right: 10px; display: inline-block; width: 30%; }
+
+.panel-divider{ padding: 10px 20px; background-color: #E1E7F1; color: #82939E;}
+.inset-list-divider{ padding: 5px 10px; }
+
+.list-divider{ 
+	-webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, .03);
+	box-shadow: inset 0 1px 2px rgba(0, 0, 0, .03);
+	padding: 5px 10px;
+	background-color: #EBEFF6;
+	line-height: 22px;
+	font-size: 12px;
+	color: #82939E;
+}
+
+
+/*------------------------------------------------------------- Upload button */
+.upload-btn{ border-radius: 4px; display: block; margin: 8px 0; height: 60px; border: 2px dashed #B2C0D1; background-color: #F5F7FB; color: #B2C0D1; text-align: center; font-size: 14px; line-height: 60px; text-decoration: none;}
+.upload-btn .ao-upload-add{ margin-top: -2px; }
+.upload-btn.pressed,
+.upload-btn:active{ border-color: #3497DB; color: #3497DB; }
+.upload-btn.pressed .ao-upload-add,
+.upload-btn:active .ao-upload-add{ background-image: url(../../images/cm/uploadaddblue.png); }
+
+/*------------------------------------------------------------- CM flex */
+.cmflex{ display: -webkit-flex; display: flex; }
+.cmflex-item{
+	-webkit-box-flex: 1;
+	-webkit-flex: 1 auto;
+	flex: 1 auto;
+	text-align: center;
+}
+.cmflex.sep .cmflex-item:nth-child(n+2) { border-left: 1px solid #DFDFDF; }
+.cmflex-singlerow{
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 44px;
+	line-height: 44px;
+}
+
+/*------------------------------------------------------------- Tab */
+.tab{ display: -webkit-flex; display: flex; -webkit-box-shadow: 0 2px 5px rgba(88, 88, 92, .3); box-shadow: 0 2px 5px rgba(88, 88, 92, .3);  list-style: none; background-color: #FFF; }
+.tab li{ -webkit-flex: 1; flex: 1;}
+.tab li a{ display: block; overflow: hidden; height: 44px; color: #58585C; text-align: center; line-height: 44px; text-decoration: none; font-size: 16px;}
+.tab li.pressed a,
+.tab li:active a{ -webkit-box-shadow: inset 0 -2px 0 #3497DB; box-shadow: inset 0 -2px 0 #3497DB; color: #3497DB; }
+
+/** Tip */
+.tip{
+	display: block;
+	width: 280px;
+	border: solid 1px #72767b;
+	-webkit-border-radius: 4px;
+	border-radius: 4px;
+	padding: 10px;
+	opacity: 0;
+	-webkit-transform: scale(1);
+	-webkit-transition: top 0.20s ease-in-out, opacity 0.20s ease-in-out;
+	transform: scale(1);
+	transition: top 0.20s ease-in-out, opacity 0.20s ease-in-out;
+	position: absolute;
+	z-index: 1000000;
+	top: 44px;
+	left: 0;
+	margin: 0px auto;
+	background: rgba(70,70,70,1);
+	color: white;
+}
+
+.list-menu{ position: absolute; top: 0; height: 100%; background: #58585C;}
+.list-menu > a{ float: left; width: 80px; height: 100%; text-align: center;}
+.list-menu > a + a{ 
+	margin-left: -1px;
+	border-left: 1px solid #383C41; 
+	-webkit-box-shadow: -1px 0 2px rgba(255, 255, 255, .1);
+	-moz-box-shadow: -1px 0 2px rgba(255, 255, 255, .1);
+	box-shadow: -1px 0 2px rgba(255, 255, 255, .1);
+}
+#afui .list-menu > a > p{ color: #FFF;}
+

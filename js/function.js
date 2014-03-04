@@ -21,11 +21,6 @@ function loadMsg(){
 		msg.init();
 	});	
 }
-function loadEmail(){
-	$LAB.script("js/email.js").wait(function(){
-		Email.init();
-	});	
-}
 function showNetList(){
 	$LAB.script("js/net.js").wait(function(){
 		netSetting.showList();
@@ -53,6 +48,7 @@ function loadDiary(){
 		diary.init();
 	})
 }
+
 function scaner(){
 	cordova.plugins.barcodeScanner.scan(
 		function (result) {

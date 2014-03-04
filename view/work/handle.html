@@ -1,0 +1,224 @@
+<div id="work_handle" class="panel" data-title="办理工作" data-nav="none">
+	<form action="javascript:;" id="form_work_handle">
+	<div>
+		<ul class="tab work-handle-tab" data-node="fixedElem">
+			<li class="pressed" data-evt="workHandleScroll" data-param='"#work_handle_form"'>
+				<a href="javascript:;" >表单</a>
+			</li>
+			<li data-evt="workHandleScroll" data-param='"#work_handle_attach"'>
+				<a href="javascript:;">附件</a>
+			</li>
+			<li data-evt="workHandleScroll" data-param='"#work_handle_sign"'>
+				<a href="javascript:;">会签</a>
+			</li>
+			<li data-evt="workHandleScroll" data-param='"#work_handle_progress"'>
+				<a href="javascript:;">进度</a>
+			</li>
+		</ul>
+		<div class="work-handle-mainer">
+			<!-- 表单 -->
+			<div class="mgbs" id="work_handle_form">
+				<div class="pdhs" id="work_handle_form_content">
+					<ul class="list inset">
+						<li>
+							<div>张小牛修复BUG(2013-10-11 12:20:15)</div>
+							<div class="content">
+								<p class="fss">[51] 加班登记</p>
+								<p class="fss">发起人：张小牛</p>
+								<p class="fss">发起时间：2013-10-11</p>
+							</div>
+							<button class="button small wf-vsf-btn" data-evt="viewSourceForm" data-param='{"runId": 1}'>
+								<i class="moicon mo-search-gray"></i>
+								查看原表
+							</button>
+						</li>
+						<li class="control-group bggrl xca">
+							<label>申请人</label>
+							<div class="controls">张小牛</div>
+						</li>
+						<li class="control-group bggrl xca">
+							<label>部门</label>
+							<div class="controls">协同项目部</div>
+						</li>
+						<li class="control-group bggrl xca">
+							<label>岗位</label>
+							<div class="controls">软件工程师</div>
+						</li>
+						<li class="control-group bggrl xca">
+							<label>开始时间</label>
+							<div class="controls">2013-10-09 09:21:02</div>
+						</li>
+						<li class="control-group bggrl xca">
+							<label>结束时间</label>
+							<div class="controls">2013-10-11 17:52:44</div>
+						</li>
+					</ul>
+					<ul class="list inset">
+						<li class="control-group bggrl xca">
+							<label>部门经理</label>
+							<div class="controls">郭小四</div>
+						</li>
+						<li class="control-group">
+							<label class="xcp">审批结果</label>
+							<div class="controls">
+								<input type="text" value="同意" name="approveresult" placement="填写内容...">
+							</div>
+						</li>
+						<li class="control-group">
+							<label class="xcp">审批意见</label>
+							<div class="controls">
+								<input type="text" value="" name="approveopinion" placement="填写内容...">
+							</div>
+						</li>
+					</ul>
+					<button class="button large button-block" data-evt="showFormNullTerm" data-param='{"runId": 1}'>显示表单空项</button>
+				</div>
+			</div>
+			<!-- 附件 -->
+			<div class="mgbs" id="work_handle_attach">
+				<div class="panel-divider">附件</div>
+				<div class="pdhs" id="work_handle_attach_content">
+					<ul class="list inset">
+						<li>
+							<span class="label small black">1</span> 加班登记
+							<span class="flr xca">张小牛</span>
+						</li>
+						<li class="att">
+							<div class="att-icon">
+								<img src="images/filetype/doc.png" alt="加班文档.doc" width="44" height="44">
+							</div>
+							<div class="att-content">
+								<h4>加班文档.doc</h4>
+								<div class="att-desc">2013-10-08 12:30 120K</div>
+							</div>
+							<div class="att-op">
+								<a href="javascript:;" class="aoicon ao-download-gray"></a>
+							</div>
+						</li>
+					</ul>
+					<ul class="list inset">
+						<li>
+							<span class="label small black">2</span> 部门审批
+							<span class="flr xca">郭小四</span>
+						</li>
+						<li class="att">
+							<div class="att-icon">
+								<img src="images/filetype/video.png" alt="你懂的.avi" width="44" height="44">
+							</div>
+							<div class="att-content">
+								<h4>你懂的.avi</h4>
+								<div class="att-desc">2013-10-08 12:30 1.2G</div>
+							</div>
+							<div class="att-op">
+								<a href="javascript:;" class="aoicon ao-download-gray"></a>
+							</div>
+						</li>
+					</ul>
+					<a href="javascript:;" class="upload-btn" data-evt="addWorkAttach" data-param='{"runId": 1}'>
+						<i class="aoicon ao-upload-add"></i>
+						上传文件
+					</a>
+				</div>
+				<input type="hidden" name="attachid" id="work_handle_attach_value">
+			</div>
+			<!-- 会签 -->
+			<div class="mgbs" id="work_handle_sign">
+				<div class="panel-divider">会签</div>
+				<div class="pdhs" id="work_handle_sign_content">
+					<div id="work_handle_sign_list"></div>
+					<button type="button" class="button large button-block orange" data-evt="addWorkSign" data-param='{"runId": 1}'>我要会签</button>
+				</div>
+			</div>
+			<!-- 进度 -->
+			<div class="mgbs" id="work_handle_progress">
+				<div class="panel-divider">进度</div>
+				<div class="pdhs" id="work_handle_progress_content">
+					<ul class="list inset">
+						<li class="media">
+							<div class="media-costar">
+								<span class="label small black">1</span>
+							</div>
+							<div class="media-body">
+								<h4 class="title mgbm">[加班登记] 由 [张小牛] 主办</h4>
+								<div class="content">
+									<p>用时：1天4小时23分</p>
+									<p>开始：2013-10-20 15:20</p>
+									<p>结束：2013-11-01 11:30</p>
+								</div>
+							</div>
+						</li>
+					</ul>
+					<ul class="list inset">
+						<li class="media">
+							<div class="media-costar">
+								<span class="label small black">2</span>
+							</div>
+							<div class="media-body">
+								<h4 class="title mgbm">[部门审批] 由 [郭小四] 主办</h4>
+								<div class="content">
+									<p>用时：1天4小时23分</p>
+									<p>开始：2013-10-20 15:20</p>
+									<p>结束：2013-11-01 11:30</p>
+								</div>
+							</div>
+						</li>
+					</ul>
+					<ul class="list inset bgol">
+						<li class="media">
+							<div class="media-costar">
+								<span class="label small orange">3</span>
+							</div>
+							<div class="media-body">
+								<h4 class="title mgbm">[人事审核] 由 [陈小西] 主办</h4>
+								<div class="content">
+									<p class="xco">执行中</p>
+									<p>持续：1天4小时23分</p>
+								</div>
+							</div>
+						</li>
+					</ul>
+					<button type="button" class="button large button-block orange" data-evt="addWorkUrge" data-param='{"runId": 1}'>超时催办提醒</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	</form>
+	<footer>
+		<div class="cmflex">
+			<!-- 发起工作没有回退按钮 -->
+			<div class="cmflex-item">
+				<button type="button" class="button black infoot" id="work_handle_rollback" data-evt="workRollback" data-param='{ "runId": 1 }'>回退</button>
+			</div>
+			<div class="cmflex-item">
+				<button type="button" class="button black infoot" id="work_handle_save" data-evt="workSaveForm" data-param='{ "runId": 1 }'>保存</button>
+			</div>
+			<div class="cmflex-item">
+				<button type="button" class="button blue infoot" id="work_handle_forward" data-evt="toForwardWork" data-param='{ "runId": 1 }'>转交</button>
+				<button type="button" class="button blue infoot" id="work_handle_deal" data-evt="workDeal" data-param='{ "runId": 1 }' style="display: none;">办理完毕</button>
+			</div>
+		</div>
+	</footer>
+
+	<!-- Template -->
+	<textarea id="work_handle_attach_tpl" class="hideim">
+		<ul class="list inset" data-node="workAttachBox">
+			<li>
+				<span class="label small black"><%=flowProgress%></span>
+				<%=flowType%>
+				<span class="flr xca"><%=realname%></span>
+			</li>
+			<li class="att">
+				<div class="att-icon">
+					<img src="images/filetype/<%=fileType%>.png" alt="<%=fileName%>" width="44" height="44">
+				</div>
+				<div class="att-content">
+					<h4><%=fileName%></h4>
+					<div class="att-desc"><%=fileTime%> <%=fileSize%></div>
+				</div>
+				<div class="att-op">
+					<a href="javascript:;" class="aoicon ao-trash-gray" data-evt="removeWorkAttach" data-param='{"aid": "<%=aid%>"}'></a>
+				</div>
+			</li>
+		</ul>
+	</textarea>
+</div>

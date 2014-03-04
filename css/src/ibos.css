@@ -41,6 +41,54 @@ textarea::-webkit-input-placeholder {
     color: #B2C0D9;
 }
 
+a { color: #383C41; text-decoration: none; }
+
+/*----------------------------------------------------- 独立样式  */
+#afui .no-info{
+	background: url(../../images/no-info.png) center center no-repeat;
+	min-height: 300px;
+	width: 100%;
+}
+
+/* 左图右字 */
+.media{}
+.media-costar{ float: left; margin-right: 10px;}
+.media-body{ overflow: hidden; }
+
+/* 列表项简要信息，一般包含标题、简介、及时间 */
+.list .time{ color: #B2C0D1; font-size: 12px;}
+.list .title { font-size: 16px; font-weight: 400;}
+.list .content { color: #B2C0D1; }
+
+.list .briefh .time{ float: right;}
+
+
+
+/* 无边框的输入框 */
+.trans-input{
+	border: 0 none !important;
+	background: transparent !important;
+}
+
+
+/* 头部提醒条 */
+.noti{
+	padding: 12px 10px;
+	background-color: #FFFDFA;
+	line-height: 20px;
+	font-size: 16px;
+	color: #EE8C0C;
+}
+/**/
+.direction-bar{ display: -webkit-box;}
+.direction-bar a{ -webkit-box-flex: 1; box-flex: 1; display: block; height: 44px; }
+.diary-comment-date .direction-bar{
+	position: absolute;
+	width: 100%;
+}
+
+/* ---------------------------------------------------------- End */
+
 #afui.ibos{
 	font-family: 'Helvetica Neue', Helvetica, Arial, 'microsoft Yahei';
 	color: #383C41;
@@ -59,7 +107,7 @@ textarea::-webkit-input-placeholder {
 	box-shadow: inset 0 1px 1px rgba(0, 0, 0,.4), 0 1px 0 rgba(255, 255, 255, 0.1);
 }
 #afui.ibos footer .button.blue{
-	box-shadow: inset 0 1px 0 rgba(255,255,255,.2);
+/*	box-shadow: inset 0 1px 0 rgba(255,255,255,.2);*/
 	margin: 0;
 	padding-top: 6px;
 	padding-bottom: 6px;
@@ -94,6 +142,7 @@ textarea::-webkit-input-placeholder {
 
 /* Header */
 #afui.ibos > #header{
+	-webkit-box-shadow: 0 2px 2px rgba(0, 0, 0, .2);
 	box-shadow: 0 2px 2px rgba(0, 0, 0, .2);
 	background-color: rgba(36,156,213,0.97);/*background-color: #249CD5;*/
 /*	background-image: -ms-linear-gradient(top, #249CD5, #1D89CD);
@@ -101,6 +150,12 @@ textarea::-webkit-input-placeholder {
 	background-image: -webkit-linear-gradient(top, #249CD5, #1D89CD);
 	background-image: linear-gradient(to bottom, #249CD5 , #1D89CD);*/
 	border-color: #249CD5 transparent #358CC9 transparent;
+}
+#afui.ibos > #header .button,
+#afui.ibos > #header .button.pressed,
+#afui.ibos > #header .button:active{
+	-webkit-box-shadow: none;
+	box-shadow: none;
 }
 
 /* Navbar */
@@ -152,86 +207,40 @@ textarea::-webkit-input-placeholder {
 
 /* Button */
 #afui.ibos .button{
+	-webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, .1);
+	-moz-box-shadow: 0 1px 2px rgba(0, 0, 0, .1);
+	box-shadow: 0 1px 2px rgba(0, 0, 0, .1);
 	border-radius: 4px;
 	font-weight: 400;
+	background-color: #F7F9FA;
+	border-color: #DADADA;
+	color: #5A5A5E;
 }
-#afui.ibos .button.large{
-	font-size: 18px;
-	padding: 10px;
-}
+#afui.ibos .button.large{ padding: 10px 20px; font-size: 16px; line-height: 22px; }
+#afui.ibos .button.small{ padding: 3px 6px; font-size: 12px; }
+
 #afui.ibos .button.orange,
 #afui.ibos .button.red,
 #afui.ibos .button.blue{
-	border: 0 none;
-	box-shadow: 0 2px 2px rgba(0, 0, 0, .2), 0 1px 1px rgba(255, 255, 255, .2) inset;
+	box-shadow: 0 1px 2px rgba(0, 0, 0, .2), 0 1px 1px rgba(255, 255, 255, .2) inset;
+	color: #FFF;
 	text-shadow: 0 1px 1px rgba(0, 0, 0, .5);
 }
-#afui.ibos .button.orange.pressed,
-#afui.ibos .button.orange:active,
-#afui.ibos .button.red.pressed,
-#afui.ibos .button.red:active,
-#afui.ibos .button.blue.pressed,
-#afui.ibos .button.blue:active{
-	box-shadow: 0 1px 1px rgba(0, 0, 0, .5) inset;
-}
+#afui.ibos .button.pressed,
+#afui.ibos .button:active{ box-shadow: 0 1px 1px rgba(0, 0, 0, .2) inset; }
 
-
-#afui.ibos .button.orange{
-	background-color: #EE8C0C;
-/*	background-image: -ms-linear-gradient(top, #EE8C0C, #EB750A);
-	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #EE8C0C), color-stop(1, #EB750A));
-	background-image: -webkit-linear-gradient(top, #EE8C0C, #EB750A);
-	background-image: linear-gradient(to bottom, #EE8C0C, #EB750A);*/
-}
+#afui.ibos .button.orange{ background-color: #EE8C0C; border-color: #EE8C0C; }
 #afui.ibos .button.orange.pressed,
-#afui.ibos .button.orange:active{
-	background-color: #EB750A;
-/*	background-image: -ms-linear-gradient(top, #EB750A, #EC800B);
-	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #EB750A), color-stop(1, #EC800B));
-	background-image: -webkit-linear-gradient(top, #EB750A, #EC800B);
-	background-image: linear-gradient(to bottom, #EB750A, #EC800B);*/
-}
-#afui.ibos .button.red{
-	background-color: #DC4040;
-/*
-	background-image: -ms-linear-gradient(top, #DC4040, #DF4848);
-	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #DC4040), color-stop(1, #DF4848));
-	background-image: -webkit-linear-gradient(top, #DC4040, #DF4848);
-	background-image: linear-gradient(to bottom, #DC4040, #DF4848);
-*/
-}
+#afui.ibos .button.orange:active{ background-color: #EB750A; border-color: #EB750A; }
+#afui.ibos .button.red{ background-color: #DC4040; border-color: #DC4040; }
 #afui.ibos .button.red.pressed,
-#afui.ibos .button.red:active{
-	background-color: #E25050;
-/*
-	background-image: -ms-linear-gradient(top, #E25050, #DC4040);
-	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #E25050), color-stop(1, #DC4040));
-	background-image: -webkit-linear-gradient(top, #E25050, #DC4040);
-	background-image: linear-gradient(to bottom, #E25050, #DC4040);
-*/
-}
-#afui.ibos .button.blue{
-	background-color: #3497DB;
-/*
-	background-image: -ms-linear-gradient(top, #3497DB, #2A82D4);
-	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #3497DB), color-stop(1, #2A82D4));
-	background-image: -webkit-linear-gradient(top, #3497DB, #2A82D4);
-	background-image: linear-gradient(to bottom, #3497DB, #2A82D4);
-*/
-	color: #FFF;
-}
+#afui.ibos .button.red:active{ background-color: #E25050; }
+#afui.ibos .button.blue{ background-color: #3497DB; border-color: #3497DB; color: #FFF; }
 #afui.ibos .button.blue.pressed
-#afui.ibos .button.blue:active{
-	background-color: #2A82D4;
-/*	background-image: -ms-linear-gradient(top, #2A82D4, #2F8CD7);
-	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #2A82D4), color-stop(1, #2F8CD7));
-	background-image: -webkit-linear-gradient(top, #2A82D4, #2F8CD7);
-	background-image: linear-gradient(to bottom, #2A82D4, #2F8CD7);*/
-}
+#afui.ibos .button.blue:active{ background-color: #2A82D4; }
+
 .button.next::after,
-.button.previous::after{
-	background-image: inherit;
-}
+.button.previous::after{ background-image: inherit; }
 #afui.ibos .button.primary{
 	/*padding-left: 50px;
 	padding-right: 50px;*/
@@ -247,36 +256,9 @@ textarea::-webkit-input-placeholder {
 
 #afui.ibos .button.button-block{ width: 100%; }
 
-#afui.ibos .tabletMenu .button{
-	width: 96%;
-	margin-left: 2%;
-}
+#afui.ibos .tabletMenu .button{ width: 96%; margin-left: 2%; }
 
-#afui.ibos .label{
-	-webkit-border-radius: 4px;
-	border-radius: 4px;
-	background-color: #F8F8F8;
-	border: 1px solid #B2C0D1;
-	padding: 3px 10px;
-	color: #B2C0D1;
-	font-size: 14px;
-	text-decoration: none;
-}
-#afui.ibos .label:hover{
-	background-color: #FFF;
-}
-#afui.ibos .label.green,
-#afui.ibos .label.red{
-	color: #FFF;
-}
-#afui.ibos .label.green{
-	background-color: #DBE6CA;
-	border-color: #C3CCB4;
-}
-#afui.ibos .label.red{
-	background-color: #F5D7D7;
-	border-color: #CCB1B1;
-}
+
 
 /* Switch */
 #afui.ibos input.toggle+label {
@@ -346,7 +328,13 @@ textarea::-webkit-input-placeholder {
 	border: 0 none;
 }
 
-#afui.ibos input[type="radio"]:checked+label:after{
+#afui.ibos input[type="radio"]+label, input[type="checkbox"]+label{
+	padding: 0;
+}
+#afui.ibos input[type="radio"]:not(.toggle)+label:before{
+	top: 0;
+}
+#afui.ibos input[type="radio"]:not(.toggle):checked+label:after{
 	-webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, .2);
 	box-shadow: 0 1px 1px rgba(0, 0, 0, .2);
 	-webkit-border-radius: 5px;
@@ -354,26 +342,28 @@ textarea::-webkit-input-placeholder {
 	content: "";
 	position: absolute;
 	left: 0;
-	top: 14px;
+	top: 6px;
 	margin-left: -24px;
 	width: 9px;
 	height: 9px;
 	border: 1px solid #3497DB;
 	background: #49A3D7;
 }
-#afui.ibos .radio-group,
-#afui.ibos .checkbox-group{
-	padding-top: 4px;
-	padding-bottom: 12px;
-}
 
 #afui.ibos .radio-group input[type="radio"]+label, 
-/*#afui.ibos .radio-group input[type="checkbox"]+label,*/
-/*#afui.ibos .checkbox-group input[type="radio"]+label, */
 #afui.ibos .checkbox-group input[type="checkbox"]+label{
 	float: none;
 	margin-left: 30px;
+	width: auto;
+	display: block;
 }
+#afui.ibos .radio-group .oper, 
+#afui.ibos .checkbox-group .oper{
+	position: absolute;
+	right: 10px;
+	z-index: 2;	
+}
+
 
 #afui.ibos input[type="radio"]:not(.toggle)+label:before{
 	margin-left: -30px;
@@ -504,24 +494,28 @@ textarea::-webkit-input-placeholder {
 	color: #BBBDC9;
 }
 
-/* Inset List */
+/* List */
 #afui.ibos .list > li{
 	border-color: #DFDFDF;
-	overflow: hidden;
+	/*overflow: hidden;*/
 	padding: 11px 20px 11px 10px;
 	line-height: 22px;
 }
+#afui.ibos .list > li .posar{ top: 11px; }
 #afui.ibos .tabletMenu .list > li{ border-color: #383C41; }
 #afui.ibos .list > li > a{
 	color: #383C41;
-	padding: 11px 10px;
+	padding: 11px 30px 11px 10px;
 	margin: -11px -20px -11px -10px;
+	background: url(../../images/cm/vright.png) no-repeat right center;
+	-webkit-background-size: 22px;
+	background-size: 22px;
 }
+#afui.ibos .list > li.chevron{ background: url(../../images/cm/vright.png) no-repeat right center; }
 
-#afui.ibos .list > li > a > b{
-	color: #bbbdc9;
-	padding-right: 20px;
-}
+/* 去掉 “>” */
+#afui.ibos .list > li > a.nochevron{ background: none; }
+#afui.ibos .list > li > a > b{ color: #bbbdc9; padding-right: 20px; }
 
 #afui.ibos .list .divider{ 
 	-webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, .03);
@@ -531,12 +525,11 @@ textarea::-webkit-input-placeholder {
 	color: #82939E;
 }
 #afui.ibos .list > li > time {
-	margin-right: -12px;
 	float: right;
-	font-size: 12px;
-	font-weight: 700;
-	/*color: #BBBDC9;*/
+	position: relative;
+	z-index: 2;
 	color: #B2C0D1;
+	font-size: 12px;
 }
 #afui.ibos .list .avatar{
 	float: left;
@@ -544,11 +537,11 @@ textarea::-webkit-input-placeholder {
 	position:relative;
 }
 
-#afui.ibos .list > li > a > span {
+/*#afui.ibos .list > li > a > span {
 	display: block;
-	color: #bbbdc9;
-	font-weight: normal;
-}
+	color: #B2C0D1;
+	font-weight: 400;
+}*/
 #afui.ibos .list > li p { margin:0; }
 #afui.ibos .list > li.new:before{
 	content:"●";
@@ -560,15 +553,8 @@ textarea::-webkit-input-placeholder {
 	color: #EE8C0C;
 	text-shadow: 0 1px 1px #BBBDC9;
 }
-/* Debug: 先不显示; */
-#afui.ibos .list > li > a:after{
-	display: block; 
-	font-family: 'Simsun';
-	color: #BBBDC9;
-	text-shadow: 0 1px 0 #BBBDC9;
-	top: auto;
-	bottom: 1em;
-}
+#afui.ibos .list > li.new > a{ color: #3497DB; }
+
 #afui.ibos .list > li .negflr{ float: right; margin-right: -10px; }
 
 #afui.ibos .list-active > li > a.pressed,
@@ -585,14 +571,11 @@ textarea::-webkit-input-placeholder {
 }
 
 /* 加载更多 */
-#afui.ibos .list.multi li.list-more { padding-left: 20px; }
-#afui.ibos .list .list-more a{ text-align: center; }
-#afui.ibos .list .list-more a:after,
+#afui.ibos .list .list-more a{ padding-right: 10px; background: none; color: #BBBDC9;text-align: center; font-weight: 400; }
+#afui.ibos .list.multi .list-more a{ padding-left: 20px; }
 
-/* 去掉 “>” */
-#afui.ibos .list li > a.nochevron:after{ display: none; }
 
-.titlebar { padding: 11px 10px; background-color: #F8F9FA; color: #82939E; border-top: 1px solid #DFDFDF; line-height: 22px;}
+.titlebar { padding: 11px 10px; border-top: 1px solid #DFDFDF; background-color: #F8F9FA; color: #82939E; line-height: 22px;}
 
 .counter-list { counter-reset: listcount; }
 .counter-item:before { 
@@ -613,12 +596,12 @@ textarea::-webkit-input-placeholder {
 	text-align: center;
 }
 #afui.ibos .vlist > li{
+	padding-top:5px;
 	border-color: #DFDFDF;
+	border-top: 1px solid #ddd;
+	border-left: 1px solid #ddd;
 	list-style: none;
 	-webkit-box-flex: 1;
-	border-left: 1px solid #ddd;
-	border-top: 1px solid #ddd;
-	padding-top:5px;
 }
 #afui.ibos .vlist > li > a{
 	color: #383C41;
@@ -629,20 +612,15 @@ textarea::-webkit-input-placeholder {
 
 
 /* Form */
-#afui.ibos .control-group{
-	overflow: hidden;
-}
+#afui.ibos .control-group{ overflow: hidden; }
 #afui.ibos .control-group label{
-	padding: 12px 0;
+	padding: 11px 0;
 	width: 80px;
 	color: #BBBDC9;
 	text-indent: 10px;
 	text-align: left;
 }
-#afui.ibos .control-group .controls{
-	margin-left: 80px;
-	line-height: 44px;
-}
+#afui.ibos .control-group .controls{ margin-left: 80px; line-height: 44px; }
 #afui.ibos .control-group .controls input{
 	border: 0 none;
 	background: transparent;
@@ -650,9 +628,11 @@ textarea::-webkit-input-placeholder {
 	margin-bottom: 0;
 	height: 44px;
 }
-#afui.ibos li.control-group{
-	padding: 1px 0;
-}
+#afui.ibos li.control-group{ padding: 1px 0; }
+
+#afui.ibos .list > li > .control-group{ margin: -11px -20px -11px -10px; }
+#afui.ibos .list > li > .control-group > label{ }
+
 
 /* Search Bar */
 #afui.ibos input[type="search"]{
@@ -660,9 +640,7 @@ textarea::-webkit-input-placeholder {
 	box-shadow: inset 0 1px 0 rgba(0, 0, 0, .1), 0 1px 0 #6F6F75;
 	-webkit-border-radius: 4px;
 	border-radius: 4px;
-	/*margin: 0 -10px;*/
 	padding-left: 28px;
-	/*padding-left: 2em;*/
 	height: 30px;
 	border: 1px solid #383C41;
 	background: #4E5054 url(../../images/search.png) no-repeat 7px center;
@@ -677,13 +655,16 @@ textarea::-webkit-input-placeholder {
 	box-shadow: inset -1px 0 2px rgba(0, 0, 0, .5);
 	background-color: #58585C;
 }
+#afui.ibos > #menu .list { margin-bottom: 0; }
+#afui.ibos > #menu .list + .list li:first-child{ border-top: 0 none; }
+
 #afui.ibos > #menu .list li{
 	-webkit-box-shadow: inset 0 1px 0px rgba(255, 255, 255, .2), inset 0 -1px 0 #383C41;
 	box-shadow: inset 0 1px 0px rgba(255, 255, 255, .2), inset 0 -1px 0 #383C41;
 	border-bottom: 0 none;
 	color: #FFF;
 }
-#afui.ibos > #menu .list li > a{ color: #FFF; }
+#afui.ibos > #menu .list li > a{ color: #FFF; background: none; }
 
 #afui.ibos > #menu .list-active li > a:active,
 #afui.ibos > #menu .list-active li > a.pressed{
@@ -694,8 +675,6 @@ textarea::-webkit-input-placeholder {
 
 #afui.ibos > #menu .list .divider{
 	background-color: #4A4E53;
-	background-image: -ms-linear-gradient(top, #4A4E53, #3C4044);
-	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #4A4E53), color-stop(1, #3C4044));
 	background-image: -webkit-linear-gradient(top, #4A4E53, #3C4044);
 	background-image: linear-gradient(to bottom, #4A4E53, #3C4044);	
 	-webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, .15);
@@ -707,15 +686,15 @@ textarea::-webkit-input-placeholder {
 }
 
 #afui.ibos > #menu .list li > .af-badge{
-	-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .2);
-	box-shadow: inset 0 1px 1px rgba(0, 0, 0, .2);
 	top: 10px;
 	right: 10px;
 	padding: 0 15px;
 	border: 0 none;
 	background-color: #EE8C0C;
-	text-shadow: 0 1px 1px rgba(0, 0, 0, .2);
+	-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .2);
+	box-shadow: inset 0 1px 1px rgba(0, 0, 0, .2);
 	color: #fdf0de;
+	text-shadow: 0 1px 1px rgba(0, 0, 0, .2);
 	line-height: 20px;
 }
 #afui.ibos .m-list li{
@@ -804,7 +783,7 @@ textarea::-webkit-input-placeholder {
 }
 
 /* 条目详细查看页 Use: Mail, Article*/
-#afui.ibos .view{}
+#afui.ibos .view{ background-color: #FFF; }
 /* Detail */
 /* Content summary */
 #afui.ibos .view-title{
@@ -831,7 +810,7 @@ textarea::-webkit-input-placeholder {
 
 #afui.ibos .view-content{ padding: 10px 15px; }
 #afui.ibos .view-content img{ width: auto; max-width: 100% !important; height: auto !important;}
-#afui.ibos .view-content table{width: 100% !important; }
+
 /* Backbutton */
 #afui.ibos #backButton{
 	position: absolute;
@@ -949,11 +928,13 @@ li .icon:before {
 /* phonebook */ 
 #afui.ibos .phonebookPanel{
 	margin: 0 -10px; line-height: 40px;
-	background-color: #a98060;
+	background: url(../../images/setting/nobg_small.jpg) #CCE2F7;
+	background-size: 100%;
 }
 #afui.ibos .headBg{
 	max-width: 100%;
 	min-height: 90px;
+	max-height: 120px;	
 }
 #afui.ibos .phonebookHead{
  margin-top: -60px; position: relative
@@ -971,23 +952,7 @@ li .icon:before {
 }
 #afui.ibos .phonebookPanel .text{ padding-left: 115px; height: 40px; }
 
-/* Attach */
-#afui.ibos .attach-icon,
-#afui.ibos .attach-body,
-#afui.ibos .attach-operate{
-	display: inline-block;
-	vertical-align: top;
-}
-#afui.ibos .attach-icon{
-	width: 48px;
-	height: 48px;
-	margin-right: 5px;
-}
-#afui.ibos .attach-operate{ float: right;}
-#afui.ibos .attach-btn{
-	padding: 11px;
-	display: inline-block;
-}
+
 
 
 /* key-value list  */
@@ -995,46 +960,8 @@ li .icon:before {
 #afui.ibos .kvlist dt{ float: left;}
 
 
-#afui.ibos .control-group .controls .user-selector-list { margin-top: 10px; }
-
-
-#afui.ibos .no-info{
-	background: url(../../images/no-info.png) center center no-repeat;
-	min-height: 300px;
-	width: 100%;
-}
-
-/* 左图右字 */
-.media{}
-.media-costar{ float: left; margin-right: 10px;}
-.media-body{ overflow: hidden; }
-
-/* 简要信息，一般包含标题、简介、及时间 */
-#afui.ibos .brief h4,
-#afui.ibos .brief .title{ font-size: 16px; }
-#afui.ibos .brief .content{ font-weight: 400; color: #58585C; }
-#afui.ibos .brief .time{ font-size: 12px; font-weight: 700; color: #B2C0D1; }
-
-/* 无边框的输入框 */
-.trans-input{
-	border: 0 none !important;
-	background: transparent !important;
-}
 #afui.ibos .list > li > .trans-input{ padding: 0; }
 
-/* 头部提醒条 */
-.noti{
-	padding: 12px 10px;
-	background-color: #FFFDFA;
-	line-height: 20px;
-	font-size: 16px;
-	color: #EE8C0C;
-}
-/**/
-.direction-bar{ display: -webkit-box;}
-.direction-bar a{ -webkit-box-flex: 1; box-flex: 1; display: block; height: 44px; }
-.diary-comment-date .direction-bar{
-	position: absolute;
-	width: 100%;
-}
-
+/* popup */
+#afui.ibos .afPopup,
+.ui-loader{ -webkit-border-radius: 4px; border-radius: 4px; }

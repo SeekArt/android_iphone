@@ -3,13 +3,35 @@
  * 将用于放置核心函数
  */
 
+$.ui.isAjaxApp = true;
+$.ui.loadingText = "读取中..."
+
 // 全局命名空间
 var core = {
+	util: {
+		addValue: function(input, val){
+			var $input = $(input),
+				source = $input.val();
+			$input.val(source !== "" ? (source + "," + val) : val);
+		},
+		removeValue: function(input, val){
+			// @Todo: 改为使用正则
+			var $input = $(input),
+				source = $(input).val(),
+				strArr = (source + "").split(","),
+				index = strArr.indexOf(val);
+			
+			if(index !== -1) {
+				strArr.splice(index, 1);
+			}
+			$input.val(strArr.join(","));
+		}
+	},
+	str: {},
 	/* 判断对象是否为$.afm对象且不为空 */
 	isset: function($elem){
 		return $.is$($elem) && $elem.length;
 	},
-
 
 	// Date
 	/*------ funcion -------*/
@@ -56,7 +78,7 @@ var core = {
 				datetime = Y + "-" + M + "-" + D + " " + h + ":" + m + ":" + s;
 				break;
 			case "cn":
-				datetime = Y + "年" + M + "月" + D ;
+				datetime = Y + "年" + M + "月" + D + "日";
 				break;
 			case "cnday":
 				datetime = Y + "年" + M + "月" + D + "日 星期" + ("日一二三四五六".charAt(W));
@@ -149,36 +171,8 @@ var core = {
 		}, false);
 	},
 
-	error: function(err){ console && console.log(err) }
+	error: function(err){ console && console.error("Error: " + err) }
 }
-
-var ui = {
-	switchOptionPanel: function(h){
-		var defHeight = "49px",
-			time = "100ms",
-			$navbar = $("#navbar");
-		h = h || "124px";
-		
-		if(this._optionPanelOpen){
-			$navbar.removeClass("open");
-			$navbar.css3Animate({
-				time: time,
-				height: defHeight
-			});
-			this._optionPanelOpen = false;
-		} else{
-			$navbar.css3Animate({
-				time: time,
-				height: h,
-				callback: function () {
-					$navbar.addClass("open")
-				}
-			});
-			this._optionPanelOpen = true;
-		}
-	}
-}
-
 
 /// 用于创建列表结构
 var List = function(id, tpl, options){
@@ -398,6 +392,8 @@ var app = (function(){
 		}
 		return results.join(",");
 	}
+
+
 	return {
 		isInit:		isInit,
 		defaultUrl:	defaultUrl,
@@ -415,12 +411,326 @@ var app = (function(){
 	}
 })();
 
+//
+(function(app){
+	var _params = {};
+	app.param = {
+		get: function(key){
+			return key == null ? _params : _params[key];
+		},
+		set: function(key, value){
+			return _params[key] = value;
+		},
+		remove: function(key){
+			delete _params[key];
+		}
+	}
+
+})(app);
+
+(function(){
+	var _evts = {}
+
+	$(document).on("click", "[data-evt]", function(){
+		var evtName = $(this).attr("data-evt"),
+			param = JSON.parse($(this).attr("data-param"));
+
+		if(evtName && _evts[evtName]) {
+			_evts[evtName].call(this, param, this);
+		}
+	})
+
+
+	app.evt = {
+		add: function(name, func){
+			if(typeof name === "string") {
+				_evts[name] = func;
+			} else {
+				$.extend(_evts, name)
+			}
+		},
+		remove: function(name){
+			var names = ((name || "").toString()).split(" ");
+			for(var i = 0; i < names.length; i++) {
+				_evts[name[i]] = null;
+				delete _evts[name[i]];
+			}
+		},
+		fire: function(name, param, elem) {
+			return _evts[name] && _evts[name].call(null, param, elem);
+		},
+		all: function(){ console.log(_evts); return _evts; }
+	}
+})();
+
+// 打开人员选择器
+app.openSelector = function(settings){
+	var panelId = "selector",
+		containerId = "user_selector",
+		defData;
+
+	settings = settings || {};
+	defData = settings.data || app.getUserData()
+	settings.onCancel = settings.onCancel || function(){
+		$.ui.goBack();
+	};
+
+	$(document).one("loadpanel", function(){
+		// 设置标题
+		if(settings.title) {
+			$.ui.setTitle(settings.title);
+		}
+		$LAB.script("js/userselect.js", "js/letter.js")
+		.wait(function(){
+			var ulIns = new UserList(containerId, defData, settings);
+
+			// 初始化字母索引功能
+			var letterIns = new Letter({ prefix: containerId + "_" });
+			$.query("#" + panelId).one("unloadpanel", function(){
+				letterIns.destory();
+				letterIns = null
+			})
+
+			if(settings.onSelect) {
+				$("#" + containerId).on("userselect", function(){
+					settings.onSelect.apply(this, arguments)
+				})
+			}
+
+			// 因为切页有动画过渡，需要延时绑定事件
+			setTimeout(function(){
+
+				// @Todo: 可能需要定义回调的参数
+				$.ui.prevHeader.find(".ao-cancel")
+				.off("click.cancelSelector")
+				.on("click.cancelSelector", settings.onCancel);
+				
+
+				if(settings.onSave) {
+					$.ui.prevHeader.find(".ao-ok").show()
+					.off("click.saveSelector")
+					.on("click.saveSelector", function(evt){
+						settings.onSave(evt, { values:  ulIns.get() })
+					})
+				} else {
+					$.ui.prevHeader.find(".ao-ok").hide();
+				}
+			}, 300)
+		});
+	});
+	// cube, default, down, fade, flip, none, pop, slide, up
+	$.ui.loadContent("view/selector/selector.html", 0, 0, "pop");
+};
+
+// 打开通用通讯录
+app.openPhonebook = function(){
+	app.openSelector({
+		tpl: "<dd id='item_<%=uid%>' data-id='<%=uid%>'><img width='30' height='30' style='vertical-align: middle' src='<%=app.defaultUrl%>/<%=avatar_small%>'> <%=realname%></dd>",
+		maxSelect: 1,
+		onSelect: function(evt, data) {
+			app.param.set("phonebookUid", data.id);
+			$.ui.loadContent("view/phonebook/phonebook_view.html", 0, 0);
+		}
+	})
+}
+
+app.goHome = function(){
+	if($.ui.history.length){
+		for(var i = 0; i < $.ui.history.length; i++) {
+			if($.ui.history[i].target === "#main") {
+				$.ui.goBack($.ui.history.length - i);
+				break;
+			}
+		}
+	} else {
+		$.ui.loadContent("#main", 0, 1, "pop");
+	}
+	$.ui.hideMask();
+}
+
+app.ui = {
+	alert: function(msg, cancel){
+		$.ui.popup({
+			id: "popup_alert",
+		    suppressTitle: true,
+		    message: msg,
+		    cancelText: "确定",
+		    cancelCallback: cancel,
+		    cancelOnly: true
+		});
+	},
+	confirm: function(msg, done, cancel){
+		$.ui.popup({
+			id: "popup_confirm",
+		    suppressTitle: true,
+		    message: msg,
+		    cancelText: "取消",
+		    cancelCallback: cancel,
+		    doneText: "确定",
+		    doneCallback: done,
+		    cancelOnly:false
+		});
+	},
+	prompt: function(msg, done, cancel){
+		var tpl = '<p>' + (msg||"") + '</p><input type="text"/>'
+
+		$.ui.popup({
+			id: "popup_prompt",
+		    suppressTitle: true,
+		    message: tpl,
+		    cancelText: "取消",
+		    cancelCallback: cancel,
+		    doneText: "确定",
+		    doneCallback: function(popup){
+		    	var val = $.query("#popup_prompt input[type='text']").val();
+		    	done && done.call(null, val, popup);
+		    },
+		    cancelOnly:false
+		});
+	},
+	fadeRemove: function(elem, time){
+		elem = $(elem);
+		time = time || 200;
+		elem.css3Animate({
+			opacity: 0,
+			time: time,
+			success: function(){
+				elem.remove();
+			}
+		})
+	},
+	scrollTo: function(elem, time, fix){
+		var panelId = $.ui.activeDiv.id,
+			scorller = $.ui.scrollingDivs[panelId];
+		if(!scorller) {
+			return false;
+		}
+		time = time || 0;
+		fix = fix || {};
+
+		if (!$.is$(elem)) elem = $(elem);
+        var newTop,itemPos,panelTop,itemTop;
+        itemTop = elem.offset().top;
+        newTop = itemTop - document.documentElement.scrollTop;
+        panelTop = scorller.afEl.offset().top;
+        if (document.documentElement.scrollTop < panelTop) {
+            newTop -= panelTop;
+        }
+        newTop -= 4; //add a small space
+		
+		scorller.scrollBy({
+            y: newTop + (fix.y || 0),
+            x: 0 + (fix.x || 0)
+        }, time);
+	}
+};
+// Tip;
+(function(){
+	var Tip = function(options){
+		this.options = $.extend({
+			msg: ""
+		}, options)
+	}
+	Tip.prototype.show = function(){
+		var tip = $.query("#ibos_tip");
+		if(!tip.length){
+			var tpl = '<div id="ibos_tip" class="tip">' + this.options.msg + '</div>';
+			$.query("#afui").append(tpl);
+		} else {
+			tip.html(this.options.msg);
+		}
+		this.position();
+	}
+	Tip.prototype.hide = function(){
+		var tip = $.query("#ibos_tip");
+		tip.remove();
+	}
+	Tip.prototype.position = function(){
+		var tip = $.query("#ibos_tip");
+		tip.css("top", window.pageYOffset + $.ui.header.offsetHeight + 10);
+		tip.css("left", (window.innerWidth / 2) - (tip[0].clientWidth / 2) + "px");
+		tip.css("opacity", "1");
+	}
+
+	var hideTimer;
+	app.ui.tip = function(msg) {
+		var tip  = new Tip({ msg: msg });
+		clearTimeout(hideTimer);
+		tip.show();
+		hideTimer = setTimeout(function(){
+			tip.hide();
+		}, 2000)
+	}
+})();
+
+var MainList = function(list, options){
+	this.list = list;
+	this.options = options || {};
+
+	this.currentCatid = this.options.catid || 0;
+	this.currentPage = this.options.page || 1;
+	this.options.url = this.options.url || app.appUrl;
+}
+MainList.prototype.load = function(param, callback){
+	var _this = this;
+	param = param || {}
+	if(param.catid == null) {
+		param.catid = this.currentCatid;
+	}
+	if(param.page == null){
+		if(param.catid === this.currentCatid) {
+			param.page = this.currentPage
+		} else {
+			param.page = this.options.page || 1;
+		}
+	}
+
+	$.ui.showMask();
+
+	$.jsonP({
+		url:       _this.options.url + "&callback=?&" + $.param(param),
+		success:   function(res){
+			_this.currentCatid = param.catid;
+			_this.currentPage = param.page;
+			_this.show(res);
+			callback && callback(res);
+			$.ui.hideMask();
+		},
+		error:     core.error
+	})
+}
+
+MainList.prototype.show = function(res) {
+	var _this = this;
+	// 如果是第一页之后的内容，则添加至列表底部
+	if(this.currentPage > 1) {
+		this.list.add(res.datas);
+	// 否则重绘列表
+	} else {
+		this.list.set(res.datas);
+	}
+	// 页数大于当前页码时，显示加载更多
+	if(this.$loadMore) {
+		this.$loadMore.remove();
+		this.$loadMore = null;
+	}
+	if(res.pages.pageCount > this.currentPage) {
+		this.$loadMore = $('<li class="list-more"><a href="javascript:;">加载更多</a></li>');
+		this.$loadMore.on("click", function(){
+			_this.load({ page: _this.currentPage + 1 });
+		});
+		this.list.$list.append(this.$loadMore);
+	}
+};
+
 
 // 一些全局初始化事件
 
 $(document).ready(function(){
 	var $doc = app.$doc = $(this),
 		$body = app.$body = $("body");
+
+	var $fixedDivs;
 
 	// 文本框自动高度
 	$doc.on("focusin input", "[data-auto-height]", function(){
@@ -429,11 +739,38 @@ $(document).ready(function(){
 
 	// 侧栏菜单的处理，在加载panel时, 如果panel上有 data-nav="none" 值，则禁止菜单，否则开启菜单
 	$doc.on("loadpanel", function(evt){
-		if(evt.target.getAttribute('data-nav') === "none") {
-			$.ui.disableSideMenu();
-		} else {
+		var navId = evt.target.getAttribute('data-nav');
+		if(navId && navId !== "none") {
 			$.ui.enableSideMenu()
+		} else {
+			$.ui.disableSideMenu();
+		}
+		// 固定定位, 将页面内有指定节点抽离出来;
+		$fixedDivs = $.query('[data-node="fixedElem"]', evt.target);
+		if($fixedDivs.length) {
+			$fixedDivs.each(function(index, elem){
+				var $elem = $(elem);
+				$elem.attr("prevElem", elem.previousSibling);
+				$elem.appendTo($.query("#afui"));
+			})
 		}
 	})
-})
+	.on("unloadpanel", function(evt){
+		// 还原因固定定位抽离出来的节点
+		if($fixedDivs.length) {
+			$fixedDivs.each(function(index, elem){
+				var $elem = $(elem),
+					prevElem = $elem.attr("prevElem");
+
+				if(prevElem) {
+					$elem.insertAfter(prevElem);
+				} else {
+					$elem.remove();
+				}
+				$elem.removeAttr("prevElem");
+			})
+			$fixedDivs = null;
+		}
+	});
+});
 
