@@ -20,7 +20,7 @@
    	<preference name="webviewbounce" value="false" />
 
 	<icon src="icon.png" />
-    <icon src="res/icon/ios/icon-57-2x.png" gap:role="default" /> <!-- 注释：应用Logo，显示在移动终端桌面上和应用名称一起 -->
+    <icon src="icon-57-2x.png" gap:role="default" /> <!-- 注释：应用Logo，显示在移动终端桌面上和应用名称一起 -->
 	<gap:splash src="splash" />
 	<gap:splash src="res/screen/ios/screen-iphone-portrait.png" gap:platform="ios" width="320" height="480" />
 	<gap:splash src="res/screen/ios/screen-iphone-portrait-2x.png" gap:platform="ios" width="640" height="960" />
@@ -62,15 +62,15 @@
 	<gap:plugin name="org.apache.cordova.media" />
 <!-- 	<gap:plugin name="org.apache.cordova.dialogs" /> -->
 
-	<gap:plugin name="org.apache.cordova.splashscreen" />
+	<gap:plugin name="org.apache.cordova.splashscreen" /> <!-- 注释：引导闪屏-->
 	<!-- preference name="splashscreen" value="foo" /-->
 
-	<gap:plugin name="com.phonegap.plugins.barcodescanner" />
-	<gap:plugin name="com.phonegap.plugins.pushplugin" />
-	<gap:plugin name="ihome.cordova.plugin.local-notification" />
-	<gap:plugin name="com.phonegap.plugin.statusbar" />
-	<gap:plugin name="com.teamnemitoff.phonedialer" />
-	<gap:plugin name="nl.x-services.plugins.calendar" />
+	<gap:plugin name="com.phonegap.plugins.barcodescanner" /> <!-- 注释：二维码扫描-->
+	<gap:plugin name="com.phonegap.plugins.pushplugin" /> <!-- 注释：推送插件-->
+	<gap:plugin name="ihome.cordova.plugin.local-notification" /> <!-- 注释：本地消息插件-->
+	<gap:plugin name="com.phonegap.plugin.statusbar" /> <!-- 注释：顶部状态栏-->
+	<gap:plugin name="com.teamnemitoff.phonedialer" /> <!-- 注释：电话拨号-->
+	<gap:plugin name="nl.x-services.plugins.calendar" /> <!-- 注释：日历-->
 	
 	<access origin="*" />
 </widget>
