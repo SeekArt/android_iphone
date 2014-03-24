@@ -1,15 +1,16 @@
+<div id="diary_comment_list" class="panel" data-title="评阅日志" data-footer="none" data-nav="menu_diary">
 <header>
 	<a onclick='af.ui.toggleSideMenu()' class='button ao-menu'></a>
 	<h1>日志评阅</h1>
 	<a onclick='app.goHome()' class='button ao-home'></a>
 </header>
 <div id="reviewList">
-
 </div>
 <textarea class="hide" id="reviewTpl">
 <div class="diary-comment-date">
 	<div class="direction-bar">
 		<a href="javascript:diary.loadReview('<%=prevAndNextDate.prev%>')"></a>
+		<input type="date" value="<%=dateWeekDay.year%>-<%=dateWeekDay.month%>-<%=dateWeekDay.day%>" style="opacity: 0.01" onblur="diary.loadReview(this.value)" />
 		<a href="javascript:diary.loadReview('<%=prevAndNextDate.next%>');"></a>
 	</div>
 	<div class="noti xac">
@@ -35,3 +36,4 @@
 <%}%>
 </ul>
 </textarea>
+</div>

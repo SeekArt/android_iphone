@@ -54,11 +54,12 @@ a { color: #383C41; text-decoration: none; }
 .media{}
 .media-costar{ float: left; margin-right: 10px;}
 .media-body{ overflow: hidden; }
+.media:after{ content: " "; display: block; overflow: hidden; clear: both; height: 0;}
 
 /* 列表项简要信息，一般包含标题、简介、及时间 */
 .list .time{ color: #B2C0D1; font-size: 12px;}
 .list .title { font-size: 16px; font-weight: 400;}
-.list .content { color: #B2C0D1; }
+.list .content { color: #B2C0D1; max-height: 44px; overflow: hidden; }
 
 .list .briefh .time{ float: right;}
 
@@ -214,7 +215,8 @@ a { color: #383C41; text-decoration: none; }
 	font-weight: 400;
 	background-color: #F7F9FA;
 	border-color: #DADADA;
-	color: #5A5A5E;
+	/*color: #5A5A5E;*/
+	color: #82939E;
 }
 #afui.ibos .button.large{ padding: 10px 20px; font-size: 16px; line-height: 22px; }
 #afui.ibos .button.small{ padding: 3px 6px; font-size: 12px; }
@@ -401,23 +403,8 @@ a { color: #383C41; text-decoration: none; }
 	top: auto;
 	right:0.5em;
 }
+#afui.ibos #navbar .af-badge{ top: 0; }
 
-/* Avatar */
-#afui.ibos .avatar{
-	width: 36px;
-	height: 36px;
-}
-#afui.ibos .avatar img{
-	width: 105%;
-	height: auto;
-	margin-top: -1px;
-	margin-left:-1px;
-}
-#afui.ibos .avatar img{
-	-webkit-border-radius: 4px;
-	border-radius: 4px;
-	
-}
 
 /* Box */
 #afui.ibos .box { padding: 10px; background-color: #FFF;}
@@ -495,7 +482,10 @@ a { color: #383C41; text-decoration: none; }
 }
 
 /* List */
+
+#afui.ibos .list { -webkit-transform: translate3d(0, 0, 0);/* 用于修复在webkit下内容过长时会模糊的bug */ }
 #afui.ibos .list > li{
+	-webkit-transform: translate3d(0, 0, 0);/* 用于修复在webkit下内容过长时会模糊的bug */
 	border-color: #DFDFDF;
 	/*overflow: hidden;*/
 	padding: 11px 20px 11px 10px;
@@ -507,7 +497,7 @@ a { color: #383C41; text-decoration: none; }
 	color: #383C41;
 	padding: 11px 30px 11px 10px;
 	margin: -11px -20px -11px -10px;
-	background: url(../../images/cm/vright.png) no-repeat right center;
+	background: #FFF url(../../images/cm/vright.png) no-repeat right center;
 	-webkit-background-size: 22px;
 	background-size: 22px;
 }
@@ -533,7 +523,6 @@ a { color: #383C41; text-decoration: none; }
 }
 #afui.ibos .list .avatar{
 	float: left;
-	margin:-2px 10px 0 0;
 	position:relative;
 }
 
@@ -566,7 +555,7 @@ a { color: #383C41; text-decoration: none; }
 }
 /* 增加列表项前面的空间，显示项状态 */
 #afui.ibos .list.multi > li > a{ 
-	padding: 11px 10px 11px 30px;
+	padding: 11px 30px;
 	line-height:1.45em; 
 }
 
@@ -614,13 +603,12 @@ a { color: #383C41; text-decoration: none; }
 /* Form */
 #afui.ibos .control-group{ overflow: hidden; }
 #afui.ibos .control-group label{
-	padding: 11px 0;
-	width: 80px;
+	padding: 10px 0 10px 10px;
+	width: 120px;
 	color: #BBBDC9;
-	text-indent: 10px;
 	text-align: left;
 }
-#afui.ibos .control-group .controls{ margin-left: 80px; line-height: 44px; }
+#afui.ibos .control-group .controls{ margin-left: 120px; line-height: 44px; }
 #afui.ibos .control-group .controls input{
 	border: 0 none;
 	background: transparent;
@@ -654,6 +642,7 @@ a { color: #383C41; text-decoration: none; }
 	-webkit-box-shadow: inset -1px 0 2px rgba(0, 0, 0, .5);
 	box-shadow: inset -1px 0 2px rgba(0, 0, 0, .5);
 	background-color: #58585C;
+	display: none;
 }
 #afui.ibos > #menu .list { margin-bottom: 0; }
 #afui.ibos > #menu .list + .list li:first-child{ border-top: 0 none; }
@@ -965,3 +954,13 @@ li .icon:before {
 /* popup */
 #afui.ibos .afPopup,
 .ui-loader{ -webkit-border-radius: 4px; border-radius: 4px; }
+
+input[type="radio"]+label.radio, input[type="checkbox"]+label.checkbox{
+	width: auto;
+	float: none;
+	margin-left: 30px;
+	line-height: 22px;
+}
+input[type="radio"]+label.radio:before, input[type="checkbox"]+label.checkbox:before{
+	top: 0;
+}

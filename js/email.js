@@ -92,6 +92,9 @@ var Email = (function(){
 		bodyId = json.bodyid;
 		mailId = 0;
 	}
+	function search(data){
+		mainListIns.load({ "search": data });;
+	}
 
 	function editMail(data){
 		var insUser;
@@ -143,7 +146,7 @@ var Email = (function(){
 			url: 		mailUrl() + "/edit&callback=?&" + $.param(data),
 			success: 	function(){
 				$.ui.hideMask();
-				Email.loadList('inbox')
+				MailInbox.loadList('inbox')
 				$.ui.goBack();
 			},
 			error: 		core.error
@@ -245,7 +248,8 @@ var Email = (function(){
 		deleteMail:     deleteMail,
 
 		selectRecipient: selectRecipient,
-		getCateType:    getCateType
+		getCateType:    getCateType,
+		search:			search
 	}
 })();
 
@@ -259,9 +263,14 @@ var MailInbox = (function(){
 		mainListIns.load({ "type": "inbox" });;
 	}
 
+	var loadList = function(type){
+		mailList.load({ "type": type||"inbox" })
+	}
+
 	// 读取列表
 	return {
-		init: init
+		init: init,
+		loadList: loadList
 	}
 })();
 

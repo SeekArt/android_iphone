@@ -92,6 +92,9 @@ var Email = (function(){
 		bodyId = json.bodyid;
 		mailId = 0;
 	}
+	function search(data){
+		MailInbox.loadList({ "search": data });;
+	}
 
 	function editMail(data){
 		var insUser;
@@ -240,7 +243,8 @@ var Email = (function(){
 		replyAll:       replyAll,
 		deleteMail:     deleteMail,
 
-		selectRecipient: selectRecipient
+		selectRecipient: selectRecipient,
+		search:			search
 	}
 })();
 

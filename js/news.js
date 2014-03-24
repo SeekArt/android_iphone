@@ -57,6 +57,8 @@ var news = (function(){
 			}else{
 				$("#newsList").html("<li class='no-info'></li>");
 			}
+			$("#newsList").hide()
+			setTimeout(function(){ $("#newsList").show() },0);
 		}
 		
 		$("#readMoreNews").remove();
@@ -64,8 +66,6 @@ var news = (function(){
 			$("#newsList").append('<li id="readMoreNews" class="list-more"><a href="javascript:;" onclick="news.loadList(' + newsCatId + ','+( newsPage + 1) +')">加载更多</a></li>');
 		}
 
-		$("#newsList").hide()
-		setTimeout(function(){ $("#newsList").show() },0);
 		
 		$.ui.hideMask();
 		return;

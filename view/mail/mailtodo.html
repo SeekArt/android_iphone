@@ -12,12 +12,6 @@
 	<!-- list template -->
 	<textarea id="mail_todo_list_tpl" class="hideim">
 		<li <%if(isread == "0"){%> class="new" <% } %> id="mail_item_<%=emailid %>">
-			<time><%=core.toDatetime(sendtime)%></time>
-			<a href="javascript:;" onclick="Email.loadMail(<%=emailid%>,this)">
-				<p class="xcd"><%=fromuser%></p>
-				<p class="<%=important == '1' ? 'xcr': 'xcn'%>"><%=subject%></p>
-				<i class="o-mail-mark"></i>
-			</a>
 			<!-- 操作菜单 -->
 			<div class="list-menu mail-af-list-menu">
 				<a href="javascript:;" slide-ignore data-evt="deleteMailFormList" data-param='{"emailid": <%=emailid%>}'>
@@ -29,6 +23,12 @@
 					<p>取消待办</p>
 				</a> -->
 			</div>
+			<a href="javascript:;" onclick="Email.loadMail(<%=emailid%>,this)">
+				<time class="flr time"><%=core.toDatetime(sendtime)%></time>
+				<p class="xcd"><%=fromuser%></p>
+				<p class="<%=important == '1' ? 'xcr': 'xcn'%>"><%=subject%></p>
+				<i class="o-mail-mark"></i>
+			</a>
 		</li>
 	</textarea>
 	<script>
@@ -41,7 +41,7 @@
 
 		$LAB.script("js/slide.js")
 		.wait(function(){
-			new Slide("mail_todo_list", { distance: 80 });
+			new Slide("mail_todo_list", { selector: "li > a", distance: 80 });
 		})
 	})();
 	</script>

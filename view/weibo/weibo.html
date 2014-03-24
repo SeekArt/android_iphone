@@ -1,7 +1,239 @@
-<header id="header_weibo">
-	<h1>最新记录</h1>
-</header>
+<!--<div id="weibo" class="panel" data-header="header_weibo" data-nav="none" data-tab="navbar_weibo"> -->
+	<link rel="stylesheet" href="css/weibo.css">
+	<header id="header_weibo">
+		<a href="javascript:;" data-evt="toPersonalPage" class='button ao-user'></a>
+		<h1>微博首页</h1>
+		<a href="view/weibo/publish.html" class='button ao-new'></a>
+	</header>
+	<!-- 刷新 -->
+	<div class="wb-loading" id="weibo_pulldown">
+		<img src="images/cm/loading.png" alt="读取中..." width="30" height="30">
+		<div class="wb-loading-body">
+			<strong>松开即可更新...</strong>
+			<p>最后更新: <span data-node="feedLoadTime">今天 19:35</span></p>
+		</div>
+	</div>
+	<!-- 微博列表 -->
+	<div class="wb-ct">
+		<div data-node="feedList">
+			<!-- 微博:公文动态 -->
+			<div data-node="feedBox" class="wb-feed hide">
+				<div class="pds">
+					<!-- 个人信息 -->
+					<div class="media">
+						<div class="media-costar avatar">
+							<img src="http://ink.cc/avatar.php?uid=93&amp;size=middle&amp;engine=LOCAL" class="rds">
+						</div>
+						<div class="media-body">
+							<div class="wb-feed-title">
+								<h4 class="wb-feed-un">张衡</h4>
+								发布了一篇公文
+							</div>
+							<div class="fss xcn">
+								11月29日15:13 来自 公文
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- 微博内容 -->
+				<div class="wb-feed-ct">
+					<h3 class="wb-oafeed-title">公司小并不可怕，可怕的是不性感</h3>
+					<p>
+					做为一家小公司，初创公司，如何能够成长为一家大公司，小而美是远远不够的，更关键的还是在于这家公司在小的时候是不是方方面面看起来都足够性感。
+					</p>
+				</div>
+			</div>
 
-<ul class="list">
-	<li> <a>还没有微博</a> </li>
-</ul>
+			<!-- 微博:新闻动态 -->
+			<div data-node="feedBox" class="wb-feed hide">
+				<div class="pds">
+					<!-- 个人信息 -->
+					<div class="media">
+						<div class="media-costar avatar">
+							<img src="http://ink.cc/avatar.php?uid=93&amp;size=middle&amp;engine=LOCAL" class="rds">
+						</div>
+						<div class="media-body">
+							<div class="wb-feed-title">
+								<h4 class="wb-feed-un">张衡</h4>
+								发布了一篇新闻
+							</div>
+							<div class="fss xcn">
+								11月29日15:13 来自 新闻
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- 图片 -->
+				<div class="wb-feed-pic">
+					<img src="" alt="" width="480" height="200">
+				</div>
+				<!-- 微博内容 -->
+				<div class="wb-feed-ct">
+					<h3 class="wb-oafeed-title">公司小并不可怕，可怕的是不性感</h3>
+					<p>
+					做为一家小公司，初创公司，如何能够成长为一家大公司，小而美是远远不够的，更关键的还是在于这家公司在小的时候是不是方方面面看起来都足够性感。
+					</p>
+				</div>
+			</div>
+
+			<!-- 微博:工作流动态 -->
+			<div data-node="feedBox" class="wb-feed hide">
+				<div class="pds">
+					<!-- 个人信息 -->
+					<div class="media">
+						<div class="media-costar avatar">
+							<img src="http://ink.cc/avatar.php?uid=93&amp;size=middle&amp;engine=LOCAL" class="rds">
+						</div>
+						<div class="media-body">
+							<div class="wb-feed-title">
+								<h4 class="wb-feed-un">张衡</h4>
+								办理了一篇工作流
+							</div>
+							<div class="fss xcn">
+								11月29日15:13 来自 工作流
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- 微博内容 -->
+				<div class="wb-feed-ct">
+					<h3 class="wb-oafeed-title">张衡加班登记(2014-03-09 09:32:11)</h3>
+					<p>
+					第四步：申请人查阅由Conrer主办；用时:21秒，开始于：2013-10-11 09:11，结束于：2013-10-11 09:11
+					</p>
+				</div>
+			</div>
+
+			<!-- 微博:日志动态 -->
+			<div data-node="feedBox" class="wb-feed hide">
+				<div class="pds">
+					<!-- 个人信息 -->
+					<div class="media">
+						<div class="media-costar avatar">
+							<img src="http://ink.cc/avatar.php?uid=93&amp;size=middle&amp;engine=LOCAL" class="rds">
+						</div>
+						<div class="media-body">
+							<div class="wb-feed-title">
+								<h4 class="wb-feed-un">张衡</h4>
+								发表了一篇工作日志
+							</div>
+							<div class="fss xcn">
+								11月29日15:13 来自 工作日志
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- 微博内容 -->
+				<div class="wb-feed-ct">
+					<h3 class="wb-oafeed-title">4月18日 星期四工作日志</h3>
+					<p>
+					今天上午开始规划剩下需要做的工作，开始了重新设计的漫漫长路，对比以前主要改进有:1、考虑企业微博日常微博刷新不多的情况下默认显示5条评论，放出评论输入框，以提高社交互动为目的。2、筛选分类分为：迎新汇、表扬、投票、普通、状态5类型，来自模块发出的微博均为状态，话题不算在任何分类内。
+					</p>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- 加载更多 -->
+	<div class="wb-morebar hide">
+		加载中...
+	</div>
+
+<!-- </div> -->
+<!-- Template: 微博条目 -->
+<textarea  id="wb_feed_tpl" class="hideim">
+	<% var user = app.getUser(uid); %>
+	<div data-node="feedBox" class="wb-feed" data-id="<%=feedid%>">
+		<div class="pds">
+			<!-- 个人信息 -->
+			<div class="media">
+				<div class="media-costar avatar">
+					<img src="<%= app.getAvatar(uid) %>" class="rds">
+				</div>
+				<div class="media-body">
+					<% var view = view; %>
+					<% if(view && view !== "0"  ) { %>
+						<span class="wb-feed-ex">
+							<i class="ao14 ao-flock-lgray vat"></i>
+							分组可见
+						</span>
+					<% } %>
+					<div class="wb-feed-title">
+						<h4 class="wb-feed-un"><%=user.realname%></h4>
+					</div>
+					<div class="fss xcn">
+					<% if(ctime) { %>
+						<%= core.toDatetime(ctime) %>
+						<%= from %>
+					<% } else { %>
+						发布中...
+					<% } %>
+					</div>
+				</div>
+			</div>
+		</div>
+		<% if(type === "postimage") { %>
+		<!-- 图片 -->
+		<div class="wb-feed-pic">
+			<img src="<%= app.defaultUrl + '/' + attach_url %>">
+		</div>
+		<% } %>
+		<!-- 微博内容 -->
+		<% if(table === "feed") { %>
+		<div class="wb-feed-ct bdbgr" data-evt="feedDetail" data-param='{"feedId": "<%=feedid%>"}'>
+			<div class="wb-feed-ctb"><%= content %></div>
+			<!-- 转发框 -->
+			<% if(type==="repost") { %>
+				<div class="wb-feed-fw">
+					<% if(api_source.type === "postimage") { %>
+					<div class="wb-feed-pic">
+						<img src="<%= app.defaultUrl + '/' + api_source.attach_url %>">
+					</div>
+					<% } %>
+					<div class="wb-feed-ct">
+						<div class="wb-feed-ctb"><%=api_source.feedcontent%></div>
+					</div>
+				</div>
+			<% } %>
+			<!-- 定位
+			<div class="wb-location">
+				<i class="ao16 ao-location-gray"></i>
+				广东省广州市天河区华景路
+			</div> -->
+		</div>
+		<!-- 快速工具条 -->
+		<div class="cmflex bggrl rdub sep">
+			<!-- 评论 -->
+			<a href="javascript:;" data-evt="toFeedComment" data-param='{ "feedId": <%= feedid %> }' class="cmflex-item cmflex-singlerow xca">
+				<i class="ao16 ao-comment-gray"></i>
+				<%= commentcount %>
+			</a>
+			<!-- 转发 -->
+			<a href="javascript:;" data-evt="toFeedForward" data-param='{ "feedId": <%= feedid %> }' class="cmflex-item cmflex-singlerow xca">
+				<i class="ao16 ao-forward-gray"></i>
+				<%= repostcount %>
+			</a>
+			<!-- 赞 -->
+			<a href="javascript:;" data-evt="feedDigg" data-param='{ "feedId": <%= feedid %> }' class="cmflex-item cmflex-singlerow xca">
+				<% if (false) { %>
+				<i class="ao16 ao-digg-orange"></i>
+				<span class="xco"><%= diggcount %></span>
+				<% } else { %>
+				<i class="ao16 ao-digg-gray"></i>
+				<span><%= diggcount %></span>
+				<% } %>
+			</a>
+		</div>
+		<!-- 动态 -->
+		<% } else { %>
+			<div class="wb-feed-ct wb-oafeed-ct">
+				<h3 class="wb-oafeed-title"><%= api_source.subject %></h3>
+				<div class="wb-feed-ctb"><%= api_source.content %></div>
+			</div>
+		<% } %>
+	</div>
+</textarea>
+
+<script>
+	$LAB.script("js/weibo/weibo.js")
+	.script("js/weibo/weibohome.js");
+</script>

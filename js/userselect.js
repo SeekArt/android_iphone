@@ -186,7 +186,7 @@ var UserList = function(id, data, options) {
 	this.data.datas = this.data.datas || {};
 
 	this.options = $.extend({
-		tpl: "<dd id='" + me.id + "_item_<%=uid%>' data-id='<%=uid%>'><span class='ckb'></span><%=realname%></dd>"
+		tpl: "<dd data-id='<%=uid%>'><span class='ckb'></span><%=realname%></dd>"
 	}, options);
 
 
@@ -250,6 +250,8 @@ UserList.prototype = {
 	_createItem: function(data) {
 		var $node = $.tmpl(this.options.tpl, data);
 		var $buttons = this._createButtons();
+
+		$node[0].id = this.id + "_item_" + data.uid;
 
 		if($.is$($buttons) && $buttons.length){
 			$node.prepend($buttons);

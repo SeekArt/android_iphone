@@ -26,34 +26,15 @@
 	background-repeat:no-repeat;
 	background-position:50% 50%;
 }
-.ico-article {
-	background-image:url('../images/ico/article.png');
-}
-.ico-mail {
-	background-image:url('../images/ico/mail.png');
-}
-.ico-calendar {
-	background-image:url('../images/ico/calendar.png');
-}
-.ico-work {
-	background-image:url('../images/ico/work.png');
-}
-.ico-diary {
-	background-image:url('../images/ico/diary.png');
-}
-.ico-report {
-	background-image:url('../images/ico/report.png');
-}
-.ico-doc {
-	background-image:url('../images/ico/doc.png');
-}
-.ico-phonebook {
-	background-image:url('../images/ico/phonebook.png');
-}
-.ico-more {
-	background-image:url('../images/ico/more.png');
-	box-shadow:none;
-}
+.ico-article { background-image:url('../images/ico/article.png'); }
+.ico-mail { background-image:url('../images/ico/mail.png'); }
+.ico-calendar { background-image:url('../images/ico/calendar.png'); }
+.ico-work { background-image:url('../images/ico/workflow.png'); }
+.ico-diary { background-image:url('../images/ico/diary.png'); }
+.ico-report { background-image:url('../images/ico/report.png'); }
+.ico-doc { background-image:url('../images/ico/officialdoc.png'); }
+.ico-phonebook { background-image:url('../images/ico/phonebook.png'); }
+.ico-more { background-image:url('../images/ico/more.png'); box-shadow:none; }
 
 /* -------------------- */
 .list-ico li i,
@@ -104,20 +85,28 @@
 .ao-menu { background-image: url(../images/act/menu.png); left: 0;}
 .ao-home { background-image: url(../images/act/home.png); right: 0; }
 .ao-ok { background-image: url(../images/act/ok.png); right: 0;}
+.ao-ok-gray { background-image: url(../images/act/okgray.png); right: 0;}
 .ao-send { background-image: url(../images/act/send.png); right: 0;}
 .ao-new { background-image: url(../images/act/new.png); right: 0;}
 .ao-edit { background-image: url(../images/act/edit.png); }
 .ao-edit-gray { background-image: url(../images/act/editgray.png); }
 .ao-up { background-image: url(../images/act/up.png); }
 .ao-down { background-image: url(../images/act/down.png); }
+.ao-comment{  background-image: url(../images/act/comment.png); }
 .ao-comment-gray{  background-image: url(../images/act/commentgray.png); }
 .ao-date-gray{ background-image: url(../images/act/dategray.png); }
 .ao-date-gray.pressed{ background-image: url(../images/act/dateblue.png); }
 .ao-trash-gray{ background-image: url(../images/act/trashgray.png); }
 .ao-trash-gray.pressed{ background-image: url(../images/act/trashred.png); }
 .ao-plus-gray{ background-image: url(../images/act/plusgray.png); }
+.ao-plus-green{ background-image: url(../images/act/plusgreen.png); }
 .ao-face{ background-image: url(../images/act/face.png); }
 .ao-stamp{ background-image: url(../images/act/stamp.png); }
+.ao-forward{ background-image: url(../images/act/forward.png); }
+.ao-forward-gray{ background-image: url(../images/act/forwardgray.png); }
+.ao-digg{ background-image: url(../images/act/digg.png); }
+.ao-digg-gray{ background-image: url(../images/act/digggray.png); }
+.ao-digg-orange{ background-image: url(../images/act/diggorange.png); }
 
 .ao-user{ background-image: url(../images/act/user.png); }
 .ao-appraise{ background-image: url(../images/act/appraise.png); }
@@ -133,8 +122,19 @@
 .ao-workdone { background-image: url(../images/act/workdone.png); }
 .ao-workfinish { background-image: url(../images/act/workfinish.png); }
 
+.ao-flock-lgray { background-image: url(../images/act/flocklgray.png); }
+
+.ao-location-gray { background-image: url(../images/act/locationgray.png); }
+
+.ao-pm-gray{ background-image: url(../images/act/pmgray.png); }
+.ao-mutual-gray{ background-image: url(../images/act/mutualgray.png); }
+
+.ao-at{ background-image: url(../images/act/at.png); }
+.ao-topic{ background-image: url(../images/act/topic.png); }
+
 .ao-goldstar{ background-image: url(../images/cm/goldstar.png); }
 .ao-upload-add{ background-image: url(../images/cm/uploadadd.png); }
+
 
 
 .moicon{ width: 14px; height: 14px; }

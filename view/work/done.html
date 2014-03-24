@@ -11,12 +11,12 @@
 	</div>
 	<textarea id="work_done_tpl" class="hideim">
 		<li>
-			<a href="javascript:;">
+			<a href="javascript:;" data-evt="<%= opflag ? 'sponsorWork': 'operateWork' %>" data-param='{"runId": "<%=runid%>","key":"<%=key%>"}'>
 				<div class="briefh">
 					<h4 class="title"><%=runName%></h4>
 					<div class="content">
-						<span class="label label-small black"><%=flowProcess%></span>
-						<%=runType%>
+						<span class="label label-small black"><%=flowprocess%></span>
+						<%=stepname%>
 					</div>
 				</div>
 			</a>

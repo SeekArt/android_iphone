@@ -10,11 +10,3 @@
 }
 
 .mail-list .o-mail-mark{ position: absolute; bottom: 10px; right: 30px; }
-
-
-.mail-af-list-menu{ right: -80px; }
-.mail-af-list-menu > a > i { margin-top: 10px; }
-/*
-.mail-del-list .mail-af-list-menu,
-.mail-send-list .mail-af-list-menu{ right: -80px; }
-*/

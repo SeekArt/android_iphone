@@ -3,8 +3,19 @@
  * 将用于放置核心函数
  */
 
+$.noop = function(){};
 $.ui.isAjaxApp = true;
-$.ui.loadingText = "读取中..."
+$.ui.loadingText = "读取中...";
+// 此方法用于解决编辑器内的链接点击后无法跳转的bug
+// 目前的规则，完整的url地址会作跳转处理
+// @Debug: 未在手机端真实环境作测试
+$.ui.customClickHandler = function(target, evt){
+	var href = target.getAttribute("href");
+	if(/http[s]?:\/\//.test(href)){
+		window.open(href, "");
+		return true;
+	}
+}
 
 // 全局命名空间
 var core = {
@@ -393,6 +404,19 @@ var app = (function(){
 		return results.join(",");
 	}
 
+	function getAvatar(uid, size){
+		var ud = app.getUser(uid);
+		if(ud) {
+			return app.defaultUrl + "/" + ud["avatar_" + (size || "middle")];
+		}
+	}
+
+	function getCustomBg(uid, size){
+		var ud = app.getUser(uid);
+		if(ud) {
+			return app.defaultUrl + "/" + ud["bg_" + (size || "big")];
+		}
+	}
 
 	return {
 		isInit:		isInit,
@@ -407,7 +431,10 @@ var app = (function(){
 
 		getUserData: getUserData,
 		getUser: 	getUser,
-		getUserName:getUserName
+		getUserName:getUserName,
+
+		getAvatar: getAvatar,
+		getCustomBg: getCustomBg
 	}
 })();
 
@@ -476,10 +503,11 @@ app.openSelector = function(settings){
 	};
 
 	$(document).one("loadpanel", function(){
-		// 设置标题
+		// 设置标题, 延时至头部动画效果执行完成后
 		if(settings.title) {
-			$.ui.setTitle(settings.title);
+			$("#header_selector h1", $.ui.header).html(settings.title);
 		}
+
 		$LAB.script("js/userselect.js", "js/letter.js")
 		.wait(function(){
 			var ulIns = new UserList(containerId, defData, settings);
@@ -525,7 +553,8 @@ app.openSelector = function(settings){
 // 打开通用通讯录
 app.openPhonebook = function(){
 	app.openSelector({
-		tpl: "<dd id='item_<%=uid%>' data-id='<%=uid%>'><img width='30' height='30' style='vertical-align: middle' src='<%=app.defaultUrl%>/<%=avatar_small%>'> <%=realname%></dd>",
+		title: "通讯录",
+		tpl: "<dd data-id='<%=uid%>'><img width='30' height='30' style='vertical-align: middle' src='<%= app.getAvatar(uid, 'small')%>'> <%=realname%></dd>",
 		maxSelect: 1,
 		onSelect: function(evt, data) {
 			app.param.set("phonebookUid", data.id);
@@ -631,37 +660,108 @@ app.ui = {
 			msg: ""
 		}, options)
 	}
-	Tip.prototype.show = function(){
-		var tip = $.query("#ibos_tip");
-		if(!tip.length){
-			var tpl = '<div id="ibos_tip" class="tip">' + this.options.msg + '</div>';
-			$.query("#afui").append(tpl);
-		} else {
-			tip.html(this.options.msg);
-		}
-		this.position();
+	Tip.prototype.show = function(msg, theme){
+		var tipContainer = $.query("#cm_tip").show(),
+			tip = $.query(".tip", tipContainer[0]);
+		setTimeout(function(){
+			tip.html(msg || this.options.msg).addClass("active");
+			theme && tip.addClass(theme);
+		}, 100);
 	}
 	Tip.prototype.hide = function(){
-		var tip = $.query("#ibos_tip");
-		tip.remove();
-	}
-	Tip.prototype.position = function(){
-		var tip = $.query("#ibos_tip");
-		tip.css("top", window.pageYOffset + $.ui.header.offsetHeight + 10);
-		tip.css("left", (window.innerWidth / 2) - (tip[0].clientWidth / 2) + "px");
-		tip.css("opacity", "1");
+		var tipContainer = $.query("#cm_tip"),
+			tip = $.query(".tip", tipContainer[0]);
+		tip.removeClass("active");
+		setTimeout(function(){
+			tipContainer.hide()
+			tip.attr("class", "tip");
+		}, 100);
 	}
 
+	var tipIns = new Tip();
 	var hideTimer;
-	app.ui.tip = function(msg) {
-		var tip  = new Tip({ msg: msg });
+	app.ui.tip = function(msg, theme) {
 		clearTimeout(hideTimer);
-		tip.show();
+		tipIns.show(msg, theme);
 		hideTimer = setTimeout(function(){
-			tip.hide();
+			tipIns.hide();
 		}, 2000)
 	}
 })();
+
+// Tab
+(function(){
+	var Tab = function(ct){
+		var _this = this;
+		this.$ct = $(ct);
+		if(this.$ct && this.$ct.length) {
+			this.$ct.on("click", "[data-node='tab']", function(){
+				_this.show(this)
+			});
+		}
+	}
+	Tab.prototype.show = function(ctrl){
+		var target;
+		if(typeof ctrl === "string") {
+			ctrl = this.$ct.find("[data-tab='" + ctrl + "']") 
+		} else {
+			ctrl = $(ctrl);
+		}
+		if(ctrl && ctrl.length) {
+			target = ctrl[0].getAttribute("data-tab");
+			ctrl.parent().addClass("active").siblings().removeClass("active");
+			$(target).show().siblings("[data-node='tabPane']").hide();
+		}
+	}
+
+	app.ui.tab = function(container) {
+		return new Tab(container)
+	}
+})();
+
+app.ui.bindScrollInfinite = function(panelId, listener) {
+	var scroller;
+	panelId = panelId || $.ui.activeDiv.id;
+	listener = listener || $.noop;
+
+	scroller = $.ui.scrollingDivs[panelId];
+	scroller.addInfinite();
+	
+	$.bind(scroller, "infinite-scroll", listener);
+	$.bind(scroller, "infinite-scroll-end", function(){
+		if(this.infiniteTriggered) {
+			this.clearInfinite();
+		}
+	})
+}
+
+/**
+ * 向文本框光标处插入文本
+ * @param  {String} text 文本
+ * @return {[type]}      [description]
+ */
+$.fn.insertText = function(text) {
+	this.each(function() {
+		if (this.tagName !== 'INPUT' && this.tagName !== 'TEXTAREA') {
+			return;
+		}
+		if (document.selection) {
+			this.focus();
+			var cr = document.selection.createRange();
+			cr.text = text;
+			cr.collapse();
+			cr.select();
+		} else if (this.selectionStart || this.selectionStart == '0') {
+			var start = this.selectionStart, end = this.selectionEnd;
+			this.value = this.value.substring(0, start) + text + this.value.substring(end, this.value.length);
+			this.selectionStart = this.selectionEnd = start + text.length;
+		} else {
+			this.value += text;
+		}
+	});
+	return this;
+}
+
 
 var MainList = function(list, options){
 	this.list = list;
@@ -670,8 +770,11 @@ var MainList = function(list, options){
 	this.currentCatid = this.options.catid || 0;
 	this.currentPage = this.options.page || 1;
 	this.options.url = this.options.url || app.appUrl;
+	this._lastLoadParam = null;
 }
 MainList.prototype.load = function(param, callback){
+	// 使用_lastLoadParam缓存上一次读取的参数，这一部分参数与currentCatid及currentPage有重复
+	// 整理之后可以去掉
 	var _this = this;
 	param = param || {}
 	if(param.catid == null) {
@@ -693,6 +796,7 @@ MainList.prototype.load = function(param, callback){
 			_this.currentCatid = param.catid;
 			_this.currentPage = param.page;
 			_this.show(res);
+			_this._lastLoadParam = param;
 			callback && callback(res);
 			$.ui.hideMask();
 		},
@@ -717,7 +821,7 @@ MainList.prototype.show = function(res) {
 	if(res.pages.pageCount > this.currentPage) {
 		this.$loadMore = $('<li class="list-more"><a href="javascript:;">加载更多</a></li>');
 		this.$loadMore.on("click", function(){
-			_this.load({ page: _this.currentPage + 1 });
+			_this.load($.extend({}, _this._lastLoadParam, { page: _this.currentPage + 1 }));
 		});
 		this.list.$list.append(this.$loadMore);
 	}
@@ -757,7 +861,7 @@ $(document).ready(function(){
 	})
 	.on("unloadpanel", function(evt){
 		// 还原因固定定位抽离出来的节点
-		if($fixedDivs.length) {
+		if($fixedDivs && $fixedDivs.length) {
 			$fixedDivs.each(function(index, elem){
 				var $elem = $(elem),
 					prevElem = $elem.attr("prevElem");

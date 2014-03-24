@@ -7,7 +7,7 @@
 	</header>
 	<!-- search box -->
 	<div class="search-bar">
-		<input type="search" placeholder="搜索" name="mailSearchInput" id="mailSearchInput" />				
+		<input type="search" placeholder="搜索" name="mailSearchInput" id="mailSearchInput" onblur="Email.search(this.value)" />				
 	</div>
 	<ul class="list list-active multi mail-list" id="mailList"></ul>
 	<!-- list template -->
@@ -15,17 +15,9 @@
 		<% { var isDraft = (typeof emailid === "undefined"); } %>
 		<% { var bodyid = bodyid, emailid = emailid; } %>
 		<li <%if(!isDraft && isread == "0"){%> class="new" <%}%> id="mail_item_<%=isDraft ? bodyid : emailid %>">
-			<time><%=core.toDatetime(sendtime)%></time>
-			<a href="javascript:;" onclick="<% if(!isDraft){ %>Email.loadMail(<%=emailid%>,this)<% } else {%>Email.loadDraft(<%=bodyid%>)<% } %>">
-				<p class="xcd"><%=fromuser%></p>
-				<p class="<%=important == '1' ? 'xcr': 'xcn'%>"><%=subject%></p>
-				<% if(ismark == '1'){ %> <i class="o-mail-mark"></i> <% } %>
-				
-			</a>
 
 			<!-- 操作菜单 -->
 			<div class="list-menu mail-af-list-menu">
-
 				<a href="javascript:;" slide-ignore data-evt="deleteMailFormList" 
 					<% if(isDraft){ %>
 					data-param='{"bodyid": <%=bodyid%>}'
@@ -52,6 +44,16 @@
 				-->
 				<% } %>
 			</div>
+				
+			<a href="javascript:;" onclick="<% if(!isDraft){ %>Email.loadMail(<%=emailid%>,this)<% } else {%>Email.loadDraft(<%=bodyid%>)<% } %>">
+				<time class="flr time"><%=core.toDatetime(sendtime)%></time>
+				<p class="xcd"><%=fromuser%></p>
+				<p class="<%=important == '1' ? 'xcr': 'xcn'%>"><%=subject%></p>
+				<% if(ismark == '1'){ %> <i class="o-mail-mark"></i> <% } %>
+			</a>
+
+
+
 		</li>
 	</textarea>
 	<nav id="menu_mail">
@@ -78,7 +80,7 @@
 		})
 		$LAB.script("js/slide.js")
 		.wait(function(){
-			new Slide("mailList", { distance: 80 });
+			new Slide("mailList", { selector: "li > a", distance: 80 });
 		})
 	})();
 	</script>

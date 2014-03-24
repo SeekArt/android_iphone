@@ -4,7 +4,7 @@ var WorkFollow = (function(){
 
 	var init = function(){
 		listIns = new List("work_follow_list", $.query("#work_follow_tpl").val(), { id: 'runid'});
-		mainListIns = new MainList(listIns, { url: "" })
+		mainListIns = new MainList(listIns, { url: app.appUrl + '/work/follow'})
 		mainListIns.load();
 	}
 

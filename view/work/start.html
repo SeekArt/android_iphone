@@ -9,19 +9,19 @@
 	</div>
 	<textarea id="work_start_item_tpl" class="hideim">
 		<li>
-			<a href="javascript:;" onclick="WorkStart.startFlow(<%=flowId%>, 'new')"><%=flowName%></a>
+			<a href="javascript:;" onclick="WorkStart.startFlow(<%=flowid%>, 'new')"><%=name%></a>
 		</li>
 	</textarea>
 	<textarea id="work_start_cate_tpl" class="hideim">
 		<li>
-			<a href="javascript:;" onclick="WorkStart.loadCateList(<%=cateId%>, '<%=cateName%>')">
+			<a href="javascript:;" onclick="WorkStart.loadCateList(<%=catid%>, '<%=name%>')">
 				<div class="media">
 					<span class="media-costar">
 						<img src="images/big/folder.png" alt="" width="44" height="44">
 					</span>
 					<div class="media-body">
-						<h4 class="title"><%=cateName%></h4>
-						<div class="content">共<%=flowCount%>个工作</div>
+						<h4 class="title"><%=name%></h4>
+						<div class="content">共<%=flowcount%>个工作</div>
 					</div>
 				</div>
 			</a>

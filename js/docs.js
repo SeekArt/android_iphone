@@ -55,6 +55,8 @@ var docs = (function(){
 			list.add(json.datas)
 		}else{
 			list.set(json.datas);
+			$("#docsList").hide()
+			setTimeout(function(){ $("#docsList").show() },0);
 		}
 		
 		$("#readMoreDocs").remove();
@@ -62,9 +64,6 @@ var docs = (function(){
 			$("#docsList").append('<li id="readMoreDocs" class="list-more"><a onclick="docs.loadList(' + docsCatId + ','+( docsPage + 1) +')">加载更多</a></li>');
 		}
 
-		$("#docsList").hide()
-		setTimeout(function(){ $("#docsList").show() },0);
-		
 		$.ui.hideMask();
 		return;
 	}

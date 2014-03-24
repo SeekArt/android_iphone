@@ -85,5 +85,31 @@ var setup = {
 			$.ui.popup("保存成功");		
 		},
 		1000);		
-	}
+	},
+    changePassword: function(){
+        oldpass = $("#oldPassword").val();        
+        newpass = $("#newPassword").val();
+        repass = $("#rePassword").val();
+        if (newpass == "" || oldpass == "" || repass == "") {
+            $.ui.popup("不能为空");
+            return false;
+        };
+        if ( newpass != repass) {
+            $.ui.popup("新密码和重复密码不一致");
+            return false;
+        };
+
+        $.ui.showMask("保存中");
+        $.jsonP({
+            url:        app.appUrl + '/setting'  + "/changepass&callback=?&oldpass="+oldpass+"&newpass="+newpass+"&repass="+repass,
+            success:    function(data){
+                $.ui.hideMask();
+                $.ui.popup(data.msg);
+            },
+            error:      function(){
+                $.ui.hideMask();
+                $.ui.popup("修改密码失败");
+            }
+        });
+    }
 }

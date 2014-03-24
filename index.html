@@ -144,16 +144,16 @@ https://github.com/EddyVerbruggen/Calendar-PhoneGap-Plugin/blob/6e6c4020832a66a1
 					</a><a href="javascript:;" onclick="app.openPhonebook()" data-transition="pop">
 						<i class="item-ico ico-phonebook"></i>
 						通讯录
+					</a><a href="view/work/todo.html" data-transition="pop">
+						<i class="item-ico ico-work"></i>
+						工作流
 					</a>
 				</div>
 			</div>
 		<!---------------------------------------------->
 			<div title="添加更多" id="more" class="panel mainbg" data-nav="none" > 
 				<div class="home-item">
-					<a href="view/work/todo.html" data-transition="pop">
-						<i class="item-ico ico-work"></i>
-						工作流
-					</a>
+					
 					<a onclick="$.ui.popup('暂未开放')">
 						<i class="item-ico ico-calendar"></i>
 						日程
@@ -172,32 +172,8 @@ https://github.com/EddyVerbruggen/Calendar-PhoneGap-Plugin/blob/6e6c4020832a66a1
 			</div>
 		<!---------------------------------------------->
 			<div title="个人设置" id="setting" class="panel" data-tab="navbar_setting" data-header="header_setting" data-nav="none" data-defer="view/setting/setting.html" data-load="loadSetting"></div>
-			<div title="个人资料" id="setting_profile" class="panel" data-tab="navbar_setting" data-footer="none" data-nav="none" data-defer="view/setting/setting_profile.html"></div>
-			
-			<div title="修改密码" id="setting_password" class="panel" data-tab="navbar_setting" data-footer="none" data-nav="none" >
-				<div class="pds">
-					<ul class="list inset">
-						<li class="control-group">
-							<label for="">原密码</label>
-							<div class="controls">
-								<input type="text" value="">
-							</div>
-						</li>
-						<li class="control-group">
-							<label for="">新密码</label>
-							<div class="controls">
-								<input type="date" value="">
-							</div>
-						</li>
-						<li class="control-group">
-							<label for="">重复密码</label>
-							<div class="controls">
-								<input type="text" value="">
-							</div>
-						</li>
-					</ul>
-					<button class="button button-block blue large primary" type="button" onclick="alert('对不起！测试平台禁止修改密码')">修改</button>
-				</div>
+			<div title="个人资料" id="setting_profile" class="panel" data-tab="navbar_setting" data-footer="none" data-nav="none" data-defer="view/setting/setting_profile.html"></div>			
+			<div title="修改密码" id="setting_password" class="panel" data-tab="navbar_setting" data-footer="none" data-nav="none" data-defer="view/setting/setting_password.html">
 			</div>
 			
 		<!---------------------------------------------->
@@ -205,14 +181,6 @@ https://github.com/EddyVerbruggen/Calendar-PhoneGap-Plugin/blob/6e6c4020832a66a1
 			<div title="网络设置" id="netEdit" class="panel" data-footer="none" data-nav="none" data-defer="view/net/net_edit.html"></div>
 			
 		<!---------------------panel------------------------->
-			<!-- ---------diary--------- --> 	
-
-			<!-- 
-			<div title="日志评阅" id="diary_comment_list" class="panel" data-footer="none" data-nav="menu_diary" data-defer="diary_comment_list.html"></div> 
-			-->
-			<!-- 
-			<div title="点评" id="diary_comment" class="panel" data-nav="none" data-defer="diary_comment.html"></div>
-			-->
 
 			<!-- --------- login --------- -->
 			<div title="登录" id="login" class="panel indexbg" data-defer="login.html" data-footer="none" data-nav="none" data-load="loadLogin" data-unload="unloadLogin" style="overflow:hidden;"></div>
@@ -229,7 +197,7 @@ https://github.com/EddyVerbruggen/Calendar-PhoneGap-Plugin/blob/6e6c4020832a66a1
 		<a href="#setting" id='navbar_setting' data-transition="none" class="icon setting">设置</a> 
 	</div>
 
-
+	<div id="cm_tip"><div class="tip"></div></div>
 	<!-- -------------------nav----------------------- -->
 	<!--
 	<nav id="defaultMenu">

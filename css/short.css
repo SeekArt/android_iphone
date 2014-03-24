@@ -29,7 +29,7 @@
 .bggrl{ background-color: #F8F9FA; } /* Lightgray */
 .bgol{ background-color: #FFFDFA; } /* Orange */
 
-
+.fsl{ font-size: 16px !important; }
 .fss{ font-size: 12px !important; }
 
 .xcw{ color: #FFF; }
@@ -50,5 +50,19 @@
 .hide{ display: none; }
 .hideim{ display: none !important; }
 
+.rds{ border-radius: 4px; }
 .rdut{ border-top-left-radius: 4px; border-top-right-radius: 4px; }
 .rdub{ border-bottom-left-radius: 4px; border-bottom-right-radius: 4px; }
+
+.ao14,
+.ao16,
+.ao22{
+	display: inline-block;
+	background-repeat: no-repeat;
+	-webkit-background-size: 100% 100%;
+	background-size: 100% 100%;
+	vertical-align: middle;
+}
+.ao14{ width: 14px; height: 14px; }
+.ao16{ width: 16px; height: 16px; }
+.ao22{ width: 22px; height: 22px; }

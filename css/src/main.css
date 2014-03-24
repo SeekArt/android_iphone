@@ -33,13 +33,11 @@ body {
 
 #afui input,textarea { -webkit-user-select:text; -moz-user-select:-moz-text;-moz-user-select:text;} /* allow users to select text that appears in input fields */
 
-#afui img { border:none; } /* Remove default borders for images */
-
+#afui img { border:none; vertical-align: middle; } /* Remove default borders for images */
 
 #afui p {
 	display:block;
 	margin:6px 0;
-
 	font-size:14px;
 	line-height:20px;
 	color:inherit
@@ -627,29 +625,28 @@ h2 {
 .tab li:active a{ -webkit-box-shadow: inset 0 -2px 0 #3497DB; box-shadow: inset 0 -2px 0 #3497DB; color: #3497DB; }
 
 /** Tip */
+#cm_tip{ display: none; position: fixed; top: 44px; left: 0; width: 100%; height: 44px; z-index: 1000; overflow: hidden; }
 .tip{
+	-webkit-transition: top .2s;
+	-moz-transition: top .2s;
+	-ms-transition: top .2s;
+	-o-transition: top .2s;
+	transition: top .2s;
 	display: block;
-	width: 280px;
-	border: solid 1px #72767b;
-	-webkit-border-radius: 4px;
-	border-radius: 4px;
-	padding: 10px;
-	opacity: 0;
-	-webkit-transform: scale(1);
-	-webkit-transition: top 0.20s ease-in-out, opacity 0.20s ease-in-out;
-	transform: scale(1);
-	transition: top 0.20s ease-in-out, opacity 0.20s ease-in-out;
 	position: absolute;
-	z-index: 1000000;
-	top: 44px;
 	left: 0;
-	margin: 0px auto;
+	top: -40px;
+	padding: 12px 10px;
+	width: 100%;
 	background: rgba(70,70,70,1);
 	color: white;
+	text-align: center;
 }
+.tip.active{ top: 0; }
 
-.list-menu{ position: absolute; top: 0; height: 100%; background: #58585C;}
-.list-menu > a{ float: left; width: 80px; height: 100%; text-align: center;}
+
+.list-menu{ position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: #58585C;}
+.list-menu > a{ float: right; width: 80px; height: 100%; text-align: center;}
 .list-menu > a + a{ 
 	margin-left: -1px;
 	border-left: 1px solid #383C41; 
@@ -657,5 +654,12 @@ h2 {
 	-moz-box-shadow: -1px 0 2px rgba(255, 255, 255, .1);
 	box-shadow: -1px 0 2px rgba(255, 255, 255, .1);
 }
+.list-menu > a > i { margin-top: 10px; }
 #afui .list-menu > a > p{ color: #FFF;}
 
+
+/* Avatar */
+#afui .avatar{ width: 36px; height: 36px; }
+#afui .avatar img{ width: 102%; height: auto; margin-top: -1px; margin-left:-1px; -webkit-border-radius: 8px; border-radius: 8px; border: none;}
+#afui .avatarc{ border: 2px solid #FFFFFF; border-radius: 50%; overflow: hidden; box-shadow: 0px 0px 4px rgba(0,0,0,0.6); }
+#afui .avatarc img{ border-radius: 50%; }

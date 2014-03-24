@@ -21,21 +21,21 @@
 	</div>
 	<textarea style="display: none;" id="work_todo_tpl">
 		<li>
-			<a href="javascript:;" data-evt="<%= sponsor ? 'sponsorWork': 'operateWork' %>" data-param='{"runId": "<%=runid%>"}'>
+			<a href="javascript:;" data-evt="<%= opflag ? 'sponsorWork': 'operateWork' %>" data-param='{"key":"<%=key%>"}'>
 				<div class="briefh">
-					<time class="time"><%= date %></time>
-					<h4 class="title <%= isUnread ? 'xcp': '' %>"><%= runName %></h4>
+					<h4 class="title <%= flag==1 ? 'xcp': '' %>"><%= runName %></h4>
+					<time class="time"><%= core.toDatetime(begintime) %></time>
 					<div class="content">
 						<% if(focus) { %>
 						<i class="aoicon ao-goldstar flr"></i>
 						<% } %>
-						<span class="label label-small black"><%= flowProcess %></span>
-						<% if(sponsor) { %>
+						<span class="label label-small black"><%= flowprocess %></span>
+						<% if(opflag==1) { %>
 						<span class="xcp">(主办)</span>
 						<% } else { %>
 						<span class="xcr">(经办)</span>
 						<% } %>
-						<%= runType %>
+						<%= stepname %>
 					</div>
 				</div>
 			</a>

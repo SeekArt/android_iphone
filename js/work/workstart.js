@@ -4,64 +4,72 @@ var WorkStart = (function(){
 	var init = function(){
 		var itemTpl = $.query("#work_start_item_tpl").val(),
 			cateTpl = $.query("#work_start_cate_tpl").val();
-	
-		flowData = {
-			common: [
-				{ flowId: 1, flowName: "请假申请" },
-				{ flowId: 2, flowName: "加班登记" },
-				{ flowId: 7, flowName: "项目下单流程" }
-			],
-			cate: [
-				{ 	
-					cateId: 1,
-					cateName: "人事",
-					flowCount: 8,
-					flows: [
-						{ flowId: 1, flowName: "请假申请" },
-						{ flowId: 2, flowName: "加班登记" }
-					]
-				},
-				{ 
-					cateId: 2, 
-					cateName: "行政", 
-					flowCount: 9,
-					flows: [
-						{ flowId: 3, flowName: "采购申请" },
-						{ flowId: 4, flowName: "外出登记" }
-					]
-				},
-				{ 
-					cateId: 3, 
-					cateName: "财务", 
-					flowCount: 9,
-					flows: [
-						{ flowId: 5, flowName: "请款付款申请" },
-						{ flowId: 6, flowName: "发票申请" }
-					]
-				},
-				{ 
-					cateId: 4, 
-					cateName: "项目", 
-					flowCount: 10,
-					flows: [
-						{ flowId: 7, flowName: "项目下单流程" }
-					]
-				}
-			]
-		}
 		
-		var itemList = new List("work_start_item_list", itemTpl, { id: "flowId" });
-		itemList.set(flowData.common);
-	
-		var cateList = new List("work_start_cate_list", cateTpl, { id: "cateId"});
-		cateList.set(flowData.cate);
+		// @Todo: 这里读取工作流程分类信息
+		$.jsonP({
+			url: app.appUrl + '/work/new' ,
+			success: function(res){
+				flowData = res;
+				// flowData = {
+				// 	common: [
+				// 		{ flowid: 1, name: "请假申请" },
+				// 		{ flowid: 2, name: "加班登记" },
+				// 		{ flowid: 7, name: "项目下单流程" }
+				// 	],
+				// 	cate: [
+				// 		{ 	
+				// 			catid: 1,
+				// 			name: "人事",
+				// 			flowcount: 8,
+				// 			flows: [
+				// 				{ flowid: 1, name: "请假申请" },
+				// 				{ flowid: 2, name: "加班登记" }
+				// 			]
+				// 		},
+				// 		{ 
+				// 			catid: 2, 
+				// 			name: "行政", 
+				// 			flowcount: 9,
+				// 			flows: [
+				// 				{ flowid: 3, name: "采购申请" },
+				// 				{ flowid: 4, name: "外出登记" }
+				// 			]
+				// 		},
+				// 		{ 
+				// 			catid: 3, 
+				// 			name: "财务", 
+				// 			flowcount: 9,
+				// 			flows: [
+				// 				{ flowid: 5, name: "请款付款申请" },
+				// 				{ flowid: 6, name: "发票申请" }
+				// 			]
+				// 		},
+				// 		{ 
+				// 			catid: 4, 
+				// 			name: "项目", 
+				// 			flowcount: 10,
+				// 			flows: [
+				// 				{ flowid: 7, name: "项目下单流程" }
+				// 			]
+				// 		}
+				// 	]
+				// }
+				// 常用流程
+				var itemList = new List("work_start_item_list", itemTpl, { id: "flowid" });
+				itemList.set(flowData.common);
+				
+				// 按分类
+				var cateList = new List("work_start_cate_list", cateTpl, { id: "catid"});
+				cateList.set(flowData.cate);
+			}
+		})
 	};
 
 	// 获取分类数据
-	var _getCateData = function(cateid){
+	var _getCateData = function(catid){
 		if(flowData.cate && flowData.cate.length) {
 			for(var i = 0; i < flowData.cate.length; i++) {
-				if(flowData.cate[i].cateId === cateid) {
+				if(flowData.cate[i].catid == catid) {
 					return flowData.cate[i].flows || [];
 				}
 			}
@@ -71,30 +79,74 @@ var WorkStart = (function(){
 	};
 
 	// 读取分类下的流程列表
-	var loadCateList = function(cateid, cateName) {
-		var cateData = _getCateData(cateid);
+	var loadCateList = function(catid, name) {
+		var cateData = _getCateData(catid);
 		$(document).one("loadpanel", function(){
 			var tpl = $.query("#work_flow_item_tpl").val();
-			var list = new List("work_flow_list", tpl, { id: "flowId" });
+			var list = new List("work_flow_list", tpl, { id: "flowid" });
 
-			$.query("#work_flow_list_title").html(cateName);
+			$.query("#work_flow_list_title").html(name);
 			list.set(cateData);
 		});
 		$.ui.loadContent("view/work/flowcate.html");
 	};
 
-	// 发起工作流
-	// type => ["new", "operate", "sponsor"]
-	var startFlow = function(flowId, type) {
-		// @Debug: 滚动交互测试
-		// $(document).one("loadpanel", function(){
-		// 	var scroller = $.ui.scrollingDivs["work_handle"];
-		// 	$.bind(scroller, "scrollstart", function(){
-		// 		console.log(this)
-		// 	})
-		// });
+	// 进入工作流主办
+	// type => ["new", "operate", "sponsor", "view"]
+	// 当发起工作流时， 第一个参数为工作流类型的 id
+	// 其作情况为该流程 id
+	var startFlow = function(key, type) {
+		// debugger;
+		// 如果是新建， 则需要先获取到runid
+		if(type === "new") {
+			$.jsonP({
+				url: "" + "&flowid=" + id,
+				success: function(res){
+					_start(res.key, "sponsor");
+				}
+			})
+		} else {
+			_start(key, type);		
+		}
+		function _start(key, type) {
+			$(document).one("loadpanel", function(){
+				// 这里读取工作流数据
+				$.jsonP({
+					url: app.appUrl + '/work/form' + '&key='+ key,
+					success: function(json){
+						// 渲染模板
+						res = {
+							data: {
+								runId: 1,
+								form: json.form,
+								attachs: [
+									{
+										aid: 1,
+										flowProgress: 1,
+										flowType: "请假申请",
+										realname: "千千子",
+										fileType: "photo",
+										fileName: "keroro.png",
+										fileTime: "2014-01-01 12:30",
+										fileSize: "3.11M"
+									}
+								],
+								signs: json.feedback,
+								progress: json.rpcache,
+								feedback: json.allowFeedback, // 是否允许回退
+								rollback: json.allowBack, // 是否允许回退
+								laststep: 0, // 是否最后一步
+							}
+						}
 
-		$.ui.loadContent("view/work/handle.html");
+						$.query("#work_handle_mainer").html($.template(document.getElementById("work_handle_mainer_tpl").value, res.data));
+						$.query("#footer_work_handle").html($.template(document.getElementById("work_handle_footer_tpl").value, res.data));
+					}
+				})
+			});
+			$.ui.loadContent("view/work/handle.html");
+		}
+
 	};
 
 	return {
@@ -135,7 +187,7 @@ var WorkStart = (function(){
 			$.ui.showMask();
 			// @Todo: 数据有可能超过255字节
 			// $.jsonP({
-			// 	url: "&callback=?&runid=" + param.flowId + $form.serialize(),
+			// 	url: "&callback=?&runid=" + param.flowid + $form.serialize(),
 			// 	success: function(res){
 					$.ui.hideMask();
 					app.ui.tip("保存成功");
@@ -205,7 +257,7 @@ var WorkStart = (function(){
 					$.ui.hideMask();
 					sponsorIns.destory();
 					operatorIns && operatorIns.destory();
-					app.param.remove("flowId");
+					app.param.remove("flowid");
 					app.ui.tip("转交成功");
 					$.ui.goBack(2);
 			// 	},

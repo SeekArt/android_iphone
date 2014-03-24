@@ -13,13 +13,13 @@
 		<li>
 			<a href="javascript:;">
 				<div class="briefh">
-					<time class="time"><%=date%></time>
 					<h4 class="title"><%=runName%></h4>
+					<time class="time"><%=core.toDatetime(begintime)%></time>
 					<div class="content">
 						<% if(focus) { %>
 						<i class="aoicon ao-goldstar flr"></i>
 						<% } %>
-						[<%=runid%>]<%=runType%>
+						[<%=runid%>]<%=stepname%>
 					</div>
 				</div>
 			</a>

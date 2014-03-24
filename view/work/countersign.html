@@ -23,53 +23,7 @@
 			</div>
 		</div>
 	</footer>
-	<!-- Template -->
-	<textarea id="countersign_tpl" class="hideim">
-		<ul class="list inset" data-node="countersignBox" data-signid="<%=signId%>">
-			<li>
-				<div class="media mgbs">
-					<div class="avatar">
-						<img src="<%=avatar%>">
-					</div>
-					<div class="media-body">
-						<div class="mgbm">
-							<%=realname%>
-							<span class="xca">发表于 <%=date%></span>
-						</div>
-						<div>
-							<span class="label small black"><%=flowProgress%></span>
-							<%=flowType%>
-						</div>
-					</div>
-				</div>
-				<p data-node="countersignContent"><%=signContent%></p>
-			</li>
-			<% for(var i = 0; i < attachments.length; i++) { %>
-			<% var att = attachments[i]; %>
-			<li class="att">
-				<div class="att-icon">
-					<img src="images/filetype/<%=att.type%>.png" alt="<%=att.name%>" width="44" height="44">
-				</div>
-				<div class="att-content">
-					<h4><%=att.name%></h4>
-					<div class="att-desc"><%=att.uploadTime%> <%=att.size%></div>
-				</div>
-			</li>
-			<% } %>
-			<li class="pdz">
-				<div class="cmflex bggrl sep">
-					<a href="javascript:;" class="cmflex-item cmflex-singlerow xca" data-evt="editWorkSign" data-param='{"signId": "<%=signId%>"}'>
-						<i class="aoicon ao-edit-gray"></i>
-						编辑
-					</a>
-					<a href="javascript:;" class="cmflex-item cmflex-singlerow xca" data-evt="removeWorkSign" data-param='{"signId": "<%=signId%>"}'>
-						<i class="aoicon ao-trash-gray" ></i>
-						删除
-					</a>
-				</div>
-			</li>
-		</ul>
-	</textarea>
+
 	<script>
 		(function(){
 			core.autoTextarea(document.getElementById("countersign_content"));
