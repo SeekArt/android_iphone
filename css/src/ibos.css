@@ -82,11 +82,22 @@ a { color: #383C41; text-decoration: none; }
 }
 /**/
 .direction-bar{ display: -webkit-box;}
-.direction-bar a{ -webkit-box-flex: 1; box-flex: 1; display: block; height: 44px; }
+.direction-bar a{
+	-webkit-box-flex: 1;
+	box-flex: 1;
+	display: block;
+	height: 44px;
+	padding: 0 10px;
+	font: 700 20px/44px monospace;
+	color: #EE8C0C;
+	text-align: center;
+}
+
 .diary-comment-date .direction-bar{
 	position: absolute;
 	width: 100%;
 }
+
 
 /* ---------------------------------------------------------- End */
 
@@ -524,6 +535,7 @@ a { color: #383C41; text-decoration: none; }
 #afui.ibos .list .avatar{
 	float: left;
 	position:relative;
+	margin-right: 10px;
 }
 
 /*#afui.ibos .list > li > a > span {

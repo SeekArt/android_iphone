@@ -564,15 +564,11 @@ app.openPhonebook = function(){
 }
 
 app.goHome = function(){
-	if($.ui.history.length){
-		for(var i = 0; i < $.ui.history.length; i++) {
-			if($.ui.history[i].target === "#main") {
-				$.ui.goBack($.ui.history.length - i);
-				break;
-			}
-		}
+	if($.ui.history.length && $.ui.history[$.ui.history.length - 1].target == "#main"){
+		$.ui.goBack();
 	} else {
-		$.ui.loadContent("#main", 0, 1, "pop");
+		$.ui.loadContent("#main", 0, 1);
+		$.ui.clearHistory();
 	}
 	$.ui.hideMask();
 }

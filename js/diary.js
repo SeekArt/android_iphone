@@ -99,8 +99,6 @@ var diary = (function(){
 	}
 
 	function loadReview(date,uid,page){
-		// 清空内容层
-		$.ui.updatePanel("diary_comment_list", "")
 		// ajax 加载新的内容
 		$.ui.loadContent("view/diary/diary_comment_list.html", 0, 0);
 

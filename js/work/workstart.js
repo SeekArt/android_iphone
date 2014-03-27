@@ -118,7 +118,7 @@ var WorkStart = (function(){
 						res = {
 							data: {
 								runId: 1,
-								form: json.form,
+								form: json.model,
 								attachs: [
 									{
 										aid: 1,
@@ -185,6 +185,8 @@ var WorkStart = (function(){
 		"workSaveForm": function(param){
 			var $form = $.query("#form_work_handle");
 			$.ui.showMask();
+			$("#form_work_handle").attr("src", app.appUrl + '/work/form');
+			
 			// @Todo: 数据有可能超过255字节
 			// $.jsonP({
 			// 	url: "&callback=?&runid=" + param.flowid + $form.serialize(),

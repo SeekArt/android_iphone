@@ -141,7 +141,7 @@
 <!-- </div> -->
 <!-- Template: 微博条目 -->
 <textarea  id="wb_feed_tpl" class="hideim">
-	<% var user = app.getUser(uid); %>
+	<% var user = app.getUser(uid) || {}; %>
 	<div data-node="feedBox" class="wb-feed" data-id="<%=feedid%>">
 		<div class="pds">
 			<!-- 个人信息 -->
@@ -233,7 +233,3 @@
 	</div>
 </textarea>
 
-<script>
-	$LAB.script("js/weibo/weibo.js")
-	.script("js/weibo/weibohome.js");
-</script>

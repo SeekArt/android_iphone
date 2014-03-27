@@ -62,3 +62,9 @@ function scaner(){
 		}
 	);
 }
+
+// 微博
+$(document).on("loadpanel", "#weibo", function(){
+	$LAB.script("js/weibo/weibo.js")
+	.script("js/weibo/weibohome.js");
+});
