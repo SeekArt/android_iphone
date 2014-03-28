@@ -1487,6 +1487,7 @@
             xmlhttp.onreadystatechange = function() {
                 alert("readyState: " + xmlhttp.readyState + " " + xmlhttp.status)
                 if (xmlhttp.readyState == 4 ) {
+                    alert( xmlhttp.responseText);
                     alert("xhr success");
                     this.doingTransition = false;
                     var refreshFunction;
@@ -1548,6 +1549,7 @@
             alert("url: " + newtarget)
             xmlhttp.open("GET", newtarget, true);
             xmlhttp.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+            xmlhttp.overrideMimeType('text/html');
             xmlhttp.send();
             // show Ajax Mask
             if (this.showLoading) this.showMask();
