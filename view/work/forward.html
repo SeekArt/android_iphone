@@ -74,10 +74,10 @@
 		<% for(var i = 0; i < steps.length; i++) { %>
 		<% var step = steps[i]; %>
 		<li class="radio-group">
-			<input type="radio" name="nextstep" value="<%=step.stepId%>" id="nextstep_<%=step.stepId%>" <% if (step.selected) { %>checked<% } %>>
-			<label for="nextstep_<%=step.stepId%>">
-				<span class="label black"><%=step.stepId%></span>
-				<span><%=step.stepName%></span>
+			<input type="radio" name="nextstep" value="<%=step.checked%>" id="nextstep_<%=step.checked%>" <% if (step.selected) { %>checked<% } %>>
+			<label for="nextstep_<%=step.checked%>">
+				<span class="label black"><%=step.checked%></span>
+				<span><%=step.prcsname%></span>
 			</label>
 		</li>
 		<% } %>

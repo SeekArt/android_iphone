@@ -185,8 +185,10 @@ var WorkStart = (function(){
 		"workSaveForm": function(param){
 			var $form = $.query("#form_work_handle");
 			$.ui.showMask();
-			$("#form_work_handle").attr("src", app.appUrl + '/work/form');
-			
+			$form.attr("action", app.appUrl + '/work/form');
+			$form.get(0).saveflag.value = "save";
+
+			$form.get(0).submit();
 			// @Todo: 数据有可能超过255字节
 			// $.jsonP({
 			// 	url: "&callback=?&runid=" + param.flowid + $form.serialize(),
@@ -201,19 +203,25 @@ var WorkStart = (function(){
 		// 进入工作转交页
 		"toForwardWork": function(param){
 			var $form = $.query("#form_work_handle");
-			app.param.set("runId", param.runId);
-			// 先保存表单
-			
-			// $.jsonP({
-			// 	url: "&callback=?&op=forward&runid=" + param.runId + $form.serialize(),
-			// 	success: function(res){
+			$.ui.showMask();
+			$form.attr("action", app.appUrl + '/work/form');
+			$form.get(0).saveflag.value = "turn";
+
+			$form.get(0).submit();
+
+			// app.param.set("runId", param.runId);
+			// 先保存表单			
+			$.jsonP({
+				url: app.appUrl + '/work/shownext&key=' + $form.get(0).key.value + '&topflag=0',
+				success: function(data){
 					// 返回步骤信息
 					res = {
-						steps: [
-							{ stepId: 2, stepName: "部门审批", selected: 1 },
-							{ stepId: 3, stepName: "总监审批" },
-							{ stepId: 4, stepName: "人事部审批" }
-						]
+						steps:data.list
+						//  [
+						// 	{ stepId: 2, stepName: "部门审批", selected: 1 },
+						// 	{ stepId: 3, stepName: "总监审批" },
+						// 	{ stepId: 4, stepName: "人事部审批" }
+						// ]
 					}
 					$(document).one("loadpanel", function(){
 						var $stepItem = $.tmpl($.query("#work_forward_step_tpl").val(), res);
@@ -224,9 +232,9 @@ var WorkStart = (function(){
 					.wait(function(){
 						$.ui.loadContent("view/work/forward.html");
 					})
-				// },
-				// error: core.error
-			// })
+				},
+				error: core.error
+			})
 		},
 
 		// 转交工作

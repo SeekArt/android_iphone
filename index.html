@@ -58,13 +58,11 @@
 	<script type="text/javascript" charset="utf-8" src="./js/core.js"></script>
 	<script type="text/javascript" charset="utf-8" src="./js/function.js"></script>
 	<script type="text/javascript" charset="utf-8" src="./js/appsdk.js"></script>
-	<script type="text/javascript" charset="utf-8" src="./phonegap.js"></script>
 	<script type="text/javascript" charset="utf-8" src="./js/push.js"></script>
 	<script type="text/javascript" charset="utf-8" src="./js/when.js"></script>
 <!--
 https://github.com/EddyVerbruggen/Calendar-PhoneGap-Plugin/blob/6e6c4020832a66a17c69b48357623ad2f64d6913/README.md
--->
-	
+-->	
 	<script type="text/javascript">
 		/* This function runs once the page is loaded, but appMobi is not yet active */
 //            var search=document.location.search.toLowerCase().replace("?","");
@@ -126,7 +124,7 @@ https://github.com/EddyVerbruggen/Calendar-PhoneGap-Plugin/blob/6e6c4020832a66a1
 	<div id="header"></div>
 	<div id="content">
 		<!---------------------------------------------->
-			<div title='V专家俱乐部' id="main" selected="true" class="panel mainbg" data-tab="navbar_main" data-load="mainload" data-nav="none" >
+			<div title='V专家俱乐部客户端' id="main" selected="true" class="panel mainbg" data-tab="navbar_main" data-load="mainload" data-nav="none" >
 				<div class="home-item">
 					<a href="view/mail/mail.html" data-transition="pop">
 						<i class="item-ico ico-mail"></i>
@@ -143,16 +141,16 @@ https://github.com/EddyVerbruggen/Calendar-PhoneGap-Plugin/blob/6e6c4020832a66a1
 					</a><a href="javascript:;" onclick="app.openPhonebook()" data-transition="pop">
 						<i class="item-ico ico-phonebook"></i>
 						通讯录
+					</a><a href="view/work/todo.html" data-transition="pop">
+						<i class="item-ico ico-work"></i>
+						工作流
 					</a>
 				</div>
 			</div>
 		<!---------------------------------------------->
 			<div title="添加更多" id="more" class="panel mainbg" data-nav="none" > 
 				<div class="home-item">
-					<a href="view/work/todo.html" data-transition="pop">
-						<i class="item-ico ico-work"></i>
-						工作流
-					</a>					
+					
 					<a onclick="$.ui.popup('暂未开放')">
 						<i class="item-ico ico-calendar"></i>
 						日程
