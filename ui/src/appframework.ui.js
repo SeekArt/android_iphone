@@ -1486,6 +1486,7 @@
             xmlhttp.onreadystatechange = function() {
                 var protocol = /^([\w-]+:)\/\//.test(target) ? RegExp.$1 : window.location.protocol;
                 if (xmlhttp.readyState == 4 && (xmlhttp.status >= 200 && xmlhttp.status < 300) || xmlhttp.status === 0 && protocol === "file:" ) {
+                
                     this.doingTransition = false;
                     var refreshFunction;
                     var doReturn = false;
@@ -1545,7 +1546,6 @@
             var newtarget = this.useAjaxCacheBuster ? target + (target.split('?')[1] ? '&' : '?') + "cache=" + Math.random() * 10000000000000000 : target;
             xmlhttp.open("GET", newtarget, true);
             xmlhttp.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-            xmlhttp.overrideMimeType('text/html');
             xmlhttp.send();
             // show Ajax Mask
             if (this.showLoading) this.showMask();
@@ -1973,6 +1973,7 @@
 
     //lookup for a clicked anchor recursively and fire UI own actions when applicable
     var checkAnchorClick = function(e, theTarget) {
+
         if (theTarget == (afui)) {
             return;
         }
@@ -1981,6 +1982,7 @@
         if (theTarget.tagName.toLowerCase() != "a" && theTarget.parentNode) return checkAnchorClick(e, theTarget.parentNode); //let's try the parent (recursive)
         //anchors
         if (theTarget.tagName != "undefined" && theTarget.tagName.toLowerCase() == "a") {
+
             var custom = (typeof $.ui.customClickHandler == "function") ? $.ui.customClickHandler : false;
             if (custom !== false) {
                 if ($.ui.customClickHandler(theTarget,e)) return e.preventDefault();
@@ -1992,6 +1994,7 @@
 
 
             if (theTarget.href.indexOf("tel:") === 0) return false;
+
             //external links
             if (theTarget.hash.indexOf("#") === -1 && theTarget.target.length > 0) {
                 if (theTarget.href.toLowerCase().indexOf("javascript:") !== 0) {
