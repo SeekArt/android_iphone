@@ -1485,7 +1485,7 @@
             anchor = anchor || document.createElement("a");
             xmlhttp.onreadystatechange = function() {
                 var protocol = /^([\w-]+:)\/\//.test(target) ? RegExp.$1 : window.location.protocol;
-                if (xmlhttp.readyState == 4 && (xmlhttp.status >= 200 && xmlhttp.status < 300) || xmlhttp.status === 0 && protocol === "file:" ) {
+                if (xmlhttp.readyState == 4 && ((xmlhttp.status >= 200 && xmlhttp.status < 300) || xmlhttp.status === 0 && protocol === "file:" )) {
                 
                     this.doingTransition = false;
                     var refreshFunction;
