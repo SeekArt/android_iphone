@@ -1298,7 +1298,6 @@
             var loadAjax = true;
             anchor = anchor || document.createElement("a"); //Hack to allow passing in no anchor
             if (target.indexOf("#") == -1) {
-                alert(5)
                 var urlHash = "url" + crc32(target); //Ajax urls
                 var crcCheck = $.query("div.panel[data-crc='" + urlHash + "']");
                 if ($.query("#" + target).length > 0) {
@@ -1338,7 +1337,6 @@
          * @api private
          */
         loadDiv: function(target, newTab, back, transition) {
-            alert(6)
             // load a div
             var that = this;
             var what = target.replace("#", "");
@@ -1472,7 +1470,7 @@
          * @api private
          */
         loadAjax: function(target, newTab, back, transition, anchor) {
-            alert(7)
+            alert("start loadAjax")
             // XML Request
             if (this.activeDiv.id == "afui_ajax" && target == this.ajaxUrl) return;
             var urlHash = "url" + crc32(target); //Ajax urls
@@ -1487,9 +1485,8 @@
 
             anchor = anchor || document.createElement("a");
             xmlhttp.onreadystatechange = function() {
-                alert(8)
                 if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-                    alert(9)
+                    alert("xhr success");
                     this.doingTransition = false;
                     var refreshFunction;
                     var doReturn = false;
@@ -1549,6 +1546,7 @@
             var newtarget = this.useAjaxCacheBuster ? target + (target.split('?')[1] ? '&' : '?') + "cache=" + Math.random() * 10000000000000000 : target;
             xmlhttp.open("GET", newtarget, true);
             xmlhttp.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+            alert("xhr start send")
             xmlhttp.send();
             // show Ajax Mask
             if (this.showLoading) this.showMask();
@@ -1976,7 +1974,6 @@
 
     //lookup for a clicked anchor recursively and fire UI own actions when applicable
     var checkAnchorClick = function(e, theTarget) {
-        alert(1)
         if (theTarget == (afui)) {
             return;
         }
@@ -1985,7 +1982,6 @@
         if (theTarget.tagName.toLowerCase() != "a" && theTarget.parentNode) return checkAnchorClick(e, theTarget.parentNode); //let's try the parent (recursive)
         //anchors
         if (theTarget.tagName != "undefined" && theTarget.tagName.toLowerCase() == "a") {
-            alert(2)
             var custom = (typeof $.ui.customClickHandler == "function") ? $.ui.customClickHandler : false;
             if (custom !== false) {
                 if ($.ui.customClickHandler(theTarget,e)) return e.preventDefault();
@@ -1997,7 +1993,6 @@
 
 
             if (theTarget.href.indexOf("tel:") === 0) return false;
-            alert(3)
             //external links
             if (theTarget.hash.indexOf("#") === -1 && theTarget.target.length > 0) {
                 if (theTarget.href.toLowerCase().indexOf("javascript:") !== 0) {
@@ -2027,7 +2022,6 @@
             var resetHistory = theTarget.getAttribute("data-resetHistory");
             resetHistory = resetHistory && resetHistory.toLowerCase() == "true" ? true : false;
             href = theTarget.hash.length > 0 ? theTarget.hash : href;
-            alert(4)
             $.ui.loadContent(href, resetHistory, 0, mytransition, theTarget);
             return;
         }
