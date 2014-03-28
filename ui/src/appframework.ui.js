@@ -1470,7 +1470,6 @@
          * @api private
          */
         loadAjax: function(target, newTab, back, transition, anchor) {
-            alert("source:" + target)
             // XML Request
             if (this.activeDiv.id == "afui_ajax" && target == this.ajaxUrl) return;
             var urlHash = "url" + crc32(target); //Ajax urls
@@ -1485,10 +1484,8 @@
 
             anchor = anchor || document.createElement("a");
             xmlhttp.onreadystatechange = function() {
-                alert("readyState: " + xmlhttp.readyState + " " + xmlhttp.status)
-                if (xmlhttp.readyState == 4 ) {
-                    alert( xmlhttp.responseText);
-                    alert("xhr success");
+                var protocol = /^([\w-]+:)\/\//.test(target) ? RegExp.$1 : window.location.protocol;
+                if (xmlhttp.readyState == 4 && (xmlhttp.status >= 200 && xmlhttp.status < 300) || xmlhttp.status === 0 && protocol === "file:" ) {
                     this.doingTransition = false;
                     var refreshFunction;
                     var doReturn = false;
@@ -1546,7 +1543,6 @@
             };
             this.ajaxUrl = target;
             var newtarget = this.useAjaxCacheBuster ? target + (target.split('?')[1] ? '&' : '?') + "cache=" + Math.random() * 10000000000000000 : target;
-            alert("url: " + newtarget)
             xmlhttp.open("GET", newtarget, true);
             xmlhttp.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
             xmlhttp.overrideMimeType('text/html');
