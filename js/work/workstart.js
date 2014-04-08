@@ -216,16 +216,26 @@ var WorkStart = (function(){
 				success: function(data){
 					// 返回步骤信息
 					res = {
-						steps:data.list
-						//  [
-						// 	{ stepId: 2, stepName: "部门审批", selected: 1 },
-						// 	{ stepId: 3, stepName: "总监审批" },
-						// 	{ stepId: 4, stepName: "人事部审批" }
-						// ]
+						prcsto:data.prcsto,
+						steps:data.list,
+						run:data.run,
+						process:data.process,
+						runid:data.runid,
+						flowid:data.flowid,
+						processid:data.processid,						
+						flowprocess:data.flowprocess
 					}
-					$(document).one("loadpanel", function(){
+					$(document).one("loadpanel", function(evt){
 						var $stepItem = $.tmpl($.query("#work_forward_step_tpl").val(), res);
-						$.query("#work_forward_step_list").append($stepItem);
+						$.query("#work_forward_step").append($stepItem);
+						$.query(".user-selector-list", evt.target).each(function(){
+							if(User.get(this.id)) {
+								User.get(this.id).destory();
+							}
+							new User(this.id, null, {
+								input: this.getAttribute("data-input")
+							});
+						})
 					});
 
 					$LAB.script("js/userselect.js")
@@ -240,57 +250,59 @@ var WorkStart = (function(){
 		// 转交工作
 		"workForward": function(param){
 			var $form = $.query("#form_work_forward"),
-				sponsorIns = User.get("work_sponsor"),
-				operatorIns = User.get("work_operator"),
+				// sponsorIns = User.get("work_sponsor"),
+				// operatorIns = User.get("work_operator"),
 				sponsorUid,
 				operatorUids;
 
-			if(!sponsorIns || !sponsorIns.get().length) {
-				app.ui.tip("请选择主办人");
-				return false;
-			}
-			sponsorUid = sponsorIns.get()[0].id;
-			if(operatorIns) {
-				var  operators = operatorIns.get();
-				if(operators.length) {
-					operators.forEach(function(o, i){
-						operatorUids = operatorUids ? (operatorUids + "," + o.id) : o.id;
-					})
-				}
-			}
+			// if(!sponsorIns || !sponsorIns.get().length) {
+			// 	app.ui.tip("请选择主办人");
+			// 	return false;
+			// }
+			// sponsorUid = sponsorIns.get()[0].id;
+			// if(operatorIns) {
+			// 	var  operators = operatorIns.get();
+			// 	if(operators.length) {
+			// 		operators.forEach(function(o, i){
+			// 			operatorUids = operatorUids ? (operatorUids + "," + o.id) : o.id;
+			// 		})
+			// 	}
+			// }
 
 			$.ui.showMask();
-			console.log(sponsorUid, operatorUids, $form.serialize());
-			// $.jsonP({
-			// 	url: "callback=?&runid=" + app.param.get("runId")  + $form.serialize(),
-			// 	success: function(res){
+			console.log($form.serialize());
+			$.jsonP({
+				url: app.appUrl + '/work/turnNextPost&' + $form.serialize(),
+				success: function(res){
 					$.ui.hideMask();
-					sponsorIns.destory();
-					operatorIns && operatorIns.destory();
+					// sponsorIns.destory();
+					// operatorIns && operatorIns.destory();
 					app.param.remove("flowid");
 					app.ui.tip("转交成功");
 					$.ui.goBack(2);
-			// 	},
-			// 	error: core.error
-			// })
+				},
+				error: core.error
+			})
 		},
 
 		// 取消工作转交
 		"cancelWorkForward": function(){
-			var sponsorIns = User.get("work_sponsor"),
-				operatorIns = User.get("work_operator");
-			sponsorIns && sponsorIns.destory();
-			operatorIns && operatorIns.destory();
+			// var sponsorIns = User.get("work_sponsor"),
+			// 	operatorIns = User.get("work_operator");
+			// sponsorIns && sponsorIns.destory();
+			// operatorIns && operatorIns.destory();
 			app.param.remove("runId");
 			$.ui.goBack();
 		},
 
 		// 添加主办人
-		"addWorkSponsor": function(){
-			var userIns = new User("work_sponsor");
+		"addWorkSponsor": function(param){
+			var userIns = new User(param.id);
 			app.openSelector({
 				values: userIns.get(),
 				maxSelect: 1,
+				include: param.include,
+				input: param.input,
 				onSave: function(evt, data){
 					userIns.set(data.values);
 					$.ui.goBack();
@@ -299,10 +311,11 @@ var WorkStart = (function(){
 		},
 
 		// 添加经办人
-		"addWorkOperator": function(){
-			var userIns =  new User("work_operator");
+		"addWorkOperator": function(param){
+			var userIns =  new User(param.id);
 			app.openSelector({
 				values: userIns.get(),
+				include: param.include,
 				onSave: function(evt, data){
 					userIns.set(data.values);
 					$.ui.goBack();

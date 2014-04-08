@@ -380,8 +380,33 @@ var app = (function(){
 		}
 	}
 
-	function getUserData(){
-		return userData;
+	function getUserData(include){
+		// 完整复制一份数据
+		var ret;
+		if(include && include.length) {
+			// 将数组元素转为字符串格式
+			ret = {
+				group: {},
+				datas: {}
+			}
+			// 过渡分组信息
+			_.each(userData.group, function(v, k){
+				// 取出数据交集
+				var insec = _.intersection(v, include);
+				if(insec && insec.length) {
+					ret.group[k] = insec;
+				}
+			});
+
+			_.each(userData.datas, function(v, k){
+				if(include.indexOf(+k) !== -1) {
+					ret.datas[k] = v
+				}
+			});
+		} else {
+			ret = userData;
+		}
+		return ret;
 	}
 	function getUser(uid){
 		var datas = userData.datas;
@@ -497,7 +522,7 @@ app.openSelector = function(settings){
 		defData;
 
 	settings = settings || {};
-	defData = settings.data || app.getUserData()
+	defData = settings.data || app.getUserData(settings.include);
 	settings.onCancel = settings.onCancel || function(){
 		$.ui.goBack();
 	};
@@ -538,7 +563,8 @@ app.openSelector = function(settings){
 					$.ui.prevHeader.find(".ao-ok").show()
 					.off("click.saveSelector")
 					.on("click.saveSelector", function(evt){
-						settings.onSave(evt, { values:  ulIns.get() })
+						// 回调 onSave
+						settings.onSave(evt, { values:  ulIns.get() });
 					})
 				} else {
 					$.ui.prevHeader.find(".ao-ok").hide();
@@ -567,7 +593,7 @@ app.goHome = function(){
 	if($.ui.history.length && $.ui.history[$.ui.history.length - 1].target == "#main"){
 		$.ui.goBack();
 	} else {
-		$.ui.loadContent("#main", 0, 1);
+		$.ui.loadContent("#main", 0, 0);
 		$.ui.clearHistory();
 	}
 	$.ui.hideMask();

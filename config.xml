@@ -11,30 +11,21 @@
     <author href="http://www.ibos.com.cn" email="Aeolus@ibos.com.cn"> 
         Aeolus <!-- 注释：作者信息 -->
     </author>
-    <gap:platforms> <!-- 注释：支持平台 -->
-		<gap:platform name="ios" />
-		<gap:platform name="android" />
-    </gap:platforms>
-	<preference name="phonegap-version" value="3.1.0" /> <!-- 注释：版本-->
+    <gap:platform name="ios" />
+	<gap:platform name="android" />
+	<gap:platform name="winphone" />
+
+	<preference name="phonegap-version" value="3.3.0" /> <!-- 注释：版本-->
 	<preference name="fullscreen" value="false" />
    	<preference name="webviewbounce" value="false" />
+   	<preference name="ios-statusbarstyle" value="black-opaque" />
 
 	<icon src="icon.png" />
     <icon src="res/icon/ios/icon-57-2x.png" gap:role="default" /> <!-- 注释：应用Logo，显示在移动终端桌面上和应用名称一起 -->
-	<gap:splash src="splash" />
+	<gap:splash src="splash.png" />
 	<gap:splash src="res/screen/ios/screen-iphone-portrait.png" gap:platform="ios" width="320" height="480" />
 	<gap:splash src="res/screen/ios/screen-iphone-portrait-2x.png" gap:platform="ios" width="640" height="960" />
 	<gap:splash src="res/screen/ios/screen-iphone-portrait-568h-2x.png" gap:platform="ios" width="640" height="1136" /><!-- 注释： 程序启动时显示图像-->
-    <!--  程序需使用的权限	
-		<feature name="http://api.phonegap.com/1.0/battery"/>
-		<feature name="http://api.phonegap.com/1.0/camera"/>
-		<feature name="http://api.phonegap.com/1.0/contacts"/>
-		<feature name="http://api.phonegap.com/1.0/file"/>
-		<feature name="http://api.phonegap.com/1.0/geolocation"/>
-		<feature name="http://api.phonegap.com/1.0/media"/>
-		<feature name="http://api.phonegap.com/1.0/network"/>
-		<feature name="http://api.phonegap.com/1.0/notification"/>
-    -->	
 
 	<feature name="Camera">
 		<param name="ios-package" value="CDVCamera" />
@@ -52,23 +43,24 @@
 		<param name="ios-package" value="CDVNotification" />
 	</feature>
 
+	<gap:plugin name="org.apache.cordova.device" />
 	<gap:plugin name="org.apache.cordova.camera" />
 	<gap:plugin name="org.apache.cordova.media-capture" />
 	<gap:plugin name="org.apache.cordova.file" />
 	<gap:plugin name="org.apache.cordova.file-transfer" />
 <!-- 	<gap:plugin name="org.apache.cordova.contacts" /> -->
 	<gap:plugin name="org.apache.cordova.geolocation" />
-<!-- 	<gap:plugin name="org.apache.cordova.inappbrowser" /> -->
+	<gap:plugin name="org.apache.cordova.inappbrowser" />
 	<gap:plugin name="org.apache.cordova.media" />
-<!-- 	<gap:plugin name="org.apache.cordova.dialogs" /> -->
-
+	<gap:plugin name="org.apache.cordova.dialogs" />
 	<gap:plugin name="org.apache.cordova.splashscreen" /> <!-- 注释：引导闪屏-->
+	
 	<!-- preference name="splashscreen" value="foo" /-->
 
 	<gap:plugin name="com.phonegap.plugins.barcodescanner" /> <!-- 注释：二维码扫描-->
 	<gap:plugin name="com.phonegap.plugins.pushplugin" /> <!-- 注释：推送插件-->
-	<gap:plugin name="ihome.cordova.plugin.local-notification" /> <!-- 注释：本地消息插件-->
-	<gap:plugin name="com.phonegap.plugin.statusbar" /> <!-- 注释：顶部状态栏-->
+<!-- 	<gap:plugin name="ihome.cordova.plugin.local-notification" /> --> <!-- 注释：本地消息插件-->
+<!-- 	<gap:plugin name="com.phonegap.plugin.statusbar" /> --> <!-- 注释：顶部状态栏-->
 	
-	<access origin="*" />
+	<access origin="*" subdomains="true" />
 </widget>

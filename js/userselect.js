@@ -12,8 +12,56 @@ var User = function(id, values, options) {
 		throw new Error("User: elem 参数必须为ul节点");
 	}
 	this.$elem = $(elem);
-	this.values = $.isArray(values) ? values : [];
 	this.options = $.extend({}, User.defaults, options);
+
+	// 将表单域中的值按格式还原出来
+	var _toValue = function(selector, values, type){
+		var $input = $(selector);
+		if($(selector).length) {
+			var dv = $(selector).val();
+			dv.split(",").forEach(function(v){
+				if(v) {
+				values.push({
+					id: v,
+					text: app.getUserName(v),
+					type: type || null
+				})
+				}
+			})
+		}
+	}
+	var _toInput = function(selector, values, type){
+		var res = [];
+		values.forEach(function(v){
+			v.type == type && res.push(v.id);
+		})
+		$(selector).val(res.join(","));
+	}
+	// 如果设置默认values
+	if(values && $.isArray(values)) {
+		this.values = values.slice();
+	// 否则尝试从关联表单控件中获取
+	} else {
+		this.values = [];
+		if(options.input){
+			_toValue(options.input, this.values, null);
+			// 值改变时同步至表单控件
+			this.$elem.on("userchange", function(evt, data){
+				_toInput(options.input, data.values, null);
+			})
+		}
+		if(options.inputs) {
+			for(var type in options.inputs) {
+				var selector = options.inputs[type];
+				_toValue(selector, this.values, type);
+				// 值改变时同步至表单控件
+				this.$elem.on("userchange", function(evt, data){
+					_toInput(selector, data.values, type);
+				})
+			}
+		}
+	}
+
 	this.init();
 	this.constructor.instances[id] = this;
 };
@@ -33,8 +81,8 @@ User.prototype = {
 
 		// 当没有user-selecor-list 样式类时，给其添加上
 		this.$elem.addClass("user-selector-list");
-		// 初始化值，此处使用slice是为了避免指向同一数组
-		this.set(this.values.slice());
+
+		this.set(this.values.slice(), true);
 		// 
 		if (this.options.editable) {
 			this.$elem.on("click", "li", function() {
@@ -46,7 +94,7 @@ User.prototype = {
 		}
 	},
 
-	_add: function(value) {
+	_add: function(value, silent) {
 		var item;
 		if (typeof value === "object" && "id" in value) {
 			// 创建新节点
@@ -59,36 +107,41 @@ User.prototype = {
 
 			this.$elem.append(item);
 			this.values.push(value);
-			this.$elem.trigger("user:add", value);
+			if(!silent) {
+				this.$elem.trigger("user:add", value);
+				this._triggerChange();
+			}
 		}
 	},
 
-	add: function(values) {
+	add: function(values, silent) {
 		// 判断如果为数组则循环添加，否则直接添加
 		if ($.isArray(values)) {
 			for (var i = 0; i < values.length; i++) {
-				this._add(values[i]);
+				this._add(values[i], silent);
 			}
 		} else {
-			this._add(values);
+			this._add(values, silent);
 		}
-
-		this._triggerChange();
 	},
 
-	_remove: function(id) {
+	_remove: function(id, silent) {
 		for (var i = 0; i < this.values.length; i++) {
 			if (this.values[i].id == id) {
-				this.$elem.trigger("user:remove", this.values[i]);
+				var value = this.values[i];
 				this.values.splice(i, 1);
 				// $("[data-id='" + id + "']", this.$elem).remove();
 				$("#" + this.$elem.get(0).id + id).remove();
+				if(!silent) {	
+					this.$elem.trigger("user:remove", value);
+					this._triggerChange();
+				}
 				return;
 			}
 		}
 	},
 
-	remove: function(ids) {
+	remove: function(ids, silent) {
 		var idarr;
 		// 如果为字符串，则判断是否期待移除多个值
 		if (typeof ids === "string") {
@@ -97,30 +150,30 @@ User.prototype = {
 			// 只有当分隔后大于两个值时，进入循环，否则，当作传入一个值处理
 			if (idarr.length > 1) {
 				for (var i = 0; i < idarr.length; i++) {
-					this._remove(idarr[i]);
+					this._remove(idarr[i], silent);
 				};
 				return;
 			}
 		}
 
-		this._remove(ids);
-		this._triggerChange();
+		this._remove(ids, silent);
 	},
 
-	// isSet 为内部参数，表示当此方法被set方法调用时的情况， 此时，不会发布change事件
-	clear: function(isSet) {
+	clear: function(silent) {
 		this.$elem.empty();
 		this.values.length = 0;
-
-		if (!isSet) {
+		if(!silent){
 			this._triggerChange();
 		}
 	},
 
-	set: function(values) {
+	set: function(values, silent) {
 		// 设置值会先清空原有值
 		this.clear(true);
-		this.add(values);
+		this.add(values, true);
+		if(!silent) {
+			this._triggerChange();
+		}
 	},
 
 	get: function() {
@@ -156,7 +209,7 @@ User.prototype = {
 
 	_triggerChange: function() {
 		var values = this.values;
-		this.$elem.trigger("userchange", values);
+		this.$elem.trigger("userchange", { values: values });
 	},
 
 	destory: function(){

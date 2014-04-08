@@ -53,13 +53,6 @@
 	<script type="text/javascript" charset="utf-8" src="./plugins/af.slidemenu.js"></script>
 	<script type="text/javascript" charset="utf-8" src="./plugins/af.template.js"></script>
 	
-	
-	<script type="text/javascript" charset="utf-8" src="./js/LAB.js"></script>
-	<script type="text/javascript" charset="utf-8" src="./js/core.js"></script>
-	<script type="text/javascript" charset="utf-8" src="./js/function.js"></script>
-	<script type="text/javascript" charset="utf-8" src="./js/appsdk.js"></script>
-	<script type="text/javascript" charset="utf-8" src="./js/push.js"></script>
-	<script type="text/javascript" charset="utf-8" src="./js/when.js"></script>
 <!--
 https://github.com/EddyVerbruggen/Calendar-PhoneGap-Plugin/blob/6e6c4020832a66a17c69b48357623ad2f64d6913/README.md
 -->	
@@ -83,7 +76,7 @@ https://github.com/EddyVerbruggen/Calendar-PhoneGap-Plugin/blob/6e6c4020832a66a1
 		$.ui.resetScrollers = false;
 		
 		$(document).ready(function(){
-			$.ui.setSideMenuWidth($("#afui").width()-50);
+			// $.ui.setSideMenuWidth($("#afui").width()-50);
 			$.ui.launch();
 			app.init();  // 初始化我的数据
 
@@ -110,6 +103,15 @@ https://github.com/EddyVerbruggen/Calendar-PhoneGap-Plugin/blob/6e6c4020832a66a1
 		};
         document.addEventListener("deviceready", onDeviceReady, false);
 	</script>
+	
+	<script type="text/javascript" charset="utf-8" src="./js/LAB.js"></script>
+	<script src="./js/underscore.js"></script>
+	<script type="text/javascript" charset="utf-8" src="./js/core.js"></script>
+	<script type="text/javascript" charset="utf-8" src="./js/function.js"></script>
+	<script type="text/javascript" charset="utf-8" src="./js/appsdk.js"></script>
+	<script type="text/javascript" charset="utf-8" src="./phonegap.js"></script>
+	<script type="text/javascript" charset="utf-8" src="./js/push.js"></script>
+	<script type="text/javascript" charset="utf-8" src="./js/when.js"></script>
 </head>
 <body>
 <div id="afui" class="ibos">
