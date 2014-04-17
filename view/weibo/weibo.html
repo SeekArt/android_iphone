@@ -16,121 +16,7 @@
 	<!-- 微博列表 -->
 	<div class="wb-ct">
 		<div data-node="feedList">
-			<!-- 微博:公文动态 -->
-			<div data-node="feedBox" class="wb-feed hide">
-				<div class="pds">
-					<!-- 个人信息 -->
-					<div class="media">
-						<div class="media-costar avatar">
-							<img src="http://ink.cc/avatar.php?uid=93&size=middle&engine=LOCAL" class="rds">
-						</div>
-						<div class="media-body">
-							<div class="wb-feed-title">
-								<h4 class="wb-feed-un">张衡</h4>
-								发布了一篇公文
-							</div>
-							<div class="fss xcn">
-								11月29日15:13 来自 公文
-							</div>
-						</div>
-					</div>
-				</div>
-				<!-- 微博内容 -->
-				<div class="wb-feed-ct">
-					<h3 class="wb-oafeed-title">公司小并不可怕，可怕的是不性感</h3>
-					<p>
-					做为一家小公司，初创公司，如何能够成长为一家大公司，小而美是远远不够的，更关键的还是在于这家公司在小的时候是不是方方面面看起来都足够性感。
-					</p>
-				</div>
-			</div>
 
-			<!-- 微博:新闻动态 -->
-			<div data-node="feedBox" class="wb-feed hide">
-				<div class="pds">
-					<!-- 个人信息 -->
-					<div class="media">
-						<div class="media-costar avatar">
-							<img src="http://ink.cc/avatar.php?uid=93&size=middle&engine=LOCAL" class="rds">
-						</div>
-						<div class="media-body">
-							<div class="wb-feed-title">
-								<h4 class="wb-feed-un">张衡</h4>
-								发布了一篇新闻
-							</div>
-							<div class="fss xcn">
-								11月29日15:13 来自 新闻
-							</div>
-						</div>
-					</div>
-				</div>
-				<!-- 图片 -->
-				<div class="wb-feed-pic">
-					<img src="" alt="" width="480" height="200">
-				</div>
-				<!-- 微博内容 -->
-				<div class="wb-feed-ct">
-					<h3 class="wb-oafeed-title">公司小并不可怕，可怕的是不性感</h3>
-					<p>
-					做为一家小公司，初创公司，如何能够成长为一家大公司，小而美是远远不够的，更关键的还是在于这家公司在小的时候是不是方方面面看起来都足够性感。
-					</p>
-				</div>
-			</div>
-
-			<!-- 微博:工作流动态 -->
-			<div data-node="feedBox" class="wb-feed hide">
-				<div class="pds">
-					<!-- 个人信息 -->
-					<div class="media">
-						<div class="media-costar avatar">
-							<img src="http://ink.cc/avatar.php?uid=93&size=middle&engine=LOCAL" class="rds">
-						</div>
-						<div class="media-body">
-							<div class="wb-feed-title">
-								<h4 class="wb-feed-un">张衡</h4>
-								办理了一篇工作流
-							</div>
-							<div class="fss xcn">
-								11月29日15:13 来自 工作流
-							</div>
-						</div>
-					</div>
-				</div>
-				<!-- 微博内容 -->
-				<div class="wb-feed-ct">
-					<h3 class="wb-oafeed-title">张衡加班登记(2014-03-09 09:32:11)</h3>
-					<p>
-					第四步：申请人查阅由Conrer主办；用时:21秒，开始于：2013-10-11 09:11，结束于：2013-10-11 09:11
-					</p>
-				</div>
-			</div>
-
-			<!-- 微博:日志动态 -->
-			<div data-node="feedBox" class="wb-feed hide">
-				<div class="pds">
-					<!-- 个人信息 -->
-					<div class="media">
-						<div class="media-costar avatar">
-							<img src="http://ink.cc/avatar.php?uid=93&size=middle&engine=LOCAL" class="rds">
-						</div>
-						<div class="media-body">
-							<div class="wb-feed-title">
-								<h4 class="wb-feed-un">张衡</h4>
-								发表了一篇工作日志
-							</div>
-							<div class="fss xcn">
-								11月29日15:13 来自 工作日志
-							</div>
-						</div>
-					</div>
-				</div>
-				<!-- 微博内容 -->
-				<div class="wb-feed-ct">
-					<h3 class="wb-oafeed-title">4月18日 星期四工作日志</h3>
-					<p>
-					今天上午开始规划剩下需要做的工作，开始了重新设计的漫漫长路，对比以前主要改进有:1、考虑企业微博日常微博刷新不多的情况下默认显示5条评论，放出评论输入框，以提高社交互动为目的。2、筛选分类分为：迎新汇、表扬、投票、普通、状态5类型，来自模块发出的微博均为状态，话题不算在任何分类内。
-					</p>
-				</div>
-			</div>
 		</div>
 	</div>
 	<!-- 加载更多 -->
@@ -140,7 +26,7 @@
 
 <!-- </div> -->
 <!-- Template: 微博条目 -->
-<textarea  id="wb_feed_tpl" class="hideim">
+<textarea id="wb_feed_tpl" class="hideim">
 	<% var user = app.getUser(uid) || {}; %>
 	<div data-node="feedBox" class="wb-feed" data-id="<%=feedid%>">
 		<div class="pds">

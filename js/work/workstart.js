@@ -133,7 +133,7 @@ var WorkStart = (function(){
 								],
 								signs: json.feedback,
 								progress: json.rpcache,
-								feedback: json.allowFeedback, // 是否允许回退
+								feedback: json.allowFeedback, // 是否允许会签
 								rollback: json.allowBack, // 是否允许回退
 								laststep: 0, // 是否最后一步
 							}
@@ -167,17 +167,18 @@ var WorkStart = (function(){
 
 		// 工作流回退
 		"workRollback": function(param){
+			var $form = $.query("#form_work_handle");
 			app.ui.prompt("请输入回退理由:", function(val){
 				$.ui.showMask();
-				// $.jsonP({
-				// 	url: "&callback=?&runid=" + param.runId + "content=" + val,
-				// 	success: function(res){
-						console.log("流程id: "+ param.runId + " 回退理由: " + val)
+				$.jsonP({
+					url: app.appUrl + '/work/fallback&key=' + $form.get(0).key.value + '&topflag=0',
+					success: function(res){
+						console.log("回退理由: " + val)
 						$.ui.hideMask();
-						$.ui.goBack();
-				// 	},
-				// 	error: core.error
-				// })
+						$.ui.loadContent("view/work/todo.html", 0, 0);
+					},
+					error: core.error
+				})
 			})
 		},
 
@@ -279,7 +280,8 @@ var WorkStart = (function(){
 					// operatorIns && operatorIns.destory();
 					app.param.remove("flowid");
 					app.ui.tip("转交成功");
-					$.ui.goBack(2);
+					// $.ui.goBack(2);
+					$.ui.loadContent("view/work/todo.html", 0, 0);
 				},
 				error: core.error
 			})

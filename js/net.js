@@ -29,11 +29,12 @@ var netSetting = (function(){
 	}
 	function setDefault(i){
 		app.appUrl = netSetList[i].url;
-		app.isInit = false;
-		app.init();
+		app.defaultUrl = app.appUrl;
 		localStorage.setItem("defaultUrl", netSetList[i].url);
 		localStorage.setItem("defaultName", netSetList[i].name);
 		localStorage.setItem("defaultID", netSetList[i].id);
+		app.isInit = false;
+		app.init();
 	}
 	function save(myid){
 		var i = myid ? myid : ++maxID;

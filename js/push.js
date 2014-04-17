@@ -15,7 +15,8 @@ function successHandler (result) {
 }
 // result contains any error description text returned from the plugin call
 function errorHandler (error) {
-	alert('测试中：error = ' + error);
+	//alert('测试中：error = ' + error);
+    console.log('测试中：error = ' + error);
 }
 function tokenHandler (result) {
 	// Your iOS push server needs to know the token before it can push to this device

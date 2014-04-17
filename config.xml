@@ -60,7 +60,7 @@
 	<gap:plugin name="com.phonegap.plugins.barcodescanner" /> <!-- 注释：二维码扫描-->
 	<gap:plugin name="com.phonegap.plugins.pushplugin" /> <!-- 注释：推送插件-->
 <!-- 	<gap:plugin name="ihome.cordova.plugin.local-notification" /> --> <!-- 注释：本地消息插件-->
-<!-- 	<gap:plugin name="com.phonegap.plugin.statusbar" /> --> <!-- 注释：顶部状态栏-->
+	<gap:plugin name="com.phonegap.plugin.statusbar" /> <!-- 注释：顶部状态栏-->
 	
 	<access origin="*" subdomains="true" />
 </widget>

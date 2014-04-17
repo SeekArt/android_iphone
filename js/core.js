@@ -256,10 +256,10 @@ List.prototype = {
 
 // 测试专用
 if(!localStorage.getItem("defaultUrl")){
-	localStorage.setItem("defaultUrl","http://vclub.storagechina.net");
+	localStorage.setItem("defaultUrl","http://115.28.216.197");
 	localStorage.setItem("defaultID","1");
-	localStorage.setItem("defaultName","V专家俱乐部");
-	localStorage.setItem("netSetList",'{"1":{"id":"1","url":"http://vclub.storagechina.net","name":"V专家俱乐部"}}');
+	localStorage.setItem("defaultName","Uweb");
+	localStorage.setItem("netSetList",'{"1":{"id":"1","url":"http://115.28.216.197","name":"Uweb"}}');
 }
 
 /**
@@ -271,7 +271,7 @@ if(!localStorage.getItem("defaultUrl")){
 var app = (function(){
 	var isLogin = false,
 		isInit = false,
-		appUrl = defaultUrl = localStorage.getItem("defaultUrl") ,
+		appUrl = defaultUrl =  localStorage.getItem("defaultUrl"),
 		user = core.getStorage("user"),
 		uid	= localStorage.getItem("uid"),
 		formHash = '';
@@ -284,6 +284,7 @@ var app = (function(){
 	}
 
 	function init(){
+		appUrl = defaultUrl =  localStorage.getItem("defaultUrl");
 		if(!app.isInit){
 			if(!uid || !user){
 				setTimeout(function(){$.ui.loadContent('login',false,false,'fade')},500);
@@ -312,7 +313,7 @@ var app = (function(){
 			if(localStorage.getItem("lastUrl")!=defaultUrl){
 				_isset = false;			
 			}
-			localStorage.setItem("defaultUrl", defaultUrl);
+			localStorage.setItem("lastUrl", defaultUrl);
 			
 						
 		//以下登录换用了rpc
@@ -554,20 +555,19 @@ app.openSelector = function(settings){
 			setTimeout(function(){
 
 				// @Todo: 可能需要定义回调的参数
-				$.ui.prevHeader.find(".ao-cancel")
+				$($.ui.header).find(".ao-cancel")
 				.off("click.cancelSelector")
 				.on("click.cancelSelector", settings.onCancel);
 				
-
 				if(settings.onSave) {
-					$.ui.prevHeader.find(".ao-ok").show()
+					$($.ui.header).find(".ao-ok").show()
 					.off("click.saveSelector")
 					.on("click.saveSelector", function(evt){
 						// 回调 onSave
 						settings.onSave(evt, { values:  ulIns.get() });
 					})
 				} else {
-					$.ui.prevHeader.find(".ao-ok").hide();
+					$($.ui.header).find(".ao-ok").hide();
 				}
 			}, 300)
 		});
