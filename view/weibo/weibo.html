@@ -66,7 +66,7 @@
 		<!-- 微博内容 -->
 		<% if(table === "feed") { %>
 		<div class="wb-feed-ct bdbgr" data-evt="feedDetail" data-param='{"feedId": "<%=feedid%>"}'>
-			<div class="wb-feed-ctb"><%= content %></div>
+			<div class="wb-feed-ctb"><%= core.util.replaceEditorSrc(content) %></div>
 			<!-- 转发框 -->
 			<% if(type==="repost") { %>
 				<div class="wb-feed-fw">
@@ -76,7 +76,7 @@
 					</div>
 					<% } %>
 					<div class="wb-feed-ct">
-						<div class="wb-feed-ctb"><%=api_source.feedcontent%></div>
+						<div class="wb-feed-ctb"><%= core.util.replaceEditorSrc(api_source.feedcontent) %></div>
 					</div>
 				</div>
 			<% } %>
@@ -113,7 +113,7 @@
 		<% } else { %>
 			<div class="wb-feed-ct wb-oafeed-ct">
 				<h3 class="wb-oafeed-title"><%= api_source.subject %></h3>
-				<div class="wb-feed-ctb"><%= api_source.content %></div>
+				<div class="wb-feed-ctb"><%= core.util.replaceEditorSrc(api_source.content) %></div>
 			</div>
 		<% } %>
 	</div>

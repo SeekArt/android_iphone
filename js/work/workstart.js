@@ -100,7 +100,7 @@ var WorkStart = (function(){
 		// 如果是新建， 则需要先获取到runid
 		if(type === "new") {
 			$.jsonP({
-				url: "" + "&flowid=" + id,
+				url: app.appUrl + '/work/add' + "&flowid=" + key,
 				success: function(res){
 					_start(res.key, "sponsor");
 				}
@@ -120,16 +120,16 @@ var WorkStart = (function(){
 								runId: 1,
 								form: json.model,
 								attachs: [
-									{
-										aid: 1,
-										flowProgress: 1,
-										flowType: "请假申请",
-										realname: "千千子",
-										fileType: "photo",
-										fileName: "keroro.png",
-										fileTime: "2014-01-01 12:30",
-										fileSize: "3.11M"
-									}
+									// {
+									// 	aid: 1,
+									// 	flowProgress: 1,
+									// 	flowType: "请假申请",
+									// 	realname: "千千子",
+									// 	fileType: "photo",
+									// 	fileName: "keroro.png",
+									// 	fileTime: "2014-01-01 12:30",
+									// 	fileSize: "3.11M"
+									// }
 								],
 								signs: json.feedback,
 								progress: json.rpcache,

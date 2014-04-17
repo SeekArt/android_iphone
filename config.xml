@@ -18,7 +18,6 @@
 	<preference name="phonegap-version" value="3.3.0" /> <!-- 注释：版本-->
 	<preference name="fullscreen" value="false" />
    	<preference name="webviewbounce" value="false" />
-   	<preference name="ios-statusbarstyle" value="black-opaque" />
 
 	<icon src="icon.png" />
     <icon src="res/icon/ios/icon-57-2x.png" gap:role="default" /> <!-- 注释：应用Logo，显示在移动终端桌面上和应用名称一起 -->

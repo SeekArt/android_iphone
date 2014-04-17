@@ -36,6 +36,21 @@ var core = {
 				strArr.splice(index, 1);
 			}
 			$input.val(strArr.join(","));
+		},
+
+		replaceEditorSrc: function(source){
+			if(typeof source === 'string') {
+				var reg = /src=['"](data\/.*?)['"]/g;
+				return source.replace(reg, function($0, $1){
+					return "src='" + app.defaultUrl + "/" + $1 + "'";
+				})
+			// 当 source 为节点时
+			} else {
+				$.query('img[src^="data"]', source).each(function() {
+					this.setAttribute("src", app.defaultUrl + "/" + this.getAttribute("src"));
+				});
+				return source;
+			}
 		}
 	},
 	str: {},
@@ -527,6 +542,7 @@ app.openSelector = function(settings){
 	settings.onCancel = settings.onCancel || function(){
 		$.ui.goBack();
 	};
+	var letterIns;
 
 	$(document).one("loadpanel", function(){
 		// 设置标题, 延时至头部动画效果执行完成后
@@ -539,11 +555,16 @@ app.openSelector = function(settings){
 			var ulIns = new UserList(containerId, defData, settings);
 
 			// 初始化字母索引功能
-			var letterIns = new Letter({ prefix: containerId + "_" });
-			$.query("#" + panelId).one("unloadpanel", function(){
-				letterIns.destory();
-				letterIns = null
-			})
+			letterIns = new Letter({ prefix: containerId + "_" });
+			letterIns.$elem.hide();
+			setTimeout(function(){
+				letterIns.$elem.show()
+			}, parseInt($.ui.transitionTime, 10))
+
+			// $.query("#" + panelId).one("unloadpanel", function(){
+			// 	letterIns.destory();
+			// 	letterIns = null
+			// })
 
 			if(settings.onSelect) {
 				$("#" + containerId).on("userselect", function(){
@@ -572,6 +593,15 @@ app.openSelector = function(settings){
 			}, 300)
 		});
 	});
+	$(document)
+	.off("loadpanel.selector")
+	.on("loadpanel.selector", "#" + panelId, function(){
+		letterIns && letterIns.$elem.show();
+	})
+	.off("unloadpanel.selector")
+	.on("unloadpanel.selector", "#" + panelId, function(){
+		letterIns && letterIns.$elem.hide();
+	})
 	// cube, default, down, fade, flip, none, pop, slide, up
 	$.ui.loadContent("view/selector/selector.html", 0, 0, "pop");
 };
@@ -872,14 +902,14 @@ $(document).ready(function(){
 			$.ui.disableSideMenu();
 		}
 		// 固定定位, 将页面内有指定节点抽离出来;
-		$fixedDivs = $.query('[data-node="fixedElem"]', evt.target);
-		if($fixedDivs.length) {
-			$fixedDivs.each(function(index, elem){
-				var $elem = $(elem);
-				$elem.attr("prevElem", elem.previousSibling);
-				$elem.appendTo($.query("#afui"));
-			})
-		}
+		// $fixedDivs = $.query('[data-node="fixedElem"]', evt.target);
+		// if($fixedDivs.length) {
+		// 	$fixedDivs.each(function(index, elem){
+		// 		var $elem = $(elem);
+		// 		$elem.attr("prevElem", elem.previousSibling);
+		// 		$elem.appendTo($.query("#afui"));
+		// 	})
+		// }
 	})
 	.on("unloadpanel", function(evt){
 		// 还原因固定定位抽离出来的节点

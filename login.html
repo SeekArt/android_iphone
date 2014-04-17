@@ -12,7 +12,7 @@
 					<li class="control-group">
 						<label for="">用户名</label>
 						<div class="controls">
-							<input name="username" type="text" id="username" value="">
+							<input name="username" type="text" id="username" value="" autocomplete>
 						</div>
 					</li>
 					<li class="control-group">
@@ -53,5 +53,11 @@ appSdk.ready(function(){
 			console.log(err.message);
 		}
 	);
+})
+$(document).ready(function(){
+	var username = core.getStorage("lastUser");
+	if(username){
+		document.getElementById("username").value = username;
+	}
 })
 </script>

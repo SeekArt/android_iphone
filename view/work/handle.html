@@ -2,7 +2,7 @@
 	<form action="javascript:;" target="hidden_frame" method="post" id="form_work_handle">
 
 	<div>
-		<ul class="tab work-handle-tab" data-node="fixedElem">
+<!-- 		<ul class="tab work-handle-tab" data-node="fixedElem">
 			<li class="pressed" data-evt="workHandleScroll" data-param='"#work_handle_form"'>
 				<a href="javascript:;" >表单</a>
 			</li>
@@ -15,7 +15,7 @@
 			<li data-evt="workHandleScroll" data-param='"#work_handle_progress"'>
 				<a href="javascript:;">进度</a>
 			</li>
-		</ul>
+		</ul> -->
 		<div class="work-handle-mainer" id="work_handle_mainer">
 			<!-- 表单 -->
 		</div>
@@ -195,10 +195,11 @@
 				<% for(var i = 0; i < attachs.length; i++) { %>
 					<%= $.template(document.getElementById("work_handle_attach_tpl").value, attachs[i]) %>
 				<% } %>
-				<a href="javascript:;" class="upload-btn" data-evt="addWorkAttach" data-param='{"runId": <%= runId %>}'>
+<!-- 				<a href="javascript:;" class="upload-btn" data-evt="addWorkAttach" data-param='{"runId": <%= runId %>}'>
 					<i class="aoicon ao-upload-add"></i>
 					上传文件
 				</a>
+ -->
 			</div>
 			<input type="hidden" name="attachid" id="work_handle_attach_value">
 		</div>
