@@ -341,6 +341,7 @@ var app = (function(){
 					core.setStorage("ibosUserData", res.userData);
 				}
 				core.setStorage("defaultLogin", {"u":username,"p":password});
+				core.setStorage("lastUser", username);
 				
 				//$("#loginbtn").html('登录');
 				$.ui.hideMask();
@@ -371,7 +372,7 @@ var app = (function(){
 		});
 		core.removeStorage("defaultLogin");
 		core.removeStorage("user");
-		core.removeStorage("uid");		
+		core.removeStorage("uid");
 		$.ui.loadContent('login',false,false,'fade');
 	}
 	

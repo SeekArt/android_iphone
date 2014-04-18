@@ -18,7 +18,6 @@
 
 		<%if(attachmentid != ""){%>
 		<!-- 附件排版 -->
-		<!-- @Todo: 附件功能未实现 -->
 				<div class="pds">
 			<%for (var i in attach){%>
 					<ul class="att-list">
@@ -31,7 +30,7 @@
 								<p class="att-desc"><%=attach[i].filesize%></p>
 							</div>
 							<div class="att-op">
-								<a href="<%=app.defaultUrl%>/<%=attach[i].attachment%>" class="aoicon ao-download-gray"></a>
+								<a href="<%=app.defaultUrl%>/<%=attach[i].downurl%>" class="aoicon ao-download-gray"></a>
 							</div>
 						</li>
 					</ul>

@@ -231,23 +231,25 @@
 
 	<!-- Template: 底部工具条 -->
 	<textarea id="work_handle_footer_tpl" class="hideim">
-		<div class="cmflex">
-			<% if(rollback) { %>
-				<div class="cmflex-item">
+		<table class="footer-table">
+			<tr>
+				<% if(rollback) { %>
+				<td>
 					<button type="button" class="button black infoot" data-evt="workRollback" data-param='{ "runId": <%= runId %> }'>回退</button>
-				</div>
-			<% } %>
-			<div class="cmflex-item">
-				<button type="button" class="button black infoot" data-evt="workSaveForm" data-param='{ "runId": <%= runId %> }'>保存</button>
-			</div>
-			<div class="cmflex-item">
-			<% if(laststep) { %>
-				<button type="button" class="button blue infoot" data-evt="workDeal" data-param='{ "runId": <%= runId %> }'>办理完毕</button>
-			<% } else { %>
-				<button type="button" class="button blue infoot" data-evt="toForwardWork" data-param='{ "runId": <%= runId %> }'>转交</button>
-			<% } %>
-			</div>
-		</div>
+				</td>
+				<% } %>
+				<td>
+					<button type="button" class="button black infoot" data-evt="workSaveForm" data-param='{ "runId": <%= runId %> }'>保存</button>
+				</td>
+				<td>
+				<% if(laststep) { %>
+					<button type="button" class="button blue infoot" data-evt="workDeal" data-param='{ "runId": <%= runId %> }'>办理完毕</button>
+				<% } else { %>
+					<button type="button" class="button blue infoot" data-evt="toForwardWork" data-param='{ "runId": <%= runId %> }'>转交</button>
+				<% } %>
+				</td>
+			</tr>
+		</table>
 	</textarea>
 </div>
 

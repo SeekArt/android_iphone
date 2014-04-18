@@ -10,5 +10,26 @@
 			</p>
 		</details>
 		<div class="view-content"><%=content%></div>
+		<%if(attachmentid != ""){%>
+		<!-- 附件排版 -->
+				<div class="pds">
+			<%for (var i in attach){%>
+					<ul class="att-list">
+						<li class="att">
+							<div class="att-icon">
+								<img src="images/filetype/<%=attach[i].filetype%>.png" alt="" width="44" height="44">
+							</div>
+							<div class="att-content">
+								<h4><%=attach[i].filename%></h4>
+								<p class="att-desc"><%=attach[i].filesize%></p>
+							</div>
+							<div class="att-op">
+								<a href="<%=app.defaultUrl%>/<%=attach[i].downurl%>" class="aoicon ao-download-gray"></a>
+							</div>
+						</li>
+					</ul>
+			<%}%>
+				</div>
+		<%}%>
 	</textarea>
 </div>
