@@ -46,8 +46,8 @@
 					<label class="xcd">主办</label>
 					<div class="controls user-selector-bar">
 						<a href="javascript:;" class="aoicon ao-more-gray posa-o" data-evt="addWorkSponsor" data-param='{
-							"id": "work_sponsor_<%=prcsto[i]%>",
-							"include": [1, 13, 93]
+							"id": "work_sponsor_<%=prcsto[i]%>"
+							<%if(1==2){%>,"include": [1, 13, 93]<%}%>
 						}'></a>
 						<ul class="user-selector-list" id="work_sponsor_<%=prcsto[i]%>" data-input="#prcs_user_op<%=i%>"></ul>
 						<input type="hidden" id="prcs_user_op<%=i%>" name="prcs_user_op<%=i%>" />
@@ -60,8 +60,8 @@
 					<label class="xcd">经办</label>
 					<div class="controls user-selector-bar">
 						<a href="javascript:;" class="aoicon ao-more-gray posa-o" data-evt="addWorkOperator" data-param='{
-							"id": "work_operator_<%=prcsto[i]%>",
-							"include": [1, 13, 93]
+							"id": "work_operator_<%=prcsto[i]%>"
+							<%if(1==2){%>,"include": [1, 13, 93]<%}%>
 						}'></a>
 						<ul class="user-selector-list" id="work_operator_<%=prcsto[i]%>" data-input="#prcs_user<%=i%>"></ul>
 						<input type="hidden" id="prcs_user<%=i%>" name="prcs_user<%=i%>" />
