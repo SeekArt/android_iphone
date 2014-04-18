@@ -19,24 +19,24 @@
 		<%if(attachmentid != ""){%>
 		<!-- 附件排版 -->
 		<!-- @Todo: 附件功能未实现 -->
-		<!--
-		<div class="pds">
-			<ul class="att-list">
-				<li class="att">
-					<div class="att-icon">
-						<img src="images/filetype/photo.png" alt="" width="44" height="44">
-					</div>
-					<div class="att-content">
-						<h4>直至世界的终结.mp3</h4>
-						<p class="att-desc">12M</p>
-					</div>
-					<div class="att-op">
-						<a href="#" class="aoicon ao-download-gray"></a>
-					</div>
-				</li>
-			</ul>
-		</div>
-		-->
+				<div class="pds">
+			<%for (var i in attach){%>
+					<ul class="att-list">
+						<li class="att">
+							<div class="att-icon">
+								<img src="images/filetype/<%=attach[i].filetype%>.png" alt="" width="44" height="44">
+							</div>
+							<div class="att-content">
+								<h4><%=attach[i].filename%></h4>
+								<p class="att-desc"><%=attach[i].filesize%></p>
+							</div>
+							<div class="att-op">
+								<a href="<%=app.defaultUrl%>/<%=attach[i].attachment%>" class="aoicon ao-download-gray"></a>
+							</div>
+						</li>
+					</ul>
+			<%}%>
+				</div>
 		<%}%>
 	</textarea>
 	<footer id="footer_mail_view" class="toolbar">

@@ -18,7 +18,7 @@
 .wb-feed-ex,
 .wb-feed-desc{ font-size: 12px; color: #B2C0D1; }
 .wb-feed-ex{ float: right; }
-.wb-feed-ct{ padding: 0 10px; }
+.wb-feed-ct{ padding: 0 10px; overflow: hidden; }
 .wb-feed-ctb{ padding: 10px 0; font-size: 16px; line-height: 24px;}
 .wb-feed-ct a{ color: #3497DB; }
 #afui .wb-feed-ctb p{ margin: 0; }
@@ -135,3 +135,7 @@
 
 .wb-user-list > li .media-body p{ height: 20px; text-overflow: ellipsis; white-space: nowrap; overflow: hidden; color: #82939E; font-size: 12px;}
 #afui.ibos .wb-user-list > li .avatar{ margin-top: 5px; }
+
+.wb-feed img {
+	max-width: 100% !important;
+}

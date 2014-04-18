@@ -71,7 +71,7 @@ var Weibo = {
 		param = param || {};
 		if(_this.loadMore && !_this.loadMoreLock) {
 			_this.loadMoreLock = true;
-			param.firstid = this.firstId;
+			param.loadid = this.loadId;
 			this.getData(param, function(res){
 				_this.firstId = res.firstId
 				_this.loadMore = res.loadMore;
@@ -143,7 +143,14 @@ var Weibo = {
 
 	// 向列表前插入html内容
 	prepentToList: function(html){
-		$.query('[data-node="feedList"]', $.ui.activeDiv).prepend(html);
+		var list = $.query('[data-node="feedList"]', $.ui.activeDiv),
+			children = list.children();
+
+		if(children.length) {
+			$(html).insertBefore(children.eq(0));
+		} else {
+			list.append(html);
+		}
 	},
 
 	updateNewCount: function(count) {
