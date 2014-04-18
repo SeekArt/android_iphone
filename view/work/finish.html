@@ -11,7 +11,7 @@
 	</div>
 	<textarea id="work_finish_tpl" class="hideim">
 		<li>
-			<a href="javascript:;" data-evt="<%= opflag ? 'sponsorWork': 'operateWork' %>" data-param='{"runId": "<%=runid%>","key":"<%=key%>"}'>
+			<a href="javascript:alert('已完成的流程不能再次办理');"><!--  data-evt="<%= opflag ? 'sponsorWork': 'operateWork' %>" data-param='{"runId": "<%=runid%>","key":"<%=key%>"}' -->
 				<div class="briefh">
 					<h4 class="title"><%=runName%></h4>
 					<time class="time"><%=core.toDatetime(begintime)%></time>
