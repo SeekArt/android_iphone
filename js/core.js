@@ -271,10 +271,10 @@ List.prototype = {
 
 // 测试专用
 if(!localStorage.getItem("defaultUrl")){
-	localStorage.setItem("defaultUrl","http://115.28.216.197");
+	localStorage.setItem("defaultUrl","http://uweboa.sinaapp.com");
 	localStorage.setItem("defaultID","1");
-	localStorage.setItem("defaultName","Uweb");
-	localStorage.setItem("netSetList",'{"1":{"id":"1","url":"http://115.28.216.197","name":"Uweb"}}');
+	localStorage.setItem("defaultName","云端");
+	localStorage.setItem("netSetList",'{"1":{"id":"1","url":"http://uweboa.sinaapp.com","name":"云端"}}');
 }
 
 /**
