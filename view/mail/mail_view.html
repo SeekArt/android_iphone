@@ -11,7 +11,7 @@
 				时  间:<time><%=core.toDatetime(sendtime)%></time>
 			</p>
 		</details>
-		<div class="view-content"><%=content%></div>
+		<div class="view-content"><%=core.util.replaceEditorSrc(content)%></div>
 		<input type="hidden" id="mailSubjectHidden" value="<%=subject%>">
 		<input type="hidden" id="mailFromIdHidden" value="<%=fromid%>">
 		<input type="hidden" id="mailCopyToIdsHidden" value="<%=copytoids%>">
