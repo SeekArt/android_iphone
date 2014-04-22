@@ -21,10 +21,6 @@
 
 	<icon src="icon.png" />
     <icon src="res/icon/ios/icon-57-2x.png" gap:role="default" /> <!-- 注释：应用Logo，显示在移动终端桌面上和应用名称一起 -->
-	<gap:splash src="splash.png" />
-	<gap:splash src="res/screen/ios/screen-iphone-portrait.png" gap:platform="ios" width="320" height="480" />
-	<gap:splash src="res/screen/ios/screen-iphone-portrait-2x.png" gap:platform="ios" width="640" height="960" />
-	<gap:splash src="res/screen/ios/screen-iphone-portrait-568h-2x.png" gap:platform="ios" width="640" height="1136" /><!-- 注释： 程序启动时显示图像-->
 
 	<feature name="Camera">
 		<param name="ios-package" value="CDVCamera" />
@@ -52,7 +48,6 @@
 	<gap:plugin name="org.apache.cordova.inappbrowser" />
 	<gap:plugin name="org.apache.cordova.media" />
 	<gap:plugin name="org.apache.cordova.dialogs" />
-	<gap:plugin name="org.apache.cordova.splashscreen" /> <!-- 注释：引导闪屏-->
 	
 	<!-- preference name="splashscreen" value="foo" /-->
 

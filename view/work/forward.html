@@ -21,55 +21,52 @@
 		<ul class="list inset">
 			<% for(var i = 0; i < steps.length; i++) { %>
 			<% var step = steps[i]; %>
-		<%if(process.syncdeal==1){%>
-			<li class="checkbox-group">
-				<input type="checkbox" name="prcs_choose[]" 
-		<%}else{%>
-			<li class="radio-group">
-				<input type="radio" name="prcs_choose[]" 
-		<%}%>
+			<%if(process.syncdeal==1){%>
+				<li class="checkbox-group">
+					<input type="checkbox" name="prcs_choose[]" 
+			<%}else{%>
+				<li class="radio-group">
+					<input type="radio" name="prcs_choose[]" 
+			<%}%>
 				value="<%=i%>" id="nextstep_<%=prcsto[i]%>" <% if (step.checked) { %>checked<% } %>>
-				<label for="nextstep_<%=prcsto[i]%>">
-					<span class="label black"><%=prcsto[i]%></span>
-					<span><%=step.prcsname%></span>
-				</label>
-			</li>
+					<label for="nextstep_<%=prcsto[i]%>">
+						<span class="label black"><%=prcsto[i]%></span>
+						<span><%=step.prcsname%></span>
+					</label>		
+					<ul class="list inset" id="user_select_<%=prcsto[i]%>">
+						<li>
+							<div class="control-group">
+								<label class="xcd">主办</label>
+								<div class="controls user-selector-bar">
+									<a href="javascript:;" class="aoicon ao-more-gray posa-o" data-evt="addWorkSponsor" data-param='{
+										"id": "work_sponsor_<%=prcsto[i]%>"
+										<%if(1==2){%>,"include": [1, 13, 93]<%}%>
+									}'></a>
+									<ul class="user-selector-list" id="work_sponsor_<%=prcsto[i]%>" data-input="#prcs_user_op<%=i%>"></ul>
+									<input type="hidden" id="prcs_user_op<%=i%>" name="prcs_user_op<%=i%>" />
+								</div>
+							</div>
+								<input type="hidden" name="topflag<%=i%>" value="0" />
+						</li>
+						<li>
+							<div class="control-group">
+								<label class="xcd">经办</label>
+								<div class="controls user-selector-bar">
+									<a href="javascript:;" class="aoicon ao-more-gray posa-o" data-evt="addWorkOperator" data-param='{
+										"id": "work_operator_<%=prcsto[i]%>"
+										<%if(1==2){%>,"include": [1, 13, 93]<%}%>
+									}'></a>
+									<ul class="user-selector-list" id="work_operator_<%=prcsto[i]%>" data-input="#prcs_user<%=i%>"></ul>
+									<input type="hidden" id="prcs_user<%=i%>" name="prcs_user<%=i%>" />
+								</div>
+							</div>
+						</li>
+					</ul>
+				</li>
 			<% } %>
 		</ul>
 		<div class="inset-list-divider">办理人</div>
 
-		<% for(var i = 0; i < steps.length; i++) { %>
-		<% var step = steps[i]; %>
-		<ul class="list inset" id="user_select_<%=prcsto[i]%>">
-			<li>
-				<div class="control-group">
-					<label class="xcd">主办</label>
-					<div class="controls user-selector-bar">
-						<a href="javascript:;" class="aoicon ao-more-gray posa-o" data-evt="addWorkSponsor" data-param='{
-							"id": "work_sponsor_<%=prcsto[i]%>"
-							<%if(1==2){%>,"include": [1, 13, 93]<%}%>
-						}'></a>
-						<ul class="user-selector-list" id="work_sponsor_<%=prcsto[i]%>" data-input="#prcs_user_op<%=i%>"></ul>
-						<input type="hidden" id="prcs_user_op<%=i%>" name="prcs_user_op<%=i%>" />
-					</div>
-				</div>
-					<input type="hidden" name="topflag<%=i%>" value="0" />
-			</li>
-			<li>
-				<div class="control-group">
-					<label class="xcd">经办</label>
-					<div class="controls user-selector-bar">
-						<a href="javascript:;" class="aoicon ao-more-gray posa-o" data-evt="addWorkOperator" data-param='{
-							"id": "work_operator_<%=prcsto[i]%>"
-							<%if(1==2){%>,"include": [1, 13, 93]<%}%>
-						}'></a>
-						<ul class="user-selector-list" id="work_operator_<%=prcsto[i]%>" data-input="#prcs_user<%=i%>"></ul>
-						<input type="hidden" id="prcs_user<%=i%>" name="prcs_user<%=i%>" />
-					</div>
-				</div>
-			</li>
-		</ul>
-		<% } %>
 
 		<div class="inset-list-divider">事务提醒</div>
 		<ul class="list inset">

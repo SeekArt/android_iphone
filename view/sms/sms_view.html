@@ -12,7 +12,7 @@
 			<img src="<%=app.defaultUrl%>/<%=avatar_small%>" alt="">
 		</div>
 		<div class="chat-bubble <%if(fromuid==app.uid){%>gray<%}%>">
-			<%=content%>
+			<%=core.util.replaceEditorSrc(content)%>
 		</div> 
 	</div>
 </textarea>

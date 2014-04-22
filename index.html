@@ -52,10 +52,7 @@
 	<script type="text/javascript" charset="utf-8" src="./ui/transitions/all.js"></script>
 	<script type="text/javascript" charset="utf-8" src="./plugins/af.slidemenu.js"></script>
 	<script type="text/javascript" charset="utf-8" src="./plugins/af.template.js"></script>
-	
-<!--
-https://github.com/EddyVerbruggen/Calendar-PhoneGap-Plugin/blob/6e6c4020832a66a17c69b48357623ad2f64d6913/README.md
--->	
+
 	<script type="text/javascript">
 		/* This function runs once the page is loaded, but appMobi is not yet active */
 //            var search=document.location.search.toLowerCase().replace("?","");
@@ -79,6 +76,10 @@ https://github.com/EddyVerbruggen/Calendar-PhoneGap-Plugin/blob/6e6c4020832a66a1
 			// $.ui.setSideMenuWidth($("#afui").width()-50);
 			$.ui.launch();
 			app.init();  // 初始化我的数据
+			try{
+				navigator.splashscreen.hide();
+				$("#splashscreen").hide();
+			}catch(e){};
 
 		});
 		
@@ -97,8 +98,6 @@ https://github.com/EddyVerbruggen/Calendar-PhoneGap-Plugin/blob/6e6c4020832a66a1
 			}catch(e){};
 			setTimeout(function(){$("#splashscreen").hide()},600);
 			$.ui.defaultMenu = $("#defaultMenu");
-
-
 //			$.ui.animateHeaders = true;
 		};
         document.addEventListener("deviceready", onDeviceReady, false);
