@@ -12,7 +12,7 @@ var User = function(id, values, options) {
 		throw new Error("User: elem 参数必须为ul节点");
 	}
 	this.$elem = $(elem);
-	this.options = $.extend({}, User.defaults, options);
+	options = this.options = $.extend({}, User.defaults, options);
 
 	// 将表单域中的值按格式还原出来
 	var _toValue = function(selector, values, type){

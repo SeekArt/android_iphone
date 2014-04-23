@@ -616,11 +616,11 @@ a { color: #383C41; text-decoration: none; }
 #afui.ibos .control-group{ overflow: hidden; }
 #afui.ibos .control-group label{
 	padding: 10px 0 10px 10px;
-	width: 120px;
+	width: 100px;
 	color: #BBBDC9;
 	text-align: left;
 }
-#afui.ibos .control-group .controls{ margin-left: 120px; line-height: 44px; }
+#afui.ibos .control-group .controls{ margin-left: 100px; line-height: 44px; }
 #afui.ibos .control-group .controls input{
 	border: 0 none;
 	background: transparent;

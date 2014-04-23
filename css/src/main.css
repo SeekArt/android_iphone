@@ -663,6 +663,6 @@ h2 {
 
 /* Avatar */
 #afui .avatar{ width: 34px; height: 34px; }
-#afui .avatar img{ width: 105%; height: auto; margin-top: -1px; margin-left:-1px; -webkit-border-radius: 4px; border-radius: 4px; border: 1px solid #BBBDC9;}
+#afui .avatar img{ width: 105%; height: auto; margin-top: -1px; margin-left:-1px; -webkit-border-radius: 4px; border-radius: 4px; }
 #afui .avatarc{ border: 2px solid #FFFFFF; border-radius: 50%; overflow: hidden; box-shadow: 0px 0px 4px rgba(0,0,0,0.6); }
 #afui .avatarc img{ border-radius: 50%; }

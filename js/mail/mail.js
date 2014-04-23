@@ -8,6 +8,7 @@ var Email = (function(){
 		mailId = 0,
 		mailPage = 1,
 		mailUrl = function (){ return app.appUrl + '/mail' };
+	var thisMail;
 
 	/**
 	* 初始化新闻模块时，载入一些基础数据，比如分类，默认页新闻，未读条数等
@@ -84,6 +85,7 @@ var Email = (function(){
 	function showMail(json){
 		_show($("#mailContentTpl").val(), json);
 		mailId = json.emailid;
+		thisMail = json;
 		bodyId = 0;
 	}
 
@@ -97,7 +99,6 @@ var Email = (function(){
 	}
 
 	function editMail(data){
-		var insUser;
 		data = $.extend({
 			subject: "",
 			content: "",
@@ -154,7 +155,18 @@ var Email = (function(){
 	}
 	// Todo
 	function markMail(){
-
+		if(mailId) {
+			ismark =thisMail.ismark=="1"?false:true;
+			$.jsonP({
+				url: 		mailUrl() + "/mark&callback=?&emailid=" + mailId + "&ismark="+ismark,
+				success: 	function(){
+					$.ui.hideMask();
+					MailInbox.loadList()
+					$.ui.goBack();
+				},
+				error: 		core.error
+			});
+		}
 	}
 
 	function replyMail(){

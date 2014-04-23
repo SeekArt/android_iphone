@@ -12,7 +12,7 @@ $.ui.loadingText = "读取中...";
 $.ui.customClickHandler = function(target, evt){
 	var href = target.getAttribute("href");
 	if(/http[s]?:\/\//.test(href)){
-		window.open(href, "");
+		window.open(href, "_blank",{"enableViewportScale":"yes"});
 		return true;
 	}
 }
@@ -51,6 +51,10 @@ var core = {
 				});
 				return source;
 			}
+		},
+
+		openAttch: function(url){
+			
 		}
 	},
 	str: {},
@@ -290,13 +294,6 @@ var app = (function(){
 		user = core.getStorage("user"),
 		uid	= localStorage.getItem("uid"),
 		formHash = '';
-	
-	var userData = core.getStorage("ibosUserData");
-	var _isset = true;
-	if(!userData) {
-		_isset = false;
-		userData = {}
-	}
 
 	function init(){
 		appUrl = defaultUrl =  localStorage.getItem("defaultUrl");
@@ -325,8 +322,13 @@ var app = (function(){
 			address = $("#addressInput").val();
 			//$("#loginbtn").html('登录中...');
 			$.ui.showMask("登录中...");
+			if(core.getStorage("ibosUserData")!=""){
+				_isset = false;
+			}else{
+				_isset = true;
+			}
 			if(localStorage.getItem("lastUrl")!=defaultUrl){
-				_isset = false;			
+				_isset = false;
 			}
 			localStorage.setItem("lastUrl", defaultUrl);
 			
@@ -335,14 +337,9 @@ var app = (function(){
 		// doLogin(username,password);		
 		$.jsonP({
 			url: 		app.appUrl + '/default/login&callback=?&username=' + username +'& password=' + password + '&gps=' + gps + '&address=' + address + '&issetuser=' + _isset,
-			success: 	function(res){
-				if(res.userData){
-					userData = res.userData;
-					core.setStorage("ibosUserData", res.userData);
-				}
+			success: 	function(res){				
 				core.setStorage("defaultLogin", {"u":username,"p":password});
 				core.setStorage("lastUser", username);
-				
 				//$("#loginbtn").html('登录');
 				$.ui.hideMask();
 				checkLogin(res);
@@ -373,7 +370,9 @@ var app = (function(){
 		core.removeStorage("defaultLogin");
 		core.removeStorage("user");
 		core.removeStorage("uid");
+		core.removeStorage("ibosUserData");
 		$.ui.loadContent('login',false,false,'fade');
+		window.location.reload();
 	}
 	
 	function checkLogin(json){
@@ -386,6 +385,10 @@ var app = (function(){
 			app.uid = json.uid;
 			localStorage.setItem("uid", app.uid);
 			core.setStorage("user", app.user);
+			if(json.userData){
+				userData = json.userData;
+				core.setStorage("ibosUserData", json.userData);		
+			}
 			getpush();
 		}else{
 			if(json.msg){
@@ -399,6 +402,7 @@ var app = (function(){
 
 	function getUserData(include){
 		// 完整复制一份数据
+		var userData = core.getStorage("ibosUserData");
 		var ret;
 		if(include && include.length) {
 			// 将数组元素转为字符串格式
@@ -426,6 +430,7 @@ var app = (function(){
 		return ret;
 	}
 	function getUser(uid){
+		var userData = core.getStorage("ibosUserData");
 		var datas = userData.datas;
 		for(var i in datas) {
 			if(datas[i].uid == uid) {
@@ -918,7 +923,6 @@ $(document).ready(function(){
 			$fixedDivs.each(function(index, elem){
 				var $elem = $(elem),
 					prevElem = $elem.attr("prevElem");
-
 				if(prevElem) {
 					$elem.insertAfter(prevElem);
 				} else {

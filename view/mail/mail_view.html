@@ -21,7 +21,7 @@
 				<div class="pds">
 			<%for (var i in attach){%>
 					<ul class="att-list">
-						<li class="att">
+						<li class="att" onclick="window.open('<%=app.defaultUrl%>/<%=attach[i].downurl%>')">
 							<div class="att-icon">
 								<img src="images/filetype/<%=attach[i].filetype%>.png" alt="" width="44" height="44">
 							</div>
