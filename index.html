@@ -76,33 +76,26 @@
 			// $.ui.setSideMenuWidth($("#afui").width()-50);
 			$.ui.launch();
 			app.init();  // 初始化我的数据
-			try{
-				navigator.splashscreen.hide();
-				$("#splashscreen").hide();
-			}catch(e){};
+			$("#splashscreen").hide();;
+			$.ui.defaultMenu = $("#defaultMenu");
 
 		});
-		console.log("im wrap");
 		/* This code is used to run as soon as appMobi activates */
 		var onDeviceReady = function () {
 			console.log("onDeviceReady");
-//			AppMobi.device.setRotateOrientation("portrait");
-//			AppMobi.device.setAutoRotate(false);
-//			webRoot = AppMobi.webRoot + "";
-			//hide splash screen
 			$.ui.blockPageScroll(); //block the page from scrolling at the header/footer 
-			//AppMobi.device.hideSplashScreen();
 			try{
+				//hide splash screen
 				navigator.splashscreen.hide();
 				StatusBar.styleLightContent();
 				StatusBar.backgroundColorByName("black");
 				getpush();
-			}catch(e){};
-			setTimeout(function(){$("#splashscreen").hide()},600);
-			$.ui.defaultMenu = $("#defaultMenu");
-//			$.ui.animateHeaders = true;
+			}catch(e){
+				console.log(e);
+			};
+			setTimeout(function(){$("#splashscreen").hide()},600)
 		};
-        document.addEventListener("deviceready", onDeviceReady, false);
+		appSdk.ready(onDeviceReady);
 	</script>
 	
 	<script type="text/javascript" charset="utf-8" src="./js/LAB.js"></script>
@@ -201,15 +194,12 @@
 
 	<div id="cm_tip"><div class="tip"></div></div>
 	<!-- -------------------nav----------------------- -->
-	<!--
 	<nav id="defaultMenu">
 		<ul class="list list-active">
 			<li class="divider icon home">侧边栏</li>
 		</ul>
 		<a class="button orange" onClick="app.logout()">退出登录</a>
 	</nav>
-	-->
-
 </div>
 <iframe name='hidden_frame' style="display:none;" id="hidden_frame"></iframe>
 </body>
