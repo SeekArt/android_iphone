@@ -256,33 +256,40 @@ var Weibo = {
 			feedid: "",
 			attach_url: ""
 		}, param);
-		feed = $(this._parseToTpl([param]))[0]
-		$.ui.loadContent("#weibo");
-		this.prepentToList(feed);
-		// 在ajax后替换真实数据
-		// this.getData({}, function(res){
-			// 测试数据
-			res = {
-				content: param.content,
-				uid: app.uid,
-				module: "weibo",
-				table: "feed",
-				ctime: +new Date/1000,
-				type: "feed",
-				view: 0,
-				from: "iphone5S",
-				repostcount: 0,
-				diggcount: 0,
-				commentcount: 0,
-				isrepost: 0,
-				feedid: "1000",
-				attach_url: ""
-			}
-			setTimeout(function(){
-				feed.parentNode.replaceChild($(_this._parseToTpl([res]))[0], feed);
-				app.ui.tip("发布成功", "weibo");
-			}, 3000);
-		// })
+		$.jsonP({
+			url: 	Weibo.url + "/add&callback=?",
+			success: function(res) {
+
+			feed = $(this._parseToTpl([param]))[0]
+			$.ui.loadContent("#weibo");
+			this.prepentToList(feed);
+			// 在ajax后替换真实数据
+			// this.getData({}, function(res){
+				// 测试数据
+				res = {
+					content: param.content,
+					uid: app.uid,
+					module: "weibo",
+					table: "feed",
+					ctime: +new Date/1000,
+					type: "feed",
+					view: 0,
+					from: "iphone5S",
+					repostcount: 0,
+					diggcount: 0,
+					commentcount: 0,
+					isrepost: 0,
+					feedid: "1000",
+					attach_url: ""
+				}
+				setTimeout(function(){
+					feed.parentNode.replaceChild($(_this._parseToTpl([res]))[0], feed);
+					app.ui.tip("发布成功", "weibo");
+				}, 3000);
+			// })
+			},
+			error: 	core.error
+		});
 	},
 
 	// 查看微博正文

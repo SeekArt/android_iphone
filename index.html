@@ -4,7 +4,7 @@
 <head>
 	<title>IBOS</title>
 	<meta http-equiv="Content-type" content="text/html; charset=utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=1">
 	<meta name="apple-mobile-web-app-capable" content="yes" />
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -38,7 +38,6 @@
 
 			console.log("loaded!!!!!!!!!!!!!! ");
 		}
-
 	</script>
 	<script type="text/javascript" charset="utf-8" src="./plugins/af.actionsheet.js"></script>
 	<script type="text/javascript" charset="utf-8" src="./plugins/af.css3animate.js"></script>
@@ -53,20 +52,16 @@
 	<script type="text/javascript" charset="utf-8" src="./plugins/af.slidemenu.js"></script>
 	<script type="text/javascript" charset="utf-8" src="./plugins/af.template.js"></script>
 
+	
+	<script type="text/javascript" charset="utf-8" src="./js/LAB.js"></script>
+	<script type="text/javascript" charset="utf-8" src="./js/underscore.js"></script>
+	<script type="text/javascript" charset="utf-8" src="./js/core.js"></script>
+	<script type="text/javascript" charset="utf-8" src="./js/function.js"></script>
+	<script type="text/javascript" charset="utf-8" src="./js/appsdk.js"></script>
+	<script type="text/javascript" charset="utf-8" src="./js/push.js"></script>
+	<script type="text/javascript" charset="utf-8" src="./js/when.js"></script>
+
 	<script type="text/javascript">
-		/* This function runs once the page is loaded, but appMobi is not yet active */
-//            var search=document.location.search.toLowerCase().replace("?","");
-//             //if(!search)
-//                //$.os.useOSThemes=false;
-//            if(search) //Android fix has too many buggy issues on iOS - can't preview with $.os.android
-//            {
-//               $.os.useOSThemes=true;
-//                if(search=="win8")
-//                    $.os.ie=true;
-//                $.ui.ready(function(){
-//                    $("#afui").get(0).className=search;
-//                });
-//            }
 		var webRoot = "./";
 		$.ui.autoLaunch = false;
 		$.ui.openLinksNewTab = false;
@@ -77,8 +72,8 @@
 			$.ui.launch();
 			app.init();  // 初始化我的数据
 			$("#splashscreen").hide();;
-			$.ui.defaultMenu = $("#defaultMenu");
-
+			$.ui.defaultMenu = $("#defaultMenu");			
+			appSdk.ready(onDeviceReady);
 		});
 		/* This code is used to run as soon as appMobi activates */
 		var onDeviceReady = function () {
@@ -95,16 +90,7 @@
 			};
 			setTimeout(function(){$("#splashscreen").hide()},600)
 		};
-		appSdk.ready(onDeviceReady);
 	</script>
-	
-	<script type="text/javascript" charset="utf-8" src="./js/LAB.js"></script>
-	<script type="text/javascript" charset="utf-8" src="./js/underscore.js"></script>
-	<script type="text/javascript" charset="utf-8" src="./js/core.js"></script>
-	<script type="text/javascript" charset="utf-8" src="./js/function.js"></script>
-	<script type="text/javascript" charset="utf-8" src="./js/appsdk.js"></script>
-	<script type="text/javascript" charset="utf-8" src="./js/push.js"></script>
-	<script type="text/javascript" charset="utf-8" src="./js/when.js"></script>
 </head>
 <body>
 <div id="afui" class="ibos">

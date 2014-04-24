@@ -20,8 +20,6 @@
    	<preference name="webviewbounce" value="false" />
    	
 	<preference name="SplashScreen" value="screen" />
-	<preference name="SplashScreenDelay" value="2000" />
-	<preference name="HideKeyboardFormAccessoryBar" value="true"/>
 
 	<icon src="icon.png" />
     <icon src="res/icon/ios/icon-57-2x.png" gap:role="default" /> <!-- 注释：应用Logo，显示在移动终端桌面上和应用名称一起 -->
