@@ -250,11 +250,11 @@ var WorkStart = (function(){
 
 		// 转交工作
 		"workForward": function(param){
-			var $form = $.query("#form_work_forward"),
+			var $form = $.query("#form_work_forward");
 				// sponsorIns = User.get("work_sponsor"),
 				// operatorIns = User.get("work_operator"),
-				sponsorUid,
-				operatorUids;
+				// sponsorUid,
+				// operatorUids;
 
 			// if(!sponsorIns || !sponsorIns.get().length) {
 			// 	app.ui.tip("请选择主办人");
@@ -275,13 +275,17 @@ var WorkStart = (function(){
 			$.jsonP({
 				url: app.appUrl + '/work/turnNextPost&' + $form.serialize(),
 				success: function(res){
-					$.ui.hideMask();
-					// sponsorIns.destory();
-					// operatorIns && operatorIns.destory();
-					app.param.remove("flowid");
-					app.ui.tip("转交成功");
-					// $.ui.goBack(2);
-					$.ui.loadContent("view/work/todo.html", 0, 0);
+					if(res.isSuccess==true){
+						$.ui.hideMask();
+						// sponsorIns.destory();
+						// operatorIns && operatorIns.destory();
+						app.param.remove("flowid");
+						app.ui.tip("转交成功");
+						$.ui.loadContent("view/work/todo.html", 0, 0);
+					}else{
+						$.ui.hideMask();
+						alert(res.msg);
+					}
 				},
 				error: core.error
 			})

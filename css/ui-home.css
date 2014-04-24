@@ -215,3 +215,7 @@
 
 #afui footer .cmflex .cmflex-item{ padding: 8px 0; }
 #afui footer .cmflex .button.infoot{ width: 90%; }
+
+.view-content img{
+	max-width: 100% !important;
+}

@@ -8,6 +8,12 @@ var appSdk = {
 	ready : function(func){
 		document.addEventListener("deviceready", func, false);
 	},
+	pause : function(func){
+		document.addEventListener("pause", func, false);
+	},
+	resume : function(func){
+		document.addEventListener("resume", func, false);
+	},
 	onBack : function(func){
 		document.addEventListener('backbutton', func, false);
 	},
