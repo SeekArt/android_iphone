@@ -62,19 +62,6 @@
 	<script type="text/javascript" charset="utf-8" src="./js/when.js"></script>
 
 	<script type="text/javascript">
-		var webRoot = "./";
-		$.ui.autoLaunch = false;
-		$.ui.openLinksNewTab = false;
-		$.ui.resetScrollers = false;
-		
-		$(document).ready(function(){
-			// $.ui.setSideMenuWidth($("#afui").width()-50);
-			$.ui.launch();
-			app.init();  // 初始化我的数据
-			$("#splashscreen").hide();;
-			$.ui.defaultMenu = $("#defaultMenu");			
-			appSdk.ready(onDeviceReady);
-		});
 		/* This code is used to run as soon as appMobi activates */
 		var onDeviceReady = function () {
 			console.log("onDeviceReady");
@@ -90,6 +77,22 @@
 			};
 			setTimeout(function(){$("#splashscreen").hide()},600)
 		};
+		var webRoot = "./";
+		
+		appSdk.ready(onDeviceReady);
+		appSdk.pause(onDeviceReady);
+		appSdk.resume(onDeviceReady);
+		
+		$(document).ready(function(){
+			$.ui.autoLaunch = false;
+			$.ui.openLinksNewTab = false;
+			$.ui.resetScrollers = false;
+			// $.ui.setSideMenuWidth($("#afui").width()-50);
+			$.ui.launch();
+			app.init();  // 初始化我的数据
+			$("#splashscreen").hide();;
+			$.ui.defaultMenu = $("#defaultMenu");
+		});
 	</script>
 </head>
 <body>

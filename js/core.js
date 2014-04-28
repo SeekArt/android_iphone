@@ -293,9 +293,15 @@ var app = (function(){
 		appUrl = defaultUrl =  localStorage.getItem("defaultUrl"),
 		user = core.getStorage("user"),
 		uid	= localStorage.getItem("uid"),
-		formHash = '';
+		formHash = '',
+		OS = 1;
 
 	function init(){
+		if($.os.android){ app.OS = 2 }			
+		if($.os.iphone){ app.OS = 3 }					
+		if($.os.ipad){ app.OS = 4 }
+		if($.os.ieTouch){ app.OS = 5 }
+
 		appUrl = defaultUrl =  localStorage.getItem("defaultUrl");
 		if(!app.isInit){
 			if(!uid || !user){
@@ -481,7 +487,8 @@ var app = (function(){
 		getUserName:getUserName,
 
 		getAvatar: getAvatar,
-		getCustomBg: getCustomBg
+		getCustomBg: getCustomBg,
+		OS:OS
 	}
 })();
 

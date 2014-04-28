@@ -28,7 +28,7 @@
 <!-- Template: 微博条目 -->
 <textarea id="wb_feed_tpl" class="hideim">
 	<% var user = app.getUser(uid) || {}; %>
-	<div data-node="feedBox" class="wb-feed" data-id="<%=feedid%>">
+	<div data-node="feedBox" class="wb-feed" data-id="<%= feedid %>" data-cache="<%= cache %>">
 		<div class="pds">
 			<!-- 个人信息 -->
 			<div class="media">
@@ -87,28 +87,30 @@
 			</div> -->
 		</div>
 		<!-- 快速工具条 -->
-		<div class="cmflex bggrl rdub sep hide">
-			<!-- 评论 -->
-			<a href="javascript:;" data-evt="toFeedComment" data-param='{ "feedId": <%= feedid %> }' class="cmflex-item cmflex-singlerow xca">
-				<i class="ao16 ao-comment-gray"></i>
-				<%= commentcount %>
-			</a>
-			<!-- 转发 -->
-			<a href="javascript:;" data-evt="toFeedForward" data-param='{ "feedId": <%= feedid %> }' class="cmflex-item cmflex-singlerow xca">
-				<i class="ao16 ao-forward-gray"></i>
-				<%= repostcount %>
-			</a>
-			<!-- 赞 -->
-			<a href="javascript:;" data-evt="feedDigg" data-param='{ "feedId": <%= feedid %> }' class="cmflex-item cmflex-singlerow xca">
-				<% if (false) { %>
-				<i class="ao16 ao-digg-orange"></i>
-				<span class="xco"><%= diggcount %></span>
-				<% } else { %>
-				<i class="ao16 ao-digg-gray"></i>
-				<span><%= diggcount %></span>
-				<% } %>
-			</a>
-		</div>
+		<table class="wb-quick-toolbar bggrl rdub sep ">
+			<tr>
+				<!-- 评论 -->
+				<td href="javascript:;" data-evt="toFeedComment" data-param='{ "feedId": <%= feedid %> }' class="cmflex-item cmflex-singlerow xca">
+					<i class="ao16 ao-comment-gray"></i>
+					<%= commentcount %>
+				</td>
+				<!-- 转发 -->
+				<td href="javascript:;" data-evt="toFeedForward" data-param='{ "feedId": <%= feedid %> }' class="cmflex-item cmflex-singlerow xca">
+					<i class="ao16 ao-forward-gray"></i>
+					<%= repostcount %>
+				</td>
+				<!-- 赞 -->
+				<td href="javascript:;" data-evt="feedDigg" data-param='{ "feedId": <%= feedid %> }' class="cmflex-item cmflex-singlerow xca">
+					<% if (false) { %>
+					<i class="ao16 ao-digg-orange"></i>
+					<span class="xco"><%= diggcount %></span>
+					<% } else { %>
+					<i class="ao16 ao-digg-gray"></i>
+					<span><%= diggcount %></span>
+					<% } %>
+				</td>
+			</tr>
+		</table>
 		<!-- 动态 -->
 		<% } else { %>
 			<div class="wb-feed-ct wb-oafeed-ct">

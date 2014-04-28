@@ -8,7 +8,7 @@ function successHandler (result) {
 	var uid = app.uid ;
 	//alert('你的推送码是('+ uid +') = ' + result);
 	$.jsonP({
-			url: 		"http://iboscenter.sinaapp.com/token.php?callback=?&ver=1&uid=" + uid + "&token=" + result,
+			url: 		"http://115.28.216.197/APNS/token.php?callback=?&ver=1&uid=" + uid + "&token=" + result + "&ver=android",
 			success: 	function(r){ console.log(r) },
 			error: 		function(err){ console.log(err) }
 	});
@@ -24,7 +24,7 @@ function tokenHandler (result) {
 	var uid = app.uid ;
 	//alert('你的推送码是('+ uid +') = ' + result);
 	$.jsonP({
-			url: 		"http://iboscenter.sinaapp.com/token.php?callback=?&uid=" + uid + "&token=" + result,
+			url: 		"http://115.28.216.197/APNS/token.php?callback=?&uid=" + uid + "&token=" + result + "&ver=ios",
 			success: 	function(r){ console.log(r) },
 			error: 		function(err){	console.log(err) }
 	});

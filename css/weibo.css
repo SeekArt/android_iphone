@@ -90,8 +90,9 @@
 #afui .wb-profile-btns .button { padding: 5px; width: 90px; }
 .wb-profile-st{ background-color: #FFF; font-size: 12px;}
 .wb-profile-st strong{ display: block; color: #3497DB; font-size: 20px; }
-.wb-profile-st .cmflex-item{ padding: 5px; }
-.wb-profile-st .cmflex.sep .cmflex-item:nth-child(n+2){ border-color: #EBEFF6; }
+.wb-profile-st table{ width: 100%; table-spacing: 0;}
+.wb-profile-st table td{ padding: 5px; text-align: center; }
+.wb-profile-st table td:nth-child(n+2){ border-left: 1px solid #EBEFF6; }
 
 .wb-comb-hd{ position: relative; height: 44px; border-bottom: 1px solid #EBEFF6;}
 .wb-comb-tab{
@@ -139,3 +140,6 @@
 .wb-feed img {
 	max-width: 100% !important;
 }
+.wb-quick-toolbar{ width: 100%; border-spacing: 0; }
+.wb-quick-toolbar td{ text-align: center; }
+.wb-quick-toolbar td:nth-child(n+2){ border-left: 1px solid #DFDFDF; }

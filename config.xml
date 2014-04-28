@@ -13,7 +13,7 @@
     </author>
     <gap:platform name="ios" />
 	<gap:platform name="android" />
-	<gap:platform name="winphone" />
+	<!-- <gap:platform name="winphone" /> -->
 
 	<preference name="phonegap-version" value="3.3.0" /> <!-- 注释：版本-->
 	<preference name="fullscreen" value="false" />
@@ -29,22 +29,6 @@
 	<gap:splash src="res/screen/ios/screen-iphone-portrait-2x.png" gap:platform="ios" width="640" height="960" />
 	<gap:splash src="res/screen/ios/screen-iphone-portrait-568h-2x.png" gap:platform="ios" width="640" height="1136" /><!-- 注释： 程序启动时显示图像-->
 
-	<feature name="Camera">
-		<param name="ios-package" value="CDVCamera" />
-	</feature>
-	<feature name="File">
-		<param name="ios-package" value="CDVFile" />
-	</feature>
-	<feature name="FileTransfer">
-		<param name="ios-package" value="CDVFileTransfer" />
-	</feature>
-	<feature name="Geolocation">
-		<param name="ios-package" value="CDVLocation" />
-	</feature>
-	<feature name="Notification">
-		<param name="ios-package" value="CDVNotification" />
-	</feature>
-
 	<gap:plugin name="org.apache.cordova.device" />
 	<gap:plugin name="org.apache.cordova.camera" />
 	<gap:plugin name="org.apache.cordova.media-capture" />
@@ -54,13 +38,14 @@
 	<gap:plugin name="org.apache.cordova.media" />
 	<gap:plugin name="org.apache.cordova.dialogs" />
 	<gap:plugin name="org.apache.cordova.inappbrowser" />
-	<gap:plugin name="org.apache.cordova.splashscreen" /> <!-- 注释：引导闪屏-->	
+	<gap:plugin name="org.apache.cordova.splashscreen" /> <!-- 注释：引导闪屏-->
 	<gap:plugin name="org.apache.cordova.console" />
 
 
 	<gap:plugin name="com.phonegap.plugins.barcodescanner" /> <!-- 注释：二维码扫描-->
 	<gap:plugin name="com.phonegap.plugins.pushplugin" /> <!-- 注释：推送插件-->
 	<gap:plugin name="com.phonegap.plugin.statusbar" /> <!-- 注释：顶部状态栏-->
-	
+	<gap:plugin name="com.phonegap.plugins.childbrowser" />
+
 	<access origin="*" subdomains="true" />
 </widget>

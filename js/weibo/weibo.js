@@ -1,11 +1,11 @@
 var Weibo = {
 	url: app.appUrl + "/weibo",
-	// http://ibos2.cc/?r=mobile/weibo
 	firstId: 0, // 最开始一条微博的ID
 	lastId: 0, // 最新一条微博的ID
 	loadId: 0,
 	loadNewTime: 10000, // 获取最新微博的时间间隔
 	loadMore: true, // 标识还有没有更多微博
+	// cache:[],
 	getData: function(param, callback){
 		var _this = this;
 		callback = callback || $.noop;
@@ -20,6 +20,7 @@ var Weibo = {
 		var tpl = "";
 		if(data && data.length) {
 			for(var i = 0; i < data.length; i++) {
+				data[i].cache = escape(JSON.stringify(data[i]));
 				tpl += $.template(document.getElementById("wb_feed_tpl").value, data[i]);
 			}
 		}
@@ -126,14 +127,14 @@ var Weibo = {
 
 	// 赞、取消赞
 	digg: function(param, callback){
-		// $.jsonP({
-		// 	url: "" + "&" + $.param(param),
-		// 	success: function(res){
+		$.jsonP({
+			url: this.url + "/digg&" + $.param(param),
+			success: function(res){
 				// @Debug: for test;
-				var res = { digg: 1, count: 6 };
+				//var res = { digg: 1, count: 6 };
 				callback && callback(res);				
-		// 	}	
-		// }
+			}
+		})
 	},
 
 	// 向列表后插入html内容
@@ -248,7 +249,7 @@ var Weibo = {
 			ctime: false,
 			type: "feed",
 			view: 0,
-			from: "",
+			from: app.OS,
 			repostcount: 0,
 			diggcount: 0,
 			commentcount: 0,
@@ -257,36 +258,54 @@ var Weibo = {
 			attach_url: ""
 		}, param);
 		$.jsonP({
-			url: 	Weibo.url + "/add&callback=?",
-			success: function(res) {
-
-			feed = $(this._parseToTpl([param]))[0]
+			url: 	this.url + "/add&callback=?&" + $.param(param),
+			success: function(data) {
+			//feed = $(this._parseToTpl([param]))[0]
 			$.ui.loadContent("#weibo");
-			this.prepentToList(feed);
+			//this.prepentToList(feed);
 			// 在ajax后替换真实数据
 			// this.getData({}, function(res){
 				// 测试数据
-				res = {
-					content: param.content,
-					uid: app.uid,
-					module: "weibo",
-					table: "feed",
-					ctime: +new Date/1000,
-					type: "feed",
-					view: 0,
-					from: "iphone5S",
-					repostcount: 0,
-					diggcount: 0,
-					commentcount: 0,
-					isrepost: 0,
-					feedid: "1000",
-					attach_url: ""
-				}
-				setTimeout(function(){
-					feed.parentNode.replaceChild($(_this._parseToTpl([res]))[0], feed);
-					app.ui.tip("发布成功", "weibo");
-				}, 3000);
+				res = data.data;
+				_this.loadNewFeed();
+				app.ui.tip("发布成功", "weibo");
+				// setTimeout(function(){
+				// 	feed.parentNode.replaceChild($(_this._parseToTpl([res]))[0], feed);
+				// 	app.ui.tip("发布成功", "weibo");
+				// }, 2000);
 			// })
+			},
+			error: 	core.error
+		});
+	},
+
+	// 发布 转发
+	share: function(param){
+		var _this = this;
+		var feed;
+		param = $.extend({
+			content: "",
+			uid: app.uid,
+			module: "weibo",
+			table: "feed",
+			ctime: false,
+			type: "feed",
+			view: 0,
+			from: app.OS,
+			repostcount: 0,
+			diggcount: 0,
+			commentcount: 0,
+			isrepost: 0,
+			feedid: "",
+			attach_url: ""
+		}, param);
+		$.jsonP({
+			url: 	this.url + "/share&callback=?&" + $.param(param),
+			success: function(data) {
+				$.ui.loadContent("#weibo");
+				// res = data.data;
+				_this.loadNewFeed();
+				app.ui.tip("转发成功", "weibo");
 			},
 			error: 	core.error
 		});
@@ -339,8 +358,13 @@ var Weibo = {
 
 	// 评论
 	comment: function(param, callback){
-		param = $.extend({ op: "comment" }, param);
-		this.getData(param, callback)
+		param = $.extend({ op: "comment",table:"feed",rowid:param.feedId,module:"weibo",moduleuid:app.user.id }, param);
+		$.jsonP({
+			url: this.url + "/addcomment&" + $.param(param),
+			success: callback
+		})
+
+		// this.getData(param, callback)
 	},
 
 	// 关注
@@ -383,6 +407,9 @@ app.evt.add({
 	},
 	// 点赞， 底部工具条触发
 	"feedDiggFromBar": function(param, elem){
+		param = $.extend({
+			feedId: Weibo.currentFeedId
+		}, param);
 		Weibo.digg(param, function(res){
 			elem.innerHTML = '<i class="ao16 ' + (res.digg ? "ao-digg-orange" : "ao-digg") + '"></i>';
 		})
@@ -401,29 +428,28 @@ app.evt.add({
 			return false;
 		}
 		Weibo.publish({
-			content: content
+			content: content,
+			body:content
 		});
 	},
 
 	// 进入转发页
 	"toFeedForward": function(param){
 		param = $.extend({
-			feedid: Weibo.currentFeedId
-		}, param)
+			feedId: Weibo.currentFeedId
+		}, param);
+		var dataStr = $.query("[data-id='" + param.feedId + "']", $.ui.activeDiv)[0].getAttribute("data-cache"),
+			data = JSON.parse(unescape(dataStr));
+
 		$(document).one("loadpanel", function(){
-			Weibo.getData(param, function(res){
+			// Weibo.getData(param, function(res){
 				// @Debug: 测试数据
-				res = {
-					uid: 93,
-					type: "postimage",
-					attach_url: "",
-					content: "今天居然没下雨！！"
-				};
+				res = data;
 
 				document.getElementById("wb_fw_preview").innerHTML = $.template(document.getElementById("wb_forward_src_tpl").value, res);
 				document.getElementById("wb_forward_cmuser").innerHTML = app.getUser(res.uid).realname;
 				app.param.set("feedForwardData", res);
-			});
+			// });
 		});
 		$.ui.loadContent("view/weibo/forward.html");
 	},
@@ -438,23 +464,27 @@ app.evt.add({
 			app.ui.tip("请输入微博内容", "weibo");
 			return false;
 		}
-
-		Weibo.publish({
+		data = $.extend({
 			content: content,
-			comment: +comment,
-			type: "repost",
+			body: content,
+			comment: + comment,
+			type: fdData.table,
+			sid: fdData.feedid,
+			curid: fdData.feedid,
 			api_source: {
 				type: fdData.type,
 				attach_url: fdData.attach_url,
 				feedcontent: fdData.content
 			}
-		});
+		},fdData);
+		Weibo.share(data);
 
-		app.param.remove("feedForwardData");
+		//app.param.remove("feedForwardData");
 	},
 
 	// 进入正文详细页
 	"feedDetail": function(param){
+		param = $.extend({feedId: param.feedid}, param);
 		Weibo.detailFromList(param);
 	},
 
@@ -468,7 +498,7 @@ app.evt.add({
 	},
 
 	// 评论
-	"feedComment": function(param){
+	"feedComment": function(param){		
 		var content = document.getElementById("wb_comment_textarea").value;
 		// 同时转发
 		var forward = document.getElementById('wb_comment_to_publish').checked;
@@ -481,8 +511,12 @@ app.evt.add({
 			content: content,
 			forward: +forward
 		}), function(){
-			$.ui.goBack();
-			app.param.remove("commentFeedParam");
+			// $.ui.goBack();
+			// app.param.remove("commentFeedParam");
+			// 
+			$.ui.loadContent("#weibo");
+			Weibo.loadNewFeed();
+			app.ui.tip("评论成功", "weibo");
 		})
 	},
 
