@@ -78,15 +78,16 @@
 			setTimeout(function(){$("#splashscreen").hide()},600)
 		};
 		var webRoot = "./";
-		
+
 		appSdk.ready(onDeviceReady);
 		appSdk.pause(onDeviceReady);
 		appSdk.resume(onDeviceReady);
-		
-		$(document).ready(function(){
-			$.ui.autoLaunch = false;
-			$.ui.openLinksNewTab = false;
-			$.ui.resetScrollers = false;
+
+		$.ui.autoLaunch = false;
+		$.ui.openLinksNewTab = false;
+		$.ui.resetScrollers = false;
+
+		$(document).ready(function(){			
 			// $.ui.setSideMenuWidth($("#afui").width()-50);
 			$.ui.launch();
 			app.init();  // 初始化我的数据
@@ -104,11 +105,11 @@
 		<span class='ui-icon ui-icon-loading spin'></span>
 		<h1>正在载入...</h1>
 	</div>
-	<!----------------------------------------------> 
+		<!-- －－－－－－－－－－－－－－－－－－ -->
 	<div id="header"></div>
 	<div id="content">
-		<!---------------------------------------------->
-			<div title='IBOS移动客户端' id="main" selected="true" class="panel mainbg" data-tab="navbar_main" data-load="mainload" data-nav="none" >
+		<!-- －－－－－－－－－－－－－－－－－－ -->
+			<div title="IBOS移动客户端" id="main" selected="true" class="panel mainbg" data-tab="navbar_main" data-load="mainload" data-nav="none" >
 				<div class="home-item">
 					<a href="view/mail/mail.html" data-transition="pop">
 						<i class="item-ico ico-mail"></i>
@@ -134,7 +135,7 @@
 					</a> -->
 				</div>
 			</div>
-		<!---------------------------------------------->
+			<!-- －－－－－－－－－－－－－－－－－ -->
 			<div title="添加更多" id="more" class="panel mainbg" data-nav="none" > 
 				<div class="home-item">
 					
@@ -147,32 +148,27 @@
 					</a>
 				</div>
 			</div>
-		<!---------------------------------------------->
+			<!-- －－－－－－－－－－－－－－－－－－－－－－－ -->
 			<div title="私信" id="sms" class="panel" data-tab="navbar_msg" data-nav="none" data-header="header_msg" data-defer="view/sms/sms.html" data-load="loadSms"></div>
 			<div title="私信" id="sms_view" class="panel" data-tab="navbar_msg" data-nav="none" data-defer="view/sms/sms_view.html" data-unload="cleartime"></div>
 			<div title="消息中心" id="msg_view" class="panel" data-tab="navbar_msg" data-nav="none" data-defer="view/msg/msg_view.html"></div>
-		<!---------------------------------------------->
-			<div title="企业微博" id="weibo" class="panel" data-tab="navbar_weibo" data-header="header_weibo" data-nav="none" data-defer="view/weibo/weibo.html">
-			</div>
-		<!---------------------------------------------->
+			<!-- －－－－－－－－－－－－－－－－－－－－－－－ -->
+			<div title="企业微博" id="weibo" class="panel" data-tab="navbar_weibo" data-header="header_weibo" data-nav="none" data-defer="view/weibo/weibo.html"></div>
+			<!-- －－－－－－－－－－－－－－－－－－－－－－－－－－－－－ -->
 			<div title="个人设置" id="setting" class="panel" data-tab="navbar_setting" data-header="header_setting" data-nav="none" data-defer="view/setting/setting.html" data-load="loadSetting"></div>
 			<div title="个人资料" id="setting_profile" class="panel" data-tab="navbar_setting" data-footer="none" data-nav="none" data-defer="view/setting/setting_profile.html"></div>			
-			<div title="修改密码" id="setting_password" class="panel" data-tab="navbar_setting" data-footer="none" data-nav="none" data-defer="view/setting/setting_password.html">
-			</div>
-			
-		<!---------------------------------------------->
+			<div title="修改密码" id="setting_password" class="panel" data-tab="navbar_setting" data-footer="none" data-nav="none" data-defer="view/setting/setting_password.html"></div>
+			<!-- －－－－－－－－－－－－－－－－－－－－－－－－－－－－ -->
 			<div title="网络设置" id="netSetting" class="panel" data-load="showNetList" data-footer="none" data-nav="none" data-defer="view/net/net.html"></div>
 			<div title="网络设置" id="netEdit" class="panel" data-footer="none" data-nav="none" data-defer="view/net/net_edit.html"></div>
 			
-		<!---------------------panel------------------------->
+		<!-- -------------------panel----------------------- -->
 
 			<!-- --------- login --------- -->
 			<div title="登录" id="login" class="panel indexbg" data-defer="login.html" data-footer="none" data-nav="none" data-load="loadLogin" data-unload="unloadLogin" style="overflow:hidden;"></div>
-
-		<!---------------------------------------------->
+	<!-- －－－－－－－－－－－－－－－－－－－－－ -->
 	</div>		
-	<!---------------------------------------------->
-
+	<!-- －－－－－－－－－－－－－－－－－－－－－－－－－ -->
 	<!-- navbar -->
 	<div id="navbar">
 		<a href="#main" id='navbar_main' data-transition="none" class='icon home'>首页</a>

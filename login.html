@@ -46,6 +46,7 @@ appSdk.ready(function(){
 			document.getElementById('gpsInput').value = latlog;
 			appSdk.gps.getAddress( position.coords.latitude,position.coords.longitude,function(o){
 				document.getElementById('addressInput').value = o.result.formatted_address ;
+				app.address = o.result.formatted_address ;
 				$('#myAddress').html(o.result.formatted_address);
 			})
 		}, 

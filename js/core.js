@@ -274,12 +274,12 @@ List.prototype = {
 }
 
 // 测试专用
-if(!localStorage.getItem("defaultUrl")){
-	localStorage.setItem("defaultUrl","http://uweboa.sinaapp.com");
-	localStorage.setItem("defaultID","1");
-	localStorage.setItem("defaultName","云端");
-	localStorage.setItem("netSetList",'{"1":{"id":"1","url":"http://uweboa.sinaapp.com","name":"云端"}}');
-}
+// if(!localStorage.getItem("defaultUrl")){
+// 	localStorage.setItem("defaultUrl","http://uweboa.sinaapp.com");
+// 	localStorage.setItem("defaultID","1");
+// 	localStorage.setItem("defaultName","云端");
+// 	localStorage.setItem("netSetList",'{"1":{"id":"1","url":"http://uweboa.sinaapp.com","name":"云端"}}');
+// }
 
 /**
 * app
@@ -294,7 +294,8 @@ var app = (function(){
 		user = core.getStorage("user"),
 		uid	= localStorage.getItem("uid"),
 		formHash = '',
-		OS = 1;
+		OS = 1,
+		address ="";
 
 	function init(){
 		if($.os.android){ app.OS = 2 }			
@@ -304,9 +305,7 @@ var app = (function(){
 
 		appUrl = defaultUrl =  localStorage.getItem("defaultUrl");
 		if(!app.isInit){
-			if(!uid || !user){
-				setTimeout(function(){$.ui.loadContent('login',false,false,'fade')},500);
-			}
+			app.isInit = true;
 			//初始化完整的路径
 			app.appUrl += "/?r=mobile";
 			UserNP = core.getStorage("defaultLogin");
@@ -317,7 +316,9 @@ var app = (function(){
 					error: 		function(err){	console.log(err)	}
 				});
 			}
-			app.isInit = true;
+			if(!uid || !user){
+				setTimeout(function(){$.ui.loadContent('login',false,false,'fade')},500);
+			}
 		}
 	}
 
@@ -326,7 +327,11 @@ var app = (function(){
 			password = $("#password").val(),
 			gps = $("#gpsInput").val(),
 			address = $("#addressInput").val();
-			//$("#loginbtn").html('登录中...');
+
+			if(defaultUrl==null){				
+				$.ui.popup('请先设置地址');
+				return;
+			}
 			$.ui.showMask("登录中...");
 			if(core.getStorage("ibosUserData")!=""){
 				_isset = false;
@@ -351,7 +356,7 @@ var app = (function(){
 				checkLogin(res);
 			},
 			error: 		function(err){	
-				$.ui.popup('服务器错误,请检查',"dfdf");
+				$.ui.popup('服务器错误,请检查');
 				//$("#loginbtn").html('登录');
 				$.ui.hideMask();
 				console.log(err);
@@ -488,7 +493,8 @@ var app = (function(){
 
 		getAvatar: getAvatar,
 		getCustomBg: getCustomBg,
-		OS:OS
+		OS:			OS,
+		address: 	address
 	}
 })();
 

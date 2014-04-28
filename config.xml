@@ -45,7 +45,7 @@
 	<gap:plugin name="com.phonegap.plugins.barcodescanner" /> <!-- 注释：二维码扫描-->
 	<gap:plugin name="com.phonegap.plugins.pushplugin" /> <!-- 注释：推送插件-->
 	<gap:plugin name="com.phonegap.plugin.statusbar" /> <!-- 注释：顶部状态栏-->
-	<gap:plugin name="com.phonegap.plugins.childbrowser" />
+	<gap:plugin name="org.li8.inappbrowser" />
 
 	<access origin="*" subdomains="true" />
 </widget>
