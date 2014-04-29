@@ -398,8 +398,9 @@ var app = (function(){
 			core.setStorage("user", app.user);
 			if(json.userData){
 				userData = json.userData;
-				core.setStorage("ibosUserData", json.userData);		
+				core.setStorage("ibosUserData", json.userData);
 			}
+
 			getpush();
 		}else{
 			if(json.msg){

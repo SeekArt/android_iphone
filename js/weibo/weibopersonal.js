@@ -9,9 +9,9 @@
 	
 	$("#wb_profile").html($.template( document.getElementById('wb_profile_tpl').value, {
 		uid: uid,
-		feedCount: 22,
-		followCount: 2,
-		followerCount: 20,
+		feedCount: app.user.weibo_count,
+		followCount: app.user.following_count,
+		followerCount: app.user.follower_count,
 		followed: 1,
 		followEach: 1
 	}))
