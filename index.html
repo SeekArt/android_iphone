@@ -75,12 +75,10 @@
 			}catch(e){
 				console.log(e);
 			};
-			setTimeout(function(){$("#splashscreen").hide()},600)
 		};
 		var webRoot = "./";
 
 		appSdk.ready(onDeviceReady);
-		appSdk.pause(onDeviceReady);
 		appSdk.resume(onDeviceReady);
 
 		$.ui.autoLaunch = false;
@@ -108,7 +106,7 @@
 		<!-- －－－－－－－－－－－－－－－－－－ -->
 	<div id="header"></div>
 	<div id="content">
-		<!-- －－－－－－－－－－－－－－－－－－ -->
+			<!-- －－－－－－－－－－－－－－－－－－ -->
 			<div title="IBOS移动客户端" id="main" selected="true" class="panel mainbg" data-tab="navbar_main" data-load="mainload" data-nav="none" >
 				<div class="home-item">
 					<a href="view/mail/mail.html" data-transition="pop">
@@ -162,7 +160,7 @@
 			<div title="网络设置" id="netSetting" class="panel" data-load="showNetList" data-footer="none" data-nav="none" data-defer="view/net/net.html"></div>
 			<div title="网络设置" id="netEdit" class="panel" data-footer="none" data-nav="none" data-defer="view/net/net_edit.html"></div>
 			
-		<!-- -------------------panel----------------------- -->
+			<!-- -------------------panel----------------------- -->
 
 			<!-- --------- login --------- -->
 			<div title="登录" id="login" class="panel indexbg" data-defer="login.html" data-footer="none" data-nav="none" data-load="loadLogin" data-unload="unloadLogin" style="overflow:hidden;"></div>
