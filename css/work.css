@@ -15,3 +15,6 @@
 #work_handle_form_content input[type="checkbox"].checked
  { background-color: #3497DB; }
 #afui.ibos #work_handle_form_content .controls label{	margin: 0 0 0 10px;padding: 0; }
+#afui.ibos .radio-group input[type="radio"]+label+ul{ display:none;}
+#afui.ibos .radio-group input[type="radio"]:checked+label+ul
+{ display:block;}

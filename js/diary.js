@@ -121,6 +121,31 @@ var diary = (function(){
 			error: 		core.error
 		});
 	}
+
+	function loadAttention(date,uid,page){
+		// ajax 加载新的内容
+		$.ui.loadContent("view/diary/diary_comment_list.html", 0, 0);
+
+		url="";
+		if(typeof uid != "undefined") {
+			url += "&uid=" + uid;
+		}
+		if(typeof date != "undefined") {
+			url += "&date=" + date;
+		}
+		// 页码变更
+		if(typeof page !== "undefined" && page !== reviewPage){
+			reviewPage = page;
+		}
+		pageurl = "&page=" + reviewPage;
+		
+		$.jsonP({
+			url: 		diaryUrl + "/attention&callback=?"+ url + pageurl,
+			success: 	showReview,
+			error: 		core.error
+		});
+	}
+
 	function showReview(json){
 		var tp = $("#reviewTpl").val(),
 			$target = $("#reviewList");
@@ -286,6 +311,7 @@ var diary = (function(){
 		editDiary:      editDiary,
 		search:			search,
 		loadReview:		loadReview,
+		loadAttention:	loadAttention,
 		addDiary:		addDiary,
 		submit:			submit,
 

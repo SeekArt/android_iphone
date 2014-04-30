@@ -59,7 +59,7 @@ a { color: #383C41; text-decoration: none; }
 /* 列表项简要信息，一般包含标题、简介、及时间 */
 .list .time{ color: #B2C0D1; font-size: 12px;}
 .list .title { font-size: 16px; font-weight: 400;}
-.list .content { color: #B2C0D1; max-height: 44px; overflow: hidden; }
+.list .content { color: #B2C0D1; /*max-height: 44px;*/ overflow: hidden; }
 
 .list .briefh .time{ float: right;}
 

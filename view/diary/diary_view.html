@@ -7,7 +7,7 @@
 		<input type="hidden" id="diary_next_id" value="<%=prevAndNextPK.nextPK%>">
 		<div class="box media">
 			<div class="media-costar avatar">
-				<img src="<%=app.defaultUrl%>/<%=app.getUser(diary.uid).avatar_small%>" alt="">
+				<img src="<%=app.defaultUrl%>/<%=app.getUser(diary.uid)!=null?app.getUser(diary.uid).avatar_small:""%>" alt="">
 			</div>
 			<div class="media-body brief">
 				<h4><strong><%=diary.realname%></strong> <%=diary.diarytime.year%>-<%=diary.diarytime.month%>-<%=diary.diarytime.day%>工作日志</h4>
