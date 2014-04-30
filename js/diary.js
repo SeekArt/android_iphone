@@ -124,7 +124,7 @@ var diary = (function(){
 
 	function loadAttention(date,uid,page){
 		// ajax 加载新的内容
-		$.ui.loadContent("view/diary/diary_comment_list.html", 0, 0);
+		$.ui.loadContent("view/diary/diary_attention_list.html", 0, 0);
 
 		url="";
 		if(typeof uid != "undefined") {
