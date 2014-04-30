@@ -911,6 +911,7 @@ li .icon:before {
 	width: 130px;
 	height: 130px;
 	border: 4px solid #fff;
+	-webkit-border-radius:50%;
 	border-radius: 50%;
 	overflow: hidden;
 	margin: 10px auto;

@@ -12,7 +12,7 @@ $.ui.loadingText = "读取中...";
 $.ui.customClickHandler = function(target, evt){
 	var href = target.getAttribute("href");
 	if(/http[s]?:\/\//.test(href)){
-		window.open(href, "_blank",{"enableViewportScale":"yes"});
+		window.open(href, "_blank");
 		return true;
 	}
 }

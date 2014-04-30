@@ -363,50 +363,60 @@ var WorkStart = (function(){
 
 		// 保存会签
 		"saveWorkSign": function(){
-			var content = $.query("#countersign_content").val(),
-				signId = app.param.get("signId"),
-				runId = app.param.get("signRunId"),
-				url;
+			// var content = $.query("#countersign_content").val(),
+			// 	signId = app.param.get("signId"),
+			// 	runId = app.param.get("signRunId"),
+			// 	url;
+			
+
 			// 编辑会签的情况
-			if(signId) {
-				url = "" + "&callback=?&signid=" + signId + "&content=" + content;
-				console.log("%c会签id: %c" + signId + " %c会签内容: %c" + content,  "", "color: red",  "", "color: red");
+			// if(signId) {
+			// 	url = "" + "&callback=?&signid=" + signId + "&content=" + content;
+			// 	console.log("%c会签id: %c" + signId + " %c会签内容: %c" + content,  "", "color: red",  "", "color: red");
 			// 新增会签的情况
-			} else {
-				url = "" + "&callback=?&runid=" + runId + "&content=" + content;
-				console.log("%c流程id: %c" + runId + " %c会签内容: %c" + content,  "", "color: red",  "", "color: red");
-			}
+			// } else {
+			// 	url = "" + "&callback=?&runid=" + runId + "&content=" + content;
+			// 	console.log("%c流程id: %c" + runId + " %c会签内容: %c" + content,  "", "color: red",  "", "color: red");
+			// }
+
+			// $.ui.showMask();
+			
+			var $form = $.query("#form_work_handle");
+				$.ui.showMask();
+				$form.attr("action", app.appUrl + '/work/form');
+				$form.get(0).saveflag.value = "save";
+
+				$form.get(0).submit();
 
 			// @Todo: 附件处理
-			$.ui.showMask();
 
 			// $.jsonP({
 			// 	url: url,
 			// 	success: function(res){
-					$.ui.hideMask();
-					var res = {
-						signId: 1,
-						realname: "张小牛",
-						avatar: "",
-						date: "2014-02-22",
-						flowProgress: 2,
-						flowType: "加班登记",
-						signContent: content,
-						attachments: [
-							{ aid: 1, name: "悠悠飘落.jpg", size: "1M", uploadTime: "2014-02-24 14:20", type: "photo" },
-							{ aid: 2, name: "直至世界的终结.mp3", size: "13M", uploadTime: "2014-02-24 14:20", type: "music" }
-						]
-					}
-					var $item = $.tmpl($.query("#countersign_tpl").val(), res);
+			// 		$.ui.hideMask();
+			// 		var res = {
+			// 			signId: 1,
+			// 			realname: "张小牛",
+			// 			avatar: "",
+			// 			date: "2014-02-22",
+			// 			flowProgress: 2,
+			// 			flowType: "加班登记",
+			// 			signContent: content,
+			// 			attachments: [
+			// 				{ aid: 1, name: "悠悠飘落.jpg", size: "1M", uploadTime: "2014-02-24 14:20", type: "photo" },
+			// 				{ aid: 2, name: "直至世界的终结.mp3", size: "13M", uploadTime: "2014-02-24 14:20", type: "music" }
+			// 			]
+			// 		}
+			// 		var $item = $.tmpl($.query("#countersign_tpl").val(), res);
 
-					// 编辑会签的情况
-					if(signId) {
-						$.query("#work_handle_sign_list").find('[data-signid="' + signId + '"]').remove();
-						app.param.remove("signId");
-					}
-					$.query("#work_handle_sign_list").append($item);
-					$.ui.goBack();
-					app.param.remove("signRunId");
+			// 		// 编辑会签的情况
+			// 		if(signId) {
+			// 			$.query("#work_handle_sign_list").find('[data-signid="' + signId + '"]').remove();
+			// 			app.param.remove("signId");
+			// 		}
+			// 		$.query("#work_handle_sign_list").append($item);
+			// 		$.ui.goBack();
+			// 		app.param.remove("signRunId");
 			// 	},
 			// 	error: core.error
 			// })
