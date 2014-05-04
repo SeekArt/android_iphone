@@ -378,6 +378,11 @@ var Weibo = {
 		param = $.extend({ op: "unfollow" }, param);
 		this.getData(param, callback);
 	},
+	getpic : function(){
+		appSdk.myCamera.getPicture(function(data){
+            deferred.resolve(data);
+        },"gogo.jpg",{quality: 80, targetWidth: 120, targetHeight: 120});
+	},
 
 	// 摄像头拍照
     takePicture: function () {

@@ -21,7 +21,8 @@
 				<div class="pds">
 			<%for (var i in attach){%>
 					<ul class="att-list">
-						<li class="att" onclick="window.open('<%=app.defaultUrl%>/<%=attach[i].downurl%>')">
+						<li class="att" onclick="window.plugins.ChildBrowser.showWebPage('<%=app.defaultUrl%>/<%=attach[i].downurl%>',
+                                        { showLocationBar: true });">
 							<div class="att-icon">
 								<img src="images/filetype/<%=attach[i].filetype%>.png" alt="" width="44" height="44">
 							</div>

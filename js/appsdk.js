@@ -175,7 +175,7 @@ appSdk.accel = {
 	}
 }
 appSdk.media = {
-/**
+	/**
 	Media对象提供录制和回放设备上的音频文件的能力。
 	var media = new Media(src, mediaSuccess, [mediaError], [mediaStatus]);
 	
@@ -196,7 +196,7 @@ appSdk.media = {
 		media.startRecord：			开始录制音频文件。
 		media.stopRecord：			停止录制音频文件。
 		media.stop：					停止播放音频文件。
-*/
+	*/
 }
 appSdk.capture ={
 	image : function(callback,number){
@@ -252,6 +252,25 @@ appSdk.scaner ={
 	// onError callback
 	onError : function (e) {
 		console.log("扫描失败 " + e);
+	}	
+}
+appSdk.imagePicker = {
+	getPictures : function(callback,options){
+		window.imagePicker.getPictures(
+		    callback, function (error) { console.log('Error: ' + error); }, options );
 	}
-	
+}
+appSdk.myCamera = {
+	getPicture : function(callback,filename,options){
+		navigator.customCamera.getPicture(filename, callback, function failure(error) { console.log('Error: ' + error);}, options);
+	}
+}
+appSdk.browser = {
+	show : function(url,options){
+		window.plugins.ChildBrowser.showWebPage(url,options);
+	},
+	close : function(){window.plugins.ChildBrowser.close();},
+	open : function(url){
+		window.plugins.ChildBrowser.openExternal(url);
+	}
 }
