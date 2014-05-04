@@ -28,10 +28,6 @@
 	<gap:splash src="res/screen/ios/screen-iphone-portrait.png" gap:platform="ios" width="320" height="480" />
 	<gap:splash src="res/screen/ios/screen-iphone-portrait-2x.png" gap:platform="ios" width="640" height="960" />
 	<gap:splash src="res/screen/ios/screen-iphone-portrait-568h-2x.png" gap:platform="ios" width="640" height="1136" /><!-- 注释： 程序启动时显示图像-->
-	<feature name="debug-server" required="true">
-		<param name="domain" value="http://192.168.1.7:8080"/>
-		<param name="key" value="cn.com.ibos.push"/>
-	</feature>
 
 	<gap:plugin name="org.apache.cordova.device" />
 	<gap:plugin name="org.apache.cordova.camera" />
