@@ -60,7 +60,7 @@
 		<% if(type === "postimage") { %>
 		<!-- 图片 -->
 		<div class="wb-feed-pic">
-			<img src="<%= app.defaultUrl + '/' + attach_url %>">
+			<img src="<%= app.defaultUrl + '/' + attach_url %>" onclick="appSdk.browser.show(this.src)">
 		</div>
 		<% } %>
 		<!-- 微博内容 -->

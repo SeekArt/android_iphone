@@ -12,7 +12,7 @@ $.ui.loadingText = "读取中...";
 $.ui.customClickHandler = function(target, evt){
 	var href = target.getAttribute("href");
 	if(/http[s]?:\/\//.test(href)){
-		window.open(href, "_blank");
+		appSdk.browser.show(href);
 		return true;
 	}
 }
@@ -42,12 +42,13 @@ var core = {
 			if(typeof source === 'string') {
 				var reg = /src=['"](data\/.*?)['"]/g;
 				return source.replace(reg, function($0, $1){
-					return "src='" + app.defaultUrl + "/" + $1 + "'";
+					return "src='" + app.defaultUrl + "/" + $1 + "' onclick='appSdk.browser.show(this.src)'";
 				})
 			// 当 source 为节点时
 			} else {
 				$.query('img[src^="data"]', source).each(function() {
 					this.setAttribute("src", app.defaultUrl + "/" + this.getAttribute("src"));
+					this.setAttribute("onclick", "appSdk.browser.show(this.src)");
 				});
 				return source;
 			}

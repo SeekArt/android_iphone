@@ -8,21 +8,9 @@
 		<textarea id="wb_publish_textarea" placeholder="分享新鲜事..." class="trans-input" rows="5"></textarea>
 	</div>
 	<footer id="footer_weibo_publish" class="toolbar">
-		<a onclick="Weibo.getpic()"><i class="ao-face"></i></a>
+	<!-- 	<a onclick="Weibo.getpic()"><i class="ao-face"></i></a>
 		<a onClick="appSdk.camera.getImage( function(imageData){ Weibo.uploadPicture(imageData); });" ><i class="ao-camera"></i></a>
-		<a onclick="window.imagePicker.getPictures(
-    function(results) {
-        for (var i = 0; i < results.length; i++) {
-            console.log('Image URI: ' + results[i]);
-        }
-    }, function (error) {
-        console.log('Error: ' + error);
-    }, {
-        maximumImagesCount: 10,
-        width: 800
-    }
-);"><i class="ao-face"></i></a>
-		<a onClick="Weibo.takePicture().then(Weibo.uploadPicture).then(Weibo.deletePictureFromCache);"><i class="ao-picture"></i></a>
+		<a onClick="Weibo.takePicture().then(Weibo.uploadPicture).then(Weibo.deletePictureFromCache);"><i class="ao-picture"></i></a> -->
 		<a data-evt="toAt" data-param='{"target": "#wb_publish_textarea"}'><i class="ao-at"></i></a>
 		<!-- <a href="#"><i class="ao-topic"></i></a> -->
 		<div class="wb-supernatant">

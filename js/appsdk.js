@@ -267,7 +267,12 @@ appSdk.myCamera = {
 }
 appSdk.browser = {
 	show : function(url,options){
-		window.plugins.ChildBrowser.showWebPage(url,options);
+		if($.ios||$.android){
+			options = $.extend({ showLocationBar: true ,showNavigationBar:true,showAddress:true }, options)
+			window.plugins.ChildBrowser.showWebPage(url,options);
+		}else{
+			window.open(url, "_blank");
+		}
 	},
 	close : function(){window.plugins.ChildBrowser.close();},
 	open : function(url){

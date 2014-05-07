@@ -500,14 +500,13 @@ app.evt.add({
 			data = JSON.parse(unescape(dataStr));
 
 		$(document).one("loadpanel", function(){
-			// Weibo.getData(param, function(res){
-				// @Debug: 测试数据
 				res = data;
-
 				document.getElementById("wb_fw_preview").innerHTML = $.template(document.getElementById("wb_forward_src_tpl").value, res);
 				document.getElementById("wb_forward_cmuser").innerHTML = app.getUser(res.uid).realname;
+				if(res.isrepost == "1") {
+					document.getElementById("wb_forward_textarea").value = "//@" + app.getUser(res.uid).realname + "：" + res.content;
+				}
 				app.param.set("feedForwardData", res);
-			// });
 		});
 		$.ui.loadContent("view/weibo/forward.html");
 	},

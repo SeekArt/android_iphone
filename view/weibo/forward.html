@@ -20,16 +20,30 @@
 		</div>
 	</footer>
 	<textarea id="wb_forward_src_tpl" class="hideim">
-		<div class="media">
-			<% if(type === "postimage") { %>
-			<div class="media-costar">
-				<img src="<%= app.defaultUrl + '/' + attach_url %>" alt="" width="100" height="80">
+		<% if(isrepost == "1"){ %>
+			<div class="media">
+				<% if(api_source.type === "postimage") { %>
+				<div class="media-costar">
+					<img src="<%= app.defaultUrl + '/' + api_source.attach_url %>" alt="" width="100" height="80">
+				</div>
+				 <% } %>
+				<div class="media-body <%= api_source.type === 'postimage' ? '' : 'pdhs' %>">
+					<p>@<%= app.getUser(api_source.uid).realname %></p>
+					<p class="xcn"><%= api_source.content %></p>
+				</div>
 			</div>
-			 <% } %>
-			<div class="media-body <%= type === 'postimage' ? '' : 'pdhs' %>">
-				<p>@<%= app.getUser(uid).realname %></p>
-				<p class="xcn"><%= content %></p>
+		<% } else { %>
+			<div class="media">
+				<% if(type === "postimage") { %>
+				<div class="media-costar">
+					<img src="<%= app.defaultUrl + '/' + attach_url %>" alt="" width="100" height="80">
+				</div>
+				 <% } %>
+				<div class="media-body <%= type === 'postimage' ? '' : 'pdhs' %>">
+					<p>@<%= app.getUser(uid).realname %></p>
+					<p class="xcn"><%= content %></p>
+				</div>
 			</div>
-		</div>
+		<% } %>
 	</textarea>
 </div>
