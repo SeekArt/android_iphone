@@ -267,7 +267,7 @@ appSdk.myCamera = {
 }
 appSdk.browser = {
 	show : function(url,options){
-		if($.ios||$.android){
+		if($.os.ios||$.os.android){
 			options = $.extend({ showLocationBar: true ,showNavigationBar:true,showAddress:true }, options)
 			window.plugins.ChildBrowser.showWebPage(url,options);
 		}else{

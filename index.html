@@ -72,7 +72,7 @@
 			try{
 				//hide splash screen
 				navigator.splashscreen.hide();
-				if($.ios){
+				if($.os.ios){
 					StatusBar.styleLightContent();
 					StatusBar.backgroundColorByName("black");					
 				}else if($.andorid){
