@@ -10,7 +10,7 @@
 	<div class="diary-comment-date">
 		<div class="direction-bar">
 			<a href="javascript:diary.loadReview('<%=prevAndNextDate.prev%>')">&lt;</a>
-			<input type="date" value="<%=dateWeekDay.year%>-<%=dateWeekDay.month%>-<%=dateWeekDay.day%>" style="opacity: 0.01" onblur="diary.loadReview(this.value)" />
+			<input type="date" value="<%=dateWeekDay.year%>-<%=dateWeekDay.month%>-<%=dateWeekDay.day%>" style="opacity: 0.01" onblur="diary.loadReview(this.value)" onchange="if(!$.os.ios){diary.loadReview(this.value)}" />
 			<a href="javascript:diary.loadReview('<%=prevAndNextDate.next%>');">&gt;</a>
 		</div>
 		<div class="noti xac">
