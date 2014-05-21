@@ -294,6 +294,8 @@ var app = (function(){
 		appUrl = defaultUrl =  localStorage.getItem("defaultUrl"),
 		user = core.getStorage("user"),
 		uid	= localStorage.getItem("uid"),
+		APPID = localStorage.getItem("APPID"),
+		TOKEN = localStorage.getItem("TOKEN"),
 		formHash = '',
 		OS = 1,
 		address ="";
@@ -382,6 +384,8 @@ var app = (function(){
 		core.removeStorage("defaultLogin");
 		core.removeStorage("user");
 		core.removeStorage("uid");
+		core.removeStorage("APPID");		
+		core.removeStorage("TOKEN");
 		core.removeStorage("ibosUserData");
 		$.ui.loadContent('login',false,false,'fade');
 		window.location.reload();
@@ -395,14 +399,16 @@ var app = (function(){
 			isLogin = true;
 			app.user = json.user;
 			app.uid = json.uid;
+			app.APPID = json.APPID
+			app.TOKEN = json.TOKEN
 			localStorage.setItem("uid", app.uid);
 			core.setStorage("user", app.user);
 			if(json.userData){
 				userData = json.userData;
 				core.setStorage("ibosUserData", json.userData);
 			}
-
 			getpush();
+			appSdk.ready(getpush);
 		}else{
 			if(json.msg){
 				$.ui.popup(json.msg);
@@ -482,6 +488,8 @@ var app = (function(){
 		isInit:		isInit,
 		defaultUrl:	defaultUrl,
 		appUrl:		appUrl,
+		APPID: 		APPID,
+		TOKEN: 		TOKEN, 
 		uid:		uid,
 		user:		user,
 		init:		init,

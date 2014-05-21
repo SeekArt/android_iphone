@@ -5,7 +5,7 @@
 		<div class="profile">
 			<div class="avatar">
 				<a class="avatarBtn" onClick="setup.takePicture().then(setup.uploadPicture).then(setup.reloadAvatar).then(setup.deletePictureFromCache);">编辑</a>
-				<img id="myAvatar" onClick="appSdk.camera.getImage( function(imageData){ setup.uploadPicture(imageData).then(setup.reloadAvatar); });" src="<%=app.defaultUrl%>/<%=avatar_big%>">
+				<img id="myAvatar" onClick="setup.getAvatar()" src="<%=app.defaultUrl%>/<%=avatar_big%>">
 			</div>
 		</div>
 		<div class="pds">

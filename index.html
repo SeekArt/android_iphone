@@ -63,11 +63,14 @@
 	<script type="text/javascript" charset="utf-8" src="./js/appsdk.js"></script>
 	<script type="text/javascript" charset="utf-8" src="./js/push.js"></script>
 	<script type="text/javascript" charset="utf-8" src="./js/when.js"></script>
+	
+	<script type="text/javascript" charset="utf-8" src="./JPushPlugin.js"></script>
 
 	<script type="text/javascript">
 		/* This code is used to run as soon as appMobi activates */
 		var onDeviceReady = function () {
 			console.log("onDeviceReady");
+			app.init();  // 初始化我的数据
 			$.ui.blockPageScroll(); //block the page from scrolling at the header/footer 
 			try{
 				//hide splash screen
@@ -75,10 +78,7 @@
 				if($.os.ios){
 					StatusBar.styleLightContent();
 					StatusBar.backgroundColorByName("black");					
-				}else if($.andorid){
-					cordova.plugins.ZoomControl.ZoomControl("true");					
 				}
-				getpush();
 			}catch(e){
 				console.log(e);
 			};
@@ -95,9 +95,11 @@
 		$(document).ready(function(){			
 			// $.ui.setSideMenuWidth($("#afui").width()-50);
 			$.ui.launch();
-			app.init();  // 初始化我的数据
 			$("#splashscreen").hide();
 			$.ui.defaultMenu = $("#defaultMenu");
+			if(!$.os.android && !$.os.ios && !$.os.wp){  //如果不是手机设备，直接初始化我的数据。
+				app.init();  // 初始化我的数据
+			}
 		});
 	</script>
 </head>

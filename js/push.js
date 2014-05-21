@@ -24,16 +24,31 @@ function tokenHandler (result) {
 	var uid = app.uid ;
 	//alert('你的推送码是('+ uid +') = ' + result);
 	$.jsonP({
-			url: 		"http://115.28.216.197/APNS/token.php?callback=?&uid=" + uid + "&token=" + result + "&ver=ios",
+			url: 		"http://115.28.216.197:2195/?s=/api/push/token&type=jsonp&callback=?&appid="+ app.APPID +"&token="+ app.TOKEN +"&uid=" + uid + "&devtoken=" + result + "&platform=ios&uniqueid=",
 			success: 	function(r){ console.log(r) },
 			error: 		function(err){	console.log(err) }
 	});
 }
+function aliasHandler (){
+    var devtoken = "i_" + app.APPID + "_" + app.uid;
+    var devtag = "tag_" + app.APPID;
+	try{
+    window.plugins.jPushPlugin.setAlias(devtoken);
+    window.plugins.jPushPlugin.setTags(devtag);
+	}catch(exception){
+		alert("error"+exception)
+	}
+    $.jsonP({
+            url:        "http://115.28.216.197:2195/?s=/api/push/token&type=jsonp&callback=?&appid="+ app.APPID +"&token="+ app.TOKEN +"&uid=" + app.uid + "&devtoken=" + devtoken + "&platform=android&uniqueid=",
+            success:    function(r){ console.log(r) },
+            error:      function(err){  console.log(err) }
+    });
+}
 function getpush(){
 	try{
-		pushNotification = window.plugins.pushNotification;
 		if ( $.os.ios )
 		{
+            pushNotification = window.plugins.pushNotification;
 			pushNotification.register(
 				tokenHandler,
 				errorHandler, {
@@ -41,17 +56,24 @@ function getpush(){
 					"sound":"true",
 					"alert":"true",
 					"ecb":"onNotificationAPN"
-				});
+				}
+            );
 		}
-		else
+		else if ( $.os.android );
 		{
-			pushNotification.register(
-				successHandler,
-				errorHandler, {
-					"senderID":"319183521528",
-					"ecb":"onNotificationGCM"
-				});
+            aliasHandler();
 		}
+        else
+        {
+            // pushNotification = window.plugins.pushNotification;
+            // pushNotification.register(
+            //  successHandler,
+            //  errorHandler, {
+            //      "senderID":"319183521528",
+            //      "ecb":"onNotificationGCM"
+            //  }
+            // );
+        }
 	}catch(e){
 		console.log(e);
 	}

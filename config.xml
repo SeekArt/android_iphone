@@ -40,14 +40,16 @@
 	<gap:plugin name="org.apache.cordova.splashscreen" /> 
 	<gap:plugin name="org.apache.cordova.console" />
 
-	<gap:plugin name="com.kumbe.phonegap.zoom.zoomcontrol" /> <!-- 注释：安卓原生缩放-->
+	<gap:plugin name="org.apache.cordova.inappbrowser" />
+
 	<gap:plugin name="com.performanceactive.plugins.camera" /> <!-- 注释：自定义摄像头-->
 	<gap:plugin name="com.synconset.imagepicker" /> <!-- 注释：自定义多选图像插件-->
+	<gap:plugin name="com.kumbe.phonegap.zoom.zoomcontrol" /> <!-- 注释：安卓原生缩放-->
 	<gap:plugin name="com.phonegap.plugins.barcodescanner" /> <!-- 注释：二维码扫描-->
 	<gap:plugin name="com.phonegap.plugins.pushplugin" /> <!-- 注释：推送插件-->
 	<gap:plugin name="com.phonegap.plugin.statusbar" /> <!-- 注释：顶部状态栏-->
-	<gap:plugin name="org.apache.cordova.inappbrowser" />
 	<gap:plugin name="com.phonegap.plugins.childbrowser" /> <!-- 注释：子浏览器-->
+	<gap:plugin name="ch.ti8m.documenthandler" /> <!-- 注释：文档浏览--> <!-- handleDocumentWithURL(successHandler, failureHandler, url) -->
 
 	<access origin="*" subdomains="true" />
 </widget>

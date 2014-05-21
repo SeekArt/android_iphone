@@ -50,12 +50,16 @@ var setup = {
 		$.ui.showMask("正在上传");
         
         var ft = new FileTransfer();
-        //上传回调
-        //ft.onprogress = setup.showUploadingProgress;
-        //navigator.notification.progressStart("", "当前上传进度");
+        if($.os.android){
+            //上传回调
+            ft.onprogress = setup.showUploadingProgress;
+            navigator.notification.progressStart("", "当前上传进度");            
+        }        
 		ft.upload( imageURI, encodeURI(app.appUrl + '/setting/upload'), function(){ 
             deferred.resolve( imageURI );
-			//navigator.notification.progressStop();
+            if($.os.android){
+                navigator.notification.progressStop();
+            }
         } , null, options);
         return deferred.promise
     },
@@ -74,6 +78,7 @@ var setup = {
 	reloadAvatar: function(imageURI){
 		$.ui.hideMask();
 		var deferred  = when.defer();
+        $('#hidden_frame').attr('src',$('#myAvatar').attr('src') + "&" + Math.random());
 		$('#myAvatar').attr('src',$('#myAvatar').attr('src') + "&" + Math.random());
 		deferred.resolve( imageURI );
         return deferred.promise
@@ -111,5 +116,11 @@ var setup = {
                 $.ui.popup("修改密码失败");
             }
         });
+    },
+    getAvatar: function(){
+        // appSdk.camera.getImage( function(imageData){ setup.uploadPicture(imageData).then(setup.reloadAvatar); });
+        appSdk.myCamera.getPicture( function(imageData){
+            setup.uploadPicture(imageData).then(setup.reloadAvatar);
+        },app.uid + ".jpg",{ quality: 80, targetWidth: 180, targetHeight: 180})
     }
 }
