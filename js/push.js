@@ -59,7 +59,7 @@ function getpush(){
 				}
             );
 		}
-		else if ( $.os.android );
+		else if( $.os.android )
 		{
             aliasHandler();
 		}

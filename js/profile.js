@@ -121,6 +121,6 @@ var setup = {
         // appSdk.camera.getImage( function(imageData){ setup.uploadPicture(imageData).then(setup.reloadAvatar); });
         appSdk.myCamera.getPicture( function(imageData){
             setup.uploadPicture(imageData).then(setup.reloadAvatar);
-        },app.uid + ".jpg",{ quality: 80, targetWidth: 180, targetHeight: 180})
+        },app.uid + ".jpg",{ quality: 80, targetWidth: 180, targetHeight: 240})
     }
 }
