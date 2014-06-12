@@ -139,7 +139,7 @@ appSdk.gps = {
 	},
 	// onError回调函数接收一个PositionError对象
 	onError : function (error) {
-		alert('code: '    + error.code    + '\n' + 'message: ' + error.message + '\n');
+		console.log('GPS ERROR\ncode: '    + error.code    + '\n' + 'message: ' + error.message + '\n');
 	}
 }
 appSdk.accel = {
