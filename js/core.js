@@ -274,13 +274,13 @@ List.prototype = {
 	}
 }
 
+if(!localStorage.getItem("CLOUDURL")){
+	localStorage.setItem("CLOUDURL","http://cloud.ibos.cn");
 // 测试专用
-// if(!localStorage.getItem("defaultUrl")){
-// 	localStorage.setItem("defaultUrl","http://uweboa.sinaapp.com");
-// 	localStorage.setItem("defaultID","1");
-// 	localStorage.setItem("defaultName","云端");
-// 	localStorage.setItem("netSetList",'{"1":{"id":"1","url":"http://uweboa.sinaapp.com","name":"云端"}}');
-// }
+	// localStorage.setItem("defaultID","1");
+	// localStorage.setItem("defaultName","云端");
+	// localStorage.setItem("netSetList",'{"1":{"id":"1","url":"http://uweboa.sinaapp.com","name":"云端"}}');
+}
 
 /**
 * app
@@ -296,6 +296,7 @@ var app = (function(){
 		uid	= localStorage.getItem("uid"),
 		APPID = localStorage.getItem("APPID"),
 		TOKEN = localStorage.getItem("TOKEN"),
+		CLOUDURL = localStorage.getItem("CLOUDURL"),
 		formHash = '',
 		OS = 1,
 		address ="";
@@ -306,11 +307,12 @@ var app = (function(){
 		if($.os.ipad){ app.OS = 4 }
 		if($.os.ieTouch){ app.OS = 5 }
 
-		appUrl = defaultUrl =  localStorage.getItem("defaultUrl");
+		defaultUrl =  localStorage.getItem("defaultUrl");
+		//初始化完整的路径
+		app.appUrl = defaultUrl + "/?r=mobile";
+		
 		if(!app.isInit){
 			app.isInit = true;
-			//初始化完整的路径
-			app.appUrl += "/?r=mobile";
 			UserNP = core.getStorage("defaultLogin");
 			if(UserNP){
 				$.jsonP({
@@ -384,7 +386,7 @@ var app = (function(){
 		core.removeStorage("defaultLogin");
 		core.removeStorage("user");
 		core.removeStorage("uid");
-		core.removeStorage("APPID");		
+		core.removeStorage("APPID");
 		core.removeStorage("TOKEN");
 		core.removeStorage("ibosUserData");
 		$.ui.loadContent('login',false,false,'fade');
@@ -399,10 +401,15 @@ var app = (function(){
 			isLogin = true;
 			app.user = json.user;
 			app.uid = json.uid;
-			app.APPID = json.APPID
-			app.TOKEN = json.TOKEN
+			app.APPID = json.APPID;
+			app.TOKEN = json.TOKEN;
+			app.CLOUDURL = json.CLOUDURL;
 			localStorage.setItem("uid", app.uid);
+			localStorage.setItem("APPID", app.APPID);
+			localStorage.setItem("TOKEN", app.TOKEN);
+			localStorage.setItem("CLOUDURL", app.CLOUDURL);
 			core.setStorage("user", app.user);
+			
 			if(json.userData){
 				userData = json.userData;
 				core.setStorage("ibosUserData", json.userData);
@@ -489,7 +496,8 @@ var app = (function(){
 		defaultUrl:	defaultUrl,
 		appUrl:		appUrl,
 		APPID: 		APPID,
-		TOKEN: 		TOKEN, 
+		TOKEN: 		TOKEN,
+		CLOUDURL: 	CLOUDURL,
 		uid:		uid,
 		user:		user,
 		init:		init,

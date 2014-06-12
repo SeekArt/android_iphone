@@ -8,9 +8,9 @@ function successHandler (result) {
 	var uid = app.uid ;
 	//alert('你的推送码是('+ uid +') = ' + result);
 	$.jsonP({
-			url: 		"http://115.28.216.197/APNS/token.php?callback=?&ver=1&uid=" + uid + "&token=" + result + "&ver=android",
-			success: 	function(r){ console.log(r) },
-			error: 		function(err){ console.log(err) }
+			url: 		app.CLOUDURL + "?s=/api/push/token&type=jsonp&callback=?&appid="+ app.APPID +"&token="+ app.TOKEN +"&uid=" + uid + "&uniqueid=" + result + "&platform=android",
+			success: 	function(r){ alert(r);console.log(r) },
+			error: 		function(err){ alert(err);console.log(err) }
 	});
 }
 // result contains any error description text returned from the plugin call
@@ -24,22 +24,22 @@ function tokenHandler (result) {
 	var uid = app.uid ;
 	//alert('你的推送码是('+ uid +') = ' + result);
 	$.jsonP({
-			url: 		"http://115.28.216.197:2195/?s=/api/push/token&type=jsonp&callback=?&appid="+ app.APPID +"&token="+ app.TOKEN +"&uid=" + uid + "&devtoken=" + result + "&platform=ios&uniqueid=",
-			success: 	function(r){ console.log(r) },
-			error: 		function(err){	console.log(err) }
+			url: 		app.CLOUDURL + "?s=/api/push/token&type=jsonp&callback=?&appid="+ app.APPID +"&token="+ app.TOKEN +"&uid=" + uid + "&devtoken=" + result + "&platform=ios&uniqueid=",
+			success: 	function(r){ alert(result);alert(r);console.log(r) },
+			error: 		function(err){	alert(err);console.log(err) }
 	});
 }
 function aliasHandler (){
     var devtoken = "i_" + app.APPID + "_" + app.uid;
     var devtag = "tag_" + app.APPID;
 	try{
-    window.plugins.jPushPlugin.setAlias(devtoken);
-    window.plugins.jPushPlugin.setTags(devtag);
+        window.plugins.jPushPlugin.setAlias(devtoken);
+        window.plugins.jPushPlugin.setTags(devtag);
 	}catch(exception){
 		alert("error"+exception)
 	}
     $.jsonP({
-            url:        "http://115.28.216.197:2195/?s=/api/push/token&type=jsonp&callback=?&appid="+ app.APPID +"&token="+ app.TOKEN +"&uid=" + app.uid + "&devtoken=" + devtoken + "&platform=android&uniqueid=",
+            url:        app.CLOUDURL + "?s=/api/push/token&type=jsonp&callback=?&appid="+ app.APPID +"&token="+ app.TOKEN +"&uid=" + app.uid + "&devtoken=" + devtoken + "&platform=android&uniqueid=",
             success:    function(r){ console.log(r) },
             error:      function(err){  console.log(err) }
     });
