@@ -1,0 +1,4422 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"on",
+				"onclick	Attr"
+			],
+			[
+				"and",
+				"android"
+			],
+			[
+				"re",
+				"return"
+			],
+			[
+				"fun",
+				"function"
+			],
+			[
+				"de",
+				"debugger"
+			],
+			[
+				"w",
+				"width"
+			],
+			[
+				"con",
+				"console"
+			],
+			[
+				"pa",
+				"pause："
+			],
+			[
+				"mail_",
+				"mail_user"
+			],
+			[
+				"app",
+				"append"
+			],
+			[
+				"inser",
+				"insertBefore  (function)"
+			],
+			[
+				"max",
+				"max-width"
+			],
+			[
+				"mar",
+				"margin"
+			],
+			[
+				"St",
+				"Standard"
+			],
+			[
+				"j",
+				"join"
+			],
+			[
+				"rea",
+				"readyState"
+			],
+			[
+				"new",
+				"newtarget"
+			],
+			[
+				"user",
+				"userData"
+			],
+			[
+				"in",
+				"include"
+			],
+			[
+				"sett",
+				"settings"
+			],
+			[
+				"sub",
+				"submit  (function)"
+			],
+			[
+				"rep",
+				"repass"
+			],
+			[
+				"m",
+				"margin-right"
+			],
+			[
+				"fl",
+				"float"
+			],
+			[
+				"ma",
+				"mailList"
+			],
+			[
+				"fu",
+				"function"
+			],
+			[
+				"ov",
+				"overflow"
+			],
+			[
+				"c",
+				"center  (value)"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "js/push.js",
+			"settings":
+			{
+				"buffer_size": 4807,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "js/core.js",
+			"settings":
+			{
+				"buffer_size": 22993,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/E/IBOS/ibosEXP/last/ibos2/ibos2/index.php",
+			"settings":
+			{
+				"buffer_size": 627,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"contents": "<?php\n\n/**\n * 程序启动配置文件\n *\n * @author banyanCheung <banyan@ibos.com.cn>\n * @link http://www.ibos.com.cn/\n * @copyright Copyright &copy; 2012-2013 IBOS Inc\n */\nreturn array(\n	// 程序根目录\n	'basePath' => PATH_ROOT . DIRECTORY_SEPARATOR . 'system',\n	// 程序名称\n	'name' => 'IBOS',\n	// 默认控制器 - 主模块下的index\n	'defaultController' => 'main/default/index',\n	// 框架核心语言\n	'sourceLanguage' => 'en_us',\n	// 定义所用组件\n	'components' => array(\n		// --------- 全局与系统组件 ---------\n		// 浏览器组件，检测用户浏览器版本及信息\n		'browser' => array(\n			'class' => 'application.core.components.ICBrowser',\n		),\n		'category' => array(\n			'class' => 'ICCategory'\n		),\n		'db' => array(\n			'enableProfiling' => YII_DEBUG,\n			'emulatePrepare' => true\n		),\n		// 日志记录组件\n		'log' => array(\n			'class' => 'CLogRouter',\n			'routes' => array(\n				array(\n					'class' => 'CFileLogRoute',\n					'levels' => 'error',\n				),\n				array(\n					'class' => 'ICLog',\n					'levels' => 'admincp,illegal,login,action,db',\n				),\n				// array(\n				// 	'class' => 'CProfileLogRoute'\n				// 	,'showInFireBug' =>true\n				// ),\n				// array(\n				// 	'class' => 'CWebLogRoute'\n				// 	,'showInFireBug' =>true\n				// ),\n			),\n		),\n		// 全局认证组件\n		'authManager' => array(\n			'class' => 'ICAuthManager'\n		),\n		// 主题管理组件\n		'themeManager' => array(\n			'basePath' => PATH_ROOT . DIRECTORY_SEPARATOR . 'system/theme',\n			'class' => 'ICThemeManager',\n		),\n		// IBOS资源管理组件\n		'assetManager' => array(\n			'class' => 'ICAssetManager'\n		),\n		// URL资源管理器\n		'urlManager' => array(\n			'urlFormat' => 'get',\n			'caseSensitive' => false,\n			'showScriptName' => false,\n			'rules' => array(\n				'<module:\\w+>/<controller:\\w+>/<action:\\w+>' => '<module>/<controller>/<action>', // Not Coding Standard\n			)\n		),\n		//语言包基本目录和扩展目录配置\n		'messages' => array(\n			'class' => 'ICMessageSource',\n			'basePath' => PATH_ROOT . DIRECTORY_SEPARATOR . 'system/language'\n		),\n		// 性能检测组件，部署模式可删除掉这行\n		'performance' => array(\n			'class' => 'application.core.components.ICPerformanceMeasurement'\n		),\n		'cache' => array(\n			'class' => 'application.core.components.ICCache'\n		)\n	),\n	// 自动加载文件路径\n	'import' => array(\n		// 核心组件库\n		'application.core.components.*',\n		// 核心控制器\n		'application.core.controllers.*',\n		// 全局异常处理\n		'application.core.exceptions.*',\n		// 全局数据层抽象基类\n		'application.core.model.*',\n		// 全局组件库\n		'application.core.utils.*',\n		// 全局模块处理\n		'application.core.modules.*',\n		// 全局widget\n		'application.core.widgets.*',\n		// 核心驱动引擎\n		'application.core.engines.*',\n		'ext.*',\n		// 扩展：缓存驱动\n		'ext.cachedriver.*',\n		// 扩展：更新缓存\n		'ext.cacheprovider.*',\n		'ext.enginedriver.*'\n	),\n	'params' => array(\n		// Yii版本\n		'yiiVersion' => '1.1.13',\n		'supportedLanguages' => array(\n			'en' => 'English',\n			'cn' => 'zh-cn',\n		),\n		// 默认翻每页的页数\n		'basePerPage' => 10,\n		// 等待跳转时间\n		'timeout' => 3,\n		'cacheopen' => 1\n	),\n	'preload' => array(\n		'db', 'cache', 'log'\n	),\n);\n",
+			"file": "/C/Program Files/FlashFXP/Cache/~flashfxp/E66246AF_edit.tmp/common.php",
+			"file_size": -1,
+			"file_write_time": -1,
+			"settings":
+			{
+				"buffer_size": 2835,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"contents": "<?php\n\n/* * *******************************************************************************\n * IBOS, Inc. Copyright (C) 2013 IBOS Team.\n * VISIT : www.ibos.com.cn\n * $Id: configDefault.php 2660 2014-03-01 08:09:06Z zhangrong $\n * ****************************************************************************** */\n \nreturn array(\n	// ----------------------------  CONFIG ENV  -----------------------------//\n	'env' => array(\n		'installed' => '1',\n		'language' => 'zh_cn',\n		'theme' => 'default'\n	),\n	// ----------------------------  CONFIG DB  ----------------------------- //\n	'db' => array(\n		'host' => '127.0.0.1',\n		'port' => '3306',\n		'dbname' => 'ibos',\n		'username' => 'root',\n		'password' => '54ce85b4f5',\n		'tableprefix' => 'ibos_',\n		'charset' => 'utf8'\n	),\n	// --------------------------  CONFIG CACHE  --------------------------- //\n	'cache' => array(\n		'prefix' => 'CV8IbM_',\n		'filecache' => 1\n	),\n// -------------------------  CONFIG SECURITY  -------------------------- //\n	'security' => array(\n		'authkey' => '7c0183x4SK54y8NN'\n	),\n// --------------------------  CONFIG COOKIE  --------------------------- //\n	'cookie' => array(\n		'cookiepre' => 'wjs7_',\n		'cookiedomain' => '',\n		'cookiepath' => '/',\n	)\n);\n",
+			"file": "/C/Program Files/FlashFXP/Cache/~flashfxp/ED378E0B_edit.tmp/config.php",
+			"file_size": -1,
+			"file_write_time": -1,
+			"settings":
+			{
+				"buffer_size": 1223,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/C/Users/Administrator/Application Data/SSH/temp/config.php",
+			"settings":
+			{
+				"buffer_size": 1403,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/E/IBOS/Dev/ibos2/system/config/configDefault.php",
+			"settings":
+			{
+				"buffer_size": 1443,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/C/Users/Administrator/Application Data/SSH/temp/common.php",
+			"settings":
+			{
+				"buffer_size": 2650,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"contents": "<?php\n	$admin = array(\n		'username' => 'admin',\n		'isadministrator' => '1',\n		'password' => 'c1cefe6d3360c888930d302ee7883e3a',\n		'createtime' => '1402060332',\n		'salt' => 'j0HOnB',\n		'realname' => '管理员',\n		'mobile'=>'13800138000',\n		'email'=>'admin@admin.com' \n); ",
+			"file": "/C/Program Files/FlashFXP/Cache/~flashfxp/5E9BAD23_edit.tmp/admin.php",
+			"file_size": -1,
+			"file_write_time": -1,
+			"settings":
+			{
+				"buffer_size": 265,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/E/IBOS/Dev/ibos2/APNS/token.php",
+			"settings":
+			{
+				"buffer_size": 880,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/E/IBOS/Dev/ibos2/system/theme/default/views/layouts/main.php",
+			"settings":
+			{
+				"buffer_size": 12271,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/E/IBOS/Dev/ibos2/system/modules/user/install/model.sql",
+			"settings":
+			{
+				"buffer_size": 10500,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/E/IBOS/Dev/ibos2/install/data/installExtra.sql",
+			"settings":
+			{
+				"buffer_size": 120689,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/E/IBOS/Dev/ibos2/install/data/installFlow.sql",
+			"settings":
+			{
+				"buffer_size": 314061,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/C/Users/Administrator/Application Data/SSH/temp/config (1).php",
+			"settings":
+			{
+				"buffer_size": 1403,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/C/Users/Administrator/Application Data/SSH/temp/login (1).php",
+			"settings":
+			{
+				"buffer_size": 8254,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/C/Users/Administrator/Application Data/SSH/temp/login (2).php",
+			"settings":
+			{
+				"buffer_size": 8254,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/E/IBOS/Dev/ibos2/video.php",
+			"settings":
+			{
+				"buffer_size": 10154,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/D/Documents/Desktop/bbs_ibos - 副本.sql",
+			"settings":
+			{
+				"buffer_size": 4993203,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"contents": "",
+			"file": "/C/Program Files/FlashFXP/Cache/~flashfxp/236971D1.tmp/demo",
+			"file_size": -1,
+			"file_write_time": -1,
+			"settings":
+			{
+				"buffer_size": 0,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/E/IBOS/ibosServ/linux/v1/install_ibos.sh",
+			"settings":
+			{
+				"buffer_size": 191,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/E/IBOS/Dev/ibos2/system/config/config.php",
+			"settings":
+			{
+				"buffer_size": 1293,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/E/IBOS/Dev/ibos2/system/core/components/ICCache.php",
+			"settings":
+			{
+				"buffer_size": 8656,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/E/IBOS/ibosEXP/last/ibos2/ibos2/system/core/components/ICCache.php",
+			"settings":
+			{
+				"buffer_size": 8656,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/C/Users/Administrator/Application Data/SSH/temp/config (8).php",
+			"settings":
+			{
+				"buffer_size": 1403,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/C/Users/Administrator/Application Data/SSH/temp/database.php",
+			"settings":
+			{
+				"buffer_size": 200,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/E/IBOS/Dev/ibos2/system/core/components/ICApplication.php",
+			"settings":
+			{
+				"buffer_size": 8226,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"contents": "<DirectoryMatch \"/alidata/www/phpwind/(attachment|html|data)\">\n<Files ~ \".php\">\nOrder allow,deny\nDeny from all\n</Files>\n</DirectoryMatch>\n\n<VirtualHost *:80>\n	DocumentRoot /alidata/www/phpwind\n	ServerName localhost\n	ServerAlias localhost\n	<Directory \"/alidata/www/phpwind\">\n	    Options Indexes FollowSymLinks\n	    AllowOverride all\n	    Order allow,deny\n	    Allow from all\n	</Directory>\n	<IfModule mod_rewrite.c>\n		RewriteEngine On\n		RewriteRule ^(.*)-htm-(.*)$ .php?\n		RewriteRule ^(.*)/simple/([a-z0-9\\_]+\\.html)$ /simple/index.php?\n	</IfModule>\n	ErrorLog \"/alidata/log/httpd/phpwind-error.log\"\n	CustomLog \"/alidata/log/httpd/phpwind.log\" common\n</VirtualHost>\n\n<VirtualHost *:80>\n	DocumentRoot /alidata/www/bbs\n	ServerName bbs.ibos.com.cn\n	ServerAlias bbs.ibos.cn\n	<Directory \"/alidata/www/bbs\">\n	    Options Indexes FollowSymLinks\n	    AllowOverride all\n	    Order allow,deny\n	    Allow from all\n	</Directory>\n</VirtualHost>\n\n<VirtualHost *:80>\n	DocumentRoot /alidata/www/cloud\n	ServerName cloud.ibos.cn\n	ServerAlias cloud.ibos.com.cn\n	<Directory \"/alidata/www/cloud\">\n	    Options Indexes FollowSymLinks\n	    AllowOverride all\n	    Order allow,deny\n	    Allow from all\n	</Directory>\n</VirtualHost>\n\n<VirtualHost *:80>\n	DocumentRoot /alidata/www/10010uwebnetcn\n	ServerName 10010.uweb.net.cn\n	ServerAlias 10010.uweb.net.cn\n	<Directory \"/alidata/www/10010uwebnetcn\">\n	    Options Indexes FollowSymLinks\n	    AllowOverride all\n	    Order allow,deny\n	    Allow from all\n	</Directory>\n</VirtualHost>\n",
+			"file": "/C/Users/Administrator/Application Data/SSH/temp/phpwind.conf",
+			"file_size": -1,
+			"file_write_time": -1,
+			"settings":
+			{
+				"buffer_size": 1501,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"contents": "<?php\n\n/**\n * 全局应用程序组件文件\n *\n * @author banyanCheung <banyan@ibos.com.cn>\n * @link http://www.ibos.com.cn/\n * @copyright Copyright &copy; 2012-2013 IBOS Inc\n */\n\n/**\n * 初始化Application,模块及分发控制器\n * @package application.core.components\n * @version $Id: ICApplication.php 2792 2014-03-18 02:42:51Z gzhzh $\n * @author banyanCheung <banyan@ibos.com.cn>\n */\nclass ICApplication extends CWebApplication {\n\n	/**\n	 * 已安装的模块\n	 * @var array \n	 */\n	private $_enabledModule = array();\n\n	/**\n	 * 授权数组信息\n	 * @var array \n	 */\n	private $_licenceArr = array();\n\n	/**\n	 * 初始化方法：设置授权，配置所有已安装的模块\n	 * @return void\n	 */\n	protected function init() {\n		$this->setLicence();\n		$this->_enabledModule = Module::model()->fetchAllEnabledModule();\n		foreach ( $this->getEnabledModule() as $module ) {\n			$config = CJSON::decode( $module['config'], true );\n			if ( isset( $config['configure'] ) && array_key_exists( 'modules', $config['configure'] ) ) {\n				if ( isset( $config['behaviors'] ) ) {\n					$this->setBehaviors( $config['behaviors'] );\n				}\n				parent::configure( $config['configure'] );\n			}\n		}\n		parent::init();\n	}\n\n	/**\n	 * 判定授权\n	 * @return boolean\n	 */\n	public function getLicence() {\n		return $this->_licenceArr;\n	}\n\n	/**\n	 * \n	 */\n	private function setLicence() {\n		$filename = PATH_ROOT . '/data/licence.key';\n		$licencekey = @file_get_contents( $filename );\n		if ( $licencekey ) {\n			$licenceArr = $this->readLicence( $licencekey );\n			if ( is_array( $licenceArr ) ) {\n				switch ( $licenceArr['ver'] ) {\n					case 'Standard':\n						$licenceArr['vername'] = \"普及版\";\n						break;\n					case 'Enterprise':\n						$licenceArr['vername'] = \"企业版\";\n						break;\n					case 'Group':\n						$licenceArr['vername'] = \"旗舰版\";\n						break;\n					case 'Project':\n						$licenceArr['vername'] = \"项目版\";\n						break;\n					case 'DIY':\n						$licenceArr['vername'] = $licenceArr['vername'];\n						break;\n					default:\n						$licenceArr['vername'] = \"试用版\";\n				}\n				if ( isset( $licenceArr['limit'] ) ) {\n					$limit = $licenceArr['limit'];\n				} else {\n					$limit = 10;\n				}\n				if ( isset( $licenceArr['added'] ) ) {\n					$limit = $limit + $licenceArr['added'];\n				}\n				if ( isset( $licenceArr['disable'] ) ) {\n					define( \"LICENCE_DISABLE\", $licenceArr['disable'] );\n				}\n				$licenceArr['limit'] = $limit;\n				$this->_licenceArr = $licenceArr;\n			}\n		}\n	}\n\n	/**\n	 * 读取授权\n	 * @param type $licencekey\n	 * @return boolean\n	 */\n	private function readLicence( $licencekey ) {\n		$pos = strpos( $licencekey, '|' );\n		if ( !$pos )\n			return FALSE;\n		$pre = substr( $licencekey, 0, $pos );\n		$c = substr( $licencekey, $pos + 1 );\n\n		$modulus = '247951816413205085921106286398120136896788014055199338629780778472204077308053767006218018324142651909195596003106594609159002643031774387211432583166542583483099049359378164797170552666392349957500492002826361302903529659499530039.0000000000';\n		$public = \"65537\";\n		$keylength = \"768\";\n\n		Ibos::import( 'ext.auth.RSA', true );\n		$RSA = new RSA();\n		$pre = base64_decode( $pre );\n		$key = $RSA->verify( $pre, $public, $modulus, $keylength );\n\n		Ibos::import( 'ext.auth.AES', true );\n		$AES = new AES( true ); // 把加密后的字符串按十六进制进行存储\n		$keys = $AES->makeKey( $key );\n		$s = $AES->decryptString( $c, $keys );\n		$s = json_decode( $s, true );\n		return $s;\n	}\n\n	/**\n	 * 重写配置方法实现平台引擎驱动\n	 * @param array $config\n	 */\n	public function configure( $config ) {\n		defined( 'ENGINE' ) or define( 'ENGINE', 'LOCAL' );\n		// 先配置import,避免无法加载文件问题\n		$this->setImport( $config['import'] );\n		unset( $config['import'] );\n		// 初始化ENGINE定义的引擎驱动\n		$engineClass = ucfirst( strtolower( ENGINE ) ) . 'Engine';\n		$engine = new $engineClass( $config );\n		Ibos::setEngine( $engine );\n		parent::configure( Ibos::engine()->getEngineConfig() );\n	}\n\n	/**\n	 * 执行Action前的动作。用于权限验证\n	 * step1：强制执行不验证模块的判断\n	 * step2：调用各自控制器定义的过滤路由方法，返回false表示验证不通过\n	 * step3：调用authManager组件进行路由的验证\n	 * @param CController $controller 控制器对象\n	 * @param CAction $action 动作对象\n	 * @return mixed\n	 */\n	public function beforeControllerAction( $controller, $action ) {\n		$module = $controller->getModule()->getId();\n		// step1\n		if ( !$controller->filterNotAuthModule( $module ) ) {\n			$routes = strtolower( $controller->getUniqueId() . '/' . $action->getId() );\n			// step2\n			if ( !$controller->filterRoutes( $routes ) ) {\n				// step3\n				if ( !Ibos::app()->user->checkAccess( $routes, AuthUtil::getParams( $routes ) ) ) {\n					// 没有权限 抛出错误\n					if ( isset( $this->rbacErrorPage ) ) {\n						// 定义权限错误页面\n						$controller->redirect( $this->rbacErrorPage );\n					} else {\n						$controller->error( Ibos::lang( 'Valid access', 'error' ), '', array( 'autoJump' => 0 ) );\n					}\n				}\n			}\n		}\n		return true;\n	}\n\n	/**\n	 * 当模块完成配置时发起一个事件\n	 * @param CEvent $event 事件参数\n	 * @return void \n	 */\n	public function onInitModule( $event ) {\n		$this->raiseEvent( 'onInitModule', $event );\n	}\n\n	/**\n	 * 当更新缓存时发起一个事件\n	 * @param CEvent $event 事件参数\n	 * @return void\n	 */\n	public function onUpdateCache( $event ) {\n		$this->raiseEvent( 'onUpdateCache', $event );\n	}\n\n	/**\n	 * 根据当前路由创建控制器\n	 * 覆盖父类CWebApplication的方法，为了保证整个程序里没有相同的类名，每个控制器的名称都要加上模块名作为前缀\n	 * @param string $route 当前请求的路由\n	 * @param CWebModule $owner 新的控制器所属的模块。默认值为null，代表当前应用程序实例为所有者。\n	 * @return array 控制器实例和操作ID。\n	 * 返回Null 表示控制器类不存在或路径无效\n	 */\n	public function createController( $route, $owner = null ) {\n		if ( $owner === null ) {\n			$owner = $this;\n		}\n		if ( ($route = trim( $route, '/' )) === '' ) {\n			$route = $owner->defaultController;\n		}\n		$caseSensitive = parent::getUrlManager()->caseSensitive;\n		$route .= '/';\n		while ( ($pos = strpos( $route, '/' )) !== false ) {\n			$id = substr( $route, 0, $pos );\n			if ( !preg_match( '/^\\w+$/', $id ) ) {\n				return null;\n			}\n			if ( !$caseSensitive ) {\n				$id = strtolower( $id );\n			}\n			$route = (string) substr( $route, $pos + 1 );\n			if ( !isset( $basePath ) ) {\n				if ( isset( $owner->controllerMap[$id] ) ) {\n					return array(\n						Ibos::createComponent(\n								$owner->controllerMap[$id], $id, $this->resolveWhatToPassAsParameterForOwner( $owner ) ),\n						parent::parseActionParams( $route ),\n					);\n				}\n\n				if ( ($module = $owner->getModule( $id )) !== null ) {\n					if ( parent::hasEventHandler( 'onInitModule' ) ) {\n						$this->onInitModule( new CEvent( $this ) );\n					}\n					return $this->createController( $route, $module );\n				}\n				$basePath = $owner->getControllerPath();\n				$controllerID = '';\n			} else {\n				$controllerID .= '/';\n			}\n\n			$baseClassName = ucfirst( $id ) . 'Controller';\n			// 这里假设当前模块是owner\n			if ( $this->isOwnerTheController( $owner ) ) {\n				$className = $baseClassName;\n			} else {\n				$className = $owner::getPluralCamelCasedName() . $baseClassName;\n			}\n			$classFile = $basePath . DIRECTORY_SEPARATOR . $baseClassName . '.php';\n			if ( is_file( $classFile ) ) {\n				if ( !class_exists( $className, false ) ) {\n					require($classFile);\n				}\n				if ( class_exists( $className, false ) && is_subclass_of( $className, 'CController' ) ) {\n					$id[0] = strtolower( $id[0] );\n					return array(\n						new $className( $controllerID . $id, $this->resolveWhatToPassAsParameterForOwner( $owner ) ),\n						parent::parseActionParams( $route ),\n					);\n				}\n				return null;\n			}\n			$controllerID .= $id;\n			$basePath .= DIRECTORY_SEPARATOR . $id;\n		}\n	}\n\n	/**\n	 * 应用程序是否安装\n	 * @return boolean\n	 */\n	public function isApplicationInstalled() {\n		$params = $this->getParams();\n		return $params['installed'];\n	}\n\n	/**\n	 * 返回可用的模块数组\n	 * @return array\n	 */\n	public function getEnabledModule() {\n		return (array) $this->_enabledModule;\n	}\n\n	/**\n	 * 附件一个行为到组件，目前只有一个名为InitModule，用于初始化模块。\n	 * @param array $behaviors 行为数组\n	 */\n	protected function setBehaviors( $behaviors ) {\n		// assert( 'is_array($behaviors)' );\n		parent::attachBehaviors( $behaviors );\n	}\n\n	/**\n	 * 检测$owner是否创建了当前控制器\n	 * @param object $owner\n	 * @return boolean\n	 */\n	protected function isOwnerTheController( $owner ) {\n		if ( $owner === $this ) {\n			return true;\n		}\n		return false;\n	}\n\n	/**\n	 * \n	 * @param object $owner\n	 * @return mixed\n	 */\n	protected function resolveWhatToPassAsParameterForOwner( $owner ) {\n		if ( $owner === $this ) {\n			return null;\n		}\n		return $owner;\n	}\n\n}\n",
+			"file": "/C/Program Files/FlashFXP/Cache/~flashfxp/D60E9ABF_view.tmp/ICApplication.php",
+			"file_size": -1,
+			"file_write_time": -1,
+			"settings":
+			{
+				"buffer_size": 8142,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"contents": "<?php\n\n/**\n * 主模块初始化行为文件\n *\n * @author banyanCheung <banyan@ibos.com.cn>\n * @link http://www.ibos.com.cn/\n * @copyright Copyright &copy; 2012-2013 IBOS Inc\n */\n\n/**\n * 主模块初始化,执行主要操作如初始化环境变量，初始化链接，升级，license,session,缓存及\n * 系统配置等重要操作\n * @package application.module.main.components\n * @version $Id: InitMainModuleBehavior.php 3487 2014-05-29 02:26:11Z gzhzh $\n * @author banyanCheung <banyan@ibos.com.cn>\n */\nclass InitMainModuleBehavior extends CBehavior {\n\n	/**\n	 * 允许未登录用户访问的URL\n	 * @var array\n	 */\n	protected $allowedGuestUserRoutes = array(\n		'user/default/login',\n		'user/default/reset',\n		'user/default/logout',\n		'user/default/ajaxlogin',\n		'user/default/checklogin',\n		'dashboard/default/login',\n		'dashboard/default/logout',\n		'mobile/api',\n		'mobile/default/login',\n		'mobile/default/logout',\n		'main/default/getCert',\n		'main/default/unsupportedBrowser'\n	);\n\n	/**\n	 * 覆盖父类方法，附加初始化核心行为到父类的组件\n	 * @param mixed $owner\n	 */\n	public function attach( $owner ) {\n		// 处理运行环境\n		$owner->attachEventHandler( 'onInitModule', array( $this, 'handleInitEnvironment' ) );\n		// 处理请求提交\n		$owner->attachEventHandler( 'onInitModule', array( $this, 'handleInitInput' ) );\n		// todo :: 处理Api请求的情况\n		// 加载系统缓存\n		$owner->attachEventHandler( 'onInitModule', array( $this, 'handleLoadSysCache' ) );\n		// 处理用户连接\n		$owner->attachEventHandler( 'onInitModule', array( $this, 'handleBeginRequest' ) );\n		// 初始化session组件\n		$owner->attachEventHandler( 'onInitModule', array( $this, 'handleInitSession' ) );\n		// 配置系统设定\n		$owner->attachEventHandler( 'onInitModule', array( $this, 'handleSystemConfigure' ) );\n		// 处理计划任务\n		$owner->attachEventHandler( 'onInitModule', array( $this, 'handleInitCron' ) );\n		// 处理组织架构数据\n		$owner->attachEventHandler( 'onInitModule', array( $this, 'handleInitOrg' ) );\n		// 检查更新升级\n		$owner->attachEventHandler( 'onInitModule', array( $this, 'handleCheckUpgrade' ) );\n		// 授权检查\n		$owner->attachEventHandler( 'onInitModule', array( $this, 'handleCheckLicence' ) );\n	}\n\n	/**\n	 * 开始处理请求，处理客户请求与是否需要登录\n	 * @param mixed $event\n	 */\n	public function handleBeginRequest( $event ) {\n		// 创建一个可访问的url列表\n		// 这些url也要考虑到程序在升级的过程中可用的情况\n		$allowedGuestUserUrls = array();\n		foreach ( $this->allowedGuestUserRoutes as $allowedGuestUserRoute ) {\n			$allowedGuestUserUrls[] = Ibos::app()->createUrl( $allowedGuestUserRoute );\n		}\n		// 获取当前url请求,判断是否在可访问url列表内\n		$reqestedUrl = Ibos::app()->getRequest()->getUrl();\n		$isUrlAllowedToGuests = false;\n		//不能用in_array代替了下面的判断是因为还有URL后参数是可变的\n		foreach ( $allowedGuestUserUrls as $url ) {\n			if ( strpos( $reqestedUrl, $url ) === 0 ) {\n				$isUrlAllowedToGuests = true;\n				break;\n			}\n		}\n		// 兼容swfupload上传\n		$uid = EnvUtil::getRequest( 'uid' );\n		$swfHash = EnvUtil::getRequest( 'hash' );\n		if ( $uid && $swfHash ) {\n			define( 'IN_SWFHASH', true );\n			$authKey = Ibos::app()->setting->get( 'config/security/authkey' );\n			if ( (empty( $uid )) || $swfHash != md5( substr( md5( $authKey ), 8 ) . $uid ) ) {\n				exit();\n			}\n		} else if ( Ibos::app()->user->isGuest ) {\n			define( 'IN_SWFHASH', false );\n			// 未登录即跳转\n			if ( !$isUrlAllowedToGuests ) {\n				if ( IN_DASHBOARD ) {\n					Ibos::app()->request->redirect( Ibos::app()->createUrl( 'dashboard/default/login' ) );\n				} else {\n					Ibos::app()->user->loginRequired();\n				}\n			}\n		}\n	}\n\n	/**\n	 * 处理初始化运行环境\n	 * @param mixed $event\n	 * @throws NotFoundException 配置文件丢失\n	 */\n	public function handleInitEnvironment( $event ) {\n		// ---- 性能检测 ,部署模式时可移除以减少组件加载 ----\n		Ibos::app()->performance->startClock();\n		Ibos::app()->performance->startMemoryUsageMarker();\n		// -------------------------------------------\n		// 可访问的静态资源文件夹\n		define( 'STATICURL', Ibos::app()->assetManager->getBaseUrl() );\n		// 是否用手机访问\n		define( 'IN_MOBILE', EnvUtil::checkInMobile() );\n		define( 'IN_DASHBOARD', EnvUtil::checkInDashboard() );\n		define( 'TIMESTAMP', time() );\n		define( 'IN_APP', EnvUtil::checkInApp() );\n		$this->setTimezone();\n		// 设置运行内存\n		if ( function_exists( 'ini_get' ) ) {\n			$memorylimit = @ini_get( 'memory_limit' );\n			if ( $memorylimit && ConvertUtil::ConvertBytes( $memorylimit ) < 33554432 && function_exists( 'ini_set' ) ) {\n				ini_set( 'memory_limit', '128m' );\n			}\n		}\n		// setting 组件里要用到的全局变量，这里先赋予给一个数组,里面的全为初始值\n		$global = array(\n			'timestamp' => TIMESTAMP,\n			'version' => VERSION,\n			'clientip' => EnvUtil::getClientIp(),\n			'referer' => '',\n			'charset' => CHARSET,\n			'authkey' => '',\n			'newversion' => 0,\n			'config' => array(),\n			'setting' => array(),\n			'user' => array(),\n			'cookie' => array(),\n			'session' => array(),\n			'lunar' => DateTimeUtil::getlunarCalendar(), // 农历显示\n			'title' => MainUtil::getIncentiveWord(),\n			'staticurl' => STATICURL\n		);\n		// 脚本与路径变量\n		$global['phpself'] = $this->getScriptUrl();\n		$sitePath = substr( $global['phpself'], 0, strrpos( $global['phpself'], '/' ) );\n		$global['isHTTPS'] = (isset( $_SERVER['HTTPS'] ) && strtolower( $_SERVER['HTTPS'] ) != 'off') ? true : false;\n		$global['siteurl'] = StringUtil::ihtmlSpecialChars( 'http' . ($global['isHTTPS'] ? 's' : '') . '://' . $_SERVER['HTTP_HOST'] . $sitePath . '/' );\n		$url = parse_url( $global['siteurl'] );\n		$global['siteroot'] = isset( $url['path'] ) ? $url['path'] : '';\n		$global['siteport'] = empty( $_SERVER['SERVER_PORT'] ) || $_SERVER['SERVER_PORT'] == '80' || $_SERVER['SERVER_PORT'] == '443' ? '' : ':' . $_SERVER['SERVER_PORT'];\n		// 加载系统生成配置文件\n		$config = @include PATH_ROOT . '/system/config/config.php';\n		if ( empty( $config ) ) {\n			throw new NotFoundException( Ibos::Lang( 'Config not found', 'error' ) );\n		} else {\n			$global['config'] = $config;\n		}\n		// 注册给setting 组件,实现全局调用\n		Ibos::app()->setting->copyFrom( $global );\n	}\n\n	/**\n	 * 检查请求处理\n	 * @param mixed $event\n	 * @throws RequestException 过滤全局变量错误\n	 */\n	public function handleInitInput( $event ) {\n		// 过滤全局数组\n		if ( isset( $_GET['GLOBALS'] ) || isset( $_POST['GLOBALS'] ) ||\n				isset( $_COOKIE['GLOBALS'] ) || isset( $_FILES['GLOBALS'] ) ) {\n			throw new RequestException( Ibos::lang( 'Parameters error', 'error' ) );\n		}\n		$global = Ibos::app()->setting->toArray();\n		$config = $global['config'];\n		// 如果是ibos生成的cookie,把它重新赋值到全局设置里\n		$preLength = strlen( $global['config']['cookie']['cookiepre'] );\n		foreach ( $_COOKIE as $key => $value ) {\n			if ( substr( $key, 0, $preLength ) == $config['cookie']['cookiepre'] ) {\n				$global['cookie'][substr( $key, $preLength )] = $value;\n			}\n		}\n		// 初始化session id\n		$global['sid'] = $global['cookie']['sid'] = isset( $global['cookie']['sid'] ) ?\n				StringUtil::ihtmlSpecialChars( $global['cookie']['sid'] ) : '';\n\n		if ( empty( $global['cookie']['saltkey'] ) ) {\n			$global['cookie']['saltkey'] = StringUtil::random( 8 );\n			MainUtil::setCookie( 'saltkey', $global['cookie']['saltkey'], 86400 * 30, 1, 1 );\n		}\n		// 生成身份验证码\n		$global['authkey'] = md5( $global['config']['security']['authkey'] . $global['cookie']['saltkey'] );\n		Ibos::app()->setting->copyFrom( $global );\n	}\n\n	/**\n	 * 初始化session组件\n	 * @param mixed $event\n	 * @throws EnvException ip禁止\n	 */\n	public function handleInitSession( $event ) {\n		$global = Ibos::app()->setting->toArray();\n		Ibos::app()->session->load( $global['cookie']['sid'], $global['clientip'], Ibos::app()->user->isGuest ? 0 : Ibos::app()->user->uid  );\n		$global['sid'] = Ibos::app()->session->sid;\n		$global['session'] = Ibos::app()->session->var;\n\n		if ( !empty( $global['sid'] ) && $global['sid'] != $global['cookie']['sid'] ) {\n			MainUtil::setCookie( 'sid', $global['sid'], 86400 );\n		}\n		Ibos::app()->setting->copyFrom( $global );\n		$isNewSession = Ibos::app()->session->isNew;\n		// 如果是未登录的用户，检查是否被ban IP\n		if ( $isNewSession ) {\n			if ( EnvUtil::ipBanned( $global['clientip'] ) ) {\n				Ibos::error( Ibos::lang( 'User banned', 'message' ) );\n			}\n		}\n		// 如果已登录用户，检查是否需要更新最后活动时间\n		if ( !Ibos::app()->user->isGuest && ( $isNewSession || ( Ibos::app()->session->getKey( 'lastactivity' ) + 600) < TIMESTAMP) ) {\n			Ibos::app()->session->setKey( 'lastactivity', TIMESTAMP );\n			if ( $isNewSession ) {\n				UserStatus::model()->updateByPk( Ibos::app()->user->uid, array( 'lastip' => $global['clientip'], 'lastvisit' => TIMESTAMP ) );\n			}\n		}\n	}\n\n	/**\n	 * 处理定时任务\n	 * @param mixed $event\n	 */\n	public function handleInitCron( $event ) {\n		$cronNextRunTime = Ibos::app()->setting->get( 'cache/cronnextrun' );\n		$enableCronRun = $cronNextRunTime && $cronNextRunTime <= TIMESTAMP;\n		if ( $enableCronRun ) {\n			Ibos::app()->cron->run();\n		}\n	}\n\n	/**\n	 * 初始化组织架构静态js,无则生成\n	 * @param mixed $event\n	 */\n	public function handleInitOrg( $event ) {\n		if ( !FileUtil::fileExists( 'data/org.js' ) ) {\n			OrgUtil::update();\n		}\n	}\n\n	/**\n	 * 加载系统设置\n	 * @param mixed $event\n	 */\n	public function handleLoadSysCache( $event ) {\n		$caches = Syscache::model()->fetchAll();\n		foreach ( $caches as $cache ) {\n			$value = $cache['type'] == '1' ? unserialize( $cache['value'] ) : $cache['value'];\n			if ( $cache['name'] == 'setting' ) {\n				Ibos::app()->setting->set( 'setting', $value );\n			} else {\n				Ibos::app()->setting->set( 'cache/' . $cache['name'], $value );\n			}\n		}\n	}\n\n	/**\n	 * 检查系统更新升级\n	 * @param mixed $event\n	 */\n	public function handleCheckUpgrade( $event ) {\n		// 只有超级管理员才有权限看到\n		if ( !Ibos::app()->user->isGuest && Ibos::app()->user->isadministrator ) {\n			$upgrade = Ibos::app()->setting->get( 'setting/upgrade' );\n			if ( !empty( $upgrade ) ) {\n				Ibos::app()->setting->set( 'newversion', 1 );\n			}\n			$cookie = Ibos::app()->setting->get( 'cookie' );\n			$needUpgrade = isset( $cookie['checkupgrade'] );\n			if ( $needUpgrade ) {\n				$checkReturn = upgradeUtil::checkUpgrade();\n				Ibos::app()->setting->set( 'newversion', $checkReturn ? 1 : 0  );\n				MainUtil::setCookie( 'checkupgrade', 1, 7200 );\n			}\n		}\n	}\n\n	/**\n	 * 检查授权\n	 * @param mixed $event\n	 * @author Ring \n	 */\n	public function handleCheckLicence( $event ) {\n		$err = 0;\n		$errinfo = \"\";\n		$licenceArr = Ibos::app()->getLicence();\n		if ( !empty( $licenceArr ) ) {\n			$unit = Ibos::app()->setting->get( 'setting/unit' );\n			if ( $licenceArr['etime'] < time() || $licenceArr['stime'] > time() ) {\n				$err = 4; //授权文件已过期，请续期\n				$errinfo = \"授权文件已过期请续期\";\n			} elseif ( $licenceArr['stime'] > time() ) {\n				$err = 5; //授权文件来自未来\n				$errinfo = \"服务器时间可能不正确\";\n			} elseif ( $unit[\"shortname\"] != $licenceArr['name'] ) {\n				$err = 3; // 授权文件无效，不属于当前用户\n				$errinfo = \"授权简称与系统不一致\";\n			} elseif ( $unit[\"fullname\"] != $licenceArr['fullname'] ) {\n				$err = 3; // 授权文件无效，不属于当前用户\n				$errinfo = \"授权全称与系统不一致\";\n			} else {\n				if ( $_SERVER['SERVER_NAME'] != \"\" ) {\n					if ( is_array( $licenceArr['url'] ) ) {\n						if ( !in_array( $_SERVER['SERVER_NAME'], $licenceArr['url'] ) && !in_array( $_SERVER['HTTP_HOST'], $licenceArr['url'] ) ) { //增加判断host参数，以避免因server_name设置错误的问题导致授权判定不成功\n							$err = 3; //数组判断,如果是访问网址与实际网址不一致，失效。	\n							$errinfo = \"授权网址与访问网址不同\";\n						} else {\n							define( \"LICENCE_URL\", join( ',', $licenceArr['url'] ) );\n						}\n					} else {\n						if ( substr( $licenceArr['url'], 0, 7 ) == \"http://\" ) {\n							$licenceArr['url'] = trim( substr( $licenceArr['url'], 7 ), \"/\" ); //如果是老的授权，URL里带http，则把http去掉\n						}\n						if ( $_SERVER['SERVER_NAME'] != trim( $licenceArr['url'] ) && $_SERVER['HTTP_HOST'] != trim( $licenceArr['url'] ) && $_SERVER['HTTP_HOST'] != \"127.0.0.1\" ) {\n							$err = 3; //如果是访问网址与实际网址不一致，失效。\n							$errinfo = \"授权网址与访问网址不同\";\n						} else {\n							define( \"LICENCE_URL\", $licenceArr['url'] );\n						}\n					}\n				}\n			}\n			if ( $err ) {\n				define( \"LICENCE_LIMIT\", 20 );\n				define( \"LICENCE_STIME\", 'NO' );\n				define( \"LICENCE_ETIME\", 'NO' );\n				define( \"LICENCE_VERNAME\", '未授权' );\n				define( \"LICENCE_ERR\", '授权出错：' . $errinfo );\n			} else {\n				define( \"LICENCE_NAME\", $licenceArr['name'] );\n				define( \"LICENCE_FULLNAME\", $licenceArr['fullname'] );\n				define( \"LICENCE_STIME\", $licenceArr['stime'] );\n				define( \"LICENCE_ETIME\", $licenceArr['etime'] );\n				define( \"LICENCE_VER\", $licenceArr['ver'] );\n				define( \"LICENCE_LIMIT\", $licenceArr['limit'] );\n\n				if ( isset( $licenceArr['vername'] ) ) {\n					define( \"LICENCE_VERNAME\", $licenceArr['vername'] );\n				} else {\n					define( \"LICENCE_VERNAME\", '定制版' );\n				}\n			}\n		} else {\n			$err = 2; // 非法或损坏的授权文件,或没有授权文件\n			define( \"LICENCE_LIMIT\", 20 ); //没有授权默认20个用户\n			define( \"LICENCE_STIME\", 'NO' );\n			define( \"LICENCE_ETIME\", 'NO' );\n			define( \"LICENCE_VERNAME\", '未授权' );\n			define( \"LICENCE_ERR\", '授权无法解析或授权文件不存在' );\n		}\n		switch ( $err ) {\n			case 0:\n				break;\n			case 1:\n			case 2:\n				Ibos::app()->setting->set( 'setting/unit/shortname', Ibos::app()->setting->get('setting/unit/shortname').\"[系统未注册]\" );\n				break;\n			case 3:\n				Ibos::app()->setting->set( 'setting/unit/shortname', $licenceArr['name'] . \"[授权无效]\" );\n				Ibos::app()->setting->set( 'setting/unit/fullname', $licenceArr['fullname'] . \"[授权无效]\" );\n				if ( rand( 0, 10 ) > 8 ) {\n					echo(\"授权文件错误,请检查公司简称全称是否与授权码一致，访问域是否与授权码一致等。\");\n				}\n				break;\n			case 4:\n			case 5:\n				Ibos::app()->setting->set( 'setting/unit/fullname', $licenceArr['name'] . \"[授权已过期]\" );\n				break;\n		}\n	}\n\n	/**\n	 * 应用系统设置\n	 * @param mixed $event\n	 */\n	public function handleSystemConfigure( $event ) {\n		$global = Ibos::app()->setting->toArray();\n		// 处理timezone\n		$timeOffset = $global['setting']['timeoffset'];\n		$this->setTimezone( $timeOffset );\n		// todo::检查系统设置里ip过滤是否启用，若启用，检查当前ip是否合法 @banyan\n		// 处理身份标识\n		if ( !Ibos::app()->user->isGuest ) {\n			define( 'FORMHASH', EnvUtil::formHash() );\n		} else {\n			define( 'FORMHASH', '' );\n		}\n		define( 'VERHASH', $global['setting']['verhash'] );\n		// 程序关闭处理\n		if ( $global['setting']['appclosed'] ) {\n			$route = Ibos::app()->getUrlManager()->parseUrl( Ibos::app()->getRequest() );\n			if ( !empty( $route ) ) {\n				list($module,, ) = explode( '/', $route );\n			} else {\n				$module = '';\n			}\n			if ( !Ibos::app()->user->isGuest && Ibos::app()->user->isadministrator ) {\n				// 如果是管理组，忽略\n			} elseif ( in_array( $module, array( 'dashboard', 'user' ) ) ) {\n				// 如果是以上模块，无需作处理\n			} elseif ( defined( 'IN_SWFHASH' ) && IN_SWFHASH ) {\n				// 如果正在进行swfupload上传验证，也无需作处理\n			} else {\n				if ( !Ibos::app()->user->isGuest ) {\n					$url = Ibos::app()->urlManager->createUrl( 'user/default/logout', array( 'formhash' => FORMHASH ) );\n				} else {\n					$url = Ibos::app()->urlManager->createUrl( 'user/default/login' );\n				}\n//				TODO:完善系统关闭后的提示页面\n				EnvUtil::iExit(Ibos::lang( 'System closed', 'message' ));\n			}\n		}\n		// 更新积分\n		/* if ( Ibos::app()->session->isNew && $global['uid'] ) {\n		  UserUtil::updateCreditByAction( 'daylogin', $global['uid'] );\n		  } */\n	}\n\n	/**\n	 * 设置时区\n	 * @param boolean $timeOffset\n	 */\n	private function setTimezone( $timeOffset = 0 ) {\n		if ( function_exists( 'date_default_timezone_set' ) ) {\n			@date_default_timezone_set( 'Etc/GMT' . ($timeOffset > 0 ? '-' : '+') . (abs( $timeOffset )) );\n		}\n	}\n\n	/**\n	 * 获取脚本路径，用多个判断适配最佳\n	 * @return string \n	 * @throws EnvException\n	 */\n	private function getScriptUrl() {\n		$phpSelf = '';\n		$scriptName = basename( $_SERVER['SCRIPT_FILENAME'] );\n		if ( basename( $_SERVER['SCRIPT_NAME'] ) === $scriptName ) {\n			$phpSelf = $_SERVER['SCRIPT_NAME'];\n		} else if ( basename( $_SERVER['PHP_SELF'] ) === $scriptName ) {\n			$phpSelf = $_SERVER['PHP_SELF'];\n		} else if ( isset( $_SERVER['ORIG_SCRIPT_NAME'] ) && basename( $_SERVER['ORIG_SCRIPT_NAME'] ) === $scriptName ) {\n			$phpSelf = $_SERVER['ORIG_SCRIPT_NAME'];\n		} else if ( ($pos = strpos( $_SERVER['PHP_SELF'], '/' . $scriptName )) !== false ) {\n			$phpSelf = substr( $_SERVER['SCRIPT_NAME'], 0, $pos ) . '/' . $scriptName;\n		} else if ( isset( $_SERVER['DOCUMENT_ROOT'] ) && strpos( $_SERVER['SCRIPT_FILENAME'], $_SERVER['DOCUMENT_ROOT'] ) === 0 ) {\n			$phpSelf = str_replace( '\\\\', '/', str_replace( $_SERVER['DOCUMENT_ROOT'], '', $_SERVER['SCRIPT_FILENAME'] ) );\n			$phpSelf[0] != '/' && $phpSelf = '/' . $phpSelf;\n		} else {\n			throw new EnvException( Ibos::lang( 'Request tainting', 'error' ) );\n		}\n		return $phpSelf;\n	}\n\n}\n",
+			"file": "/C/Program Files/FlashFXP/Cache/~flashfxp/71F3D978_view.tmp/InitMainModuleBehavior.php",
+			"file_size": -1,
+			"file_write_time": -1,
+			"settings":
+			{
+				"buffer_size": 15851,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/E/IBOS/Dev/ibos2/system/modules/main/components/ICSession.php",
+			"settings":
+			{
+				"buffer_size": 7702,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/E/IBOS/Dev/ibos2/system/modules/main/model/Session.php",
+			"settings":
+			{
+				"buffer_size": 1871,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/E/IBOS/Dev/ibos2/system/modules/main/behaviors/InitMainModuleBehavior.php",
+			"settings":
+			{
+				"buffer_size": 18634,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/E/学习/桌面开发/aauto/SmartF5_v1.3.2源码/SmartF5/Publish/SmartF5/SmartF5.js",
+			"settings":
+			{
+				"buffer_size": 2517,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/D/IBOS/nginx/conf/koi-utf",
+			"settings":
+			{
+				"buffer_size": 2837,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/D/IBOS/nginx/conf/koi-win",
+			"settings":
+			{
+				"buffer_size": 2223,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/D/IBOS/nginx/conf/nginx.conf",
+			"settings":
+			{
+				"buffer_size": 3384,
+				"line_ending": "Windows"
+			}
+		}
+	],
+	"build_system": "",
+	"command_palette":
+	{
+		"height": 35.0,
+		"selected_items":
+		[
+			[
+				"xde",
+				"Xdebug: Stop Debugging"
+			],
+			[
+				"st",
+				"Set Syntax: Plain Text"
+			],
+			[
+				"xdebug",
+				"Xdebug: Start Debugging"
+			]
+		],
+		"width": 536.0
+	},
+	"console":
+	{
+		"height": 0.0,
+		"history":
+		[
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/E/IBOS/ibosEXP/last/ibos2/ok/system/version.php",
+		"/C/Users/Administrator/Application Data/SSH/temp/config (10).php",
+		"/C/Users/Administrator/Application Data/SSH/temp/config (9).php",
+		"/E/IBOS/ibosEXP/update/0418_0610/update0609.php",
+		"/E/IBOS/Dev/ibos2/data/page/tpl/index.html",
+		"/E/IBOS/Dev/ibos2/data/page/tpl/blank.html",
+		"/E/IBOS/Share/UI/2.0/单页图文/导出/page_blank.php",
+		"/C/Users/Administrator/Application Data/SSH/temp/config (7).php",
+		"/E/IBOS/ibosEXP/last/ibos2/ok/system/config/configDefault.php",
+		"/C/Users/Administrator/Application Data/SSH/temp/common (2).php",
+		"/C/Users/Administrator/Application Data/SSH/temp/config (6).php",
+		"/C/Users/Administrator/Application Data/SSH/temp/config (5).php",
+		"/C/Users/Administrator/Application Data/SSH/temp/config (2).php",
+		"/C/Users/Administrator/Application Data/SSH/temp/config (4).php",
+		"/C/Users/Administrator/Application Data/SSH/temp/common (1).php",
+		"/C/Users/Administrator/Application Data/SSH/temp/config (3).php",
+		"/D/Documents/Desktop/now/licence.key",
+		"/C/Program Files/FlashFXP/Cache/~flashfxp/53B706EC_edit.tmp/defines.php",
+		"/E/IBOS/Dev/ibos2/system/views/showMessage.php",
+		"/E/IBOS/Dev/ibos2/data/page/8878462667644856.html",
+		"/E/IBOS/Dev/ibos2/APNS/database.php",
+		"/C/Program Files/FlashFXP/Cache/~flashfxp/B71453FF_edit.tmp/version.php",
+		"/C/Program Files/FlashFXP/Cache/~flashfxp/EA52A0CE_view.tmp/defines.php",
+		"/C/Program Files/FlashFXP/Cache/~flashfxp/5E9BAD23_view.tmp/admin.php",
+		"/E/IBOS/Dev/ibos2/library/web/auth/CWebUser.php",
+		"/E/IBOS/Dev/ibos2/library/yiilite.php",
+		"/E/IBOS/Dev/ibos2/library/messages/zh_cn/yii.php",
+		"/D/Documents/Desktop/phpinfo.php",
+		"/C/Users/Administrator/Application Data/SSH/temp/login.php",
+		"/D/Documents/My RTX Files/gzchenzhangrong/3a8cbc47744da3af540d6082de2a30201ebdb9ef.file.serial.tpl.php",
+		"/D/Documents/Desktop/serial.tpl",
+		"/E/IBOS/Dev/ibos2/system/config/common.php",
+		"/E/IBOS/Dev/ibos2/system/modules/user/components/ICUser.php",
+		"/C/Program Files/FlashFXP/Cache/~flashfxp/DAB3FF0D_view.tmp/ICUser111.php",
+		"/C/Program Files/FlashFXP/Cache/~flashfxp/DAB3FF0D_view.tmp/ICUser.php",
+		"/C/Program Files/FlashFXP/Cache/~flashfxp/DAB3FF0D_edit.tmp/ICUser.php",
+		"/C/Program Files/FlashFXP/Cache/~flashfxp/A72BFE0E_edit.tmp/ICSession.php",
+		"/C/Program Files/FlashFXP/Cache/~flashfxp/71F3D978_edit.tmp/InitMainModuleBehavior.php",
+		"/C/Program Files/FlashFXP/Cache/~flashfxp/D60E9ABF_edit.tmp/ICApplication.php",
+		"/C/Program Files/FlashFXP/Cache/~flashfxp/E66246AF_edit.tmp/common.php",
+		"/C/Program Files/FlashFXP/Cache/~flashfxp/EC4D366E_edit.tmp/database.php",
+		"/C/Program Files/FlashFXP/Cache/~flashfxp/471CA608_edit.tmp/phpwind.conf",
+		"/C/Users/Administrator/Application Data/SSH/temp/publish.php",
+		"/C/Users/Administrator/Application Data/SSH/temp/baseconfig.php",
+		"/E/IBOS/ibosServ/linux/v1/ibos_install_sh/install.sh",
+		"/E/IBOS/ibosServ/linux/v1/install_ibos.sh",
+		"/C/Program Files/FlashFXP/Cache/~flashfxp/ACB02383_edit.tmp/httpd.conf",
+		"/C/Program Files/FlashFXP/Cache/~flashfxp/763D82C5_edit.tmp/index.html",
+		"/C/Program Files/FlashFXP/Cache/~flashfxp/763D82C5_edit.tmp/login.html",
+		"/C/Program Files/FlashFXP/Cache/~flashfxp/93AFB388_edit.tmp/index.html",
+		"/E/IBOS/Dev/ibos2/system/theme/default/views/layouts/main.php",
+		"/D/IBOS/nginx/conf/fastcgi.conf",
+		"/D/IBOS/nginx/contrib/vim/syntax/nginx.vim",
+		"/D/IBOS/nginx/conf/fastcgi_params",
+		"/D/IBOS/nginx/conf/scgi_params",
+		"/D/IBOS/nginx/conf/uwsgi_params",
+		"/D/IBOS/nginx/conf/mime.types",
+		"/D/IBOS/nginx/conf/example.conf",
+		"/D/IBOS/nginx/conf/win-utf",
+		"/D/IBOS/nginx/conf/vhosts.conf",
+		"/D/IBOS/phpFind.ini",
+		"/D/IBOS_noinstall/nginx/conf/nginx.conf",
+		"/D/IBOS/nginx/conf/nginx.conf",
+		"/E/IBOS/Dev/aesDemo.php",
+		"/E/IBOS/ibosEXP/last/ibos2/ok/system/modules/article/controllers/CategoryController.php",
+		"/C/Users/Administrator/Application Data/SSH/temp/defines.php",
+		"/C/Users/Administrator/Application Data/SSH/temp/index.php",
+		"/E/IBOS/App/IBOSapp/android_iphone/js/profile.js",
+		"/E/IBOS/App/IBOSapp/android_iphone/js/core.js",
+		"/E/IBOS/Dev/ibos2/data/licence.key",
+		"/C/Program Files/FlashFXP/Cache/~flashfxp/61BE9C22_view.tmp/ICApplication.php",
+		"/D/Documents/Desktop/_tmp/system/modules/workflow/controllers/FormtypeController.php",
+		"/E/IBOS/Dev/ibos2/system/modules/email/controllers/WebController.php",
+		"/E/IBOS/Dev/ibos2/system/modules/user/views/home/profile.php",
+		"/E/IBOS/Dev/ibos2/system/modules/user/controllers/HomeController.php",
+		"/E/IBOS/Dev/ibos2/system/modules/report/views/default/index.php",
+		"/E/IBOS/Dev/ibos2/system/modules/report/controllers/DefaultController.php",
+		"/E/IBOS/Dev/ibos2/system/modules/recruit/views/resume/index.php",
+		"/E/IBOS/Dev/ibos2/system/modules/recruit/controllers/ResumeController.php",
+		"/E/IBOS/Dev/ibos2/system/modules/organization/views/position/index.php",
+		"/E/IBOS/Dev/ibos2/system/modules/organization/controllers/UserController.php",
+		"/E/IBOS/Dev/ibos2/system/modules/organization/controllers/PositionController.php",
+		"/E/IBOS/Dev/ibos2/system/modules/officialdoc/views/officialdoc/list.php",
+		"/E/IBOS/Dev/ibos2/system/modules/officialdoc/controllers/OfficialdocController.php",
+		"/E/IBOS/Dev/ibos2/system/modules/email/views/web/index.php",
+		"/E/IBOS/Dev/ibos2/system/modules/email/views/list/index.php",
+		"/E/IBOS/Dev/ibos2/system/modules/email/controllers/ContentController.php",
+		"/E/IBOS/Dev/ibos2/system/modules/diary/views/default/index.php",
+		"/E/IBOS/Dev/ibos2/system/modules/diary/controllers/DefaultController.php",
+		"/E/IBOS/App/IBOSapp/sae/1/client/index.html",
+		"/E/IBOS/App/IBOSapp/sae/1/client/js/core.js",
+		"/E/IBOS/Dev/ibos2/system/modules/mobile/controllers/DefaultController.php",
+		"/E/IBOS/App/IBOSapp/android_iphone/js/push.js",
+		"/E/IBOS/App/IBOSapp/android_iphone/index.html",
+		"/E/IBOS/App/IBOSapp/android_iphone/login.html",
+		"/E/IBOS/App/IBOSapp/sae/1/client/login.html",
+		"/E/IBOS/ibosEXP/last/ibos2/ibos2_0418II/system/core/components/ICApplication.php",
+		"/C/Program Files/FlashFXP/Cache/~flashfxp/2ABAF1B3_edit.tmp/defines.php",
+		"/E/IBOS/ibosEXP/last/ibos2/ok_0418/upload/system/core/components/ICApplication.php",
+		"/E/IBOS/ibosEXP/last/ibos2/ok_0505/upload/system/core/components/ICApplication.php",
+		"/E/IBOS/ibosEXP/last/ibos2/ok/system/core/components/ICApplication.php",
+		"/C/Users/Administrator/Application Data/SSH/temp/phpwind.conf",
+		"/C/Users/Administrator/Application Data/SSH/temp/httpd-vhosts.conf",
+		"/C/Users/Administrator/Application Data/SSH/temp/httpd.conf",
+		"/D/IBOS_noinstall/phpa/php.ini",
+		"/D/IBOS_noinstall/nginx/conf/example.conf",
+		"/E/IBOS/Dev/ibos2/system/modules/article/views/default/list.php",
+		"/E/IBOS/App/IBOSapp/sae/1/client/JPushPlugin.js",
+		"/E/IBOS/Dev/ibos2/system/modules/article/controllers/DefaultController.php",
+		"/G/BaiduYunDownload/新建文本文档.txt",
+		"/C/Users/Administrator/AppData/Local/Temp/DefaultController.ph-rev2804.svn001.tmp.php",
+		"/E/IBOS/Dev/ibos2/system/modules/message/model/Comment.php",
+		"/E/IBOS/App/IBOSapp/android_iphone/view/setting/setting_profile.html",
+		"/E/IBOS/App/IBOSapp/android_iphone/js/appsdk.js",
+		"/E/IBOS/Dev/ibos2/system/modules/mobile/controllers/settingController.php",
+		"/E/IBOS/website/wwwiboscomcn/pro.html",
+		"/E/IBOS/website/wwwiboscomcn/v2/index.html",
+		"/E/IBOS/Dev/ibos2/system/modules/dashboard/install/config.php",
+		"/E/IBOS/Dev/ibos2/system/modules/dashboard/install/model.sql",
+		"/E/IBOS/Dev/ibos2/install/index.php",
+		"/E/IBOS/Dev/ibos2/install/include/installFunction.php",
+		"/E/IBOS/Dev/ibos2/install/installing.php",
+		"/E/IBOS/Dev/ibos2/system/modules/mobile/controllers/MobileBaseController.php",
+		"/E/IBOS/Dev/ibos2/system/modules/user/controllers/DefaultController.php",
+		"/E/IBOS/Dev/ibos2/system/modules/dashboard/controllers/DashboardBaseController.php",
+		"/E/IBOS/App/IBOSapp/android_iphone/view/setting/setting.html",
+		"/E/IBOS/App/pgapp/ibos_android/www/JPushPlugin.js",
+		"/E/IBOS/App/pgapp/ibos_android/www/index.html"
+	],
+	"find":
+	{
+		"height": 40.0
+	},
+	"find_in_files":
+	{
+		"height": 96.0,
+		"where_history":
+		[
+			"E:\\IBOS\\Dev\\ibos2",
+			"E:\\IBOS\\Dev\\ibos2\\install",
+			"E:\\IBOS\\Dev\\ibos2",
+			"D:\\IBOS",
+			"<open files>",
+			"E:\\IBOS\\Dev\\ibos2\\system",
+			"E:\\IBOS\\Dev\\ibos2",
+			"E:\\IBOS\\App\\IBOSapp\\android_iphone",
+			"E:\\IBOS\\App\\pgapp\\ibos_android",
+			"E:\\IBOS\\ibosServ\\linux\\v1\\sh",
+			"E:\\IBOS\\App\\IBOSapp\\android_iphone",
+			"E:\\IBOS\\Dev\\ibos2"
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"$config",
+			"$cache",
+			"memcache",
+			"readLicence",
+			"bodyid",
+			"modelname",
+			"^作者*\\n",
+			"作者*\\n",
+			"setUser",
+			"$db_config",
+			"(`username`, `isadministrator`, `password`, `createtime`, `salt`, `realname`) ",
+			"user",
+			"_syscache`",
+			"INSERT INTO `ibos_syscache`",
+			"INSERT INTO `oa_syscache` (`name`, `type`, `dateline`, `value`) ",
+			"loginRequired",
+			"Login Required",
+			"需要先登入系统",
+			"fetchByAttributes",
+			"rfc2616_headers",
+			"FastCgiServer",
+			"= 3",
+			"3",
+			"-processes",
+			"-p 3",
+			"-processes 3",
+			"FastCgiServer",
+			"PHP_FCGI_MAX_REQUESTS ",
+			"FcgidMaxRequestsPerProcess ",
+			"ngx_start_worker_processes",
+			"ngx_master_process_cycle",
+			"worker",
+			"process",
+			"fcgi",
+			"children",
+			"max_children",
+			"phpa",
+			"children",
+			"max_children",
+			"CLOUDURL",
+			"successHandler",
+			"SETITEM",
+			"TOKEN",
+			"phpwind",
+			"max_execution_time",
+			"localStorage",
+			"netEdit",
+			"main",
+			"app",
+			"public",
+			"U.getCookie",
+			"(U.getCookie('",
+			"评论了我的",
+			"install",
+			"loginRequired",
+			"loginRequired()",
+			"Login Required",
+			"需要先登入系统",
+			"web",
+			"225",
+			"hidden_frame",
+			"msgResult1",
+			"client",
+			"$client",
+			"revId",
+			"sendCustomMessage",
+			"tag",
+			"aliasHandler",
+			"getpush",
+			"$.os",
+			"init()",
+			"init",
+			"checkLogin",
+			"getpush",
+			"app",
+			"app.push",
+			"MainList",
+			"login",
+			"app.OS",
+			"checkLogin",
+			"getpush",
+			"JPushPlugin.js",
+			"APPID",
+			"tokenHandler",
+			"APPID",
+			"uid",
+			"pushCallback",
+			"ibos",
+			"IBOS",
+			"cn.com.ibos.push.IBOS",
+			"push",
+			"HelloWorld",
+			"helloworld",
+			"com.phonegap.helloworld",
+			"initiateUI",
+			"setAliasButton",
+			"initiateUI",
+			"jpush",
+			"text",
+			"新建",
+			"init_mysql",
+			"ibos",
+			"ibosoa",
+			"/ibos",
+			"ibos_version",
+			"phpwind",
+			"/alidata",
+			"alidata/",
+			"alidata",
+			"addList",
+			"apns",
+			"attention",
+			"$nodeinfo",
+			"$.android",
+			"$.os.ios",
+			"$.ios",
+			"ios",
+			"getlicence",
+			"appove",
+			"img",
+			"appove",
+			"app.default",
+			"app.appUrl",
+			"app.defaultUrl",
+			"data",
+			"util",
+			"图片链接",
+			"onclick"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": true,
+		"replace_history":
+		[
+			"IBOS",
+			"cn.com.ibos.push",
+			"ibos",
+			"ibosoa",
+			"/ibos",
+			"ibos/",
+			"&",
+			"=",
+			"replace",
+			"replace into",
+			"flowcount",
+			"catid",
+			"name",
+			"flowid",
+			","
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 14,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "js/push.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 4807,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								3444,
+								3444
+							]
+						],
+						"settings":
+						{
+							"codeintel": true,
+							"codeintel_config":
+							{
+								"JavaScript":
+								{
+									"codeintel_max_recursive_dir_depth": 2,
+									"codeintel_scan_files_in_project": false,
+									"javascriptExtraPaths":
+									[
+									]
+								},
+								"PHP":
+								{
+									"codeintel_max_recursive_dir_depth": 5,
+									"codeintel_scan_files_in_project": false,
+									"phpExtraPaths":
+									[
+									]
+								},
+								"Python":
+								{
+									"env":
+									{
+									}
+								}
+							},
+							"codeintel_enabled_languages":
+							[
+								"JavaScript",
+								"Mason",
+								"XBL",
+								"XUL",
+								"RHTML",
+								"SCSS",
+								"Python",
+								"HTML",
+								"Ruby",
+								"Python3",
+								"XML",
+								"Sass",
+								"XSLT",
+								"Django",
+								"HTML5",
+								"Perl",
+								"CSS",
+								"Twig",
+								"Less",
+								"Smarty",
+								"Node.js",
+								"Tcl",
+								"TemplateToolkit",
+								"PHP"
+							],
+							"codeintel_live": true,
+							"codeintel_live_enabled_languages":
+							[
+								"JavaScript",
+								"Mason",
+								"XBL",
+								"XUL",
+								"RHTML",
+								"SCSS",
+								"Python",
+								"HTML",
+								"Ruby",
+								"Python3",
+								"XML",
+								"Sass",
+								"XSLT",
+								"Django",
+								"HTML5",
+								"Perl",
+								"CSS",
+								"Twig",
+								"Less",
+								"Smarty",
+								"Node.js",
+								"Tcl",
+								"TemplateToolkit",
+								"PHP"
+							],
+							"codeintel_max_recursive_dir_depth": 10,
+							"codeintel_scan_exclude_dir":
+							{
+								"JavaScript":
+								[
+									"/build/",
+									"/min/"
+								]
+							},
+							"codeintel_scan_files_in_project": true,
+							"codeintel_selected_catalogs":
+							[
+								"PyWin32",
+								"jQuery",
+								"Rails"
+							],
+							"codeintel_snippets": true,
+							"codeintel_syntax_map":
+							{
+								"Python Django": "Python"
+							},
+							"codeintel_tooltips": "popup",
+							"sublime_auto_complete": true,
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 2376.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 26,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "js/core.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 22993,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								7480,
+								7480
+							]
+						],
+						"settings":
+						{
+							"codeintel": true,
+							"codeintel_config":
+							{
+								"JavaScript":
+								{
+									"codeintel_max_recursive_dir_depth": 2,
+									"codeintel_scan_files_in_project": false,
+									"javascriptExtraPaths":
+									[
+									]
+								},
+								"PHP":
+								{
+									"codeintel_max_recursive_dir_depth": 5,
+									"codeintel_scan_files_in_project": false,
+									"phpExtraPaths":
+									[
+									]
+								},
+								"Python":
+								{
+									"env":
+									{
+									}
+								}
+							},
+							"codeintel_enabled_languages":
+							[
+								"JavaScript",
+								"Mason",
+								"XBL",
+								"XUL",
+								"RHTML",
+								"SCSS",
+								"Python",
+								"HTML",
+								"Ruby",
+								"Python3",
+								"XML",
+								"Sass",
+								"XSLT",
+								"Django",
+								"HTML5",
+								"Perl",
+								"CSS",
+								"Twig",
+								"Less",
+								"Smarty",
+								"Node.js",
+								"Tcl",
+								"TemplateToolkit",
+								"PHP"
+							],
+							"codeintel_live": true,
+							"codeintel_live_enabled_languages":
+							[
+								"JavaScript",
+								"Mason",
+								"XBL",
+								"XUL",
+								"RHTML",
+								"SCSS",
+								"Python",
+								"HTML",
+								"Ruby",
+								"Python3",
+								"XML",
+								"Sass",
+								"XSLT",
+								"Django",
+								"HTML5",
+								"Perl",
+								"CSS",
+								"Twig",
+								"Less",
+								"Smarty",
+								"Node.js",
+								"Tcl",
+								"TemplateToolkit",
+								"PHP"
+							],
+							"codeintel_max_recursive_dir_depth": 10,
+							"codeintel_scan_exclude_dir":
+							{
+								"JavaScript":
+								[
+									"/build/",
+									"/min/"
+								]
+							},
+							"codeintel_scan_files_in_project": true,
+							"codeintel_selected_catalogs":
+							[
+								"PyWin32",
+								"jQuery",
+								"Rails"
+							],
+							"codeintel_snippets": true,
+							"codeintel_syntax_map":
+							{
+								"Python Django": "Python"
+							},
+							"codeintel_tooltips": "popup",
+							"sublime_auto_complete": true,
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 7013.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 25,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "/E/IBOS/ibosEXP/last/ibos2/ibos2/index.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 627,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 24,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "/C/Program Files/FlashFXP/Cache/~flashfxp/E66246AF_edit.tmp/common.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2835,
+						"regions":
+						{
+							"TagLint":
+							{
+								"flags": 52,
+								"icon": "dot",
+								"regions":
+								[
+									[
+										1632,
+										1640
+									]
+								],
+								"scope": "variable.parameter"
+							}
+						},
+						"selection":
+						[
+							[
+								1128,
+								945
+							]
+						],
+						"settings":
+						{
+							"codeintel": true,
+							"codeintel_config":
+							{
+								"JavaScript":
+								{
+									"codeintel_max_recursive_dir_depth": 2,
+									"codeintel_scan_files_in_project": false,
+									"javascriptExtraPaths":
+									[
+									]
+								},
+								"PHP":
+								{
+									"codeintel_max_recursive_dir_depth": 5,
+									"codeintel_scan_files_in_project": false,
+									"phpExtraPaths":
+									[
+									]
+								},
+								"Python":
+								{
+									"env":
+									{
+									}
+								}
+							},
+							"codeintel_enabled_languages":
+							[
+								"JavaScript",
+								"Mason",
+								"XBL",
+								"XUL",
+								"RHTML",
+								"SCSS",
+								"Python",
+								"HTML",
+								"Ruby",
+								"Python3",
+								"XML",
+								"Sass",
+								"XSLT",
+								"Django",
+								"HTML5",
+								"Perl",
+								"CSS",
+								"Twig",
+								"Less",
+								"Smarty",
+								"Node.js",
+								"Tcl",
+								"TemplateToolkit",
+								"PHP"
+							],
+							"codeintel_live": true,
+							"codeintel_live_enabled_languages":
+							[
+								"JavaScript",
+								"Mason",
+								"XBL",
+								"XUL",
+								"RHTML",
+								"SCSS",
+								"Python",
+								"HTML",
+								"Ruby",
+								"Python3",
+								"XML",
+								"Sass",
+								"XSLT",
+								"Django",
+								"HTML5",
+								"Perl",
+								"CSS",
+								"Twig",
+								"Less",
+								"Smarty",
+								"Node.js",
+								"Tcl",
+								"TemplateToolkit",
+								"PHP"
+							],
+							"codeintel_max_recursive_dir_depth": 10,
+							"codeintel_scan_exclude_dir":
+							{
+								"JavaScript":
+								[
+									"/build/",
+									"/min/"
+								]
+							},
+							"codeintel_scan_files_in_project": true,
+							"codeintel_selected_catalogs":
+							[
+								"PyWin32",
+								"jQuery",
+								"Rails"
+							],
+							"codeintel_snippets": true,
+							"codeintel_syntax_map":
+							{
+								"Python Django": "Python"
+							},
+							"codeintel_tooltips": "popup",
+							"is_xml": false,
+							"sublime_auto_complete": true,
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 720.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 20,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "/C/Program Files/FlashFXP/Cache/~flashfxp/ED378E0B_edit.tmp/config.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1223,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								699,
+								709
+							]
+						],
+						"settings":
+						{
+							"codeintel": true,
+							"codeintel_config":
+							{
+								"JavaScript":
+								{
+									"codeintel_max_recursive_dir_depth": 2,
+									"codeintel_scan_files_in_project": false,
+									"javascriptExtraPaths":
+									[
+									]
+								},
+								"PHP":
+								{
+									"codeintel_max_recursive_dir_depth": 5,
+									"codeintel_scan_files_in_project": false,
+									"phpExtraPaths":
+									[
+									]
+								},
+								"Python":
+								{
+									"env":
+									{
+									}
+								}
+							},
+							"codeintel_enabled_languages":
+							[
+								"JavaScript",
+								"Mason",
+								"XBL",
+								"XUL",
+								"RHTML",
+								"SCSS",
+								"Python",
+								"HTML",
+								"Ruby",
+								"Python3",
+								"XML",
+								"Sass",
+								"XSLT",
+								"Django",
+								"HTML5",
+								"Perl",
+								"CSS",
+								"Twig",
+								"Less",
+								"Smarty",
+								"Node.js",
+								"Tcl",
+								"TemplateToolkit",
+								"PHP"
+							],
+							"codeintel_live": true,
+							"codeintel_live_enabled_languages":
+							[
+								"JavaScript",
+								"Mason",
+								"XBL",
+								"XUL",
+								"RHTML",
+								"SCSS",
+								"Python",
+								"HTML",
+								"Ruby",
+								"Python3",
+								"XML",
+								"Sass",
+								"XSLT",
+								"Django",
+								"HTML5",
+								"Perl",
+								"CSS",
+								"Twig",
+								"Less",
+								"Smarty",
+								"Node.js",
+								"Tcl",
+								"TemplateToolkit",
+								"PHP"
+							],
+							"codeintel_max_recursive_dir_depth": 10,
+							"codeintel_scan_exclude_dir":
+							{
+								"JavaScript":
+								[
+									"/build/",
+									"/min/"
+								]
+							},
+							"codeintel_scan_files_in_project": true,
+							"codeintel_selected_catalogs":
+							[
+								"PyWin32",
+								"jQuery",
+								"Rails"
+							],
+							"codeintel_snippets": true,
+							"codeintel_syntax_map":
+							{
+								"Python Django": "Python"
+							},
+							"codeintel_tooltips": "popup",
+							"is_xml": false,
+							"sublime_auto_complete": true,
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 19,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "/C/Users/Administrator/Application Data/SSH/temp/config.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1403,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1085,
+								1085
+							]
+						],
+						"settings":
+						{
+							"codeintel": true,
+							"codeintel_config":
+							{
+								"JavaScript":
+								{
+									"codeintel_max_recursive_dir_depth": 2,
+									"codeintel_scan_files_in_project": false,
+									"javascriptExtraPaths":
+									[
+									]
+								},
+								"PHP":
+								{
+									"codeintel_max_recursive_dir_depth": 5,
+									"codeintel_scan_files_in_project": false,
+									"phpExtraPaths":
+									[
+									]
+								},
+								"Python":
+								{
+									"env":
+									{
+									}
+								}
+							},
+							"codeintel_enabled_languages":
+							[
+								"JavaScript",
+								"Mason",
+								"XBL",
+								"XUL",
+								"RHTML",
+								"SCSS",
+								"Python",
+								"HTML",
+								"Ruby",
+								"Python3",
+								"XML",
+								"Sass",
+								"XSLT",
+								"Django",
+								"HTML5",
+								"Perl",
+								"CSS",
+								"Twig",
+								"Less",
+								"Smarty",
+								"Node.js",
+								"Tcl",
+								"TemplateToolkit",
+								"PHP"
+							],
+							"codeintel_live": true,
+							"codeintel_live_enabled_languages":
+							[
+								"JavaScript",
+								"Mason",
+								"XBL",
+								"XUL",
+								"RHTML",
+								"SCSS",
+								"Python",
+								"HTML",
+								"Ruby",
+								"Python3",
+								"XML",
+								"Sass",
+								"XSLT",
+								"Django",
+								"HTML5",
+								"Perl",
+								"CSS",
+								"Twig",
+								"Less",
+								"Smarty",
+								"Node.js",
+								"Tcl",
+								"TemplateToolkit",
+								"PHP"
+							],
+							"codeintel_max_recursive_dir_depth": 10,
+							"codeintel_scan_exclude_dir":
+							{
+								"JavaScript":
+								[
+									"/build/",
+									"/min/"
+								]
+							},
+							"codeintel_scan_files_in_project": true,
+							"codeintel_selected_catalogs":
+							[
+								"PyWin32",
+								"jQuery",
+								"Rails"
+							],
+							"codeintel_snippets": true,
+							"codeintel_syntax_map":
+							{
+								"Python Django": "Python"
+							},
+							"codeintel_tooltips": "popup",
+							"is_xml": false,
+							"sublime_auto_complete": true,
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": -0.0,
+						"translation.y": 288.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 15,
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "/E/IBOS/Dev/ibos2/system/config/configDefault.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1443,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1117,
+								1010
+							]
+						],
+						"settings":
+						{
+							"codeintel": true,
+							"codeintel_config":
+							{
+								"JavaScript":
+								{
+									"codeintel_max_recursive_dir_depth": 2,
+									"codeintel_scan_files_in_project": false,
+									"javascriptExtraPaths":
+									[
+									]
+								},
+								"PHP":
+								{
+									"codeintel_max_recursive_dir_depth": 5,
+									"codeintel_scan_files_in_project": false,
+									"phpExtraPaths":
+									[
+									]
+								},
+								"Python":
+								{
+									"env":
+									{
+									}
+								}
+							},
+							"codeintel_enabled_languages":
+							[
+								"JavaScript",
+								"Mason",
+								"XBL",
+								"XUL",
+								"RHTML",
+								"SCSS",
+								"Python",
+								"HTML",
+								"Ruby",
+								"Python3",
+								"XML",
+								"Sass",
+								"XSLT",
+								"Django",
+								"HTML5",
+								"Perl",
+								"CSS",
+								"Twig",
+								"Less",
+								"Smarty",
+								"Node.js",
+								"Tcl",
+								"TemplateToolkit",
+								"PHP"
+							],
+							"codeintel_live": true,
+							"codeintel_live_enabled_languages":
+							[
+								"JavaScript",
+								"Mason",
+								"XBL",
+								"XUL",
+								"RHTML",
+								"SCSS",
+								"Python",
+								"HTML",
+								"Ruby",
+								"Python3",
+								"XML",
+								"Sass",
+								"XSLT",
+								"Django",
+								"HTML5",
+								"Perl",
+								"CSS",
+								"Twig",
+								"Less",
+								"Smarty",
+								"Node.js",
+								"Tcl",
+								"TemplateToolkit",
+								"PHP"
+							],
+							"codeintel_max_recursive_dir_depth": 10,
+							"codeintel_scan_exclude_dir":
+							{
+								"JavaScript":
+								[
+									"/build/",
+									"/min/"
+								]
+							},
+							"codeintel_scan_files_in_project": true,
+							"codeintel_selected_catalogs":
+							[
+								"PyWin32",
+								"jQuery",
+								"Rails"
+							],
+							"codeintel_snippets": true,
+							"codeintel_syntax_map":
+							{
+								"Python Django": "Python"
+							},
+							"codeintel_tooltips": "popup",
+							"is_xml": false,
+							"sublime_auto_complete": true,
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": -0.0,
+						"translation.y": 288.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 16,
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "/C/Users/Administrator/Application Data/SSH/temp/common.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2650,
+						"regions":
+						{
+							"TagLint":
+							{
+								"flags": 52,
+								"icon": "dot",
+								"regions":
+								[
+									[
+										1447,
+										1455
+									]
+								],
+								"scope": "variable.parameter"
+							}
+						},
+						"selection":
+						[
+							[
+								2594,
+								2594
+							]
+						],
+						"settings":
+						{
+							"codeintel": true,
+							"codeintel_config":
+							{
+								"JavaScript":
+								{
+									"codeintel_max_recursive_dir_depth": 2,
+									"codeintel_scan_files_in_project": false,
+									"javascriptExtraPaths":
+									[
+									]
+								},
+								"PHP":
+								{
+									"codeintel_max_recursive_dir_depth": 5,
+									"codeintel_scan_files_in_project": false,
+									"phpExtraPaths":
+									[
+									]
+								},
+								"Python":
+								{
+									"env":
+									{
+									}
+								}
+							},
+							"codeintel_enabled_languages":
+							[
+								"JavaScript",
+								"Mason",
+								"XBL",
+								"XUL",
+								"RHTML",
+								"SCSS",
+								"Python",
+								"HTML",
+								"Ruby",
+								"Python3",
+								"XML",
+								"Sass",
+								"XSLT",
+								"Django",
+								"HTML5",
+								"Perl",
+								"CSS",
+								"Twig",
+								"Less",
+								"Smarty",
+								"Node.js",
+								"Tcl",
+								"TemplateToolkit",
+								"PHP"
+							],
+							"codeintel_live": true,
+							"codeintel_live_enabled_languages":
+							[
+								"JavaScript",
+								"Mason",
+								"XBL",
+								"XUL",
+								"RHTML",
+								"SCSS",
+								"Python",
+								"HTML",
+								"Ruby",
+								"Python3",
+								"XML",
+								"Sass",
+								"XSLT",
+								"Django",
+								"HTML5",
+								"Perl",
+								"CSS",
+								"Twig",
+								"Less",
+								"Smarty",
+								"Node.js",
+								"Tcl",
+								"TemplateToolkit",
+								"PHP"
+							],
+							"codeintel_max_recursive_dir_depth": 10,
+							"codeintel_scan_exclude_dir":
+							{
+								"JavaScript":
+								[
+									"/build/",
+									"/min/"
+								]
+							},
+							"codeintel_scan_files_in_project": true,
+							"codeintel_selected_catalogs":
+							[
+								"PyWin32",
+								"jQuery",
+								"Rails"
+							],
+							"codeintel_snippets": true,
+							"codeintel_syntax_map":
+							{
+								"Python Django": "Python"
+							},
+							"codeintel_tooltips": "popup",
+							"is_xml": false,
+							"sublime_auto_complete": true,
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 2448.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 13,
+					"type": "text"
+				},
+				{
+					"buffer": 8,
+					"file": "/C/Program Files/FlashFXP/Cache/~flashfxp/5E9BAD23_edit.tmp/admin.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 265,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								265,
+								265
+							]
+						],
+						"settings":
+						{
+							"codeintel": true,
+							"codeintel_config":
+							{
+								"JavaScript":
+								{
+									"codeintel_max_recursive_dir_depth": 2,
+									"codeintel_scan_files_in_project": false,
+									"javascriptExtraPaths":
+									[
+									]
+								},
+								"PHP":
+								{
+									"codeintel_max_recursive_dir_depth": 5,
+									"codeintel_scan_files_in_project": false,
+									"phpExtraPaths":
+									[
+									]
+								},
+								"Python":
+								{
+									"env":
+									{
+									}
+								}
+							},
+							"codeintel_enabled_languages":
+							[
+								"JavaScript",
+								"Mason",
+								"XBL",
+								"XUL",
+								"RHTML",
+								"SCSS",
+								"Python",
+								"HTML",
+								"Ruby",
+								"Python3",
+								"XML",
+								"Sass",
+								"XSLT",
+								"Django",
+								"HTML5",
+								"Perl",
+								"CSS",
+								"Twig",
+								"Less",
+								"Smarty",
+								"Node.js",
+								"Tcl",
+								"TemplateToolkit",
+								"PHP"
+							],
+							"codeintel_live": true,
+							"codeintel_live_enabled_languages":
+							[
+								"JavaScript",
+								"Mason",
+								"XBL",
+								"XUL",
+								"RHTML",
+								"SCSS",
+								"Python",
+								"HTML",
+								"Ruby",
+								"Python3",
+								"XML",
+								"Sass",
+								"XSLT",
+								"Django",
+								"HTML5",
+								"Perl",
+								"CSS",
+								"Twig",
+								"Less",
+								"Smarty",
+								"Node.js",
+								"Tcl",
+								"TemplateToolkit",
+								"PHP"
+							],
+							"codeintel_max_recursive_dir_depth": 10,
+							"codeintel_scan_exclude_dir":
+							{
+								"JavaScript":
+								[
+									"/build/",
+									"/min/"
+								]
+							},
+							"codeintel_scan_files_in_project": true,
+							"codeintel_selected_catalogs":
+							[
+								"PyWin32",
+								"jQuery",
+								"Rails"
+							],
+							"codeintel_snippets": true,
+							"codeintel_syntax_map":
+							{
+								"Python Django": "Python"
+							},
+							"codeintel_tooltips": "popup",
+							"is_xml": false,
+							"sublime_auto_complete": true,
+							"syntax": "Packages/PHP/PHP.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 12,
+					"type": "text"
+				},
+				{
+					"buffer": 9,
+					"file": "/E/IBOS/Dev/ibos2/APNS/token.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 880,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								336,
+								137
+							]
+						],
+						"settings":
+						{
+							"is_xml": false,
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 10,
+					"file": "/E/IBOS/Dev/ibos2/system/theme/default/views/layouts/main.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 12271,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2105,
+								2117
+							]
+						],
+						"settings":
+						{
+							"is_xml": false,
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 648.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 11,
+					"file": "/E/IBOS/Dev/ibos2/system/modules/user/install/model.sql",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 10500,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								5568,
+								5568
+							]
+						],
+						"settings":
+						{
+							"codeintel": true,
+							"codeintel_config":
+							{
+								"JavaScript":
+								{
+									"codeintel_max_recursive_dir_depth": 2,
+									"codeintel_scan_files_in_project": false,
+									"javascriptExtraPaths":
+									[
+									]
+								},
+								"PHP":
+								{
+									"codeintel_max_recursive_dir_depth": 5,
+									"codeintel_scan_files_in_project": false,
+									"phpExtraPaths":
+									[
+									]
+								},
+								"Python":
+								{
+									"env":
+									{
+									}
+								}
+							},
+							"codeintel_enabled_languages":
+							[
+								"JavaScript",
+								"Mason",
+								"XBL",
+								"XUL",
+								"RHTML",
+								"SCSS",
+								"Python",
+								"HTML",
+								"Ruby",
+								"Python3",
+								"XML",
+								"Sass",
+								"XSLT",
+								"Django",
+								"HTML5",
+								"Perl",
+								"CSS",
+								"Twig",
+								"Less",
+								"Smarty",
+								"Node.js",
+								"Tcl",
+								"TemplateToolkit",
+								"PHP"
+							],
+							"codeintel_live": true,
+							"codeintel_live_enabled_languages":
+							[
+								"JavaScript",
+								"Mason",
+								"XBL",
+								"XUL",
+								"RHTML",
+								"SCSS",
+								"Python",
+								"HTML",
+								"Ruby",
+								"Python3",
+								"XML",
+								"Sass",
+								"XSLT",
+								"Django",
+								"HTML5",
+								"Perl",
+								"CSS",
+								"Twig",
+								"Less",
+								"Smarty",
+								"Node.js",
+								"Tcl",
+								"TemplateToolkit",
+								"PHP"
+							],
+							"codeintel_max_recursive_dir_depth": 10,
+							"codeintel_scan_exclude_dir":
+							{
+								"JavaScript":
+								[
+									"/build/",
+									"/min/"
+								]
+							},
+							"codeintel_scan_files_in_project": true,
+							"codeintel_selected_catalogs":
+							[
+								"PyWin32",
+								"jQuery",
+								"Rails"
+							],
+							"codeintel_snippets": true,
+							"codeintel_syntax_map":
+							{
+								"Python Django": "Python"
+							},
+							"codeintel_tooltips": "popup",
+							"sublime_auto_complete": true,
+							"syntax": "Packages/SQL/SQL.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 10,
+					"type": "text"
+				},
+				{
+					"buffer": 12,
+					"file": "/E/IBOS/Dev/ibos2/install/data/installExtra.sql",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 120689,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"codeintel": true,
+							"codeintel_config":
+							{
+								"JavaScript":
+								{
+									"codeintel_max_recursive_dir_depth": 2,
+									"codeintel_scan_files_in_project": false,
+									"javascriptExtraPaths":
+									[
+									]
+								},
+								"PHP":
+								{
+									"codeintel_max_recursive_dir_depth": 5,
+									"codeintel_scan_files_in_project": false,
+									"phpExtraPaths":
+									[
+									]
+								},
+								"Python":
+								{
+									"env":
+									{
+									}
+								}
+							},
+							"codeintel_enabled_languages":
+							[
+								"JavaScript",
+								"Mason",
+								"XBL",
+								"XUL",
+								"RHTML",
+								"SCSS",
+								"Python",
+								"HTML",
+								"Ruby",
+								"Python3",
+								"XML",
+								"Sass",
+								"XSLT",
+								"Django",
+								"HTML5",
+								"Perl",
+								"CSS",
+								"Twig",
+								"Less",
+								"Smarty",
+								"Node.js",
+								"Tcl",
+								"TemplateToolkit",
+								"PHP"
+							],
+							"codeintel_live": true,
+							"codeintel_live_enabled_languages":
+							[
+								"JavaScript",
+								"Mason",
+								"XBL",
+								"XUL",
+								"RHTML",
+								"SCSS",
+								"Python",
+								"HTML",
+								"Ruby",
+								"Python3",
+								"XML",
+								"Sass",
+								"XSLT",
+								"Django",
+								"HTML5",
+								"Perl",
+								"CSS",
+								"Twig",
+								"Less",
+								"Smarty",
+								"Node.js",
+								"Tcl",
+								"TemplateToolkit",
+								"PHP"
+							],
+							"codeintel_max_recursive_dir_depth": 10,
+							"codeintel_scan_exclude_dir":
+							{
+								"JavaScript":
+								[
+									"/build/",
+									"/min/"
+								]
+							},
+							"codeintel_scan_files_in_project": true,
+							"codeintel_selected_catalogs":
+							[
+								"PyWin32",
+								"jQuery",
+								"Rails"
+							],
+							"codeintel_snippets": true,
+							"codeintel_syntax_map":
+							{
+								"Python Django": "Python"
+							},
+							"codeintel_tooltips": "popup",
+							"sublime_auto_complete": true,
+							"syntax": "Packages/SQL/SQL.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 11,
+					"type": "text"
+				},
+				{
+					"buffer": 13,
+					"file": "/E/IBOS/Dev/ibos2/install/data/installFlow.sql",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 314061,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								125366,
+								125366
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/SQL/SQL.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 3096.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 14,
+					"type": "text"
+				},
+				{
+					"buffer": 14,
+					"file": "/C/Users/Administrator/Application Data/SSH/temp/config (1).php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1403,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								979,
+								987
+							]
+						],
+						"settings":
+						{
+							"is_xml": false,
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 306.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 15,
+					"file": "/C/Users/Administrator/Application Data/SSH/temp/login (1).php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 8254,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								7212,
+								7212
+							]
+						],
+						"settings":
+						{
+							"codeintel": true,
+							"codeintel_config":
+							{
+								"JavaScript":
+								{
+									"codeintel_max_recursive_dir_depth": 2,
+									"codeintel_scan_files_in_project": false,
+									"javascriptExtraPaths":
+									[
+									]
+								},
+								"PHP":
+								{
+									"codeintel_max_recursive_dir_depth": 5,
+									"codeintel_scan_files_in_project": false,
+									"phpExtraPaths":
+									[
+									]
+								},
+								"Python":
+								{
+									"env":
+									{
+									}
+								}
+							},
+							"codeintel_enabled_languages":
+							[
+								"JavaScript",
+								"Mason",
+								"XBL",
+								"XUL",
+								"RHTML",
+								"SCSS",
+								"Python",
+								"HTML",
+								"Ruby",
+								"Python3",
+								"XML",
+								"Sass",
+								"XSLT",
+								"Django",
+								"HTML5",
+								"Perl",
+								"CSS",
+								"Twig",
+								"Less",
+								"Smarty",
+								"Node.js",
+								"Tcl",
+								"TemplateToolkit",
+								"PHP"
+							],
+							"codeintel_live": true,
+							"codeintel_live_enabled_languages":
+							[
+								"JavaScript",
+								"Mason",
+								"XBL",
+								"XUL",
+								"RHTML",
+								"SCSS",
+								"Python",
+								"HTML",
+								"Ruby",
+								"Python3",
+								"XML",
+								"Sass",
+								"XSLT",
+								"Django",
+								"HTML5",
+								"Perl",
+								"CSS",
+								"Twig",
+								"Less",
+								"Smarty",
+								"Node.js",
+								"Tcl",
+								"TemplateToolkit",
+								"PHP"
+							],
+							"codeintel_max_recursive_dir_depth": 10,
+							"codeintel_scan_exclude_dir":
+							{
+								"JavaScript":
+								[
+									"/build/",
+									"/min/"
+								]
+							},
+							"codeintel_scan_files_in_project": true,
+							"codeintel_selected_catalogs":
+							[
+								"PyWin32",
+								"jQuery",
+								"Rails"
+							],
+							"codeintel_snippets": true,
+							"codeintel_syntax_map":
+							{
+								"Python Django": "Python"
+							},
+							"codeintel_tooltips": "popup",
+							"is_xml": false,
+							"sublime_auto_complete": true,
+							"syntax": "Packages/PHP/PHP.tmLanguage"
+						},
+						"translation.x": -0.0,
+						"translation.y": 3354.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 17,
+					"type": "text"
+				},
+				{
+					"buffer": 16,
+					"file": "/C/Users/Administrator/Application Data/SSH/temp/login (2).php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 8254,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								8254
+							]
+						],
+						"settings":
+						{
+							"is_xml": false,
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 18,
+					"type": "text"
+				},
+				{
+					"buffer": 17,
+					"file": "/E/IBOS/Dev/ibos2/video.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 10154,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								9793,
+								9793
+							]
+						],
+						"settings":
+						{
+							"codeintel": true,
+							"codeintel_config":
+							{
+								"JavaScript":
+								{
+									"codeintel_max_recursive_dir_depth": 2,
+									"codeintel_scan_files_in_project": false,
+									"javascriptExtraPaths":
+									[
+									]
+								},
+								"PHP":
+								{
+									"codeintel_max_recursive_dir_depth": 5,
+									"codeintel_scan_files_in_project": false,
+									"phpExtraPaths":
+									[
+									]
+								},
+								"Python":
+								{
+									"env":
+									{
+									}
+								}
+							},
+							"codeintel_enabled_languages":
+							[
+								"JavaScript",
+								"Mason",
+								"XBL",
+								"XUL",
+								"RHTML",
+								"SCSS",
+								"Python",
+								"HTML",
+								"Ruby",
+								"Python3",
+								"XML",
+								"Sass",
+								"XSLT",
+								"Django",
+								"HTML5",
+								"Perl",
+								"CSS",
+								"Twig",
+								"Less",
+								"Smarty",
+								"Node.js",
+								"Tcl",
+								"TemplateToolkit",
+								"PHP"
+							],
+							"codeintel_live": true,
+							"codeintel_live_enabled_languages":
+							[
+								"JavaScript",
+								"Mason",
+								"XBL",
+								"XUL",
+								"RHTML",
+								"SCSS",
+								"Python",
+								"HTML",
+								"Ruby",
+								"Python3",
+								"XML",
+								"Sass",
+								"XSLT",
+								"Django",
+								"HTML5",
+								"Perl",
+								"CSS",
+								"Twig",
+								"Less",
+								"Smarty",
+								"Node.js",
+								"Tcl",
+								"TemplateToolkit",
+								"PHP"
+							],
+							"codeintel_max_recursive_dir_depth": 10,
+							"codeintel_scan_exclude_dir":
+							{
+								"JavaScript":
+								[
+									"/build/",
+									"/min/"
+								]
+							},
+							"codeintel_scan_files_in_project": true,
+							"codeintel_selected_catalogs":
+							[
+								"PyWin32",
+								"jQuery",
+								"Rails"
+							],
+							"codeintel_snippets": true,
+							"codeintel_syntax_map":
+							{
+								"Python Django": "Python"
+							},
+							"codeintel_tooltips": "popup",
+							"is_xml": false,
+							"sublime_auto_complete": true,
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 7824.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 23,
+					"type": "text"
+				},
+				{
+					"buffer": 18,
+					"file": "/D/Documents/Desktop/bbs_ibos - 副本.sql",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 4993203,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1735,
+								1749
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/SQL/SQL.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 3312.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 22,
+					"type": "text"
+				},
+				{
+					"buffer": 19,
+					"file": "/C/Program Files/FlashFXP/Cache/~flashfxp/236971D1.tmp/demo",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 0,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"codeintel": true,
+							"codeintel_config":
+							{
+								"JavaScript":
+								{
+									"codeintel_max_recursive_dir_depth": 2,
+									"codeintel_scan_files_in_project": false,
+									"javascriptExtraPaths":
+									[
+									]
+								},
+								"PHP":
+								{
+									"codeintel_max_recursive_dir_depth": 5,
+									"codeintel_scan_files_in_project": false,
+									"phpExtraPaths":
+									[
+									]
+								},
+								"Python":
+								{
+									"env":
+									{
+									}
+								}
+							},
+							"codeintel_enabled_languages":
+							[
+								"JavaScript",
+								"Mason",
+								"XBL",
+								"XUL",
+								"RHTML",
+								"SCSS",
+								"Python",
+								"HTML",
+								"Ruby",
+								"Python3",
+								"XML",
+								"Sass",
+								"XSLT",
+								"Django",
+								"HTML5",
+								"Perl",
+								"CSS",
+								"Twig",
+								"Less",
+								"Smarty",
+								"Node.js",
+								"Tcl",
+								"TemplateToolkit",
+								"PHP"
+							],
+							"codeintel_live": true,
+							"codeintel_live_enabled_languages":
+							[
+								"JavaScript",
+								"Mason",
+								"XBL",
+								"XUL",
+								"RHTML",
+								"SCSS",
+								"Python",
+								"HTML",
+								"Ruby",
+								"Python3",
+								"XML",
+								"Sass",
+								"XSLT",
+								"Django",
+								"HTML5",
+								"Perl",
+								"CSS",
+								"Twig",
+								"Less",
+								"Smarty",
+								"Node.js",
+								"Tcl",
+								"TemplateToolkit",
+								"PHP"
+							],
+							"codeintel_max_recursive_dir_depth": 10,
+							"codeintel_scan_exclude_dir":
+							{
+								"JavaScript":
+								[
+									"/build/",
+									"/min/"
+								]
+							},
+							"codeintel_scan_files_in_project": true,
+							"codeintel_selected_catalogs":
+							[
+								"PyWin32",
+								"jQuery",
+								"Rails"
+							],
+							"codeintel_snippets": true,
+							"codeintel_syntax_map":
+							{
+								"Python Django": "Python"
+							},
+							"codeintel_tooltips": "popup",
+							"sublime_auto_complete": true,
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 21,
+					"type": "text"
+				},
+				{
+					"buffer": 20,
+					"file": "/E/IBOS/ibosServ/linux/v1/install_ibos.sh",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 191,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								156,
+								125
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/ShellScript/Shell-Unix-Generic.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 5,
+					"type": "text"
+				},
+				{
+					"buffer": 21,
+					"file": "/E/IBOS/Dev/ibos2/system/config/config.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1293,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								937,
+								937
+							]
+						],
+						"settings":
+						{
+							"codeintel": true,
+							"codeintel_config":
+							{
+								"JavaScript":
+								{
+									"codeintel_max_recursive_dir_depth": 2,
+									"codeintel_scan_files_in_project": false,
+									"javascriptExtraPaths":
+									[
+									]
+								},
+								"PHP":
+								{
+									"codeintel_max_recursive_dir_depth": 5,
+									"codeintel_scan_files_in_project": false,
+									"phpExtraPaths":
+									[
+									]
+								},
+								"Python":
+								{
+									"env":
+									{
+									}
+								}
+							},
+							"codeintel_enabled_languages":
+							[
+								"JavaScript",
+								"Mason",
+								"XBL",
+								"XUL",
+								"RHTML",
+								"SCSS",
+								"Python",
+								"HTML",
+								"Ruby",
+								"Python3",
+								"XML",
+								"Sass",
+								"XSLT",
+								"Django",
+								"HTML5",
+								"Perl",
+								"CSS",
+								"Twig",
+								"Less",
+								"Smarty",
+								"Node.js",
+								"Tcl",
+								"TemplateToolkit",
+								"PHP"
+							],
+							"codeintel_live": true,
+							"codeintel_live_enabled_languages":
+							[
+								"JavaScript",
+								"Mason",
+								"XBL",
+								"XUL",
+								"RHTML",
+								"SCSS",
+								"Python",
+								"HTML",
+								"Ruby",
+								"Python3",
+								"XML",
+								"Sass",
+								"XSLT",
+								"Django",
+								"HTML5",
+								"Perl",
+								"CSS",
+								"Twig",
+								"Less",
+								"Smarty",
+								"Node.js",
+								"Tcl",
+								"TemplateToolkit",
+								"PHP"
+							],
+							"codeintel_max_recursive_dir_depth": 10,
+							"codeintel_scan_exclude_dir":
+							{
+								"JavaScript":
+								[
+									"/build/",
+									"/min/"
+								]
+							},
+							"codeintel_scan_files_in_project": true,
+							"codeintel_selected_catalogs":
+							[
+								"PyWin32",
+								"jQuery",
+								"Rails"
+							],
+							"codeintel_snippets": true,
+							"codeintel_syntax_map":
+							{
+								"Python Django": "Python"
+							},
+							"codeintel_tooltips": "popup",
+							"is_xml": false,
+							"sublime_auto_complete": true,
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 216.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 22,
+					"file": "/E/IBOS/Dev/ibos2/system/core/components/ICCache.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 8656,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								860,
+								860
+							]
+						],
+						"settings":
+						{
+							"codeintel": true,
+							"codeintel_config":
+							{
+								"JavaScript":
+								{
+									"codeintel_max_recursive_dir_depth": 2,
+									"codeintel_scan_files_in_project": false,
+									"javascriptExtraPaths":
+									[
+									]
+								},
+								"PHP":
+								{
+									"codeintel_max_recursive_dir_depth": 5,
+									"codeintel_scan_files_in_project": false,
+									"phpExtraPaths":
+									[
+									]
+								},
+								"Python":
+								{
+									"env":
+									{
+									}
+								}
+							},
+							"codeintel_enabled_languages":
+							[
+								"JavaScript",
+								"Mason",
+								"XBL",
+								"XUL",
+								"RHTML",
+								"SCSS",
+								"Python",
+								"HTML",
+								"Ruby",
+								"Python3",
+								"XML",
+								"Sass",
+								"XSLT",
+								"Django",
+								"HTML5",
+								"Perl",
+								"CSS",
+								"Twig",
+								"Less",
+								"Smarty",
+								"Node.js",
+								"Tcl",
+								"TemplateToolkit",
+								"PHP"
+							],
+							"codeintel_live": true,
+							"codeintel_live_enabled_languages":
+							[
+								"JavaScript",
+								"Mason",
+								"XBL",
+								"XUL",
+								"RHTML",
+								"SCSS",
+								"Python",
+								"HTML",
+								"Ruby",
+								"Python3",
+								"XML",
+								"Sass",
+								"XSLT",
+								"Django",
+								"HTML5",
+								"Perl",
+								"CSS",
+								"Twig",
+								"Less",
+								"Smarty",
+								"Node.js",
+								"Tcl",
+								"TemplateToolkit",
+								"PHP"
+							],
+							"codeintel_max_recursive_dir_depth": 10,
+							"codeintel_scan_exclude_dir":
+							{
+								"JavaScript":
+								[
+									"/build/",
+									"/min/"
+								]
+							},
+							"codeintel_scan_files_in_project": true,
+							"codeintel_selected_catalogs":
+							[
+								"PyWin32",
+								"jQuery",
+								"Rails"
+							],
+							"codeintel_snippets": true,
+							"codeintel_syntax_map":
+							{
+								"Python Django": "Python"
+							},
+							"codeintel_tooltips": "popup",
+							"is_xml": false,
+							"sublime_auto_complete": true,
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 1229.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 23,
+					"file": "/E/IBOS/ibosEXP/last/ibos2/ibos2/system/core/components/ICCache.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 8656,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1266,
+								1266
+							]
+						],
+						"settings":
+						{
+							"codeintel": true,
+							"codeintel_config":
+							{
+								"JavaScript":
+								{
+									"codeintel_max_recursive_dir_depth": 2,
+									"codeintel_scan_files_in_project": false,
+									"javascriptExtraPaths":
+									[
+									]
+								},
+								"PHP":
+								{
+									"codeintel_max_recursive_dir_depth": 5,
+									"codeintel_scan_files_in_project": false,
+									"phpExtraPaths":
+									[
+									]
+								},
+								"Python":
+								{
+									"env":
+									{
+									}
+								}
+							},
+							"codeintel_enabled_languages":
+							[
+								"JavaScript",
+								"Mason",
+								"XBL",
+								"XUL",
+								"RHTML",
+								"SCSS",
+								"Python",
+								"HTML",
+								"Ruby",
+								"Python3",
+								"XML",
+								"Sass",
+								"XSLT",
+								"Django",
+								"HTML5",
+								"Perl",
+								"CSS",
+								"Twig",
+								"Less",
+								"Smarty",
+								"Node.js",
+								"Tcl",
+								"TemplateToolkit",
+								"PHP"
+							],
+							"codeintel_live": true,
+							"codeintel_live_enabled_languages":
+							[
+								"JavaScript",
+								"Mason",
+								"XBL",
+								"XUL",
+								"RHTML",
+								"SCSS",
+								"Python",
+								"HTML",
+								"Ruby",
+								"Python3",
+								"XML",
+								"Sass",
+								"XSLT",
+								"Django",
+								"HTML5",
+								"Perl",
+								"CSS",
+								"Twig",
+								"Less",
+								"Smarty",
+								"Node.js",
+								"Tcl",
+								"TemplateToolkit",
+								"PHP"
+							],
+							"codeintel_max_recursive_dir_depth": 10,
+							"codeintel_scan_exclude_dir":
+							{
+								"JavaScript":
+								[
+									"/build/",
+									"/min/"
+								]
+							},
+							"codeintel_scan_files_in_project": true,
+							"codeintel_selected_catalogs":
+							[
+								"PyWin32",
+								"jQuery",
+								"Rails"
+							],
+							"codeintel_snippets": true,
+							"codeintel_syntax_map":
+							{
+								"Python Django": "Python"
+							},
+							"codeintel_tooltips": "popup",
+							"is_xml": false,
+							"sublime_auto_complete": true,
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 1296.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 6,
+					"type": "text"
+				},
+				{
+					"buffer": 24,
+					"file": "/C/Users/Administrator/Application Data/SSH/temp/config (8).php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1403,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1085,
+								975
+							]
+						],
+						"settings":
+						{
+							"is_xml": false,
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": -0.0,
+						"translation.y": 288.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 7,
+					"type": "text"
+				},
+				{
+					"buffer": 25,
+					"file": "/C/Users/Administrator/Application Data/SSH/temp/database.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 200,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								200,
+								200
+							]
+						],
+						"settings":
+						{
+							"codeintel": true,
+							"codeintel_config":
+							{
+								"JavaScript":
+								{
+									"codeintel_max_recursive_dir_depth": 2,
+									"codeintel_scan_files_in_project": false,
+									"javascriptExtraPaths":
+									[
+									]
+								},
+								"PHP":
+								{
+									"codeintel_max_recursive_dir_depth": 5,
+									"codeintel_scan_files_in_project": false,
+									"phpExtraPaths":
+									[
+									]
+								},
+								"Python":
+								{
+									"env":
+									{
+									}
+								}
+							},
+							"codeintel_enabled_languages":
+							[
+								"JavaScript",
+								"Mason",
+								"XBL",
+								"XUL",
+								"RHTML",
+								"SCSS",
+								"Python",
+								"HTML",
+								"Ruby",
+								"Python3",
+								"XML",
+								"Sass",
+								"XSLT",
+								"Django",
+								"HTML5",
+								"Perl",
+								"CSS",
+								"Twig",
+								"Less",
+								"Smarty",
+								"Node.js",
+								"Tcl",
+								"TemplateToolkit",
+								"PHP"
+							],
+							"codeintel_live": true,
+							"codeintel_live_enabled_languages":
+							[
+								"JavaScript",
+								"Mason",
+								"XBL",
+								"XUL",
+								"RHTML",
+								"SCSS",
+								"Python",
+								"HTML",
+								"Ruby",
+								"Python3",
+								"XML",
+								"Sass",
+								"XSLT",
+								"Django",
+								"HTML5",
+								"Perl",
+								"CSS",
+								"Twig",
+								"Less",
+								"Smarty",
+								"Node.js",
+								"Tcl",
+								"TemplateToolkit",
+								"PHP"
+							],
+							"codeintel_max_recursive_dir_depth": 10,
+							"codeintel_scan_exclude_dir":
+							{
+								"JavaScript":
+								[
+									"/build/",
+									"/min/"
+								]
+							},
+							"codeintel_scan_files_in_project": true,
+							"codeintel_selected_catalogs":
+							[
+								"PyWin32",
+								"jQuery",
+								"Rails"
+							],
+							"codeintel_snippets": true,
+							"codeintel_syntax_map":
+							{
+								"Python Django": "Python"
+							},
+							"codeintel_tooltips": "popup",
+							"is_xml": false,
+							"sublime_auto_complete": true,
+							"syntax": "Packages/PHP/PHP.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 32,
+					"type": "text"
+				},
+				{
+					"buffer": 26,
+					"file": "/E/IBOS/Dev/ibos2/system/core/components/ICApplication.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 8226,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2522,
+								2532
+							]
+						],
+						"settings":
+						{
+							"codeintel": true,
+							"codeintel_config":
+							{
+								"JavaScript":
+								{
+									"codeintel_max_recursive_dir_depth": 2,
+									"codeintel_scan_files_in_project": false,
+									"javascriptExtraPaths":
+									[
+									]
+								},
+								"PHP":
+								{
+									"codeintel_max_recursive_dir_depth": 5,
+									"codeintel_scan_files_in_project": false,
+									"phpExtraPaths":
+									[
+									]
+								},
+								"Python":
+								{
+									"env":
+									{
+									}
+								}
+							},
+							"codeintel_enabled_languages":
+							[
+								"JavaScript",
+								"Mason",
+								"XBL",
+								"XUL",
+								"RHTML",
+								"SCSS",
+								"Python",
+								"HTML",
+								"Ruby",
+								"Python3",
+								"XML",
+								"Sass",
+								"XSLT",
+								"Django",
+								"HTML5",
+								"Perl",
+								"CSS",
+								"Twig",
+								"Less",
+								"Smarty",
+								"Node.js",
+								"Tcl",
+								"TemplateToolkit",
+								"PHP"
+							],
+							"codeintel_live": true,
+							"codeintel_live_enabled_languages":
+							[
+								"JavaScript",
+								"Mason",
+								"XBL",
+								"XUL",
+								"RHTML",
+								"SCSS",
+								"Python",
+								"HTML",
+								"Ruby",
+								"Python3",
+								"XML",
+								"Sass",
+								"XSLT",
+								"Django",
+								"HTML5",
+								"Perl",
+								"CSS",
+								"Twig",
+								"Less",
+								"Smarty",
+								"Node.js",
+								"Tcl",
+								"TemplateToolkit",
+								"PHP"
+							],
+							"codeintel_max_recursive_dir_depth": 10,
+							"codeintel_scan_exclude_dir":
+							{
+								"JavaScript":
+								[
+									"/build/",
+									"/min/"
+								]
+							},
+							"codeintel_scan_files_in_project": true,
+							"codeintel_selected_catalogs":
+							[
+								"PyWin32",
+								"jQuery",
+								"Rails"
+							],
+							"codeintel_snippets": true,
+							"codeintel_syntax_map":
+							{
+								"Python Django": "Python"
+							},
+							"codeintel_tooltips": "popup",
+							"is_xml": false,
+							"sublime_auto_complete": true,
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 2357.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 9,
+					"type": "text"
+				},
+				{
+					"buffer": 27,
+					"file": "/C/Users/Administrator/Application Data/SSH/temp/phpwind.conf",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1501,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1327,
+								1327
+							]
+						],
+						"settings":
+						{
+							"codeintel": true,
+							"codeintel_config":
+							{
+								"JavaScript":
+								{
+									"codeintel_max_recursive_dir_depth": 2,
+									"codeintel_scan_files_in_project": false,
+									"javascriptExtraPaths":
+									[
+									]
+								},
+								"PHP":
+								{
+									"codeintel_max_recursive_dir_depth": 5,
+									"codeintel_scan_files_in_project": false,
+									"phpExtraPaths":
+									[
+									]
+								},
+								"Python":
+								{
+									"env":
+									{
+									}
+								}
+							},
+							"codeintel_enabled_languages":
+							[
+								"JavaScript",
+								"Mason",
+								"XBL",
+								"XUL",
+								"RHTML",
+								"SCSS",
+								"Python",
+								"HTML",
+								"Ruby",
+								"Python3",
+								"XML",
+								"Sass",
+								"XSLT",
+								"Django",
+								"HTML5",
+								"Perl",
+								"CSS",
+								"Twig",
+								"Less",
+								"Smarty",
+								"Node.js",
+								"Tcl",
+								"TemplateToolkit",
+								"PHP"
+							],
+							"codeintel_live": true,
+							"codeintel_live_enabled_languages":
+							[
+								"JavaScript",
+								"Mason",
+								"XBL",
+								"XUL",
+								"RHTML",
+								"SCSS",
+								"Python",
+								"HTML",
+								"Ruby",
+								"Python3",
+								"XML",
+								"Sass",
+								"XSLT",
+								"Django",
+								"HTML5",
+								"Perl",
+								"CSS",
+								"Twig",
+								"Less",
+								"Smarty",
+								"Node.js",
+								"Tcl",
+								"TemplateToolkit",
+								"PHP"
+							],
+							"codeintel_max_recursive_dir_depth": 10,
+							"codeintel_scan_exclude_dir":
+							{
+								"JavaScript":
+								[
+									"/build/",
+									"/min/"
+								]
+							},
+							"codeintel_scan_files_in_project": true,
+							"codeintel_selected_catalogs":
+							[
+								"PyWin32",
+								"jQuery",
+								"Rails"
+							],
+							"codeintel_snippets": true,
+							"codeintel_syntax_map":
+							{
+								"Python Django": "Python"
+							},
+							"codeintel_tooltips": "popup",
+							"sublime_auto_complete": true,
+							"syntax": "Packages/Text/Plain text.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 810.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 8,
+					"type": "text"
+				},
+				{
+					"buffer": 28,
+					"file": "/C/Program Files/FlashFXP/Cache/~flashfxp/D60E9ABF_view.tmp/ICApplication.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 8142,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								4808,
+								4796
+							]
+						],
+						"settings":
+						{
+							"codeintel": true,
+							"codeintel_config":
+							{
+								"JavaScript":
+								{
+									"codeintel_max_recursive_dir_depth": 2,
+									"codeintel_scan_files_in_project": false,
+									"javascriptExtraPaths":
+									[
+									]
+								},
+								"PHP":
+								{
+									"codeintel_max_recursive_dir_depth": 5,
+									"codeintel_scan_files_in_project": false,
+									"phpExtraPaths":
+									[
+									]
+								},
+								"Python":
+								{
+									"env":
+									{
+									}
+								}
+							},
+							"codeintel_enabled_languages":
+							[
+								"JavaScript",
+								"Mason",
+								"XBL",
+								"XUL",
+								"RHTML",
+								"SCSS",
+								"Python",
+								"HTML",
+								"Ruby",
+								"Python3",
+								"XML",
+								"Sass",
+								"XSLT",
+								"Django",
+								"HTML5",
+								"Perl",
+								"CSS",
+								"Twig",
+								"Less",
+								"Smarty",
+								"Node.js",
+								"Tcl",
+								"TemplateToolkit",
+								"PHP"
+							],
+							"codeintel_live": true,
+							"codeintel_live_enabled_languages":
+							[
+								"JavaScript",
+								"Mason",
+								"XBL",
+								"XUL",
+								"RHTML",
+								"SCSS",
+								"Python",
+								"HTML",
+								"Ruby",
+								"Python3",
+								"XML",
+								"Sass",
+								"XSLT",
+								"Django",
+								"HTML5",
+								"Perl",
+								"CSS",
+								"Twig",
+								"Less",
+								"Smarty",
+								"Node.js",
+								"Tcl",
+								"TemplateToolkit",
+								"PHP"
+							],
+							"codeintel_max_recursive_dir_depth": 10,
+							"codeintel_scan_exclude_dir":
+							{
+								"JavaScript":
+								[
+									"/build/",
+									"/min/"
+								]
+							},
+							"codeintel_scan_files_in_project": true,
+							"codeintel_selected_catalogs":
+							[
+								"PyWin32",
+								"jQuery",
+								"Rails"
+							],
+							"codeintel_snippets": true,
+							"codeintel_syntax_map":
+							{
+								"Python Django": "Python"
+							},
+							"codeintel_tooltips": "popup",
+							"is_xml": false,
+							"sublime_auto_complete": true,
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 3945.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 27,
+					"type": "text"
+				},
+				{
+					"buffer": 29,
+					"file": "/C/Program Files/FlashFXP/Cache/~flashfxp/71F3D978_view.tmp/InitMainModuleBehavior.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 15851,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2984,
+								2988
+							],
+							[
+								2990,
+								2997
+							]
+						],
+						"settings":
+						{
+							"codeintel": true,
+							"codeintel_config":
+							{
+								"JavaScript":
+								{
+									"codeintel_max_recursive_dir_depth": 2,
+									"codeintel_scan_files_in_project": false,
+									"javascriptExtraPaths":
+									[
+									]
+								},
+								"PHP":
+								{
+									"codeintel_max_recursive_dir_depth": 5,
+									"codeintel_scan_files_in_project": false,
+									"phpExtraPaths":
+									[
+									]
+								},
+								"Python":
+								{
+									"env":
+									{
+									}
+								}
+							},
+							"codeintel_enabled_languages":
+							[
+								"JavaScript",
+								"Mason",
+								"XBL",
+								"XUL",
+								"RHTML",
+								"SCSS",
+								"Python",
+								"HTML",
+								"Ruby",
+								"Python3",
+								"XML",
+								"Sass",
+								"XSLT",
+								"Django",
+								"HTML5",
+								"Perl",
+								"CSS",
+								"Twig",
+								"Less",
+								"Smarty",
+								"Node.js",
+								"Tcl",
+								"TemplateToolkit",
+								"PHP"
+							],
+							"codeintel_live": true,
+							"codeintel_live_enabled_languages":
+							[
+								"JavaScript",
+								"Mason",
+								"XBL",
+								"XUL",
+								"RHTML",
+								"SCSS",
+								"Python",
+								"HTML",
+								"Ruby",
+								"Python3",
+								"XML",
+								"Sass",
+								"XSLT",
+								"Django",
+								"HTML5",
+								"Perl",
+								"CSS",
+								"Twig",
+								"Less",
+								"Smarty",
+								"Node.js",
+								"Tcl",
+								"TemplateToolkit",
+								"PHP"
+							],
+							"codeintel_max_recursive_dir_depth": 10,
+							"codeintel_scan_exclude_dir":
+							{
+								"JavaScript":
+								[
+									"/build/",
+									"/min/"
+								]
+							},
+							"codeintel_scan_files_in_project": true,
+							"codeintel_selected_catalogs":
+							[
+								"PyWin32",
+								"jQuery",
+								"Rails"
+							],
+							"codeintel_snippets": true,
+							"codeintel_syntax_map":
+							{
+								"Python Django": "Python"
+							},
+							"codeintel_tooltips": "popup",
+							"is_xml": false,
+							"sublime_auto_complete": true,
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 1853.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 28,
+					"type": "text"
+				},
+				{
+					"buffer": 30,
+					"file": "/E/IBOS/Dev/ibos2/system/modules/main/components/ICSession.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 7702,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1767,
+								1767
+							]
+						],
+						"settings":
+						{
+							"codeintel": true,
+							"codeintel_config":
+							{
+								"JavaScript":
+								{
+									"codeintel_max_recursive_dir_depth": 2,
+									"codeintel_scan_files_in_project": false,
+									"javascriptExtraPaths":
+									[
+									]
+								},
+								"PHP":
+								{
+									"codeintel_max_recursive_dir_depth": 5,
+									"codeintel_scan_files_in_project": false,
+									"phpExtraPaths":
+									[
+									]
+								},
+								"Python":
+								{
+									"env":
+									{
+									}
+								}
+							},
+							"codeintel_enabled_languages":
+							[
+								"JavaScript",
+								"Mason",
+								"XBL",
+								"XUL",
+								"RHTML",
+								"SCSS",
+								"Python",
+								"HTML",
+								"Ruby",
+								"Python3",
+								"XML",
+								"Sass",
+								"XSLT",
+								"Django",
+								"HTML5",
+								"Perl",
+								"CSS",
+								"Twig",
+								"Less",
+								"Smarty",
+								"Node.js",
+								"Tcl",
+								"TemplateToolkit",
+								"PHP"
+							],
+							"codeintel_live": true,
+							"codeintel_live_enabled_languages":
+							[
+								"JavaScript",
+								"Mason",
+								"XBL",
+								"XUL",
+								"RHTML",
+								"SCSS",
+								"Python",
+								"HTML",
+								"Ruby",
+								"Python3",
+								"XML",
+								"Sass",
+								"XSLT",
+								"Django",
+								"HTML5",
+								"Perl",
+								"CSS",
+								"Twig",
+								"Less",
+								"Smarty",
+								"Node.js",
+								"Tcl",
+								"TemplateToolkit",
+								"PHP"
+							],
+							"codeintel_max_recursive_dir_depth": 10,
+							"codeintel_scan_exclude_dir":
+							{
+								"JavaScript":
+								[
+									"/build/",
+									"/min/"
+								]
+							},
+							"codeintel_scan_files_in_project": true,
+							"codeintel_selected_catalogs":
+							[
+								"PyWin32",
+								"jQuery",
+								"Rails"
+							],
+							"codeintel_snippets": true,
+							"codeintel_syntax_map":
+							{
+								"Python Django": "Python"
+							},
+							"codeintel_tooltips": "popup",
+							"is_xml": false,
+							"sublime_auto_complete": true,
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 1233.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 30,
+					"type": "text"
+				},
+				{
+					"buffer": 31,
+					"file": "/E/IBOS/Dev/ibos2/system/modules/main/model/Session.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1871,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								576,
+								586
+							]
+						],
+						"settings":
+						{
+							"is_xml": false,
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 216.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 31,
+					"type": "text"
+				},
+				{
+					"buffer": 32,
+					"file": "/E/IBOS/Dev/ibos2/system/modules/main/behaviors/InitMainModuleBehavior.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 18634,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								3420,
+								3420
+							]
+						],
+						"settings":
+						{
+							"is_xml": false,
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 1833.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 29,
+					"type": "text"
+				},
+				{
+					"buffer": 33,
+					"file": "/E/学习/桌面开发/aauto/SmartF5_v1.3.2源码/SmartF5/Publish/SmartF5/SmartF5.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2517,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 33,
+					"type": "text"
+				},
+				{
+					"buffer": 34,
+					"file": "/D/IBOS/nginx/conf/koi-utf",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2837,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Text/Plain text.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 34,
+					"type": "text"
+				},
+				{
+					"buffer": 35,
+					"file": "/D/IBOS/nginx/conf/koi-win",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2223,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Text/Plain text.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 35,
+					"type": "text"
+				},
+				{
+					"buffer": 36,
+					"file": "/D/IBOS/nginx/conf/nginx.conf",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3384,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								75,
+								69
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Text/Plain text.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 36,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 32.0
+	},
+	"input":
+	{
+		"height": 36.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"project": "ibosapp.sublime-project",
+	"replace":
+	{
+		"height": 74.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+			[
+				"conf",
+				"config.xml"
+			],
+			[
+				"diary_a",
+				"view\\diary\\diary_attention_list.html"
+			],
+			[
+				"dia",
+				"view\\diary\\diary_comment_list.html"
+			],
+			[
+				"core",
+				"js\\core.js"
+			],
+			[
+				"app",
+				"js\\appsdk.js"
+			],
+			[
+				"main.",
+				"css\\src\\main.css"
+			],
+			[
+				"appsd",
+				"js\\appsdk.js"
+			],
+			[
+				"in",
+				"index.html"
+			],
+			[
+				"login",
+				"login.html"
+			],
+			[
+				"index",
+				"index.html"
+			],
+			[
+				"sdk",
+				"js\\appsdk.js"
+			],
+			[
+				"",
+				"config.xml"
+			],
+			[
+				"ibos.c",
+				"css\\src\\ibos.css"
+			],
+			[
+				"work",
+				"css\\work.css"
+			],
+			[
+				"ibos",
+				"css\\src\\ibos.css"
+			],
+			[
+				"config",
+				"config.xml"
+			],
+			[
+				"profil",
+				"view\\setting\\setting_profile.html"
+			],
+			[
+				"pub",
+				"view\\weibo\\publish.html"
+			],
+			[
+				"sett",
+				"view\\setting\\setting_profile.html"
+			],
+			[
+				"weibop",
+				"js\\weibo\\weibopersonal.js"
+			],
+			[
+				"login.html",
+				"login.html"
+			],
+			[
+				"inde",
+				"index.html"
+			],
+			[
+				"css",
+				"css\\diary.css"
+			],
+			[
+				"main",
+				"css\\src\\main.css"
+			],
+			[
+				"user.js",
+				"js\\userselect.js"
+			],
+			[
+				"mail_edi",
+				"view\\mail\\mail_edit.html"
+			],
+			[
+				"diary",
+				"view\\diary\\diary_view.html"
+			],
+			[
+				"webi",
+				"css\\weibo.css"
+			],
+			[
+				"w",
+				"css\\work.css"
+			],
+			[
+				"core.js",
+				"js\\core.js"
+			],
+			[
+				"rsaaa",
+				"E:\\IBOS\\Dev\\ibos2\\rsaaa.php"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"settings":
+	{
+		"xdebug":
+		{
+			"hide_conflict": false
+		}
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 244.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

@@ -9,8 +9,8 @@ function successHandler (result) {
 	//alert('你的推送码是('+ uid +') = ' + result);
 	$.jsonP({
 			url: 		app.CLOUDURL + "?s=/api/push/token&type=jsonp&callback=?&appid="+ app.APPID +"&token="+ app.TOKEN +"&uid=" + uid + "&uniqueid=" + result + "&platform=android",
-			success: 	function(r){ alert(r);console.log(r) },
-			error: 		function(err){ alert(err);console.log(err) }
+			success: 	function(r){ console.log(r) },
+			error: 		function(err){ console.log(err) }
 	});
 }
 // result contains any error description text returned from the plugin call
@@ -25,8 +25,8 @@ function tokenHandler (result) {
 	//alert('你的推送码是('+ uid +') = ' + result);
 	$.jsonP({
 			url: 		app.CLOUDURL + "?s=/api/push/token&type=jsonp&callback=?&appid="+ app.APPID +"&token="+ app.TOKEN +"&uid=" + uid + "&devtoken=" + result + "&platform=ios&uniqueid=",
-			success: 	function(r){ alert(result);alert(r);console.log(r) },
-			error: 		function(err){	alert(err);console.log(err) }
+			success: 	function(r){ console.log(r) },
+			error: 		function(err){	console.log(err) }
 	});
 }
 function aliasHandler (){
