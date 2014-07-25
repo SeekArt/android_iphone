@@ -54,8 +54,59 @@ var core = {
 			}
 		},
 
-		openAttch: function(url){
+		openAttach: function(url){
 			
+		},
+
+		filterAttachType: function(filetype){
+
+			var allowTypes = ["png", "jpg", "gif","doc","docx","xls","xlsx","ppt","pptx","zip","rar","7z","txt","mp3",""],
+				typeMap = {
+					"docx": "doc",
+					"png": "photo",
+					"jpg": "photo",
+					"gif": "photo",
+					
+				};
+
+			return ($.inArray(type, allowTypes) !== -1 ? (typeMap[type] || type) : "unknow") + ".png";
+		},
+
+		parseUrl: function(url){
+			var params,
+				data = {};
+
+			url = url || window.location.search;
+			url = url.split("?")[1] || url;
+
+			if(url){
+				params = url.split("&")
+				for(var i = 0, len = params.length; i < len; i++){
+					var kv = params[i].split("=");
+					data[kv[0]] = kv[1];
+				}
+			}
+			return data;
+		},
+
+		loadImage: function(url, load, error){
+			var img = new Image(),
+				loaded = false;
+			img.onload = function(){
+				img.onload = img.onerr = null;
+				!loaded && load && load(img);
+				loaded = true;
+			}
+			// 加载错误
+			img.onerror = function () {
+				img.onload = img.onerror = null;
+				error && error(img);
+			};
+			img.src = url;
+			if(img.complete){
+				loaded = true;
+				load && load(img);
+			}
 		}
 	},
 	str: {},
@@ -274,8 +325,7 @@ List.prototype = {
 	}
 }
 
-if(!localStorage.getItem("CLOUDURL")){
-	localStorage.setItem("CLOUDURL","http://cloud.ibos.cn");
+if(!localStorage.getItem("defaultID")){
 // 测试专用
 	// localStorage.setItem("defaultID","1");
 	// localStorage.setItem("defaultName","云端");
@@ -295,8 +345,6 @@ var app = (function(){
 		user = core.getStorage("user"),
 		uid	= localStorage.getItem("uid"),
 		APPID = localStorage.getItem("APPID"),
-		TOKEN = localStorage.getItem("TOKEN"),
-		CLOUDURL = localStorage.getItem("CLOUDURL"),
 		formHash = '',
 		OS = 1,
 		address ="";
@@ -353,16 +401,16 @@ var app = (function(){
 		// doLogin(username,password);		
 		$.jsonP({
 			url: 		app.appUrl + '/default/login&callback=?&username=' + username +'& password=' + password + '&gps=' + gps + '&address=' + address + '&issetuser=' + _isset,
-			success: 	function(res){				
-				core.setStorage("defaultLogin", {"u":username,"p":password});
-				core.setStorage("lastUser", username);
-				//$("#loginbtn").html('登录');
+			success: 	function(res){
+				if(res.login==true){
+					core.setStorage("defaultLogin", {"u":username,"p":password});
+					core.setStorage("lastUser", username);
+				}
 				$.ui.hideMask();
 				checkLogin(res);
 			},
 			error: 		function(err){	
 				$.ui.popup('服务器错误,请检查');
-				//$("#loginbtn").html('登录');
 				$.ui.hideMask();
 				console.log(err);
 			}
@@ -387,7 +435,6 @@ var app = (function(){
 		core.removeStorage("user");
 		core.removeStorage("uid");
 		core.removeStorage("APPID");
-		core.removeStorage("TOKEN");
 		core.removeStorage("ibosUserData");
 		$.ui.loadContent('login',false,false,'fade');
 		window.location.reload();
@@ -402,12 +449,8 @@ var app = (function(){
 			app.user = json.user;
 			app.uid = json.uid;
 			app.APPID = json.APPID;
-			app.TOKEN = json.TOKEN;
-			app.CLOUDURL = json.CLOUDURL;
 			localStorage.setItem("uid", app.uid);
 			localStorage.setItem("APPID", app.APPID);
-			localStorage.setItem("TOKEN", app.TOKEN);
-			localStorage.setItem("CLOUDURL", app.CLOUDURL);
 			core.setStorage("user", app.user);
 			
 			if(json.userData){
@@ -496,8 +539,6 @@ var app = (function(){
 		defaultUrl:	defaultUrl,
 		appUrl:		appUrl,
 		APPID: 		APPID,
-		TOKEN: 		TOKEN,
-		CLOUDURL: 	CLOUDURL,
 		uid:		uid,
 		user:		user,
 		init:		init,

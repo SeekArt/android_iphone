@@ -8,7 +8,7 @@ function successHandler (result) {
 	var uid = app.uid ;
 	//alert('你的推送码是('+ uid +') = ' + result);
 	$.jsonP({
-			url: 		app.CLOUDURL + "?s=/api/push/token&type=jsonp&callback=?&appid="+ app.APPID +"&token="+ app.TOKEN +"&uid=" + uid + "&uniqueid=" + result + "&platform=android",
+            url:        app.appUrl + '/default/token&callback=?&devtoken=' + result + '&platform=android&uniqueid=',
 			success: 	function(r){ console.log(r) },
 			error: 		function(err){ console.log(err) }
 	});
@@ -24,7 +24,7 @@ function tokenHandler (result) {
 	var uid = app.uid ;
 	//alert('你的推送码是('+ uid +') = ' + result);
 	$.jsonP({
-			url: 		app.CLOUDURL + "?s=/api/push/token&type=jsonp&callback=?&appid="+ app.APPID +"&token="+ app.TOKEN +"&uid=" + uid + "&devtoken=" + result + "&platform=ios&uniqueid=",
+            url:        app.appUrl + '/default/token&callback=?&devtoken=' + result + '&platform=ios&uniqueid=',
 			success: 	function(r){ console.log(r) },
 			error: 		function(err){	console.log(err) }
 	});
@@ -39,7 +39,7 @@ function aliasHandler (){
 		alert("error"+exception)
 	}
     $.jsonP({
-            url:        app.CLOUDURL + "?s=/api/push/token&type=jsonp&callback=?&appid="+ app.APPID +"&token="+ app.TOKEN +"&uid=" + app.uid + "&devtoken=" + devtoken + "&platform=android&uniqueid=",
+            url:        app.appUrl + '/default/token&callback=?&devtoken=' + devtoken + '&platform=android&uniqueid=',
             success:    function(r){ console.log(r) },
             error:      function(err){  console.log(err) }
     });

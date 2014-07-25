@@ -1,12 +1,18 @@
 <div class="pdhs">
 	<ul class="list inset" id="netSettingList"></ul>
 	<ul class="list list-active inset">
-		<li><a href="#netEdit" onclick="netSetting.edit()">添加一个新的地址</a></li>
+<!-- 		<li class="control-group">
+			<label for="">公司代码</label>
+			<div class="controls">
+				<input name="netcode" type="text" id="netcode" value="" onblur="netSetting.getcodeurl(this.value)" autocomplete>
+			</div>
+		</li> -->
+		<li><a href="#login" onclick="if(confirm('确定清空地址数据吗')){netSetting.clear()}">清空所有地址</a></li>
 	</ul>
 	
 	<textarea style="display:none;" type="text/ibos-template" id="netSettingTpl">
 		<li class="radio-group">
-			<span onclick="netSetting.edit(<%=id%>)" class="oper">编辑</span>
+			<!-- <span onclick="netSetting.edit(<%=id%>)" class="oper">编辑</span> -->
 			<input id="netRadio<%=id%>" type="radio" name="netSelect" value="<%=url%>" <%if(defautlID==id){%>checked="checked"<%}%> onclick="netSetting.setDefault(<%=id%>)" />
 			<label for="netRadio<%=id%>" ><%=name%></label>
 		</li>

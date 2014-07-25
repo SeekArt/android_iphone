@@ -27,21 +27,20 @@
 	<textarea id="work_handle_attach_tpl" class="hideim">
 		<ul class="list inset" data-node="workAttachBox">
 			<li>
-				<span class="label small black"><%=flowProgress%></span>
-				<%=flowType%>
-				<span class="flr xca"><%=realname%></span>
+				<span class="label small black"><%=description%></span>
+				<span class="flr xca"><%=app.getUserName(uid)%></span>
 			</li>
-			<li class="att">
+			<li class="att" onclick="appSdk.browser.show('<%=app.defaultUrl%>/<%=downurl%>');">
 				<div class="att-icon">
-					<img src="images/filetype/<%=fileType%>.png" alt="<%=fileName%>" width="44" height="44">
+					<img src="images/filetype/<%=filetype%>.png" alt="<%=filename%>" width="44" height="44">
 				</div>
 				<div class="att-content">
-					<h4><%=fileName%></h4>
-					<div class="att-desc"><%=fileTime%> <%=fileSize%></div>
+					<h4><%=filename%></h4>
+					<div class="att-desc"><%=dateline%> <%=filesize%></div>
 				</div>
-				<div class="att-op">
+<!-- 				<div class="att-op">
 					<a href="javascript:;" class="aoicon ao-trash-gray" data-evt="removeWorkAttach" data-param='{"aid": "<%=aid%>"}'></a>
-				</div>
+				</div> -->
 			</li>
 		</ul>
 	</textarea>
@@ -70,11 +69,8 @@
 			<% for(var key in attachment){ %>
 			<% 
 			var att = attachment[key]; 
-			if(att.filetype=="jpg"||att.filetype=="png"||att.filetype=="gif"){
-				att.filetype="photo";
-			}
 			%>
-			<li class="att">
+			<li class="att" onclick="appSdk.browser.show('<%=app.defaultUrl%>/<%=att.downurl%>');">
 				<div class="att-icon">
 					<img src="images/filetype/<%=att.filetype%>.png" alt="<%=att.filename%>" width="44" height="44">
 				</div>
@@ -192,8 +188,8 @@
 		<div class="mgbs" id="work_handle_attach">
 			<div class="panel-divider">附件</div>
 			<div class="pdhs" id="work_handle_attach_content">
-				<% for(var i = 0; i < attachs.length; i++) { %>
-					<%= $.template(document.getElementById("work_handle_attach_tpl").value, attachs[i]) %>
+				<% for(var key in attachs) { %>
+					<%= $.template(document.getElementById("work_handle_attach_tpl").value, attachs[key]) %>
 				<% } %>
 <!-- 				<a href="javascript:;" class="upload-btn" data-evt="addWorkAttach" data-param='{"runId": <%= runId %>}'>
 					<i class="aoicon ao-upload-add"></i>

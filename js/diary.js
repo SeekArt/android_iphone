@@ -141,7 +141,7 @@ var diary = (function(){
 		
 		$.jsonP({
 			url: 		diaryUrl + "/attention&callback=?"+ url + pageurl,
-			success: 	showReview,
+			success: 	showAttention,
 			error: 		core.error
 		});
 	}
@@ -149,6 +149,15 @@ var diary = (function(){
 	function showReview(json){
 		var tp = $("#reviewTpl").val(),
 			$target = $("#reviewList");
+	
+		$target.html($.template(tp, json));
+		$.ui.hideMask();
+		return;
+	}
+
+	function showAttention(json){
+		var tp = $("#attentionTpl").val(),
+			$target = $("#attentionList");
 	
 		$target.html($.template(tp, json));
 		$.ui.hideMask();
@@ -349,7 +358,7 @@ var diary = (function(){
 			if(nextDiaryId && nextDiaryId != "0") {
 				diary.loadAdjacentDiary(nextDiaryId);			
 			} else {
-				app.ui.alert("没有更新的日志了")
+				app.ui.alert("没有新的日志了")
 			}
 		},
 

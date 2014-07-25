@@ -2,7 +2,14 @@ var loadLogin = function (what){
 	$.ui.disableSideMenu();
 	$.ui.toggleHeaderMenu();
 	var selectNet = localStorage.getItem("defaultName");
-	if(selectNet){ $("#selectNet").html(selectNet); }
+	if(selectNet){ 
+		$("#selectNet").html(selectNet);
+		$('#companycode').hide();
+	}else{
+		$('#companycode').show();
+		$("#selectNet").hide();		
+	}
+	$LAB.script("js/net.js");
 }
 var unloadLogin = function (){
 	$.ui.enableSideMenu();

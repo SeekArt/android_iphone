@@ -4,9 +4,9 @@
 		<h1>已关注日志</h1>
 		<a onclick='app.goHome()' class='button ao-home'></a>
 	</header>
-	<div id="reviewList">
+	<div id="attentionList">
 	</div>
-	<textarea class="hide" id="reviewTpl">
+	<textarea class="hide" id="attentionTpl">
 	<div class="diary-comment-date">
 		<div class="direction-bar">
 			<a href="javascript:diary.loadAttention('<%=prevAndNextDate.prev%>')">&lt;</a>
@@ -20,14 +20,13 @@
 	<ul class="list list-active">
 	<%for(var i in data){
 	%>
-	<%{var thisUser = app.getUser(data[i].uid);}%>
 		<li>
 			<a href="javascript:;" onclick="diary.loadDiary(<%=data[i].diaryid%>)" class="media nochevron">
 				<div class="avatar">
-					<img src="<%=app.defaultUrl%>/<%=thisUser.avatar_small%>">
+					<img src="<%=app.defaultUrl%>/<%=data[i].user.avatar_small%>">
 				</div>
 				<div class="media-body brief">
-					<h4><%=thisUser.realname%></h4>
+					<h4><%=data[i].realname%></h4>
 					<div class="content"><%=data[i].content%></div>
 					<time class="time"><%=core.toDatetime(data[i].diarytime)%></time>
 				</div>

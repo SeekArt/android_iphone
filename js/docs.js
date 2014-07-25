@@ -115,9 +115,15 @@ var docs = (function(){
 		});
 	}
 	function showDocs(json){
+		if(json.attach){			
+			var docdata = json.data;
+			docdata.attach = json.attach;
+		}else{
+			var docdata = json.data;
+		}
 		var tpl = $("#docsContentTpl").val(),
 			$target = $("#docsContent"),
-			newTp = $.template(tpl, json.data);
+			newTp = $.template(tpl, docdata);
 
 		$target.html(newTp).css3Animate({ time: "500ms", opacity: 1 });
 		$.ui.hideMask();

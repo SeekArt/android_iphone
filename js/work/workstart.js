@@ -119,18 +119,7 @@ var WorkStart = (function(){
 							data: {
 								runId: 1,
 								form: json.model,
-								attachs: [
-									// {
-									// 	aid: 1,
-									// 	flowProgress: 1,
-									// 	flowType: "请假申请",
-									// 	realname: "千千子",
-									// 	fileType: "photo",
-									// 	fileName: "keroro.png",
-									// 	fileTime: "2014-01-01 12:30",
-									// 	fileSize: "3.11M"
-									// }
-								],
+								attachs: json.attachData,
 								signs: json.feedback,
 								progress: json.rpcache,
 								feedback: json.allowFeedback, // 是否允许会签

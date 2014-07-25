@@ -1,7 +1,7 @@
 <div class="login">
 	<!--header开始-->
 	<div class="logo">
-		<h1 class="ut ub-f1"> <img src="images/logo.png" alt="IBOS协同办公平台"></h1>
+		<h1 class="ut ub-f1"> <img id="logo" src="images/logo.png" alt="IBOS协同办公平台"></h1>
 	</div>
 	<!--header结束-->
 	<!--content开始-->
@@ -9,6 +9,12 @@
 			<div class="loginbar">
 				<!--列表开始-->
 				<ul class="list inset">
+					<li class="control-group" id="companycode">
+						<label for="">公司代码</label>
+						<div class="controls">
+							<input name="code" type="text" id="code" value="" autocomplete>
+						</div>
+					</li>
 					<li class="control-group">
 						<label for="">用户名</label>
 						<div class="controls">
@@ -23,11 +29,12 @@
 					</li>
 				</ul>
 				<!--列表结束-->
-				<a class="button white large primary" href="#netSetting" id="selectNet">设置地址</a>
+				<a class="button white large primary" href="#netSet" id="selectNet">设置地址</a>
+
 				<button id="loginbtn" name="loginbtn" value="登录" type="submit" class="button blue large primary" >登录</button>
 				<input name="gpsInput" id="gpsInput" value="" type="hidden" />
 				<input name="addressInput" id="addressInput" value="" type="hidden" />
-				<span id="myAddress"> </span>
+				<div id="myAddress"> </div>
 			</div>
 		</form>
 	<!--content结束-->
@@ -57,8 +64,27 @@ appSdk.ready(function(){
 })
 $(document).ready(function(){
 	var username = core.getStorage("lastUser");
+	var code = core.util.parseUrl().code;
 	if(username){
 		document.getElementById("username").value = username;
+	}
+
+	$("#code").off("blur.code").on("blur.code", function(){
+		netSetting.getcodeurl(this.value)
+	});
+	// debugger
+	if(code != undefined){		
+		core.util.loadImage("http://cloud.ibos.cn/Api/Mobile/Getlogo?code="+code, function(img){
+			$("#logo").attr("src", img.getAttribute("src"));
+		});
+
+		var timer = setInterval(function() {
+			if(typeof netSetting !== "undefined") {
+				console.log('10086')
+				$("#code").val(code).trigger("blur");
+				clearInterval(timer);	
+			}
+		}, 100);
 	}
 })
 </script>

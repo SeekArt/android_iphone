@@ -1,6 +1,7 @@
 var netSetting = (function(){
 	var netSetList = {};
 	var maxID = 0;
+	showList();
 		
 	function showList(){
 		// 全局变量 * 2
@@ -19,12 +20,12 @@ var netSetting = (function(){
 				for(var val in netSetList){
 					obj = netSetList[val];
 					newTp += $.template(tp, obj);
-					maxID = maxID < val ? val:maxID ;
+					maxID = maxID < val ? val : maxID ;
 				}
 			$target.html(newTp);
 		}else{
 			netSetList = {};
-			$.ui.loadContent('netEdit',false,false,'fade');
+			// $.ui.loadContent('netEdit',false,false,'fade');
 		}
 	}
 	function setDefault(i){
@@ -47,15 +48,24 @@ var netSetting = (function(){
                  },1200);
 			return false;
 		}
-		netSetList[i] = {
-			id: i,
-			url: url,
-			name: name
-		}
-		core.setStorage("netSetList",netSetList);
-		setDefault(i);
+		_save(i,url,name);
 		//返回
 		$.ui.goBack();
+	}
+	function _save(i,url,name){
+		debugger
+		var set = _.findWhere(netSetList, { name: name });
+		if(!set){
+			set = {
+				id: i,
+				url: url,
+				name: name
+			}
+			netSetList[i] = set;
+			core.setStorage("netSetList",netSetList);
+		}
+
+		setDefault(set.id);
 	}
 	function edit(myid){
 		var id="",name="",url="";
@@ -77,12 +87,41 @@ var netSetting = (function(){
 		core.setStorage("netSetList",netSetList);		
 		$.ui.goBack();
 	}
+	function getcodeurl(code){
+		$('#selectNet').show().text("正在获取地址");
+		$.jsonP({
+			url: 		"http://cloud.ibos.cn/Api/Mobile/Geturl?callback=?&type=jsonp&code=" + code ,
+			success: 	function(r){
+				if(r.ret){
+					url = r.data.url;
+					name = r.data.tag;
+					$('#selectNet').text(name);
+					_save(++maxID,url,name);
+				}else{
+					$('#selectNet').text("公司代码不存在");
+				}			
+			},
+			error: 		function(r){$('#selectNet').text("服务器连接失败"); core.error}
+		});
+	}
+	function clear(){
+		core.removeStorage("defaultID");
+		core.removeStorage("defaultLogin");
+		core.removeStorage("defaultName");
+		core.removeStorage("defaultUrl");
+		core.removeStorage("lastUrl");
+		core.removeStorage("lastUser");
+		core.removeStorage("netSetList");
+		netSetList = {};
+	}
 	return {
 		showList:	showList,
 		setDefault:	setDefault,
 		save:		save,
 		edit:		edit,
 		del:		del,
-		netSetList:netSetList
+		netSetList:netSetList,
+		getcodeurl:getcodeurl,
+		clear: 		clear 
 	}
 })()
