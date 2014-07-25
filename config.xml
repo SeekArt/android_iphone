@@ -13,7 +13,7 @@
     </author>
     <gap:platform name="ios" />
 	<gap:platform name="android" />
-	<!-- <gap:platform name="winphone" /> -->
+	<gap:platform name="winphone" />
 
 	<preference name="phonegap-version" value="3.3.0" /> <!-- 注释：版本-->
 	<preference name="fullscreen" value="false" />
