@@ -53,7 +53,6 @@ var netSetting = (function(){
 		$.ui.goBack();
 	}
 	function _save(i,url,name){
-		debugger
 		var set = _.findWhere(netSetList, { name: name });
 		if(!set){
 			set = {
@@ -103,6 +102,10 @@ var netSetting = (function(){
 			},
 			error: 		function(r){$('#selectNet').text("服务器连接失败"); core.error}
 		});
+		if(code=="" || code=="demo"){
+			$("#username").val("ibos");
+			$("#password").val("ibosdemo");
+		}
 	}
 	function clear(){
 		core.removeStorage("defaultID");

@@ -4,7 +4,9 @@ var loadLogin = function (what){
 	var selectNet = localStorage.getItem("defaultName");
 	if(selectNet){ 
 		$("#selectNet").html(selectNet);
-		$('#companycode').hide();
+		if(selectNet != "演示"){
+			$('#companycode').hide();
+		}
 	}else{
 		$('#companycode').show();
 		$("#selectNet").hide();		
