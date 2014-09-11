@@ -73,11 +73,7 @@ $(document).ready(function(){
 		netSetting.getcodeurl(this.value)
 	});
 	// debugger
-	if(code != undefined){		
-		core.util.loadImage("http://cloud.ibos.cn/Api/Mobile/Getlogo?code="+code, function(img){
-			$("#logo").attr("src", img.getAttribute("src"));
-		});
-
+	if(code != undefined){
 		var timer = setInterval(function() {
 			if(typeof netSetting !== "undefined") {
 				console.log('10086')

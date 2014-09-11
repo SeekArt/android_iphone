@@ -96,6 +96,13 @@ var netSetting = (function(){
 					name = r.data.tag;
 					$('#selectNet').text(name);
 					_save(++maxID,url,name);
+
+					//载入LOGO
+					if(r.data.logo != ""){
+						core.util.loadImage(r.data.logo, function(img){
+							$("#logo").attr("src", img.getAttribute("src"));
+						});
+					}
 				}else{
 					$('#selectNet').text("公司代码不存在");
 				}			
