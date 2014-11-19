@@ -270,7 +270,14 @@ appSdk.browser = {
 		if($.os.ios){
 			options = $.extend({ showLocationBar: true ,showNavigationBar:true,showAddress:true }, options)
 			window.plugins.ChildBrowser.showWebPage(url,options);
+		}else if(($.os.android)){
+			// alert(0);
+			// navigator.app.loadUrl(encodeURI(url)); 
+			// alert("新窗下载")
+			navigator.app.loadUrl(encodeURI(url), { openExternal:true}); 
+			// localFile(url); 
 		}else{
+			alert(1);
 			window.open(url, "_blank");
 		}
 	},
@@ -278,4 +285,62 @@ appSdk.browser = {
 	open : function(url){
 		window.plugins.ChildBrowser.openExternal(url);
 	}
+}
+
+
+
+function OpenFile(path){ 
+    try { 
+        alert('OpenFile'); 
+        var array = []; 
+        array[0] = path; 
+        alert(array[0]); 
+        cordova.exec(function(message) { 
+        }, null, 'OpenFile', 'haha', array); 
+    } catch(e) { 
+        alert(e.message); 
+    } 
+}
+
+
+/**********下载相片***********/
+function downloadAtt(sourceUrl,targetUrl){
+	alert("进入下载")
+	var fileTransfer = new FileTransfer(); 
+	var uri = encodeURI(sourceUrl);  
+	alert("准备下载")
+	fileTransfer.download(
+	uri,targetUrl,function(entry){ 
+		alert("success"); 
+		alert(entry.fullPath); 
+		//此处调用打开文件方法 
+		OpenFile(entry.fullPath); 
+		//window.location.href = window.appRootDir.fullPath; 
+		alert("download complete: " + entry.fullPath); 
+
+	},function(error){
+		alert("下载网络图片出现错误"+error);
+	});  
+}
+
+
+function localFile(sourceUrl) {
+    window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function(fileSystem){ 
+		//创建目录
+		 fileSystem.root.getDirectory("file_mobile/download", {create:true}, 
+			function(fileEntry){ console.log("创建目录成功");}, 
+			function(){  console.log("创建目录失败");});
+
+		 var _localFile = "file_mobile/download/aasdfsdf.doc";
+		 var _url = sourceUrl;
+		 alert(_url);
+		//否则就到网络下载图片!
+			alert("开始下载2");
+			// var targetURL = fileEntry.toURL();
+			downloadAtt(_url,_localFile); 
+
+
+	}, function(evt){
+		alert("加载文件系统出现错误");
+	}); 
 }

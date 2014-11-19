@@ -6,12 +6,12 @@
 // result contains any message sent from the plugin call
 function successHandler (result) {
 	var uid = app.uid ;
-	//alert('你的推送码是('+ uid +') = ' + result);
-	$.jsonP({
-            url:        app.appUrl + '/default/token&callback=?&devtoken=' + result + '&platform=android&uniqueid=',
-			success: 	function(r){ console.log(r) },
-			error: 		function(err){ console.log(err) }
-	});
+	//alert('这里是设置未读数字后的处理  ' + result);
+	// $.jsonP({
+ //            url:        app.appUrl + '/default/token&callback=?&devtoken=' + result + '&platform=android&uniqueid=',
+	// 		success: 	function(r){ console.log(r) },
+	// 		error: 		function(err){ console.log(err) }
+	// });
 }
 // result contains any error description text returned from the plugin call
 function errorHandler (error) {
