@@ -53,7 +53,7 @@ var setup = {
         if($.os.android){
             //上传回调
             ft.onprogress = setup.showUploadingProgress;
-            navigator.notification.progressStart("", "当前上传进度");            
+            navigator.notification.progressStart("", "当前上传进度");
         }        
 		ft.upload( imageURI, encodeURI(app.appUrl + '/setting/upload'), function(){ 
             deferred.resolve( imageURI );

@@ -16,7 +16,7 @@
 				<div class="pds">
 			<%for (var i in attach){%>
 					<ul class="att-list">
-						<li class="att" onclick="appSdk.browser.show('<%=app.defaultUrl%>/<%=attach[i].downurl%>')">
+						<li class="att" onclick="appSdk.browser.show('<%=app.defaultUrl%>/data/attachment/<%=attach[i].attachment%>')">
 							<div class="att-icon">
 								<img src="images/filetype/<%=attach[i].filetype%>.png" alt="" width="44" height="44">
 							</div>
@@ -25,7 +25,7 @@
 								<p class="att-desc"><%=attach[i].filesize%></p>
 							</div>
 							<div class="att-op">
-								<a href="<%=app.defaultUrl%>/<%=attach[i].downurl%>" class="aoicon ao-download-gray"></a>
+								<a href="<%=app.defaultUrl%>/data/attachment/<%=attach[i].attachment%>" class="aoicon ao-download-gray"></a>
 							</div>
 						</li>
 					</ul>
